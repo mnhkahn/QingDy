@@ -6,15 +6,24 @@
 
 <script>dojoConfig = {parseOnLoad: true}</script>
 <script src='js/dojo/dojo.js'></script>
-<script type="text/javascript" src="js/topBanner.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript">
 function init() {
 	showTopBanner();
 	showSearchBox();
+
+	createSidebarTable('prodcutContainer');
+	createSidebarTable('demandContainer');
+	createVerticallistTable('specialistContainer');
+	createSidebarTable('mallContainer');
+
+	showFoot();
 }
 </script>
 
-<link href="css/base.css" rel="stylesheet" type="text/css">
+<link href="css/base.css" rel="stylesheet" type="text/css" />
+<link href="css/index.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -24,6 +33,24 @@ function init() {
     <div id="searchboxContainer" class="searchboxContainer">
     </div>
     <div id="mainContainer" class="mainContainer">
+    	<div id="mianContainerTop" class="mianContainerTop">
+    		<div id="bannerContainer" class="bannerContainer">
+    		</div>
+    		<div id="applyContainer" class="applyContainer">
+    		</div>
+    	</div>
+    	<div id="mianContainerCenter" class="mianContainerCenter">
+    		<div id="prodcutContainer" class="sidebar">
+    		</div>
+    		<div id="demandContainer" class="sidebar">
+    		</div>
+    		<div id="specialistContainer" class="verticallist">
+    		</div>
+    		<div id="mallContainer" class="sidebar">
+    		</div>
+    	</div>
+    	<div id="bankContainer" class="bankContainer">
+    	</div>
     </div>
     <div id="footContainer" class="footContainer">
     </div>
