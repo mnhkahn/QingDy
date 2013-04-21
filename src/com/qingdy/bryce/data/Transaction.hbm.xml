@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="com.qingdy.bryce.data.Transaction" table="TRANSACTION">
+    <id name="tid" type="int" column="TRANSACTION_ID">
+      <meta attribute="scope-set">protected</meta>
+      <generator class="native" />
+    </id>
+    
+    <property name="uid" type="int" not-null="true" />
+
+    <property name="title" type="string" not-null="true" />
+    
+    <property name="introduce" type="string" not-null="true" />
+    
+    <property name="amount" type="int" not-null="true" />
+    
+    <property name="frontcover" type="string" not-null="true" />
+    
+    <property name="sort" type="int" />
+    
+    <property name="postdate" type="date" not-null="true" />
+    
+  </class>
+</hibernate-mapping>

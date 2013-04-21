@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="com.qingdy.bryce.data.Mall" table="MALL">
+    <id name="mid" type="int" column="MALL_ID">
+      <meta attribute="scope-set">protected</meta>
+      <generator class="native" />
+    </id>
+
+    <property name="uid" type="int" not-null="true" />
+    
+    <property name="introduce" type="string" not-null="true" />
+    
+    <property name="announcement" type="string" not-null="true" />
+    
+    <property name="lendedyears" type="string" not-null="true" />
+    
+    <property name="ctype" type="string" not-null="true" />
+    
+    <property name="cname" type="string" not-null="true" />
+    
+    <property name="cphonenumber" type="string" not-null="true" />
+    
+    <property name="cposition" type="string" not-null="true" />
+    
+    <property name="csite" type="string" />
+    
+    <property name="cemail" type="string" />
+    
+    <property name="caddress" type="string" />
+    
+    <property name="cfax" type="string" />
+    
+    <property name="cpostcode" type="string" />
+    
+    <property name="clientlocation" type="string" not-null="true" />
+    
+    <property name="usesofloan" type="string" not-null="true" />
+    
+    <property name="speciality" type="int" not-null="true" />
+    
+    <property name="clients" type="string" not-null="true" />
+    
+    <property name="lendtype" type="string" not-null="true" />
+    
+    <property name="postdate" type="date" not-null="true" />
+    
+    <property name="r_num" type="int" not-null="true" />
+    
+    <property name="verify" type="int" />
+    
+  </class>
+</hibernate-mapping>

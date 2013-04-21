@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="com.qingdy.bryce.data.Question" table="QUESTION">
+    <id name="qid" type="int" column="QUESTION_ID">
+      <meta attribute="scope-set">protected</meta>
+      <generator class="native" />
+    </id>
+
+    <property name="uid" type="int" not-null="true" />
+    
+    <property name="title" type="string" not-null="true" />
+    
+    <property name="introduce" type="string" not-null="true" />
+    
+    <property name="class" type="string" not-null="true" />
+    
+    <property name="postdate" type="date" not-null="true" />
+    
+    <property name="iscompleted" type="int" not-null="true" />
+    
+  </class>
+</hibernate-mapping>
