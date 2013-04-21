@@ -3,9 +3,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>欢迎来到青帝网</title>
+
+<script>dojoConfig = {parseOnLoad: true}</script>
+<script src='js/dojo/dojo.js'></script>
+<script type="text/javascript" src="js/topBanner.js"></script>
+<script type="text/javascript">
+function init() {
+	showTopBanner();
+	showSearchBox();
+}
+</script>
+
+<link href="css/base.css" rel="stylesheet" type="text/css">
+
 </head>
 
-<body>
-	Fuck the whole universie!
+<body onload='init()'>
+	<div id="site-header-container" class="site-header-container page-container">
+    </div>
+    <div id="searchboxContainer" class="searchboxContainer">
+    </div>
+    <div id="mainContainer" class="mainContainer">
+    </div>
+    <div id="footContainer" class="footContainer">
+    </div>
 </body>
 </html>
