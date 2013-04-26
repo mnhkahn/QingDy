@@ -2,8 +2,8 @@
 
 /* Main Container */
 .mainContainer {
-	width: 1280px;
-	height: 1630px;
+	width: 1000px;
+	height: 2000px;
 	margin-left: auto;
 	margin-right: auto;
 	
@@ -22,7 +22,7 @@
 }
 
 .bannerContainer {
-	width: 800px;
+	width: 700px;
 	height: 100%;
 	float: left;
 	
@@ -31,7 +31,7 @@
 }
 
 .applyContainer {
-	width: 444px;
+	width: 264px;
 	height: 100%;
 	float: left;
 	
@@ -42,31 +42,66 @@
 }
 
 .mianContainerCenter {
+	width: 660px;
+/*	height: 1256px*/
+	float: left;
+}
+
+/* news */
+.container {
+	width: 660px;
+	background-color: #fff;
+	
+	border-top: 3px solid rgb(221,221,221);
+	border-bottom: 1px solid rgb(221,221,221);
+	
+	margin-top: 10px;
+}
+
+.newsContainer {
+	width: 1000px;
+	height: 300px;
+	background-color: #fff;
+	
+	border-top: 3px solid rgb(221,221,221);
+	border-bottom: 1px solid rgb(221,221,221);
+	
+	margin-top: 10px;
+}
+
+#wrapperContainer {
+	width: 1000px;
+	height: 1256px;
+}
+
+.oneThirdContainer {
+	width: 330px;
+	height: 100%;
+
+	float: left;
+}
+
+.newsTitle {
 	width: 100%;
+	height: 32px;
+
+	background-image: url(http://mat1.gtimg.com/www/images/qq2012/qqbg_1.5.5.png);
+	background-repeat: no-repeat;
+	
+	background-position: left -160px;
 }
 
 .sidebar {
-	width: 1280px;
 	height: 300px;
-	
-/*	border: 1px solid rgb(221,221,221);*/
-	background-color: #fff;
 }
 
 .verticallist {
-	width: 1280px;
 	height: 300px;
-	
-/*	border: 1px solid rgb(221,221,221);*/
-	background-color: #fff;
 }
 
 .infoTable {
-	width: 1280px;
-	height: 280px;
-
-	border-top: 3px solid rgb(221,221,221);
-	border-bottom: 1px solid rgb(221,221,221);
+	width: 100%;
+	height: 100%;
 }
 
 /* sidebar */
@@ -88,19 +123,25 @@
 
 /* verticallist */
 .verticallist {
-	
+	height: 300px;
 }
 
 .verticalTable {
-	width: 1280px;
-	height: 280px;
-
-	border-top: 3px solid rgb(221,221,221);
-	border-bottom: 1px solid rgb(221,221,221);
+	width: 100%;
+	height: 100%;
 }
 
 .verticallist0, .verticallist1, .verticallist2, .verticallist3, .verticallist4, .verticallist5, .verticallist6, .verticallist7, .verticallist8 {
 	border-right: 1px solid rgb(221,221,221);
+}
+
+.recommendContainer {
+	width: 330px;
+	height: 1246px;
+	float: right;
+	margin-top: 10px;
+	background: #fdfffe;
+	border: 1px solid #d2e1f1;
 }
 
 /* bankContainer */

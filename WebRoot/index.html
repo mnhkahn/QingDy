@@ -10,10 +10,12 @@
 <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
+<link rel = "Shortcut Icon" href="favicon.ico">
 <script type="text/javascript">
 function init() {
 	showTopBanner();
 	showSearchBox();
+	showNews();
 
 	createSidebarTable('prodcutContainer');
 	createSidebarTable('demandContainer');
@@ -38,17 +40,23 @@ function init() {
     		<div id="applyContainer" class="applyContainer">
     		</div>
     	</div>
-    	<div id="mianContainerCenter" class="mianContainerCenter">
-    		<div id="prodcutContainer" class="sidebar">
-    		</div>
-    		<div id="demandContainer" class="sidebar">
-    		</div>
-    		<div id="specialistContainer" class="verticallist">
-    		</div>
-    		<div id="mallContainer" class="sidebar">
-    		</div>
+    	<div id='newsContainer' class="newsContainer">
     	</div>
-    	<div id="bankContainer" class="bankContainer">
+    	<div id="wrapperContainer">
+    		<div id="mianContainerCenter" class="mianContainerCenter">
+	    		<div id="prodcutContainer" class="sidebar container">
+	    		</div>
+	    		<div id="demandContainer" class="sidebar container">
+	    		</div>
+	    		<div id="specialistContainer" class="verticallist container">
+	    		</div>
+	    		<div id="mallContainer" class="sidebar container">
+	    		</div>
+	    	</div>
+	    	<div id="recommendContainer" class="recommendContainer">
+	    	</div>
+    	</div>
+    	<div id="bankContainer" class="bankContainer container">
     	</div>
     </div>
     <div id="footContainer" class="footContainer">

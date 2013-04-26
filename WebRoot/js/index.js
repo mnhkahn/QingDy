@@ -1,3 +1,36 @@
+function showNews() {
+	var importantNews = document.createElement("div");
+	importantNews.className = "importantNews oneThirdContainer";
+	importantNews.id = "importantNews";
+	$('#newsContainer').append(importantNews);
+	
+	var todayTopic = document.createElement("div");
+	todayTopic.className = "todayTopic oneThirdContainer";
+	todayTopic.id = "todayTopic";
+	$('#newsContainer').append(todayTopic);
+	
+	var transaction = document.createElement("div");
+	transaction.className = "transaction oneThirdContainer";
+	transaction.id = "transaction";
+	$('#newsContainer').append(transaction);
+	
+	// add title
+	var newsTitle = document.createElement("div");
+	newsTitle.className = "newsTitle";
+	newsTitle.id = "newsTitle";
+	$('#importantNews').append(newsTitle);
+	
+	var todayTitle = document.createElement("div");
+	todayTitle.className = "newsTitle";
+	todayTitle.id = "todayTitle";
+	$('#todayTopic').append(todayTitle);
+	
+	var transactionTitle = document.createElement("div");
+	transactionTitle.className = "newsTitle";
+	transactionTitle.id = "transactionTitle";
+	$('#transaction').append(transactionTitle);
+}
+
 function createSidebarTable(domName, args) {
 	var table = document.createElement("table");
 	table.className = "infoTable";

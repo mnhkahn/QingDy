@@ -1,5 +1,3 @@
-
-
 function showTopBanner() {
 	// Query the id from url
 	var id = 1;
