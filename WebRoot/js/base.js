@@ -70,7 +70,7 @@ function showTopBanner() {
 		divInfo.appendChild(divRegister);
 	}
 	
-	dojo.byId("site-header-container").appendChild(divHeaderWrapper);
+	$("#site-header-container").append(divHeaderWrapper);
 }
 
 function showSearchBox() {
@@ -114,7 +114,7 @@ function showSearchBox() {
 	
 	divSearchbox.appendChild(btnSearch);
 	
-	dojo.byId("searchboxContainer").appendChild(searchboxContent);
+	$("#searchboxContainer").append(searchboxContent);
 }
 
 function showFoot() {
@@ -162,5 +162,5 @@ function showFoot() {
 	row.appendChild(cell);
 	footTable.appendChild(row);
 
-	dojo.byId("footContainer").appendChild(footTable);
+	$("#footContainer").append(footTable);
 }

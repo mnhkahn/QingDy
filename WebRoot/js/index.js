@@ -25,15 +25,15 @@ function createSidebarTable(domName, args) {
 					cell.innerHTML = "<h2>贷款产品</h2>";
 				}
 				else {*/
-					cell.appendChild(document.createTextNode(i + '_' + j));
-				}
-				row.appendChild(cell);
+				cell.appendChild(document.createTextNode(i + '_' + j));
+			}
+			row.appendChild(cell);
 //			}
 		}
 		table.appendChild(row);
 	}
 	
-	dojo.byId(domName).appendChild(table);
+	$('#' + domName).append(table);
 }
 
 function createVerticallistTable(domName, args) {
@@ -51,5 +51,5 @@ function createVerticallistTable(domName, args) {
 	}
 	
 	table.appendChild(row);
-	dojo.byId(domName).appendChild(table);
+	$('#' + domName).append(table);
 }
