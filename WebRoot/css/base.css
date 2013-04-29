@@ -37,7 +37,8 @@ html,body{
 	-moz-user-select: none;
 	background: none repeat scroll 0% 0% rgb(255,255,255);
 /*	min-width: 1024px;*/
-	max-width: 1000px;
+	width: 1000px;
+	min-width: 1000px;
 	margin-right: auto;
 	margin-left: auto;
 	height: 100%;
@@ -66,7 +67,7 @@ html,body{
 
 .horizontal-list > li {
 	float: left;
-	width: 100px;
+	width: 80px;
 	height: 100%;
 }
 
@@ -444,4 +445,121 @@ a, a:link, a:active, a:hover, a:visited {
 	color: #000; 
 	font-weight: Normal;
 	text-decoration:none;
+}
+
+/* main container for 2 columns */
+.mainContainer2 {
+	width: 1000px;
+	min-width: 1000px;
+	
+	height: 1000px;
+	
+	border: 1px solid rgb(221,221,221);
+	border-radius:5px;
+	
+	margin-left: auto;
+	margin-right: auto;
+	
+	background-color: #fff;
+}
+
+.mainContainerCenterLeft {
+	width: 786px;
+	height: 978px;
+	float: left;
+	
+	background: #ffffff;
+	border: 1px solid rgb(221,221,221);
+	
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.recommendContainerRight {
+	width: 180px;
+	height: 978px;
+	float: right;
+	background: #fdfffe;
+	border: 1px solid #d2e1f1;
+	
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
+/* news */
+.container {
+	width: 660px;
+	background-color: #fff;
+	
+	border-top: 3px solid rgb(221,221,221);
+	border-bottom: 1px solid rgb(221,221,221);
+	
+	margin-top: 10px;
+}
+
+.newsContainer {
+	width: 1000px;
+	height: 300px;
+	background-color: #fff;
+	
+	border-top: 3px solid rgb(221,221,221);
+	border-bottom: 1px solid rgb(221,221,221); 
+	
+	margin-top: 10px;
+}
+
+#wrapperContainer {
+	width: 1000px;
+	height: 1256px;
+}
+
+.oneThirdContainer {
+	width: 330px;
+	height: 100%;
+
+	float: left;
+}
+
+.newsTitle {
+	width: 100%;
+	height: 32px;
+
+	background-image: url(http://mat1.gtimg.com/www/images/qq2012/qqbg_1.5.5.png);
+	background-repeat: no-repeat;
+	
+	background-position: left -160px;
+}
+
+/* mian container for news */
+.mainContainerNews {
+	width: 100%;
+	height: 700px;
+}
+
+.newsHeight {
+	height: 666px !important;
+}
+
+/* advisory */
+.questionClass {
+	width: 180px;
+	height: 978px;
+	float: left;
+	background: #fdfffe;
+	border: 1px solid #d2e1f1;
+	
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.mainContainerQuestion {
+	width: 594px;
+	height: 978px;
+	float: left;
+	background: #fffff;
+	border: 1px solid rgb(221,221,221);
+	border-radius:5px;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
 }

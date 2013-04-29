@@ -3,6 +3,7 @@
 /* Main Container */
 .mainContainer {
 	width: 1000px;
+	min-width: 1000px;
 	height: 2000px;
 	margin-left: auto;
 	margin-right: auto;
@@ -45,50 +46,6 @@
 	width: 660px;
 /*	height: 1256px*/
 	float: left;
-}
-
-/* news */
-.container {
-	width: 660px;
-	background-color: #fff;
-	
-	border-top: 3px solid rgb(221,221,221);
-	border-bottom: 1px solid rgb(221,221,221);
-	
-	margin-top: 10px;
-}
-
-.newsContainer {
-	width: 1000px;
-	height: 300px;
-	background-color: #fff;
-	
-	border-top: 3px solid rgb(221,221,221);
-	border-bottom: 1px solid rgb(221,221,221);
-	
-	margin-top: 10px;
-}
-
-#wrapperContainer {
-	width: 1000px;
-	height: 1256px;
-}
-
-.oneThirdContainer {
-	width: 330px;
-	height: 100%;
-
-	float: left;
-}
-
-.newsTitle {
-	width: 100%;
-	height: 32px;
-
-	background-image: url(http://mat1.gtimg.com/www/images/qq2012/qqbg_1.5.5.png);
-	background-repeat: no-repeat;
-	
-	background-position: left -160px;
 }
 
 .sidebar {

@@ -19,7 +19,7 @@ function showTopBanner() {
 	var divNav = document.createElement("DIV");
 	divNav.className = "nav";
 	
-	var arrNav = new Array("home", "supply", "mall", "specialist", "demand", "advisory", "news");
+	var arrNav = new Array("index", "supply", "mall", "specialist", "demand", "advisory", "news");
 	var arrNavLabel = new Array("首页", "贷款供应", "贷款机构", "贷款顾问", "贷款需求", "贷款咨询", "贷款资讯");
 	var ulNav = document.createElement("ul");
 	ulNav.id = "page-nav";
