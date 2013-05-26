@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Slide Test</title>
+<link rel="stylesheet" type="text/css" href="../css/slide.css"></link>
+
+<script type="text/javascript" src="../js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="../js/slide.js"></script>
+<script>
+function load() {
+	arr = [];
+	arr.push({link:'/image/1.jpg',desc:'one'});
+
+	arr.push({link:'/image/2.jpg',desc:'one'});
+	arr.push({link:'/image/3.jpg',desc:'one'});
+	arr.push({link:'/image/4.jpg',desc:'one'});
+	showSlide('container', arr);
+}
+</script>
+</head>
+<body onload="load()">
+	<div id="container" style="width:700px;height:280px;border:1px solid #ededed;">
+	</div>
+</body>
+<html>
