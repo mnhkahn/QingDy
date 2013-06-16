@@ -55,7 +55,9 @@
 
 	<target name="compile">
 		<echo>Compiling...</echo>
-		<javac srcdir="${source.root}" destdir="${class.root}" includeantruntime="false"/>
+		<javac srcdir="${source.root}" destdir="${class.root}" includeantruntime="false">
+			<classpath refid="webapp.lib.classpath" />
+		</javac>
 	</target>
 
 	<target name="deploy" depends="compile">
