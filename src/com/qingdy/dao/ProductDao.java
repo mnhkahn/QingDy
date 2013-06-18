@@ -5,10 +5,19 @@ import java.util.List;
 import com.qingdy.domain.QdProduct;
 
 public interface ProductDao {
+	
+	public int addProduct(QdProduct product);
+	
+	public List<QdProduct> getProductList(int size, int page, String keyword);
+	
+	public QdProduct getProduct(int pid);
+	
+	public List<QdProduct> getProductByUser(String username);
 
 	public int updateProduct(QdProduct product);
 	
-	public List<QdProduct> getProducts(int size, int page, String keyword);
+	public int verifyProduct(int pid, int verify);
 	
-	public int addProduct(QdProduct product);
+	public int removeProduct(int pid);	
+	
 }

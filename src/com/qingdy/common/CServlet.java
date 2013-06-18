@@ -1,6 +1,8 @@
 package com.qingdy.common;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -9,6 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import net.sf.json.processors.JsonValueProcessor;
 
 /**
  * Servlet implementation class CServlet
@@ -22,6 +28,10 @@ public class CServlet extends HttpServlet {
 	protected int size = 0;
 	protected int page = 0;
 	protected String keyword = null, raw = null;
+	protected Map<String, Object> json = null;
+	
+	private JsonValueProcessor jsonProcessor;
+	private JsonConfig jsonConfig;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -34,7 +44,11 @@ public class CServlet extends HttpServlet {
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
+
+		jsonProcessor = new DateJsonValueProcessor();
+		jsonConfig = new JsonConfig();
+        //注册值处理器
+        jsonConfig.registerJsonValueProcessor(Date.class, jsonProcessor);
 	}
 
 	/**
@@ -63,6 +77,8 @@ public class CServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
+	@SuppressWarnings("unchecked")
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = request.getRequestURL().toString();
 		int type = Action.getURIType(url);
@@ -88,8 +104,14 @@ public class CServlet extends HttpServlet {
 		}
 		else {
 		}
-
+		
+		// 
 		String raw = CConvert.convertStreamToString(request.getInputStream());
+        if (!raw.equals("")) {
+        	json = (Map<String, Object>)JSONObject.toBean(JSONObject.fromObject(raw), Map.class);
+        }
+        
+		
 		this.id = (action[0] == null) ? "-1" : action[0];
 		this.action = (action[1] == null) ? "" : action[1];
 		

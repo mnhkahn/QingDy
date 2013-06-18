@@ -37,7 +37,7 @@ public class Action {
 	}
 	
 	// return digit number
-	private static int isDigit(String digit) {
+	public static int isDigit(String digit) {
 		int result = 0;
 		for (int i = 0; i < digit.length(); i++) {
 			if (Character.isDigit(digit.indexOf(i))) {
