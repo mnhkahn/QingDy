@@ -1,7 +1,9 @@
 package com.qingdy.service;
 
 import java.io.IOException;
-import java.util.List;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.qingdy.common.CServlet;
 import com.qingdy.common.Constant;
 import com.qingdy.dao.TransactionDao;
+import com.qingdy.dao.impl.TransactionDaoImpl;
 import com.qingdy.domain.QdTransaction;
 
 /**
@@ -28,25 +31,37 @@ public class Transaction extends CServlet {
      */
     public Transaction() {
         super();
-        // TODO Auto-generated constructor stub
+        transactionDao = new TransactionDaoImpl();
+        transaction = new QdTransaction();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = request.getParameter("username");
+		list = new LinkedList<>();
 		if (size > 1) {
-			List<QdTransaction> transactions = transactionDao.geTransactionList(size, page);
+			if (username != null) {
+				list = transactionDao.getTransactionByUser(username, size, page);
+			}
+			else {
+				list = transactionDao.geTransactionList(size, page);
+			}
 		}
 		else if (size == 1) {
-			QdTransaction transaction = transactionDao.getTransaction(Integer.parseInt(id));
+			list.add(transactionDao.getTransaction(Integer.parseInt(id)));
 		}
+		super.doGet(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		transaction = new QdTransaction();
+		initialize(request, response);
+		
 		if (action.equals("")) {
 			transactionDao.addTransaction(transaction);
 		}
@@ -62,6 +77,8 @@ public class Transaction extends CServlet {
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		initialize(request, response);
+		transaction.setTid(Integer.parseInt(id));
 		if (action.equals("")) {
 			transactionDao.updateTransaction(transaction);
 		}
@@ -73,6 +90,33 @@ public class Transaction extends CServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (action.equals("")) {
 			transactionDao.removeTransaction(Integer.parseInt(id));
+		}
+	}
+	
+	protected void initialize(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		for (int i = 0; i < json.keySet().size(); i++) {
+			Method method = null;
+			try {
+				method = QdTransaction.class.getMethod("set" + json.keySet().toArray()[i], json.get(json.keySet().toArray()[i]).getClass());
+				System.out.println(method.getName());
+				if (method != null) {
+					System.out.println(json.get(json.keySet().toArray()[i]));
+					method.invoke(transaction, json.get(json.keySet().toArray()[i]));
+				}
+			} catch (NoSuchMethodException | SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

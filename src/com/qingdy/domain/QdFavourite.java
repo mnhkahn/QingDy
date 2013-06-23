@@ -8,8 +8,17 @@ public class QdFavourite {
 	private String title;
 	private String site;
 	private Timestamp postdate;
+	private Integer uid;
 	
-	public Integer getFid() {
+	public Integer getUid() {
+		return uid;
+	}
+
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
+
+	public int getFid() {
 		return fid;
 	}
 

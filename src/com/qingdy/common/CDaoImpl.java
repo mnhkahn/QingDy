@@ -1,8 +1,13 @@
 package com.qingdy.common;
 
-public class CDaoImpl {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-	protected int update(Object object) {
-		return 0;
-	}
+public class CDaoImpl {
+	
+	protected Connection conn = null;
+	protected PreparedStatement ps = null;
+	protected ResultSet rs = null;
+	protected String sql = null;
 }

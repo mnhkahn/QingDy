@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qingdy.common.CServlet;
+import com.qingdy.dao.PawnDao;
+import com.qingdy.dao.impl.PawnDaoImpl;
 
 /**
  * Servlet implementation class Pawn
@@ -17,19 +19,24 @@ import com.qingdy.common.CServlet;
 public class Pawn extends CServlet {
 	private static final long serialVersionUID = 1L;
        
+	private PawnDao pawnDao = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public Pawn() {
         super();
-        // TODO Auto-generated constructor stub
+        pawnDao = new PawnDaoImpl();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		if (action.equals("")) {
+			list = pawnDao.getPawn();
+		}
+		
+		super.doGet(request, response);
 	}
 
 }

@@ -7,7 +7,16 @@ public class QdBlog {
 	private String blog;
 	private Integer classes;
 	private String frontcover;
+	private int uid;
 	
+	public int getUid() {
+		return uid;
+	}
+
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
+
 	public Integer getBid() {
 		return bid;
 	}

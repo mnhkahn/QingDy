@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qingdy.common.CServlet;
+import com.qingdy.dao.ClientsDao;
+import com.qingdy.dao.impl.ClientsDaoImpl;
 
 /**
  * Servlet implementation class Clients
@@ -17,19 +19,26 @@ import com.qingdy.common.CServlet;
 public class Clients extends CServlet {
 	private static final long serialVersionUID = 1L;
        
+	private ClientsDao clientsDao = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public Clients() {
         super();
-        // TODO Auto-generated constructor stub
+        
+        clientsDao = new ClientsDaoImpl();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		if (action.equals("")) {
+			list = clientsDao.getClients();
+		}
+		
+		super.doGet(request, response);
 	}
 
 }

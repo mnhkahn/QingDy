@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qingdy.common.CServlet;
+import com.qingdy.dao.UsesofloanDao;
+import com.qingdy.dao.impl.UsesofloanDaoImpl;
 
 /**
  * Servlet implementation class UsesOfLoan
@@ -17,19 +19,24 @@ import com.qingdy.common.CServlet;
 public class UsesOfLoan extends CServlet {
 	private static final long serialVersionUID = 1L;
        
+	private UsesofloanDao usesofloanDao = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public UsesOfLoan() {
         super();
-        // TODO Auto-generated constructor stub
+        usesofloanDao = new UsesofloanDaoImpl();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		if (action.equals("")) {
+			list = usesofloanDao.getUsesofloans();
+		}
+		
+		super.doGet(request, response);
 	}
 
 }

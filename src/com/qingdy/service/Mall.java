@@ -22,41 +22,53 @@ public class Mall extends CServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private MallDao mallDao = null;
+	private QdMall mall = null;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public Mall() {
         super();
-        // TODO Auto-generated constructor stub
+        mallDao = new MallDaoImpl();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		mallDao = new MallDaoImpl();
+		list.clear();
 		
 		// Get mall list
 		if (this.size > 1) {
-			List<QdMall> malls = mallDao.getMallList(this.size, this.page, this.keyword);
+			list = mallDao.getMallList(this.size, this.page, this.keyword);
 		}
 		// Get one mall
 		else if (this.size == 1) {
-			QdMall mall = mallDao.getMall(Integer.parseInt(this.id));
+			String username = request.getParameter("username");
+			if (username != null) {
+				list.add(mallDao.getMallByUser(username));
+			}
+			else if (!id.equals("-1")) {
+				list.add(mallDao.getMall(Integer.parseInt(this.id)));
+			}
 		}
+		
+		super.doGet(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		mallDao = new MallDaoImpl();
-		
-		QdMall mall = new QdMall();
-		
 		// Create one mall
 		if (this.action.equals("")) {
+			try {
+				mall = (QdMall)initialize(QdMall.class, request, response);
+			} catch (NoSuchMethodException | SecurityException
+					| InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			mallDao.addMall(mall);
 		}
 		else if (this.action.equals("positive")) {
@@ -71,10 +83,14 @@ public class Mall extends CServlet {
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		mallDao = new MallDaoImpl();
-		
-		QdMall mall = new QdMall();
-		
+		try {
+			mall = (QdMall)initialize(QdMall.class, request, response);
+		} catch (NoSuchMethodException | SecurityException
+				| InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mall.setMid(Integer.parseInt(id));
 		if (this.action.equals("")) {
 			mallDao.updateMall(mall);
 		}
@@ -84,10 +100,6 @@ public class Mall extends CServlet {
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-mallDao = new MallDaoImpl();
-		
-		QdMall mall = new QdMall();
-		
 		if (this.action.equals("")) {
 			mallDao.removeMall(Integer.parseInt(this.id));
 		}

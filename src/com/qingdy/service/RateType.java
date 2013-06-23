@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qingdy.common.CServlet;
+import com.qingdy.dao.RatetypeDao;
+import com.qingdy.dao.impl.RatetypeDaoImpl;
 
 /**
  * Servlet implementation class RateType
@@ -17,19 +19,24 @@ import com.qingdy.common.CServlet;
 public class RateType extends CServlet {
 	private static final long serialVersionUID = 1L;
        
+	private RatetypeDao ratetypeDao = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public RateType() {
         super();
-        // TODO Auto-generated constructor stub
+        ratetypeDao = new RatetypeDaoImpl();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		if (action.equals("")) {
+			list = ratetypeDao.getRatetypes();
+		}
+		
+		super.doGet(request, response);
 	}
 
 }

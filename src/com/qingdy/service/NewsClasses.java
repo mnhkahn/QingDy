@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qingdy.common.CServlet;
+import com.qingdy.dao.NewsclassesDao;
+import com.qingdy.dao.impl.NewsclassesDaoImpl;
 
 /**
  * Servlet implementation class NewsClasses
@@ -17,19 +19,24 @@ import com.qingdy.common.CServlet;
 public class NewsClasses extends CServlet {
 	private static final long serialVersionUID = 1L;
        
+	private NewsclassesDao newsclassesDao = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public NewsClasses() {
         super();
-        // TODO Auto-generated constructor stub
+        newsclassesDao = new NewsclassesDaoImpl();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		if (action.equals("")) {
+			list = newsclassesDao.getNewsclasses();
+		}
+		
+		super.doGet(request, response);
 	}
 
 }

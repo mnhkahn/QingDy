@@ -10,7 +10,7 @@ public class Action {
 			if (url.charAt(i) == '/')
 				count++;
 		}
-        
+        System.out.println(count);
 		if (count == 5) {
 			return 0;
 		}
@@ -18,7 +18,6 @@ public class Action {
 	        String digit = url.substring(url.lastIndexOf('/') + 1);
 	        
 	        int digitCount = isDigit(digit);
-	        System.out.println(digitCount);
 			// Id
 			if (digitCount == digit.length())
 				return 1;
@@ -40,7 +39,7 @@ public class Action {
 	public static int isDigit(String digit) {
 		int result = 0;
 		for (int i = 0; i < digit.length(); i++) {
-			if (Character.isDigit(digit.indexOf(i))) {
+			if (Character.isDigit(digit.charAt(i))) {
 				result++;
 			}
 		}
@@ -53,7 +52,7 @@ public class Action {
 		parameters[0] = request.getParameter("size");
 		parameters[1] = request.getParameter("page");
 		parameters[2] = request.getParameter("keyword");
-		
+
 		return parameters;
 	}
 	

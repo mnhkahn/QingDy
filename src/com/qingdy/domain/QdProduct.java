@@ -15,11 +15,11 @@ public class QdProduct {
 	private Integer ratetype;
 	private float rate;
 	private Timestamp deadline;
-	private String clientlocation;
+	private Integer clientlocation;
 	private Integer client;
-	private String repaymentmethod;
+	private Integer repaymentmethod;
 	private Integer ptype;
-	private String usesofloan;
+	private Integer usesofloan;
 	private String introduce;
 	private String processes;
 	private String application;
@@ -100,11 +100,11 @@ public class QdProduct {
 		this.deadline = deadline;
 	}
 	
-	public String getClientlocation() {
+	public int getClientlocation() {
 		return clientlocation;
 	}
 
-	public void setClientlocation(String clientlocation) {
+	public void setClientlocation(Integer clientlocation) {
 		this.clientlocation = clientlocation;
 	}
 	
@@ -116,11 +116,11 @@ public class QdProduct {
 		this.client = client;
 	}
 	
-	public String getRepaymentmethod() {
+	public int getRepaymentmethod() {
 		return repaymentmethod;
 	}
 
-	public void setRepaymentmethod(String repaymentmethod) {
+	public void setRepaymentmethod(Integer repaymentmethod) {
 		this.repaymentmethod = repaymentmethod;
 	}
 	
@@ -132,11 +132,11 @@ public class QdProduct {
 		this.ptype = ptype;
 	}
 	
-	public String getUsesofloan() {
+	public int getUsesofloan() {
 		return usesofloan;
 	}
 
-	public void setUsesofloan(String usesofloan) {
+	public void setUsesofloan(Integer usesofloan) {
 		this.usesofloan = usesofloan;
 	}
 	

@@ -8,7 +8,7 @@ public class QdMall {
 	private Integer uid;
 	private String introduce;
 	private String announcement;
-	private String lendedyears;
+	private Integer lendedyears;
 	private String ctype;
 	private String cname;
 	private String cphonenumber;
@@ -59,11 +59,11 @@ public class QdMall {
 		this.announcement = announcement;
 	}
 	
-	public String getLendedyears() {
+	public int getLendedyears() {
 		return lendedyears;
 	}
 
-	public void setLendedyears(String lendedyears) {
+	public void setLendedyears(Integer lendedyears) {
 		this.lendedyears = lendedyears;
 	}
 	

@@ -1,8 +1,5 @@
 package com.qingdy.domain;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.sql.Timestamp;
-import java.util.Date;
 
 
 public class QdLoan {
@@ -13,7 +10,7 @@ public class QdLoan {
 	private Integer usesofloan;
 	private Integer lendtype;
 	private Integer haspawn;
-	private String pawn;
+	private Integer pawn;
 	private String title;
 	private String introduce;
 	private Integer verify;
@@ -77,11 +74,11 @@ public class QdLoan {
 		this.haspawn = haspawn;
 	}
 	
-	public String getPawn() {
+	public int getPawn() {
 		return pawn;
 	}
 
-	public void setPawn(String pawn) {
+	public void setPawn(Integer pawn) {
 		this.pawn = pawn;
 	}
 	

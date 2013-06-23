@@ -63,7 +63,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>Favourite</servlet-name>
-    <servlet-class>com.qingdy.service.Favourites</servlet-class>
+    <servlet-class>com.qingdy.service.Favourite</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Favourite</servlet-name>

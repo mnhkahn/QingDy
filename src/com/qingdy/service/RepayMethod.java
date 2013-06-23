@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qingdy.common.CServlet;
+import com.qingdy.dao.RepaymethodDao;
+import com.qingdy.dao.impl.RepaymethodDaoImpl;
 
 /**
  * Servlet implementation class RepayMethod
@@ -17,19 +19,24 @@ import com.qingdy.common.CServlet;
 public class RepayMethod extends CServlet {
 	private static final long serialVersionUID = 1L;
        
+	private RepaymethodDao repaymethodDao = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public RepayMethod() {
         super();
-        // TODO Auto-generated constructor stub
+        repaymethodDao = new RepaymethodDaoImpl();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		if (action.equals("")) {
+			list = repaymethodDao.getRepaymethods();
+		}
+		
+		super.doGet(request, response);
 	}
 
 }

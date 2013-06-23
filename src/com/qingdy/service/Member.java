@@ -21,13 +21,14 @@ public class Member extends CServlet {
 	private static final long serialVersionUID = 1L;
 
 	private UserDao userDao = null;
+	private QdMember user = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public Member() {
 		super();
-		// TODO Auto-generated constructor stub
+		userDao = new UserDaoImpl();
 	}
 
 	/**
@@ -36,8 +37,6 @@ public class Member extends CServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		userDao = new UserDaoImpl();
-
 		// Get user
 		if (this.action.equals("")) {
 			userDao.getUid(this.id);
@@ -45,10 +44,11 @@ public class Member extends CServlet {
 		// Get user post
 		else if (this.action.equals("done")) {
 
-		} else {
+		} 
+		else {
 
 		}
-
+		super.doGet(request, response);
 	}
 
 	/**
@@ -57,12 +57,15 @@ public class Member extends CServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		userDao = new UserDaoImpl();
-		
-		QdMember user = new QdMember();
-
 		// Login
 		if (this.action.equals("login")) {
+			try {
+				user = (QdMember)initialize(QdMember.class, request, response);
+			} catch (NoSuchMethodException | SecurityException
+					| InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			QdMember loginUser = userDao.getUser(this.id);
 			
 			if (loginUser.getPassword().equals(user.getPassword())) {
@@ -74,6 +77,13 @@ public class Member extends CServlet {
 		}
 		// Register
 		else if (this.action.equals("register")) {
+			try {
+				user = (QdMember)initialize(QdMember.class, request, response);
+			} catch (NoSuchMethodException | SecurityException
+					| InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			userDao.addUser(user);
 		}
 		else {
@@ -101,21 +111,27 @@ public class Member extends CServlet {
 	}
 
 	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		QdMember user = new QdMember();
-		
+		try {
+			user = (QdMember)initialize(QdMember.class, request, response);
+		} catch (NoSuchMethodException | SecurityException
+				| InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// Update user info
 		if (this.action.equals("")) {
 			userDao.updateUser(user);
 		}
-		super.doPut(req, resp);
+		super.doPut(request, response);
 	}
 
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		
+		
 		super.doDelete(req, resp);
 	}
 

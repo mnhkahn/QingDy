@@ -1,7 +1,13 @@
 package com.qingdy.common;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.URLDecoder;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.Servlet;
@@ -12,7 +18,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qingdy.domain.QdMessage;
+
 import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 import net.sf.json.JsonConfig;
 import net.sf.json.processors.JsonValueProcessor;
 
@@ -29,6 +38,7 @@ public class CServlet extends HttpServlet {
 	protected int page = 0;
 	protected String keyword = null, raw = null;
 	protected Map<String, Object> json = null;
+	protected List list = new LinkedList<>();
 	
 	private JsonValueProcessor jsonProcessor;
 	private JsonConfig jsonConfig;
@@ -37,7 +47,6 @@ public class CServlet extends HttpServlet {
      */
     public CServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -109,15 +118,16 @@ public class CServlet extends HttpServlet {
 		String raw = CConvert.convertStreamToString(request.getInputStream());
         if (!raw.equals("")) {
         	json = (Map<String, Object>)JSONObject.toBean(JSONObject.fromObject(raw), Map.class);
-        }
-        
+        }        
 		
 		this.id = (action[0] == null) ? "-1" : action[0];
 		this.action = (action[1] == null) ? "" : action[1];
-		
+
 		this.size = (parameters[0] == null) ? Constant.PAGE_DEFAULT_SIZE : Integer.parseInt(parameters[0]);
 		this.page = (parameters[1] == null) ? Constant.PAGE_DEFAULT_NUMBER : Integer.parseInt(parameters[1]);
-		this.keyword = (parameters[0] == null) ? "" : parameters[2];
+		
+		this.keyword = (parameters[2] == null) ? "%%" : "%" + parameters[2] + "%";
+		this.keyword = new String(this.keyword.getBytes("ISO-8859-1"), "UTF-8");
 		this.raw = raw;
 		
 		System.out.println("id: " + id + "| action: " + this.action + "| size: " + size + "| page:" + page + "| keyword: " + keyword);
@@ -130,7 +140,8 @@ public class CServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String json = JSONSerializer.toJSON(list , jsonConfig).toString();
+		response.getWriter().write(json);
 	}
 
 	/**
@@ -173,6 +184,37 @@ public class CServlet extends HttpServlet {
 	 */
 	protected void doTrace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	}
+	
+	protected Object initialize(Class classes, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException {
+		Object object = classes.newInstance();
+		
+		
+		for (int i = 0; i < json.keySet().size(); i++) {
+			Method method = null;
+			try {
+				method = classes.getMethod("set" + json.keySet().toArray()[i], json.get(json.keySet().toArray()[i]).getClass());
+				System.out.println(method.getName());
+				if (method != null) {
+					System.out.println(json.get(json.keySet().toArray()[i]));
+					method.invoke(object, json.get(json.keySet().toArray()[i]));
+				}
+			} catch (NoSuchMethodException | SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return object;
 	}
 
 }

@@ -7,7 +7,16 @@ public class QdLink {
 	private String site;
 	private String introduce;
 	private Integer sort;
+	private Integer uid;
 	
+	public int getUid() {
+		return uid;
+	}
+
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
+
 	public Integer getLid() {
 		return lid;
 	}

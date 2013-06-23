@@ -1,6 +1,8 @@
 package com.qingdy.service;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.qingdy.common.CServlet;
 import com.qingdy.dao.FavouriteDao;
+import com.qingdy.dao.impl.FavouriteDaoImpl;
 import com.qingdy.domain.QdFavourite;
 
 /**
@@ -27,7 +30,7 @@ public class Favourite extends CServlet {
      */
     public Favourite() {
         super();
-        // TODO Auto-generated constructor stub
+        favouriteDao = new FavouriteDaoImpl();
     }
 
 	/**
@@ -35,14 +38,18 @@ public class Favourite extends CServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (size >= 1) {
-			List<QdFavourite> favourites = favouriteDao.getFavouriteList(size, page);
+			list = favouriteDao.getFavouriteList(size, page);
 		}
+		
+		super.doGet(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		favourite = new QdFavourite();
+		initialize(request, response);
 		if (action.equals("")) {
 			favouriteDao.addFavourite(favourite);
 		}
@@ -52,6 +59,9 @@ public class Favourite extends CServlet {
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		favourite = new QdFavourite();
+		initialize(request, response);
+		favourite.setFid(Integer.parseInt(id));
 		if (action.equals("")) {
 			favouriteDao.updateFavourite(favourite);
 		}
@@ -66,4 +76,31 @@ public class Favourite extends CServlet {
 		}
 	}
 
+	protected void initialize(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		for (int i = 0; i < json.keySet().size(); i++) {
+			Method method = null;
+			try {
+				method = QdFavourite.class.getMethod("set" + json.keySet().toArray()[i], json.get(json.keySet().toArray()[i]).getClass());
+				System.out.println(method.getName());
+				if (method != null) {
+					System.out.println(json.get(json.keySet().toArray()[i]));
+					method.invoke(favourite, json.get(json.keySet().toArray()[i]));
+				}
+			} catch (NoSuchMethodException | SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 }

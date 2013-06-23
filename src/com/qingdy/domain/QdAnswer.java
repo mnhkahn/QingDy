@@ -9,7 +9,16 @@ public class QdAnswer {
 	private String answer;
 	private Timestamp postdate;
 	private Integer isAnswer;
+	private Integer qid;
 	
+	public int getQid() {
+		return qid;
+	}
+
+	public void setQid(Integer qid) {
+		this.qid = qid;
+	}
+
 	public Integer getAid() {
 		return aid;
 	}

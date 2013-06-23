@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class cJDBCUtilsSingleton {
 	
-	private String connStr = "jdbc:mysql://localhost:3306/QingDyDB";
+	private String connStr = "jdbc:mysql://localhost:3306/QingDyDB?characterEncoding=utf8";
 	private String userName = "qingdy";
 	private String userPWD = "qingdy";
 	

@@ -16,6 +16,7 @@ import com.qingdy.common.CServlet;
 import com.qingdy.dao.LoanDao;
 import com.qingdy.dao.impl.LoanDaoImpl;
 import com.qingdy.domain.QdLoan;
+import com.qingdy.domain.QdMessage;
 
 /**
  * Servlet implementation class Loan
@@ -31,15 +32,9 @@ public class Loan extends CServlet {
      */
     public Loan() {
         super();
-        // TODO Auto-generated constructor stub
+        loanDao = new LoanDaoImpl();
     }
     
-    private QdLoan initializeLoan(Map<String, Object> json) {
-    	QdLoan loan = new QdLoan();
-    	
-    	return loan;
-    }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -47,14 +42,16 @@ public class Loan extends CServlet {
 		loanDao = new LoanDaoImpl();
 		
 		if (size > 1) {
-			QdLoan loan = loanDao.getLoan(Integer.parseInt(id));
+			list = loanDao.getLoanList(size, page, keyword);
 		}
 		else if (size == 1) {
-			List<QdLoan> loans = loanDao.getLoanList(size, page, keyword);
+			list.add(loanDao.getLoan(Integer.parseInt(id)));
 		}
 		else {
 			
 		}
+		
+		super.doGet(request, response);
 	}
 
 	/**
@@ -62,6 +59,7 @@ public class Loan extends CServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		loanDao = new LoanDaoImpl();
+		initialize(request, response);
 		
 		if (action.equals("")) {
 			loanDao.addLoan(loan);
@@ -82,6 +80,7 @@ public class Loan extends CServlet {
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		loanDao = new LoanDaoImpl();
+		initialize(request, response);
 		
 		if (action.equals("")) {
 			loanDao.updateLoan(loan);
@@ -102,19 +101,16 @@ public class Loan extends CServlet {
 		}
 	}
 
-	@Override
-	protected void service(HttpServletRequest request,
+	protected void initialize(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.service(request, response);
-
 		for (int i = 0; i < json.keySet().size(); i++) {
 			Method method = null;
 			try {
 				method = QdLoan.class.getMethod("set" + json.keySet().toArray()[i], json.get(json.keySet().toArray()[i]).getClass());
+				System.out.println(method.getName());
 				if (method != null) {
+					System.out.println(json.get(json.keySet().toArray()[i]));
 					method.invoke(loan, json.get(json.keySet().toArray()[i]));
-					break;
 				}
 			} catch (NoSuchMethodException | SecurityException e) {
 				// TODO Auto-generated catch block
@@ -130,8 +126,7 @@ public class Loan extends CServlet {
 				e.printStackTrace();
 			}
 		}
-		loan = initializeLoan(json);
 		
-	}	
+	}
 
 }
