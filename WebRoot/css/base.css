@@ -236,7 +236,7 @@ div.button_message {
     background-position: 4px 8px;
 }
 
-div.button_message:hover {
+div.button_has_message:hover {
     background-position: 4px -22px;
 }
 

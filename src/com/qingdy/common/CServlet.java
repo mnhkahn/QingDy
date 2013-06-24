@@ -216,5 +216,9 @@ public class CServlet extends HttpServlet {
 		}
 		return object;
 	}
+	
+	public String toJson() {
+		return JSONSerializer.toJSON(list , jsonConfig).toString();
+	}
 
 }

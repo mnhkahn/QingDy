@@ -1,6 +1,7 @@
 package com.qingdy.service;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,7 +49,7 @@ public class Member extends CServlet {
 		else {
 
 		}
-		super.doGet(request, response);
+		response.getWriter().write(toJson());
 	}
 
 	/**
@@ -57,6 +58,7 @@ public class Member extends CServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		list = new LinkedList<>();
 		// Login
 		if (this.action.equals("login")) {
 			try {
@@ -66,14 +68,15 @@ public class Member extends CServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			QdMember loginUser = userDao.getUser(this.id);
+			QdMember loginUser = userDao.getUser(user.getUsername(), user.getPassword());
 			
-			if (loginUser.getPassword().equals(user.getPassword())) {
-				
+			if (loginUser != null) {
+				list.add(loginUser);
 			}
 			else {
-				
+				System.out.println("Login error!");
 			}
+			response.getWriter().write(toJson());
 		}
 		// Register
 		else if (this.action.equals("register")) {

@@ -8,13 +8,33 @@
 <link href="css/index.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
-<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/base.js"></script> 
 <script type="text/javascript" src="js/index.js"></script>
+
+<script type="text/javascript" src='js/cTop.js'></script>
+<script type="text/javascript" src='js/cSlide.js'></script>
 <link rel = "Shortcut Icon" href="favicon.ico">
 <script type="text/javascript">
 function init() {
-	showTopBanner();
-	showSearchBox();
+	commonInit();
+	
+	var size = new Object;
+	size.width = 700;
+	size.height = 300;
+
+	var slideWindow;
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: 'data/slide.json',
+		success: function(arr) {
+			slideWindow = cSlide.create('bannerContainer', size, arr);
+		},
+		error: function(response) {
+			console.error(response);
+		}
+	});
+	
 	showNews();
 
 	createSidebarTable('prodcutContainer');
@@ -22,15 +42,13 @@ function init() {
 	createVerticallistTable('specialistContainer');
 	createSidebarTable('mallContainer');
 
-	showFoot();
+	
 }
 </script>
 
 </head>
 
 <body onload='init()'>
-	<div id="site-header-container" class="site-header-container page-container">
-    </div>
     <div id="searchboxContainer" class="searchboxContainer">
     </div>
     <div id="mainContainer" class="mainContainer">

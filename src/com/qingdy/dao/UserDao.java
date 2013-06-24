@@ -6,7 +6,7 @@ public interface UserDao {
 
 	public int addUser(QdMember user);
 	
-	public QdMember getUser(String username);
+	public QdMember getUser(String username, String password);
 	
 	public int updateUser(QdMember user);
 	

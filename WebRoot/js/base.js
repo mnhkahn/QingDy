@@ -1,74 +1,49 @@
-function showTopBanner() {
-	// Query the id from url
-	var id = 1;
+function commonInit() {
+	var username = 'bryce';
+	var password = 'bryce';
+	var ctop;
 	
-	var divHeaderWrapper = document.createElement("DIV");
-	divHeaderWrapper.className = "header-wrapper";
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: 'data/top.json',
+		success: function(arr) {
+			$.ajax({
+				type: "POST",
+				dataType: "json",
+				url: '/rest/metadata/members/login',
+				contentType: "application/json; charset=utf-8",
+				data: '{"Username": "' + username + '", "Password":"' + password + '" }',//{'Username' : username, 'Password' : password},
+				success: function(info) {
+					$.ajax({
+						type: "GET",
+						dataType: "json",
+						url: '/rest/metadata/messages/unread?id=' + info[0].uid,
+						success: function(message) {
+							arr.info = new Object;
+							arr.info.icon = info[0].icon;
+							arr.info.name = info[0].firstname + info[0].lastname;
+							arr.info.message = message[0];
+							arr.info.link = (info[0].groupid == 1) ? 'lender' : 'loander' + '.html';
+							ctop = cTop.create(arr);
+						}
+					});			
+				},
+				error: function(response) {
+					console.error(response);
+				}
+			});
+			
+		},
+		error: function(response) {
+			console.error(response);
+		}
+	});
 	
-	var divSiteHeader = document.createElement("DIV");
-	divSiteHeader.className = "site-header";
-	divHeaderWrapper.appendChild(divSiteHeader);
+	showSearchBox();
 	
-	// Logo
-	var divLogoWrapper = document.createElement("DIV");
-	divLogoWrapper.className = "site-header-logo-container";
-	divLogoWrapper.innerHTML = "<a href='#'><img src='images/logo.png' /></a>";	
-	divSiteHeader.appendChild(divLogoWrapper);
+	showFoot();
 	
-	// Nav
-	var divNav = document.createElement("DIV");
-	divNav.className = "nav";
-	
-	var arrNav = new Array("index", "supply", "mall", "specialist", "demand", "advisory", "news");
-	var arrNavLabel = new Array("首页", "贷款供应", "贷款机构", "贷款顾问", "贷款需求", "贷款咨询", "贷款资讯");
-	var ulNav = document.createElement("ul");
-	ulNav.id = "page-nav";
-	ulNav.className = "horizontal-list";
-	for (var i = 0; i < arrNav.length; i++) {
-		var li = document.createElement("li");
-		li.className = "page-nav-top";
-		li.innerHTML = "<a class='page-anchor-link' href='" + arrNav[i] + ".html'>" + arrNavLabel[i] +"</a>";    	
-		ulNav.appendChild(li);
-	}
-	
-	divNav.appendChild(ulNav);	
-	divSiteHeader.appendChild(divNav);
-	
-	// Info
-	var divInfo = document.createElement("DIV");
-	divInfo.className = "site-header-info-container";
-	divSiteHeader.appendChild(divInfo);
-	
-	// Get user info from cookie
-	
-
-	var login = true;
-	var userrealname = "李超";
-	
-	// Show login and register if no cookie
-	if (login == true) {
-		var divName = document.createElement("DIV");
-		divName.className = "namecontainer";
-		divName.innerHTML = "<div class='ico'><div class='ui_element button_user'></div></div><div class='username'>" + userrealname + "</div>";
-		divInfo.appendChild(divName);
-		
-		var divMessage = document.createElement("DVI");
-		divMessage.className = "messagecontainer";
-		divMessage.innerHTML = "<div class='ico'><div class='ui_element button_message'></div></div>";
-		divInfo.appendChild(divMessage);
-	}
-	// Show user info if has cookie
-	else {
-		var divLogin = document.createElement("DIV");
-		divLogin.innerHTML = "<div onClick='alert(1)' class='blackbutton'>登录</div>";
-		divInfo.appendChild(divLogin);
-		
-		var divRegister = document.createElement("DIV");
-		divRegister.innerHTML = "<div class='blackbutton'>注册</div>"
-		divInfo.appendChild(divRegister);
-	}
-	
-	$("#site-header-container").append(divHeaderWrapper);
 }
 
 function showSearchBox() {

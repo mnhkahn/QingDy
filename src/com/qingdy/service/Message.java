@@ -3,6 +3,7 @@ package com.qingdy.service;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.LinkedList;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -40,12 +41,17 @@ public class Message extends CServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		list = new LinkedList<>();
+		
 		id = request.getParameter("id");
 		if (size > 1) {
 			list = messageDao.getMessageList(size, page, Integer.parseInt(id));
 		}
+		else if (action.equals("unread")) {
+			list.add(messageDao.getUnreadCount(Integer.parseInt(id)));
+		}
 		
-		super.doGet(request, response);
+		response.getWriter().write(toJson());
 	}
 
 	/**
