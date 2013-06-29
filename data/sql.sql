@@ -21,4 +21,5 @@
 #delete from QingDyDB.qd_message where mid=0;
 #TRUNCATE TABLE QingDyDB.qd_message;
 #select * from QingDyDB.qd_transaction inner join QingDyDB.qd_member on QingDyDB.qd_transaction.lenderid=QingDyDB.qd_member.uid where username='bryce' limit 0,2;
-select * from QingDyDB.qd_blog where bid=2;
+#select * from QingDyDB.qd_blog where bid=2;
+SELECT * FROM QingDyDB.qd_mall left outer join QingDyDB.qd_member on QingDyDB.qd_mall.uid=QingDyDB.qd_member.uid left outer join QingDyDB.areas on QingDyDB.qd_mall.clientlocation=QingDyDB.areas.areaid left outer join QingDyDB.usersofloan on QingDyDB.qd_mall.usesofloanid=QingDyDB.usersofloan.uolid left outer join QingDyDB.speciality on QingDyDB.qd_mall.specialityid=QingDyDB.speciality.speid left outer join QingDyDB.clients on QingDyDB.qd_mall.lendtypeid=QingDyDB.clients.ctid left outer join QingDyDB.lendtype on QingDyDB.qd_mall.lendtypeid=QingDyDB.lendtype.ltid left outer join QingDyDB.lendedyears on QingDyDB.qd_mall.lendedyearsid=QingDyDB.lendedyears.lid limit 0,15;

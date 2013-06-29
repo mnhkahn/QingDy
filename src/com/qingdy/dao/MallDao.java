@@ -2,13 +2,16 @@ package com.qingdy.dao;
 
 import java.util.List;
 
+import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdMall;
 
 public interface MallDao {
 	
 	public int addMall(QdMall mall);
 
-	public List<QdMall> getMallList(int size, int page, String keyword);
+	public List<QdMall> getVerifiedMallList(int size, int page, String keyword);
+	
+	public Grid getAllMallList(int size, int page, String keyword);
 	
 	public QdMall getMall(int mid);
 	

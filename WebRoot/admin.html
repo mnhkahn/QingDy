@@ -6,14 +6,14 @@
 
 <link href="css/base.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="css/ui.jqgrid.css" type="text/css"></link>
-<link href="css/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
-
+<link href="css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css" />
 
 <!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src='js/cTop.js'></script>
+<script type="text/javascript" src="js/cMenu.js"></script>
 <script type="text/javascript" src="js/jquery.jqGrid.src.js"></script>
 <script type="text/javascript" src="js/i18n/grid.locale-cn.js"></script>
 
@@ -24,29 +24,75 @@ function init() {
 	
 	showNews();
 
-	jQuery("#mallList").jqGrid({
-   	url:'/data/mall.json',//'/rest/metadata/malls?size=1000&page=1',
-	datatype: "json",
-//	mtype: 'GET',
-	autowidth: true,
-	colModel:[
-   		{name:'id',index:'id', width:55},
-   		{name:'invdate',index:'invdate', width:90},
-   		{name:'name',index:'name asc, invdate', width:100},
-   		{name:'amount',index:'amount', width:80, align:"right"},
-   		{name:'tax',index:'tax', width:80, align:"right"},		
-   		{name:'total',index:'total', width:80,align:"right"},		
-   		{name:'note',index:'note', width:150, sortable:false}		
-   	],
-   	rowNum:10,
-   	rowList:[10,20,30],
-   	pager: '#mallPager',
-   	sortname: 'id',
-    viewrecords: true,
-    sortorder: "desc",
-    caption:"JSON Example"
-});
-jQuery("#mallList").jqGrid('navGrid','#mallPager',{refresh:false,search:false,edit:false,add:false,del:false});
+	var height = $('#contentWrapper').height() - 75;
+
+	var lastsel3;
+	var adminMenu = cMenu.create('menuWrapper', 'data/adminMenu.json', 0,
+		function() {
+			jQuery("#List").jqGrid({
+			   	url:'/rest/metadata/malls',
+				datatype: "json",
+				autowidth: true,
+				colNames:['id','姓名','公告','介绍','借贷经历','公司类型','公司名称','公司电话','邮政编码','网站','电子邮件','地址','传真','客户地区','借贷用途','特长','借贷类型','状态','操作'],
+				colModel:[
+   					{name:'mid',index:'mid', width:55,frozen : true},
+			   		{name:'name',index:'name', width:90,frozen : true},
+			   		{name:'announcement',index:'announcement', width:200},
+			   		{name:'introduce',index:'introduce', width:500, align:"right"},
+			   		{name:'lendedyears',index:'lendedyears', width:80, align:"right"},		
+			   		{name:'ctype',index:'ctype', width:150, sortable:false},
+			   		{name:'cname',index:'cname', width:150, sortable:false},
+			   		{name:'cphonenumber',index:'cphonenumber', width:150, sortable:false},
+					{name:'cpostcode',index:'cpostcode',width:150,sortable:false},
+			   		{name:'csite',index:'csite', width:150, sortable:false},
+			   		{name:'cemail',index:'cemail', width:150, sortable:false},
+			   		{name:'caddress',index:'caddress', width:150, sortable:false},
+			   		{name:'cfax',index:'cfax', width:150, sortable:false},
+			   		{name:'clientlocation',index:'clientlocation', width:150, sortable:false},
+			   		{name:'usesofloan',index:'usesofloan', width:150, sortable:false},
+			   		{name:'speciality',index:'speciality', width:150, sortable:false},
+			   		{name:'lendtype',index:'lendtype', width:150, sortable:false},
+			   		{name:'verify',index:'verify', width:50, sortable:false},
+					{name:'act',index:'act',width:100}
+			   	],
+			   	rowNum: Math.floor(height / 23),
+			   	rowList:[10,20,30],
+			   	pager: '#Pager',
+			   	sortname: 'mid',
+			    viewrecords: true,
+			    sortorder: "desc",
+			    caption:"Mall verify",
+				gridview: true,
+				gridComplete: function(){
+					var ids = jQuery("#List").jqGrid('getDataIDs');
+					var data =  jQuery("#List").jqGrid('getRowData');
+					for(var i=0;i < ids.length;i++){
+						// add action
+						var cl = ids[i];
+						be = "<input style='height:22px;width:20px;' type='button' value='E' onclick=\"jQuery('#List').editRow('"+cl+"');\"  />"; 
+						se = "<input style='height:22px;width:20px;' type='button' value='S' onclick=\"jQuery('#List').saveRow('"+cl+"');\"  />"; 
+						jQuery("#List").jqGrid('setRowData',ids[i],{act:be+se});
+
+						// change status
+						console.debug(data[i].verify);
+						if (data[i].verify == 1) {
+							jQuery("#List").jqGrid('setRowData',ids[i],{verify:"ok"});
+						}
+						else {
+							jQuery("#List").jqGrid('setRowData',ids[i],{verify:"error"});
+						}
+					}	
+				},
+			});
+			jQuery("#List").jqGrid('navGrid','#Pager',{add:false,edit:false,del:false});
+			$('.ui-jqgrid-bdiv').height(height);
+		}
+	);
+
+	function pickdates(id){
+		jQuery("#"+id+"_sdate","#rowed6").datepicker({dateFormat:"yy-mm-dd"});
+	}
+
 }
 </script>
 
@@ -57,13 +103,12 @@ jQuery("#mallList").jqGrid('navGrid','#mallPager',{refresh:false,search:false,ed
     </div>
     <div id="searchboxContainer" class="searchboxContainer">
     </div>
-	<div id="mainContainer2" class="mainContainer2">
-		<div id="mainContainerCenterLeft" class="mainContainerCenterLeft">
-			<table id="mallList"></table>
-			<div id="mallPager"></div>
+	<div id="mainContainerWide" class="mainContainerWide">
+		<div id="menuWrapper" class="menuWrapper"></div>
+		<div id="contentWrapper" class="contentWrapper">
+			<table id="List"></table>
+			<div id="Pager"></div>
 		</div>
-		<div id="recommendContainerRight" class="recommendContainerRight"></div>
-	</div>
 	</div>
 	<div id="footContainer" class="footContainer">
     </div>

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qingdy.dao.impl.NewsDaoImpl;
 import com.qingdy.domain.QdMessage;
 
 import net.sf.json.JSONObject;
@@ -39,9 +40,10 @@ public class CServlet extends HttpServlet {
 	protected String keyword = null, raw = null;
 	protected Map<String, Object> json = null;
 	protected List list = new LinkedList<>();
+	protected Object object;
 	
-	private JsonValueProcessor jsonProcessor;
-	private JsonConfig jsonConfig;
+	protected JsonValueProcessor jsonProcessor;
+	protected JsonConfig jsonConfig;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -140,7 +142,7 @@ public class CServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String json = JSONSerializer.toJSON(list , jsonConfig).toString();
+		String json = JSONSerializer.toJSON(object , jsonConfig).toString();
 		response.getWriter().write(json);
 	}
 

@@ -98,6 +98,7 @@ var cSlide = {
 			// Open new tab
 			Messages.css("cursor", "hand");
 			Messages.click(function(event){
+				var i = event.currentTarget.id.substring(7);
 				THIS.hiddenMessage(event);
 				window.open(arr[i].link, 'newwindow')
 			});

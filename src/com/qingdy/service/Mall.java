@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONSerializer;
+
 import com.qingdy.common.CServlet;
 import com.qingdy.dao.MallDao;
 import com.qingdy.dao.impl.MallDaoImpl;
@@ -37,10 +39,16 @@ public class Mall extends CServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		list.clear();
-		
+		System.out.println(request.getRequestURL().toString());
+		size = Integer.parseInt(request.getParameter("rows"));
+		page = Integer.parseInt(request.getParameter("page"));
+
 		// Get mall list
-		if (this.size > 1) {
-			list = mallDao.getMallList(this.size, this.page, this.keyword);
+		if (size > 1) {
+			object = mallDao.getAllMallList(size, page, keyword);
+			
+			String json = JSONSerializer.toJSON(object , jsonConfig).toString();
+			response.getWriter().write(json);
 		}
 		// Get one mall
 		else if (this.size == 1) {
@@ -53,7 +61,7 @@ public class Mall extends CServlet {
 			}
 		}
 		
-		super.doGet(request, response);
+//		super.doGet(request, response);
 	}
 
 	/**
