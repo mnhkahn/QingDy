@@ -24,7 +24,14 @@ function commonInit() {
 							arr.info.icon = info[0].icon;
 							arr.info.name = info[0].firstname + info[0].lastname;
 							arr.info.message = message[0];
-							arr.info.link = (info[0].groupid == 1) ? 'lender' : 'loander' + '.html';
+							var link;
+							if (info[0].groupid == 2)
+								link = 'lender.html';
+							else if (info[0].groupid == 1)
+								link = 'loaner.html';
+							else if (info[0].groupid == 0)
+								link = 'admin.html';
+							arr.info.link = link;
 							ctop = cTop.create(arr);
 						}
 					});			

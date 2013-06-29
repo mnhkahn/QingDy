@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>青帝管理</title>
+
+<link href="css/base.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/ui.jqgrid.css" type="text/css"></link>
+<link href="css/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
+
+
+<!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src='js/cTop.js'></script>
+<script type="text/javascript" src="js/jquery.jqGrid.src.js"></script>
+<script type="text/javascript" src="js/i18n/grid.locale-cn.js"></script>
+
+<link rel = "Shortcut Icon" href="favicon.ico">
+<script type="text/javascript">
+function init() {
+	commonInit();
+	
+	showNews();
+
+	jQuery("#mallList").jqGrid({
+   	url:'/data/mall.json',//'/rest/metadata/malls?size=1000&page=1',
+	datatype: "json",
+//	mtype: 'GET',
+	autowidth: true,
+	colModel:[
+   		{name:'id',index:'id', width:55},
+   		{name:'invdate',index:'invdate', width:90},
+   		{name:'name',index:'name asc, invdate', width:100},
+   		{name:'amount',index:'amount', width:80, align:"right"},
+   		{name:'tax',index:'tax', width:80, align:"right"},		
+   		{name:'total',index:'total', width:80,align:"right"},		
+   		{name:'note',index:'note', width:150, sortable:false}		
+   	],
+   	rowNum:10,
+   	rowList:[10,20,30],
+   	pager: '#mallPager',
+   	sortname: 'id',
+    viewrecords: true,
+    sortorder: "desc",
+    caption:"JSON Example"
+});
+jQuery("#mallList").jqGrid('navGrid','#mallPager',{refresh:false,search:false,edit:false,add:false,del:false});
+}
+</script>
+
+</head>
+
+<body onload='init()'>
+	<div id="site-header-container" class="site-header-container page-container">
+    </div>
+    <div id="searchboxContainer" class="searchboxContainer">
+    </div>
+	<div id="mainContainer2" class="mainContainer2">
+		<div id="mainContainerCenterLeft" class="mainContainerCenterLeft">
+			<table id="mallList"></table>
+			<div id="mallPager"></div>
+		</div>
+		<div id="recommendContainerRight" class="recommendContainerRight"></div>
+	</div>
+	</div>
+	<div id="footContainer" class="footContainer">
+    </div>
+</body>
+</html>
+

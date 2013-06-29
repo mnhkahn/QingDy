@@ -1,0 +1,24 @@
+{
+   "windows": [
+      {
+         "pic": "/image/1.jpg",
+         "desc": "太夸张",
+         "link": "#"
+      },
+      {
+         "pic": "image/2.jpg",
+         "desc": "凤凰创业贷款",
+         "link": "#"
+      },
+      {
+         "pic": "image/3.jpg",
+         "desc": "所有车种，免费资讯",
+         "link": "#"
+      },
+      {
+         "pic": "image/4.jpg",
+         "desc": "楼市政策",
+         "link": "#"
+      }
+   ]
+}

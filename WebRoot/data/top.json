@@ -1,0 +1,21 @@
+{
+	"logo":"images/logo.png",
+	"link":"index.html",
+	"width":1000,
+	"height":45,
+	"items":[
+		{"title":"首页","link":"index.html"},
+		{"title":"贷款供应","link":"supply.html"},
+		{"title":"贷款机构","link":"mall.html"},
+		{"title":"贷款顾问","link":"specialist.html"},
+		{"title":"贷款需求","link":"demand.html"},
+		{"title":"贷款咨询","link":"advisory.html"},
+		{"title":"贷款资讯","link":"news.html"}
+	],
+	"info":{
+		"icon":"",
+		"name":"",
+		"message":10,
+		"link":""
+	}
+}
