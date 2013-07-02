@@ -2,6 +2,8 @@ package com.qingdy.common;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.qingdy.dao.SQLParameters;
+
 public class Action {
 	
 	public static int getURIType(String url) {
@@ -10,7 +12,7 @@ public class Action {
 			if (url.charAt(i) == '/')
 				count++;
 		}
-        System.out.println(count);
+
 		if (count == 5) {
 			return 0;
 		}
@@ -46,12 +48,34 @@ public class Action {
 		return result;
 	}
 	
-	public static String[] getParameter(HttpServletRequest request) {
-		String[] parameters = new String[3];
+	public static SQLParameters getParameter(HttpServletRequest request) {
+		SQLParameters parameters = new SQLParameters();
+
+		int size = request.getParameter("rows") != null ? Integer.parseInt(request.getParameter("rows")) : Constant.PAGE_DEFAULT_SIZE;
+		parameters.setSize(size);
 		
-		parameters[0] = request.getParameter("size");
-		parameters[1] = request.getParameter("page");
-		parameters[2] = request.getParameter("keyword");
+		int page = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : Constant.PAGE_DEFAULT_NUMBER;
+		parameters.setPage(page);
+		parameters.setField(request.getParameter("searchField"));
+		
+		String op = (request.getParameter("searchOper") != null) ? request.getParameter("searchOper") : "eq";
+		switch (op) {
+		case "eq":
+			op = "=";
+			break;
+		case "cn":
+			op = " like ";
+			break;
+
+		default:
+			op = " like ";
+			break;
+		}
+		parameters.setOperator(op);
+		System.out.println("@@@");
+		parameters.setValue(request.getParameter("searchString"));
+		parameters.setSidx(request.getParameter("sidx"));
+		parameters.setSord(request.getParameter("sord"));
 
 		return parameters;
 	}

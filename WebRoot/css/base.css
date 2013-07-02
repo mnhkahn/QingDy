@@ -678,3 +678,52 @@ a, a:link, a:active, a:hover, a:visited {
     box-shadow: rgba(0, 0, 0, 0.0980392) 0px 1px 4px;
 }
 
+.warningStatus,
+.criticalStatus,
+.normalStatus {
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+
+    width: 12px;
+    height: 12px;
+    font: bold 14px/14px 'Helvetica', 'Arial';
+    text-align: center;
+    color: #FFF;
+
+    -moz-box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.3) inset, 0 1px 3px 0 rgba(0, 0, 0, 0.80) inset, 0 1px 0px 0 rgba(255, 255, 255, 0.40);
+    -webkit-box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.3) inset, 0 1px 3px 0 rgba(0, 0, 0, 0.80) inset, 0 1px 0px 0 rgba(255, 255, 255, 0.40);
+    box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.3) inset, 0 1px 3px 0 rgba(0, 0, 0, 0.80) inset, 0 1px 0px 0 rgba(255, 255, 255, 0.40);
+
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 20px;
+
+    margin-right: 3px;
+}
+
+.warningStatus {
+    /*	background-image: url("../images/progress_task.gif");*/
+    background: #da8e28;
+    background: -moz-linear-gradient(top, #e59130 0%, #ffdf4b 100%); /* Firefox */
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e59130), to(#ffdf4b)); /* Safari + Chrome */
+    color: #742a08;
+}
+
+.normalStatus {
+    /*	background-image: url("../images/public_co.gif");*/
+    background: #67982f;
+    background: -moz-linear-gradient(top, #70a847 0%, #a1e268 100%);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#70a847), to(#a1e268)); /* Safari + Chrome */
+    color: #093b00;
+}
+
+.criticalStatus {
+    /*	background-image: url("../images/progress_task.gif");*/
+    background: #f12519;
+    background: -moz-linear-gradient(top, #f12519 0%, #ff8684 100%); /* Firefox */
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f12519), to(#ff8684)); /* Safari + Chrome */
+    color: #630f0a;
+
+}
+

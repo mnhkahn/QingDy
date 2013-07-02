@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qingdy.dao.SQLParameters;
 import com.qingdy.dao.impl.NewsDaoImpl;
 import com.qingdy.domain.QdMessage;
 
@@ -35,9 +36,10 @@ public class CServlet extends HttpServlet {
     
 	protected String id = "0";
 	protected String action = null;
-	protected int size = 0;
-	protected int page = 0;
-	protected String keyword = null, raw = null;
+	
+	protected SQLParameters parameters = null;
+	
+	protected String raw = null;
 	protected Map<String, Object> json = null;
 	protected List list = new LinkedList<>();
 	protected Object object;
@@ -93,7 +95,7 @@ public class CServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = request.getRequestURL().toString();
 		int type = Action.getURIType(url);
-		String parameters[] = new String[3];
+		
 		String action[] = new String[2];
 		
 		parameters = Action.getParameter(request);
@@ -125,14 +127,22 @@ public class CServlet extends HttpServlet {
 		this.id = (action[0] == null) ? "-1" : action[0];
 		this.action = (action[1] == null) ? "" : action[1];
 
-		this.size = (parameters[0] == null) ? Constant.PAGE_DEFAULT_SIZE : Integer.parseInt(parameters[0]);
+/*		this.size = (parameters[0] == null) ? Constant.PAGE_DEFAULT_SIZE : Integer.parseInt(parameters[0]);
 		this.page = (parameters[1] == null) ? Constant.PAGE_DEFAULT_NUMBER : Integer.parseInt(parameters[1]);
 		
-		this.keyword = (parameters[2] == null) ? "%%" : "%" + parameters[2] + "%";
-		this.keyword = new String(this.keyword.getBytes("ISO-8859-1"), "UTF-8");
+		String searchField = (parameters[2] == null) ? "" : parameters[2];
+		String searchOper = (parameters[3] == null) ? "" : " like ";
+		String keyword = (parameters[4] == null) ? "" : "'%" + parameters[4] + "%'";
+		keyword = new String(keyword.getBytes("ISO-8859-1"), "UTF-8");
+		
+		String sidx = (parameters[5] == null) ? "" : " order by " + parameters[5];
+		String sord = (parameters[6] == null) ? "" : " " + parameters[6]; 
+		
+		this.condition = searchField + searchOper + keyword;
+		this.sort = sidx + sord;*/
 		this.raw = raw;
 		
-		System.out.println("id: " + id + "| action: " + this.action + "| size: " + size + "| page:" + page + "| keyword: " + keyword);
+//		System.out.println("id: " + id + "| action: " + this.action + "| size: " + size + "| page:" + page + "| condition: " + condition + "| sort: " + sort);
 		System.out.println("raw: " + raw);
 		
 		super.service(request, response);

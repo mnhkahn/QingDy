@@ -10,6 +10,7 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.MallDao;
+import com.qingdy.dao.SQLParameters;
 import com.qingdy.domain.Grid;
 import com.qingdy.domain.Mall;
 import com.qingdy.domain.QdAnswer;
@@ -65,7 +66,8 @@ public class MallDaoImpl extends CDaoImpl implements MallDao {
 		try {
 
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
-			String sql = "SELECT * FROM QingDyDB.qd_mall where (cname like ? || introduce like ?) && verify=1 order by r_num desc limit ?,?";
+			String sql = "SELECT * FROM QingDyDB.qd_mall left outer join QingDyDB.qd_member on QingDyDB.qd_mall.uid=QingDyDB.qd_member.uid left outer join QingDyDB.areas on QingDyDB.qd_mall.clientlocation=QingDyDB.areas.areaid left outer join QingDyDB.usersofloan on QingDyDB.qd_mall.usesofloanid=QingDyDB.usersofloan.uolid left outer join QingDyDB.speciality on QingDyDB.qd_mall.specialityid=QingDyDB.speciality.speid left outer join QingDyDB.clients on QingDyDB.qd_mall.lendtypeid=QingDyDB.clients.ctid left outer join QingDyDB.lendtype on QingDyDB.qd_mall.lendtypeid=QingDyDB.lendtype.ltid left outer join QingDyDB.lendedyears on QingDyDB.qd_mall.lendedyearsid=QingDyDB.lendedyears.lid";
+			
 			ps = conn.prepareStatement(sql);
 
 			ps.setString(1, keyword);
@@ -110,18 +112,25 @@ public class MallDaoImpl extends CDaoImpl implements MallDao {
 		return list;
 	}
 	
-	public Grid getAllMallList(int size, int page, String keyword) {
+	public Grid getAllMallList(SQLParameters parameters) {
+		this.parameter = parameters;
 		Grid grid = new Grid();
 		try {
-
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
-			sql = "SELECT * FROM QingDyDB.qd_mall left outer join QingDyDB.qd_member on QingDyDB.qd_mall.uid=QingDyDB.qd_member.uid left outer join QingDyDB.areas on QingDyDB.qd_mall.clientlocation=QingDyDB.areas.areaid left outer join QingDyDB.usersofloan on QingDyDB.qd_mall.usesofloanid=QingDyDB.usersofloan.uolid left outer join QingDyDB.speciality on QingDyDB.qd_mall.specialityid=QingDyDB.speciality.speid left outer join QingDyDB.clients on QingDyDB.qd_mall.lendtypeid=QingDyDB.clients.ctid left outer join QingDyDB.lendtype on QingDyDB.qd_mall.lendtypeid=QingDyDB.lendtype.ltid left outer join QingDyDB.lendedyears on QingDyDB.qd_mall.lendedyearsid=QingDyDB.lendedyears.lid limit 0,15";
-			ps = conn.prepareStatement(sql);
+			sql = "SELECT * FROM QingDyDB.qd_mall left outer join QingDyDB.qd_member on QingDyDB.qd_mall.uid=QingDyDB.qd_member.uid left outer join QingDyDB.areas on QingDyDB.qd_mall.clientlocation=QingDyDB.areas.areaid left outer join QingDyDB.usersofloan on QingDyDB.qd_mall.usesofloanid=QingDyDB.usersofloan.uolid left outer join QingDyDB.speciality on QingDyDB.qd_mall.specialityid=QingDyDB.speciality.speid left outer join QingDyDB.clients on QingDyDB.qd_mall.lendtypeid=QingDyDB.clients.ctid left outer join QingDyDB.lendtype on QingDyDB.qd_mall.lendtypeid=QingDyDB.lendtype.ltid left outer join QingDyDB.lendedyears on QingDyDB.qd_mall.lendedyearsid=QingDyDB.lendedyears.lid where true ";
+			setBaseSql(sql);
+			sql = generateSql();
 
-//			ps.setInt(1, (page - 1) * size);
-//			ps.setInt(2, size);
-			rs = ps.executeQuery();
+			ps = conn.prepareStatement(sql);
 			
+			fillPreparedStatement(ps);
+
+/*			ps.setString(1, condition);
+			ps.setString(2, sort);
+			ps.setInt(3, (page - 1) * size);
+			ps.setInt(4, size);*/
+			rs = ps.executeQuery();
+
 			List rows = new LinkedList<>();
 			while (rs.next()) {
 				Row row = new Row();
@@ -132,7 +141,7 @@ public class MallDaoImpl extends CDaoImpl implements MallDao {
 				mall.add(rs.getString("lastname") + rs.getString("firstname"));
 				mall.add(rs.getString("announcement"));
 				mall.add(rs.getString("introduce"));
-				mall.add(rs.getInt("lendedyears"));
+				mall.add(rs.getString("lendedyears"));
 				mall.add(rs.getString("ctype"));
 				mall.add(rs.getString("cname"));
 				mall.add(rs.getString("cphonenumber"));
@@ -145,13 +154,14 @@ public class MallDaoImpl extends CDaoImpl implements MallDao {
 				mall.add(rs.getString("usesofloan"));
 				mall.add(rs.getString("speciality"));
 				mall.add(rs.getString("lendtype"));
+				mall.add(rs.getTimestamp("regdate").toLocaleString());
 				mall.add(rs.getInt("verify"));
 				
 				row.setCell(mall);
 				rows.add(row);
 			}
 			
-			grid.setPage(page);
+			grid.setPage(parameters.getPage());
 			
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
 			sql = "SELECT count(*) as count FROM QingDyDB.qd_mall;";
@@ -160,7 +170,7 @@ public class MallDaoImpl extends CDaoImpl implements MallDao {
 			
 			if (rs.next()) {
 				int records = rs.getInt("count");
-				grid.setTotal((int)Math.ceil((double)records / (double)size));
+				grid.setTotal((int)Math.ceil((double)records / (double)parameters.getSize()));
 				grid.setRecords(records);
 			}
 			

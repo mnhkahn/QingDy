@@ -38,10 +38,10 @@ public class Product extends CServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		list.clear();
 		
-		if (this.size > 1) {
-			list = productDao.getProductList(this.size, this.page, this.keyword);
+		if (parameters.getSize() > 1) {
+			list = productDao.getProductList(parameters);
 		}
-		else if (this.size == 1) {
+		else if (parameters.getSize() == 1) {
 			String username = request.getParameter("username");
 			if (username != null) {
 				list = productDao.getProductByUser(username);

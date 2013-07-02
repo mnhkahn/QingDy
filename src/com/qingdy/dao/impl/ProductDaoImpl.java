@@ -9,8 +9,11 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.ProductDao;
+import com.qingdy.dao.SQLParameters;
+import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdAnswer;
 import com.qingdy.domain.QdProduct;
+import com.qingdy.domain.Row;
 
 public class ProductDaoImpl extends CDaoImpl implements ProductDao {
 
@@ -56,46 +59,63 @@ public class ProductDaoImpl extends CDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public List<QdProduct> getProductList(int size, int page, String keyword) {
-		List<QdProduct> list = new LinkedList<>();
+	public Grid getProductList(SQLParameters parameters) {
+		this.parameter = parameters;
+		Grid grid = new Grid();
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
-
 			sql = "select * from QingDyDB.qd_product where introduce like ? || faq like ? limit ?,?";
-			ps = conn.prepareStatement(sql);
+			setBaseSql(sql);
+			sql = generateSql();
 
-			ps.setString(1, keyword);
-			ps.setString(2, keyword);
-			ps.setInt(3, (page - 1) * size);
-			ps.setInt(4, size);
-			
+			ps = conn.prepareStatement(sql);
+		
 			rs = ps.executeQuery();
 			
+			List rows = new LinkedList<>();
 			while (rs.next()) {
-				QdProduct product = new QdProduct();
-				product.setPid(rs.getInt("pid"));
-				product.setUid(rs.getInt("uid"));
-				product.setMid(rs.getInt("mid"));
-				product.setPname(rs.getString("pname"));
-				product.setMax(rs.getInt("max"));
-				product.setMin(rs.getInt("min"));
-				product.setRatetype(rs.getInt("ratetype"));
-				product.setRate(rs.getFloat("rate"));
-				product.setDeadline(rs.getTimestamp("deadline"));
-				product.setClientlocation(rs.getInt("clientlocation"));
-				product.setClient(rs.getInt("client"));
-				product.setRepaymentmethod(rs.getInt("repaymentmethod"));
-				product.setPtype(rs.getInt("ptype"));
-				product.setUsesofloan(rs.getInt("usesofloan"));
-				product.setIntroduce(rs.getString("introduce"));
-				product.setProcesses(rs.getString("processes"));
-				product.setApplication(rs.getString("application"));
-				product.setFaq(rs.getString("faq"));
-				product.setRNum(rs.getInt("r_num"));
-				product.setPostdate(rs.getTimestamp("postdate"));
+				Row row = new Row();
+				row.setId(rs.getInt("pid"));
+				List product = new LinkedList<>();
+				product.add(rs.getInt("pid"));
+				product.add(rs.getInt("uid"));
+				product.add(rs.getInt("mid"));
+				product.add(rs.getString("pname"));
+				product.add(rs.getInt("max"));
+				product.add(rs.getInt("min"));
+				product.add(rs.getInt("ratetype"));
+				product.add(rs.getFloat("rate"));
+				product.add(rs.getTimestamp("deadline"));
+				product.add(rs.getInt("clientlocation"));
+				product.add(rs.getInt("client"));
+				product.add(rs.getInt("repaymentmethod"));
+				product.add(rs.getInt("ptype"));
+				product.add(rs.getInt("usesofloan"));
+				product.add(rs.getString("introduce"));
+				product.add(rs.getString("processes"));
+				product.add(rs.getString("application"));
+				product.add(rs.getString("faq"));
+				product.add(rs.getInt("r_num"));
+				product.add(rs.getTimestamp("postdate"));
 				
-				list.add(product);
+				row.setCell(product);
+				rows.add(row);
 			}
+			
+			grid.setPage(parameters.getPage());
+			
+			conn = cJDBCUtilsSingleton.getInstance().getConnection();
+			sql = "SELECT count(*) as count FROM QingDyDB.qd_product;";
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				int records = rs.getInt("count");
+				grid.setTotal((int)Math.ceil((double)records / (double)parameters.getSize()));
+				grid.setRecords(records);
+			}
+			
+			grid.setRows(rows);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -104,7 +124,7 @@ public class ProductDaoImpl extends CDaoImpl implements ProductDao {
 		} finally {
 			cJDBCUtilsSingleton.getInstance().free(rs, ps, conn);
 		}
-		return list;
+		return grid;
 	}
 
 	@Override

@@ -2,13 +2,14 @@ package com.qingdy.dao;
 
 import java.util.List;
 
+import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdProduct;
 
 public interface ProductDao {
 	
 	public int addProduct(QdProduct product);
 	
-	public List<QdProduct> getProductList(int size, int page, String keyword);
+	public Grid getProductList(SQLParameters parameters);
 	
 	public QdProduct getProduct(int pid);
 	

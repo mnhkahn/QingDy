@@ -1,7 +1,9 @@
 var cMenu= {
-	create: function(container, url, selected) {
+	create: function(container, url, selected, reset) {
 		var THIS = this;
 		this.arguments = arguments;
+        this.selected = selected ? selected : 0;
+        this.reset = reset;
 		$.ajax({
 			type: "GET",
 			dataType: "json",
@@ -15,7 +17,6 @@ var cMenu= {
 				console.error(response);
 			}
 		});
-		this.selected = selected ? selected : 0;
 	},
 
 	_showMenu: function() {
@@ -47,7 +48,7 @@ var cMenu= {
 				var THIS = this;
 				navItem.click(function(event) {
 					var m = new Number(event.currentTarget.id.substring(7));
-					console.debug(THIS.arguments[m + 3]);
+					console.debug(THIS.arguments[m + 4]);
 
 					for (var k = 0; k < n; k++) {
 						var item = $('#navItem' + k);
@@ -57,8 +58,9 @@ var cMenu= {
 					}
 					$('#navItem' + m).addClass("navItemClick");
 
-					if (THIS.arguments[m + 3])
-						THIS.arguments[m + 3].apply();
+                    THIS.reset.apply();
+					if (THIS.arguments[m + 4])
+						THIS.arguments[m + 4].apply();
 				});
 
 				navGroup.append(navItem);

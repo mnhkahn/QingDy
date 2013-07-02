@@ -44,8 +44,8 @@ public class Message extends CServlet {
 		list = new LinkedList<>();
 		
 		id = request.getParameter("id");
-		if (size > 1) {
-			list = messageDao.getMessageList(size, page, Integer.parseInt(id));
+		if (parameters.getSize() > 1) {
+			list = messageDao.getMessageList(parameters.getSize(), parameters.getPage(), Integer.parseInt(id));
 		}
 		else if (action.equals("unread")) {
 			list.add(messageDao.getUnreadCount(Integer.parseInt(id)));

@@ -40,18 +40,16 @@ public class Mall extends CServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		list.clear();
 		System.out.println(request.getRequestURL().toString());
-		size = Integer.parseInt(request.getParameter("rows"));
-		page = Integer.parseInt(request.getParameter("page"));
 
 		// Get mall list
-		if (size > 1) {
-			object = mallDao.getAllMallList(size, page, keyword);
+		if (action.equals("verify")) {
+			object = mallDao.getAllMallList(parameters);
 			
 			String json = JSONSerializer.toJSON(object , jsonConfig).toString();
 			response.getWriter().write(json);
 		}
 		// Get one mall
-		else if (this.size == 1) {
+		else if (parameters.getSize() == 1) {
 			String username = request.getParameter("username");
 			if (username != null) {
 				list.add(mallDao.getMallByUser(username));

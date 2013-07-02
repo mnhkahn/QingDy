@@ -11,7 +11,7 @@ public interface MallDao {
 
 	public List<QdMall> getVerifiedMallList(int size, int page, String keyword);
 	
-	public Grid getAllMallList(int size, int page, String keyword);
+	public Grid getAllMallList(SQLParameters parameters);
 	
 	public QdMall getMall(int mid);
 	
