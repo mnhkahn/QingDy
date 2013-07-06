@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONSerializer;
+
 import com.qingdy.common.CServlet;
 import com.qingdy.dao.NewsclassesDao;
 import com.qingdy.dao.impl.NewsclassesDaoImpl;
@@ -33,10 +35,11 @@ public class NewsClasses extends CServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (action.equals("")) {
-			list = newsclassesDao.getNewsclasses();
+			object = newsclassesDao.getNewsclasses();
 		}
 		
-		super.doGet(request, response);
+		String json = JSONSerializer.toJSON(object , jsonConfig).toString();
+		response.getWriter().write(json);
 	}
 
 }

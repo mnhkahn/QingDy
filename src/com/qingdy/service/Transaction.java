@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONSerializer;
+
 import com.qingdy.common.CServlet;
 import com.qingdy.common.Constant;
 import com.qingdy.dao.TransactionDao;
 import com.qingdy.dao.impl.TransactionDaoImpl;
+import com.qingdy.domain.QdProduct;
 import com.qingdy.domain.QdTransaction;
 
 /**
@@ -41,28 +44,35 @@ public class Transaction extends CServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		list = new LinkedList<>();
-		if (size > 1) {
+		if (action.equals("verify")) {
 			if (username != null) {
-				list = transactionDao.getTransactionByUser(username, size, page);
+//				list = transactionDao.getTransactionByUser(username, size, page);
 			}
 			else {
-				list = transactionDao.geTransactionList(size, page);
+				object = transactionDao.geTransactionList(parameters);
+				
+				String json = JSONSerializer.toJSON(object , jsonConfig).toString();
+				response.getWriter().write(json);
 			}
 		}
-		else if (size == 1) {
+		else if (parameters.getSize() == 1) {
 			list.add(transactionDao.getTransaction(Integer.parseInt(id)));
 		}
-		super.doGet(request, response);
+//		super.doGet(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		transaction = new QdTransaction();
-		initialize(request, response);
-		
-		if (action.equals("")) {
+		if (this.action.equals("")) {
+			try {
+				transaction = (QdTransaction)initialize(QdTransaction.class, request, response);
+			} catch (NoSuchMethodException | SecurityException
+					| InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			transactionDao.addTransaction(transaction);
 		}
 		else if (action.equals("positive")) {

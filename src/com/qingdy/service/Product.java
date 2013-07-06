@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONSerializer;
+
 import com.qingdy.common.CServlet;
 import com.qingdy.common.Constant;
 import com.qingdy.dao.ProductDao;
@@ -38,8 +40,11 @@ public class Product extends CServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		list.clear();
 		
-		if (parameters.getSize() > 1) {
-			list = productDao.getProductList(parameters);
+		if (action.equals("verify")) {
+			object = productDao.getProductList(parameters);
+			
+			String json = JSONSerializer.toJSON(object , jsonConfig).toString();
+			response.getWriter().write(json);
 		}
 		else if (parameters.getSize() == 1) {
 			String username = request.getParameter("username");
@@ -51,7 +56,7 @@ public class Product extends CServlet {
 			}
 		}
 		
-		super.doGet(request, response);
+//		super.doGet(request, response);
 	}
 
 	/**

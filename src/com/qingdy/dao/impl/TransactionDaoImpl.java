@@ -1,15 +1,22 @@
 package com.qingdy.dao.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.sql.RowSet;
+
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
+import com.qingdy.dao.SQLParameters;
 import com.qingdy.dao.TransactionDao;
+import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdTransaction;
+import com.qingdy.domain.Row;
 
 public class TransactionDaoImpl extends CDaoImpl implements TransactionDao {
 
@@ -43,33 +50,56 @@ public class TransactionDaoImpl extends CDaoImpl implements TransactionDao {
 	}
 
 	@Override
-	public List<QdTransaction> geTransactionList(int size, int page) {
-		List<QdTransaction> list = new LinkedList<>();
-		String sql;
+	public Grid geTransactionList(SQLParameters parameters) {
+		this.parameter = parameters;
+		Grid grid = new Grid();
+
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
-
-			sql = "select * from QingDyDB.qd_transaction limit ?,?";
+			sql = "select * from QingDyDB.qd_transaction left outer join QingDyDB.qd_member on QingDyDB.qd_transaction.loanerid=QingDyDB.qd_member.uid where true ";
+			setBaseSql(sql);
+			sql = generateSql();
+			
 			ps = conn.prepareStatement(sql);
-
-			ps.setInt(1, (page - 1) * size);
-			ps.setInt(2, size);
+			fillPreparedStatement(ps);
 			
 			rs = ps.executeQuery();
 			
-			while (rs.next()) {
-				QdTransaction transaction = new QdTransaction();
-				transaction.setLenderid(rs.getInt("lenderid"));
-				transaction.setLoanerid(rs.getInt("loanerid"));
-				transaction.setSort(rs.getInt("sort"));
-				transaction.setTid(rs.getInt("tid"));
-				transaction.setTitle(rs.getString("title"));
-				transaction.setComments(rs.getString("comments"));
-				transaction.setFrontcover(rs.getString("frontcover"));
-				transaction.setPostdate(rs.getTimestamp("postdate"));
+			sql = "select * from QingDyDB.qd_transaction left outer join QingDyDB.qd_member on QingDyDB.qd_transaction.lenderid=QingDyDB.qd_member.uid where true ";	
+			ps = conn.prepareStatement(sql);	
+			ResultSet rs1 = ps.executeQuery();
+			List rows = new LinkedList<>();
+			while (rs.next() && rs1.next()) {
+				Row row = new Row();
+				row.setId(rs.getInt("tid"));
+				List transaction = new LinkedList<>();
+				transaction.add(rs.getInt("tid"));
+				transaction.add(rs.getString("title"));
+				transaction.add(rs.getString("lastname") + rs.getString("firstname"));
+				transaction.add(rs1.getString("lastname") + rs1.getString("firstname"));
+				transaction.add(rs.getString("comments"));
+				transaction.add(rs.getString("frontcover"));
+				transaction.add(rs.getTimestamp("postdate").toLocaleString());
+				transaction.add(rs.getInt("verify"));
 
-				list.add(transaction);
+				row.setCell(transaction);
+				rows.add(row);
 			}
+			
+			grid.setPage(parameters.getPage());
+			
+			conn = cJDBCUtilsSingleton.getInstance().getConnection();
+			sql = "SELECT count(*) as count FROM QingDyDB.qd_blog;";
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				int records = rs.getInt("count");
+				grid.setTotal((int)Math.ceil((double)records / (double)parameters.getSize()));
+				grid.setRecords(records);
+			}
+			
+			grid.setRows(rows);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -78,7 +108,7 @@ public class TransactionDaoImpl extends CDaoImpl implements TransactionDao {
 		} finally {
 			cJDBCUtilsSingleton.getInstance().free(rs, ps, conn);
 		}
-		return list;
+		return grid;
 	}
 
 	@Override

@@ -2,13 +2,14 @@ package com.qingdy.dao;
 
 import java.util.List;
 
+import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdBlog;
 
 public interface BlogDao {
 
 	public int addBlog(QdBlog blog);
 	
-	public List<QdBlog> getBlogList(int size, int page, String keyword);
+	public Grid getBlogList(SQLParameters parameters);
 	
 	public QdBlog getBlog(int bid);
 	

@@ -3,8 +3,6 @@ package com.qingdy.service;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,11 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONSerializer;
+
 import com.qingdy.common.CServlet;
 import com.qingdy.dao.LoanDao;
 import com.qingdy.dao.impl.LoanDaoImpl;
 import com.qingdy.domain.QdLoan;
-import com.qingdy.domain.QdMessage;
 
 /**
  * Servlet implementation class Loan
@@ -41,17 +40,20 @@ public class Loan extends CServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		loanDao = new LoanDaoImpl();
 		
-		if (size > 1) {
-			list = loanDao.getLoanList(size, page, keyword);
+		if (action.equals("verify")) {
+			object = loanDao.getLoanList(parameters);
+			
+			String json = JSONSerializer.toJSON(object , jsonConfig).toString();
+			response.getWriter().write(json);
 		}
-		else if (size == 1) {
+		else if (parameters.getSize() == 1) {
 			list.add(loanDao.getLoan(Integer.parseInt(id)));
 		}
 		else {
 			
 		}
 		
-		super.doGet(request, response);
+//		super.doGet(request, response);
 	}
 
 	/**
@@ -59,8 +61,16 @@ public class Loan extends CServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		loanDao = new LoanDaoImpl();
-		initialize(request, response);
-		
+		if (this.action.equals("")) {
+			try {
+				loan = (QdLoan)initialize(QdLoan.class, request, response);
+			} catch (NoSuchMethodException | SecurityException
+					| InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			loanDao.addLoan(loan);
+		}
 		if (action.equals("")) {
 			loanDao.addLoan(loan);
 		}
@@ -68,7 +78,8 @@ public class Loan extends CServlet {
 			loanDao.verifyLoan(Integer.parseInt(id), 1);
 		}
 		else if (action.equals("negative")) {
-			loanDao.verifyLoan(Integer.parseInt(id), 1);
+			System.out.println("negative");
+			loanDao.verifyLoan(Integer.parseInt(id), 0);
 		}
 		else {
 			

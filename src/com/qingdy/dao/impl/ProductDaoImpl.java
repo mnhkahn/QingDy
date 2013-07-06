@@ -60,15 +60,17 @@ public class ProductDaoImpl extends CDaoImpl implements ProductDao {
 
 	@Override
 	public Grid getProductList(SQLParameters parameters) {
+
 		this.parameter = parameters;
 		Grid grid = new Grid();
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
-			sql = "select * from QingDyDB.qd_product where introduce like ? || faq like ? limit ?,?";
+			sql = "SELECT * FROM QingDyDB.qd_product join QingDyDB.qd_mall on QingDyDB.qd_product.mid=QingDyDB.qd_mall.mid inner join QingDyDB.qd_member on QingDyDB.qd_product.uid=QingDyDB.qd_member.uid left outer join QingDyDB.areas on QingDyDB.qd_product.clientlocation=QingDyDB.areas.areaid left outer join QingDyDB.usersofloan on QingDyDB.qd_product.usesofloanid=QingDyDB.usersofloan.uolid left outer join QingDyDB.clients on QingDyDB.qd_product.clientid=QingDyDB.clients.ctid left outer join QingDyDB.ratetype on QingDyDB.qd_product.ratetypeid=QingDyDB.ratetype.rid left outer join QingDyDB.repaymethod on QingDyDB.qd_product.repaymentmethodid=QingDyDB.repaymethod.rid left outer join QingDyDB.speciality on QingDyDB.qd_product.ptype=QingDyDB.speciality.speid where true ";
 			setBaseSql(sql);
 			sql = generateSql();
 
 			ps = conn.prepareStatement(sql);
+			fillPreparedStatement(ps);
 		
 			rs = ps.executeQuery();
 			
@@ -78,25 +80,26 @@ public class ProductDaoImpl extends CDaoImpl implements ProductDao {
 				row.setId(rs.getInt("pid"));
 				List product = new LinkedList<>();
 				product.add(rs.getInt("pid"));
-				product.add(rs.getInt("uid"));
-				product.add(rs.getInt("mid"));
 				product.add(rs.getString("pname"));
 				product.add(rs.getInt("max"));
 				product.add(rs.getInt("min"));
-				product.add(rs.getInt("ratetype"));
+				product.add(rs.getString("ratetype"));
 				product.add(rs.getFloat("rate"));
-				product.add(rs.getTimestamp("deadline"));
-				product.add(rs.getInt("clientlocation"));
-				product.add(rs.getInt("client"));
-				product.add(rs.getInt("repaymentmethod"));
-				product.add(rs.getInt("ptype"));
-				product.add(rs.getInt("usesofloan"));
+				product.add(rs.getTimestamp("deadline").toLocaleString());
+				product.add(rs.getString("joinname"));
+				product.add(rs.getString("repaymethodcol"));
+				product.add(rs.getString("speciality"));
+				product.add(rs.getString("ptype"));
+				product.add(rs.getString("usesofloan"));
 				product.add(rs.getString("introduce"));
 				product.add(rs.getString("processes"));
 				product.add(rs.getString("application"));
 				product.add(rs.getString("faq"));
-				product.add(rs.getInt("r_num"));
-				product.add(rs.getTimestamp("postdate"));
+				product.add(rs.getString("lastname") + rs.getString("firstname"));
+				product.add(rs.getString("cname"));
+				product.add(rs.getString("ctype"));
+				product.add(rs.getTimestamp("postdate").toLocaleString());
+				product.add(rs.getInt("verify"));
 				
 				row.setCell(product);
 				rows.add(row);

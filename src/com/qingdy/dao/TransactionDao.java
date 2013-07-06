@@ -2,13 +2,14 @@ package com.qingdy.dao;
 
 import java.util.List;
 
+import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdTransaction;
 
 public interface TransactionDao {
 
 	public int addTransaction(QdTransaction transaction);
 	
-	public List<QdTransaction> geTransactionList(int size, int page);
+	public Grid geTransactionList(SQLParameters parameters);
 	
 	public QdTransaction getTransaction(int tid);
 	

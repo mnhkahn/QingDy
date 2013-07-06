@@ -72,10 +72,11 @@ public class Action {
 			break;
 		}
 		parameters.setOperator(op);
-		System.out.println("@@@");
 		parameters.setValue(request.getParameter("searchString"));
 		parameters.setSidx(request.getParameter("sidx"));
 		parameters.setSord(request.getParameter("sord"));
+		
+		System.out.println("size: " + parameters.getSize() + " page:" + parameters.getPage());
 
 		return parameters;
 	}

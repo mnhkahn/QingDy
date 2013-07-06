@@ -9,8 +9,10 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.LoanDao;
+import com.qingdy.dao.SQLParameters;
+import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdLoan;
-import com.qingdy.domain.QdTransaction;
+import com.qingdy.domain.Row;
 
 public class LoanDaoImpl extends CDaoImpl implements LoanDao {
 
@@ -49,41 +51,59 @@ public class LoanDaoImpl extends CDaoImpl implements LoanDao {
 	}
 
 	@Override
-	public List<QdLoan> getLoanList(int size, int page, String keyword) {
-		List<QdLoan> list = new LinkedList<>();
-		String sql;
+	public Grid getLoanList(SQLParameters parameters) {
+		
+		this.parameter = parameters;
+		Grid grid = new Grid();
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
-
-			sql = "select * from QingDyDB.qd_loan where title like ? || introduce like ? limit ?,?";
+			sql = "select * from QingDyDB.qd_loan left outer join QingDyDB.qd_member on QingDyDB.qd_loan.uid=QingDyDB.qd_member.uid left outer join QingDyDB.usersofloan on QingDyDB.qd_loan.usesofloanid=QingDyDB.usersofloan.uolid left outer join QingDyDB.lendtype on QingDyDB.qd_loan.lendtypeid=QingDyDB.lendtype.ltid left outer join QingDyDB.pawn on QingDyDB.qd_loan.pawnid=QingDyDB.pawn.pid  left outer join QingDyDB.areas on QingDyDB.qd_loan.location=QingDyDB.areas.areaid where true";
+			setBaseSql(sql);
+			sql = generateSql();
+			
 			ps = conn.prepareStatement(sql);
-
-			ps.setString(1, keyword);
-			ps.setString(2, keyword);
-			ps.setInt(3, (page - 1) * size);
-			ps.setInt(4, size);
+			fillPreparedStatement(ps);
 			
 			rs = ps.executeQuery();
 			
+			List rows = new LinkedList<>();
 			while (rs.next()) {
-				QdLoan loan = new QdLoan();
-				loan.setAmount(rs.getFloat("amount"));
-				loan.setDeadline(rs.getTimestamp("deadline"));
-				loan.setHaspawn(rs.getInt("haspawn"));
-				loan.setIntroduce(rs.getString("introduce"));
-				loan.setLendtype(rs.getInt("lendtype"));
-				loan.setLid(rs.getInt("lid"));
-				loan.setLocation(rs.getInt("location"));
-				loan.setPawn(rs.getInt("pawn"));
-				loan.setPostdate(rs.getTimestamp("postdate"));
-				loan.setRNum(rs.getInt("rNum"));
-				loan.setTitle(rs.getString("title"));
-				loan.setUid(rs.getInt("uid"));
-				loan.setUsesofloan(rs.getInt("usesofloan"));
-				loan.setVerify(rs.getInt("verify"));
+				Row row = new Row();
+				row.setId(rs.getInt("lid"));
+				
+				List loan = new LinkedList<>();
+				loan.add(rs.getInt("lid"));
+				loan.add(rs.getString("title"));
+				loan.add(rs.getString("introduce"));
+				loan.add(rs.getFloat("amount"));
+				loan.add(rs.getTimestamp("deadline").toLocaleString());
+				loan.add(rs.getInt("haspawn"));
+				loan.add(rs.getString("pawn"));
+				loan.add(rs.getString("lendtype"));
+				loan.add(rs.getString("joinname"));
+				loan.add(rs.getString("usesofloan"));
+				loan.add(rs.getString("lastname") + rs.getString("firstname"));
+				loan.add(rs.getTimestamp("postdate").toLocaleString());
+				loan.add(rs.getInt("verify"));
 
-				list.add(loan);
+				row.setCell(loan);
+				rows.add(row);
 			}
+			
+			grid.setPage(parameters.getPage());
+			
+			conn = cJDBCUtilsSingleton.getInstance().getConnection();
+			sql = "SELECT count(*) as count FROM QingDyDB.qd_loan;";
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				int records = rs.getInt("count");
+				grid.setTotal((int)Math.ceil((double)records / (double)parameters.getSize()));
+				grid.setRecords(records);
+			}
+			
+			grid.setRows(rows);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -92,7 +112,7 @@ public class LoanDaoImpl extends CDaoImpl implements LoanDao {
 		} finally {
 			cJDBCUtilsSingleton.getInstance().free(rs, ps, conn);
 		}
-		return list;
+		return grid;
 	}
 
 	@Override

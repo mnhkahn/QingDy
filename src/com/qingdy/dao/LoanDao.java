@@ -2,13 +2,14 @@ package com.qingdy.dao;
 
 import java.util.List;
 
+import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdLoan;
 
 public interface LoanDao {
 	
 	public int addLoan(QdLoan loan);
 	
-	public List<QdLoan> getLoanList(int size, int page, String keyword);
+	public Grid getLoanList(SQLParameters parameters);
 	
 	public QdLoan getLoan(int lid);
 	

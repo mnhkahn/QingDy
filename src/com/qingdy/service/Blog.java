@@ -41,15 +41,15 @@ public class Blog extends CServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		list = new LinkedList<>();
-		if (size > 1) {
+		if (action.equals("verify")) {
 			if (username != null) {
-				list = blogDao.getBlogByUser(username, size, page);
+//				object = blogDao.getBlogByUser(parameters);
 			}
 			else {
-				list = blogDao.getBlogList(size, page, keyword);
+				object = blogDao.getBlogList(parameters);
 			}
 		}
-		else if (size == 1) {
+		else if (parameters.getSize() == 1) {
 			list.add(blogDao.getBlog(Integer.parseInt(id)));
 		}
 		super.doGet(request, response);

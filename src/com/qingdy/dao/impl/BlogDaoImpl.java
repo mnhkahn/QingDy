@@ -7,7 +7,10 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.BlogDao;
+import com.qingdy.dao.SQLParameters;
+import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdBlog;
+import com.qingdy.domain.Row;
 
 public class BlogDaoImpl extends CDaoImpl implements BlogDao {
 
@@ -38,33 +41,50 @@ public class BlogDaoImpl extends CDaoImpl implements BlogDao {
 	}
 
 	@Override
-	public List<QdBlog> getBlogList(int size, int page, String keyword) {
-		List<QdBlog> list = new LinkedList<>();
-		String sql;
+	public Grid getBlogList(SQLParameters parameters) {
+		this.parameter = parameters;
+		Grid grid = new Grid();
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
-
-			sql = "select * from QingDyDB.qd_blog where title like ? || blog like ? limit ?,?";
+			sql = "select * from QingDyDB.qd_blog left outer join QingDyDB.qd_member on QingDyDB.qd_blog.uid=QingDyDB.qd_member.uid left outer join QingDyDB.questionclasses on QingDyDB.questionclasses.classid=QingDyDB.qd_blog.classes where true ";
+			setBaseSql(sql);
+			sql = generateSql();
+			
 			ps = conn.prepareStatement(sql);
-
-			ps.setString(1, keyword);
-			ps.setString(2, keyword);
-			ps.setInt(3, (page - 1) * size);
-			ps.setInt(4, size);
+			fillPreparedStatement(ps);
 			
 			rs = ps.executeQuery();
 			
+			List rows = new LinkedList<>();
 			while (rs.next()) {
-				QdBlog blog = new QdBlog();
-				blog.setBid(rs.getInt("bid"));
-				blog.setBlog(rs.getString("blog"));
-				blog.setClasses(rs.getInt("classes"));
-				blog.setTitle(rs.getString("title"));
-				blog.setFrontcover(rs.getString("frontcover"));
-				blog.setUid(rs.getInt("uid"));
+				Row row = new Row();
+				row.setId(rs.getInt("bid"));
+				List blog = new LinkedList<>();
+				blog.add(rs.getInt("bid"));
+				blog.add(rs.getString("title"));
+				blog.add(rs.getString("blog"));
+				blog.add(rs.getString("questionclassesclasses"));
+				blog.add(rs.getString("frontcover"));
+				blog.add(rs.getString("lastname") + rs.getString("firstname"));
 
-				list.add(blog);
+				row.setCell(blog);
+				rows.add(row);
 			}
+			
+			grid.setPage(parameters.getPage());
+			
+			conn = cJDBCUtilsSingleton.getInstance().getConnection();
+			sql = "SELECT count(*) as count FROM QingDyDB.qd_blog;";
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				int records = rs.getInt("count");
+				grid.setTotal((int)Math.ceil((double)records / (double)parameters.getSize()));
+				grid.setRecords(records);
+			}
+			
+			grid.setRows(rows);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -73,7 +93,7 @@ public class BlogDaoImpl extends CDaoImpl implements BlogDao {
 		} finally {
 			cJDBCUtilsSingleton.getInstance().free(rs, ps, conn);
 		}
-		return list;
+		return grid;
 	}
 
 	@Override
