@@ -19,8 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qingdy.dao.SQLParameters;
-import com.qingdy.dao.impl.NewsDaoImpl;
-import com.qingdy.domain.QdMessage;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;

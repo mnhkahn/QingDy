@@ -423,11 +423,7 @@ input.textSearch:focus {
 
     position: absolute;
 
-<<<<<<< HEAD
     bottom: 0px;
-=======
-/*	bottom: 0px;*/
->>>>>>> b272835d59d92a1ea2e72e526813f47a7da1f415
 }
 
 .footTable {
@@ -737,4 +733,3 @@ a, a:link, a:active, a:hover, a:visited {
     color: #630f0a;
 
 }
-

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONSerializer;
+
 import com.qingdy.common.CServlet;
 import com.qingdy.dao.NewsDao;
 import com.qingdy.dao.impl.NewsDaoImpl;
@@ -38,18 +40,19 @@ public class News extends CServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		news = new QdNews();
-
-		if (size > 1) {
-			list = newsDao.getNewsList(size, page, keyword);
+		System.out.println(id);
+		if (action.equals("manage")) {
+			object = newsDao.getNewsList(parameters);
 		}
-		else if (size == 1) {
-			list.add(newsDao.getNews(Integer.parseInt(id)));
+		else if (id != null && !id.equals("")) {
+			object = newsDao.getNews(Integer.parseInt(id));
 		}
 		else {
 			
 		}
 		
-		super.doGet(request, response);
+		String json = JSONSerializer.toJSON(object , jsonConfig).toString();
+		response.getWriter().write(json);
 	}
 
 	/**

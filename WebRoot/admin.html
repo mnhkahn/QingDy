@@ -24,6 +24,7 @@
 <script type="text/javascript" src="js/jquery.checkbox.js"></script>
 <script type="text/javascript" src="js/xheditor-1.2.1.min.js"></script>
 <script type="text/javascript" src="js/xheditor_lang/zh-cn.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
 
 <link rel="Shortcut Icon" href="favicon.ico">
 <script type="text/javascript">
@@ -72,17 +73,76 @@ function verify(type, id, value) {
 
 }
 
+function reload() {
+    $('#List').GridUnload();
+    $('#List').empty();
+}
+
+function showCreateNews() {
+    $('#List').load('/js/templates/blog.html', function () {
+        console.debug('Load was performed.');
+        $.ajax({
+            url: '/rest/metadata/newsclasses',
+            type: 'GET',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $('#submit').bind('click', function () {
+                    var uid = 45;
+                    var title = $('#title').val();
+                    var category = $('#categorySel').val();
+                    var content = $('#content').val();
+                    console.debug(uid, title, category, content);
+                    var json = "{'Title': '" + title + "', 'Text':'" + content + "', 'Uid':" + uid + ", 'Classes':" + category + " }";
+                    $.ajax({
+                        url: '/rest/metadata/news',
+                        type: 'POST',
+                        dataType: "json",
+                        data: json,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (response) {
+                            $.jBox.info('添加成功');
+                        },
+                        error: function (response) {
+                            $.jBox.info('添加失败' + response);
+                        }
+                    });
+                });
+                for (var i = 0; i < response.length; i++) {
+                    $('#categorySel')
+                            .append($("<option></option>")
+                                    .attr("value", response[i].ncid)
+                                    .text(response[i].newsclasses));
+                }
+            },
+            error: function(response) {
+                console.error(response);
+            }
+        })
+        $('#content').xheditor({
+            upImgUrl: "/rest/metadata/upload/news",
+            upImgExt: "jpg,jpeg,gif,png",
+            html5Upload : false,
+            onUpload: function () {
+            }
+        });
+    });
+}
+
 function init() {
     commonInit();
 
     showNews();
 
+    var args = new Object();
+    args = GetUrlParms();
+    var nav = args['nav'];
+
     var height = $('#contentWrapper').height() - 75;
 
-    var adminMenu = cMenu.create('menuWrapper', 'data/adminMenu.json', 4,
+    var adminMenu = cMenu.create('menuWrapper', 'data/adminMenu.json', nav,
             function () {
-                $('#List').GridUnload();
-                $('#List').empty();
+                reload();
             },
             function () {
                 jQuery("#List").jqGrid({
@@ -94,8 +154,8 @@ function init() {
                         {name: 'id', index: 'id', width: 55, frozen: true},
                         {name: 'name', index: 'name', width: 90, frozen: true},
                         {name: 'announcement', index: 'announcement', width: 200},
-                        {name: 'introduce', index: 'introduce', width: 500, align: "right"},
-                        {name: 'lendedyears', index: 'lendedyears', width: 80, align: "right"},
+                        {name: 'introduce', index: 'introduce', width: 500, align: "center"},
+                        {name: 'lendedyears', index: 'lendedyears', width: 80, align: "center"},
                         {name: 'ctype', index: 'ctype', width: 150, sortable: false},
                         {name: 'cname', index: 'cname', width: 150, sortable: false},
                         {name: 'cphonenumber', index: 'cphonenumber', width: 150, sortable: false},
@@ -155,8 +215,8 @@ function init() {
                         {name: 'id', index: 'id', width: 55, frozen: true},
                         {name: 'name', index: 'name', width: 90, frozen: true},
                         {name: 'max', index: 'max', width: 50},
-                        {name: 'min', index: 'min', width: 50, align: "right"},
-                        {name: 'ratetype', index: 'ratetype', width: 80, align: "right"},
+                        {name: 'min', index: 'min', width: 50, align: "center"},
+                        {name: 'ratetype', index: 'ratetype', width: 80, align: "center"},
                         {name: 'rate', index: 'rate', width: 150, sortable: false},
                         {name: 'deadline', index: 'deadline', width: 150, sortable: false},
                         {name: 'clientlocation', index: 'clientlocation', width: 150, sortable: false},
@@ -218,8 +278,8 @@ function init() {
                         {name: 'id', index: 'id', width: 55, frozen: true},
                         {name: 'title', index: 'title', width: 90, frozen: true},
                         {name: 'introduce', index: 'introduce', width: 200},
-                        {name: 'amount', index: 'amount', width: 500, align: "right"},
-                        {name: 'deadline', index: 'deadline', width: 80, align: "right"},
+                        {name: 'amount', index: 'amount', width: 500, align: "center"},
+                        {name: 'deadline', index: 'deadline', width: 80, align: "center"},
                         {name: 'haspawn', index: 'haspawn', width: 150, sortable: false},
                         {name: 'pawn', index: 'pawn', width: 150, sortable: false},
                         {name: 'lendtype', index: 'lendtype', width: 150, sortable: false},
@@ -258,7 +318,7 @@ function init() {
                             jQuery("#List").jqGrid('setRowData', ids[i], {act: btnVerify});
                             $('input[type=checkbox]').checkbox();;
                         }
-                    },
+                    }
                 });
                 jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
                 $('.ui-jqgrid-bdiv').height(height);
@@ -273,8 +333,8 @@ function init() {
                         {name:'id',index:'id', width:55,frozen : true},
                         {name:'title',index:'title', width:90,frozen : true},
                         {name:'loanername',index:'loanername', width:50},
-                        {name:'lendername',index:'lendername', width:50, align:"right"},
-                        {name:'comments',index:'comments', width:500, align:"right"},
+                        {name:'lendername',index:'lendername', width:50, align:"center"},
+                        {name:'comments',index:'comments', width:500, align:"center"},
                         {name:'frontcover',index:'frontcover', width:150, sortable:false},
                         {name:'time',index:'time',width:200},
                         {name:'verify',index:'verify', width:50, sortable:false},
@@ -313,53 +373,81 @@ function init() {
                 jQuery("#List").jqGrid('navGrid','#Pager',{add:false,edit:false,del:false});
                 $('.ui-jqgrid-bdiv').height(height);
             },
+            showCreateNews,
             function () {
-                $('#List').load('/js/templates/blog.html', function () {
-                    console.debug('Load was performed.');
-                    $.ajax({
-                        url: '/rest/metadata/newsclasses',
-                        type: 'GET',
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        success: function (response) {
-                            $('#submit').bind('click', function () {
-                                var uid = 45;
-                                var title = $('#title').val();
-                                var category = $('#categorySel').val();
-                                var content = $('#content').val();
-                                console.debug(uid, title, category, content);
-                                var json = '{"Title": "' + title + '", "Text":"' + content + '", "Uid":' + uid + ', "Classes":' + category + ' }';
-                                $.ajax({
-                                    url: '/rest/metadata/news',
-                                    type: 'POST',
-                                    dataType: "json",
-                                    data: json,
-                                    contentType: "application/json; charset=utf-8",
-                                    success: function (response) {
-                                        $.jBox.info('添加成功');
-                                    },
-                                    error: function (response) {
-                                        $.jBox.info('添加失败' + response);
-                                    }
-                                });
-                            });
-                            for (var i = 0; i < response.length; i++) {
-                                $('#categorySel')
-                                        .append($("<option></option>")
-                                                .attr("value", response[i].ncid)
-                                                .text(response[i].newsclasses));
-                            }
-                        },
-                        error: function(response) {
-                            console.error(response);
-                        }
-                    })
-                    $('#content').xheditor({upImgUrl: "uploadthumb.php", upImgExt: "jpg,jpeg,gif,png",
-                        onUpload: function () {
-                        }
-                    });
+                jQuery("#List").jqGrid({
+                    url: '/rest/metadata/news/manage',
+                    datatype: "json",
+                    autowidth: true,
+                    colNames: ['id', '标题', '发布者姓名', '发布时间', '分类'],
+                    colModel: [
+                        {name: 'id', index: 'id', width: 55, frozen: true},
+                        {name: 'title', index: 'title', width: 500, frozen: true},
+                        {name: 'name', index: 'name', width: 50, align: "center"},
+                        {name: 'date', index: 'date', width: 50, align: "center"},
+                        {name: 'category', index: 'category', width: 50, align: "center"},
+                    ],
+                    rowNum: Math.floor(height / 23),
+                    rowList: [10, 20, 30],
+                    pager: '#Pager',
+                    sortname: 'nid',
+                    viewrecords: true,
+                    sortorder: "desc",
+                    caption: "新闻管理",
+                    gridview: true,
+                    height: 150,
+                    gridComplete: function () {
+
+                    }
                 });
 
+                jQuery("#List").jqGrid('navGrid', '#Pager',
+                        {
+                            addfunc: function(){
+                                $('#navItem4').click();
+                            },
+                            editfunc: function() {
+                                var id = $("#List").jqGrid('getGridParam','selrow');
+                                reload();
+                                showCreateNews();
+                                $.ajax({
+                                    type: "GET",
+                                    url: '/rest/metadata/news/' + id,
+                                    success: function (response) {
+                                        var news = JSON.parse(response)
+                                        $('#categorySel').val(news.classes);
+                                        $('#title').val(news.title);
+                                        $('#content').val(news.text);
+                                    },
+                                    error: function (response) {
+
+                                    }
+                                });
+                            },
+                            delfunc: function() {
+                                var id = $("#List").jqGrid('getGridParam','selrow');
+                                var submit = function (v, h, f) {
+                                    if (v == 'ok') {
+                                        $.ajax({
+                                            type: "DELETE",
+                                            url: '/rest/metadata/news/' + id,
+                                            success: function (response) {
+                                                $('#List').trigger('reloadGrid');
+                                                $.jBox.info('删除成功');
+                                            },
+                                            error: function (response) {
+
+                                            }
+                                        });
+                                    }
+                                    else if (v == 'cancel')
+                                        return true; //close
+                                };
+                                $.jBox.confirm('确定删除吗？', "确认", submit);
+                            }
+                        }
+                );
+                $('.ui-jqgrid-bdiv').height(height);
             }
     );
 }

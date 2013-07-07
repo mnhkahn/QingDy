@@ -9,7 +9,10 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.NewsDao;
+import com.qingdy.dao.SQLParameters;
+import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdNews;
+import com.qingdy.domain.Row;
 
 public class NewsDaoImpl extends CDaoImpl implements NewsDao {
 
@@ -39,6 +42,62 @@ public class NewsDaoImpl extends CDaoImpl implements NewsDao {
 			cJDBCUtilsSingleton.getInstance().free(rs, ps, conn);
 		}
 		return 1;
+	}
+
+	@Override
+	public Grid getNewsList(SQLParameters parameters) {
+		
+		this.parameter = parameters;
+		Grid grid = new Grid();
+		try {
+			conn = cJDBCUtilsSingleton.getInstance().getConnection();
+			sql = "SELECT * FROM QingDyDB.qd_news left outer join QingDyDB.qd_member on QingDyDB.qd_news.uid=QingDyDB.qd_member.uid left outer join QingDyDB.newsclasses on QingDyDB.newsclasses.ncid=QingDyDB.qd_news.classes where true";
+			setBaseSql(sql);
+			sql = generateSql();
+			
+			ps = conn.prepareStatement(sql);
+			fillPreparedStatement(ps);
+			
+			rs = ps.executeQuery();
+			
+			List rows = new LinkedList<>();
+			while (rs.next()) {
+				Row row = new Row();
+				row.setId(rs.getInt("nid"));
+				
+				List news = new LinkedList<>();
+				news.add(rs.getInt("nid"));
+				news.add(rs.getString("title"));
+				news.add(rs.getString("lastname") + rs.getString("firstname"));
+				news.add(rs.getTimestamp("postdate").toLocaleString());
+				news.add(rs.getString("newsclasses"));
+
+				row.setCell(news);
+				rows.add(row);
+			}
+			
+			grid.setPage(parameters.getPage());
+			
+			conn = cJDBCUtilsSingleton.getInstance().getConnection();
+			sql = "SELECT count(*) as count FROM QingDyDB.qd_news;";
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				int records = rs.getInt("count");
+				grid.setTotal((int)Math.ceil((double)records / (double)parameters.getSize()));
+				grid.setRecords(records);
+			}
+			
+			grid.setRows(rows);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			// throw new SQLException(e.getMessage(), e);
+
+		} finally {
+			cJDBCUtilsSingleton.getInstance().free(rs, ps, conn);
+		}
+		return grid;
 	}
 
 	@Override

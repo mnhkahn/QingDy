@@ -205,4 +205,12 @@
     <servlet-name>UsesOfLoan</servlet-name>
     <url-pattern>/rest/metadata/usesofloan/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Upload</servlet-name>
+    <servlet-class>com.qingdy.service.Upload</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Upload</servlet-name>
+    <url-pattern>/rest/metadata/upload/*</url-pattern>
+  </servlet-mapping>
 </web-app>
