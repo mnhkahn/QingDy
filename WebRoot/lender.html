@@ -2,10 +2,184 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link href="css/base.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="css/ui.jqgrid.css" type="text/css"></link>
+<link href="css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
+<link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
+<link rel="stylesheet" href="css/jquery.checkbox.css" />
+
+<!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
+<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src='js/cTop.js'></script>
+<script type="text/javascript" src="js/cMenu.js"></script>
+<script type="text/javascript" src="js/jquery.jBox-2.3.min.js"></script>
+<script type="text/javascript" src="js/i18n/jquery.jBox-zh-CN.js"></script>
+<script type="text/javascript" src="js/jquery.jqGrid.src.js"></script>
+<script type="text/javascript" src="js/i18n/grid.locale-cn.js"></script>
+<script type="text/javascript" src="js/jquery.checkbox.js"></script>
+<script type="text/javascript" src="js/xheditor-1.2.1.min.js"></script>
+<script type="text/javascript" src="js/xheditor_lang/zh-cn.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/cTab.js"></script>
+
+    <script type="text/javascript">
+
+        function showCreateBlog() {
+            $('#contentWrapper').load('/js/templates/blog.html', function () {
+                console.debug('Load was performed.');
+                $.ajax({
+                    url: '/rest/metadata/questionclasses',
+                    type: 'GET',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        $('#submit').bind('click', function () {
+                            var uid = 45;
+                            var title = $('#title').val();
+                            var category = $('#categorySel').val();
+                            var content = $('#content').val();
+                            console.debug(uid, title, category, content);
+                            var json = "{'Title': '" + title + "', 'Text':'" + content + "', 'Uid':" + uid + ", 'Classes':" + category + " }";
+                            $.ajax({
+                                url: '/rest/metadata/blogs',
+                                type: 'POST',
+                                dataType: "json",
+                                data: json,
+                                contentType: "application/json; charset=utf-8",
+                                success: function (response) {
+                                    $.jBox.info('添加成功');
+                                },
+                                error: function (response) {
+                                    $.jBox.info('添加失败' + response);
+                                }
+                            });
+                        });
+                        for (var i = 0; i < response.length; i++) {
+                            $('#categorySel')
+                                    .append($("<option></option>")
+                                            .attr("value", response[i].classid)
+                                            .text(response[i].name));
+                        }
+                    },
+                    error: function(response) {
+                        console.error(response);
+                    }
+                })
+                $('#content').xheditor({
+                    upImgUrl: "/rest/metadata/upload/blogs",
+                    upImgExt: "jpg,jpeg,gif,png",
+                    html5Upload : false,
+                    onUpload: function () {
+                    }
+                });
+            });
+        }
+
+        function init() {
+            commonInit();
+
+            var args = new Object();
+            args = GetUrlParms();
+            var nav = args['nav'];
+
+            var lenderTab = cTab.create('tabWrapper', 'data/lenderTab.json', 0,
+                    function() {
+                        $('#menuWrapper').empty();
+                    },
+                    function() {
+                        var mallMenu = cMenu.create('menuWrapper', 'data/lenderMenu.json', nav,
+                                function () {
+                                    $('#contentWrapper').empty();
+                                },
+                                // "我的旺铺"
+                                function() {
+                                },
+                                // "旺铺资料"
+                                function() {
+
+                                },
+                                // "业务设置
+                                function() {
+
+                                },
+                                // "联系方式"
+                                function() {
+
+                                },
+                                // "申请管理"
+                                function() {
+
+                                },
+                                // "产品新闻"
+                                function() {
+
+                                },
+                                // "合作银行"
+                                function() {
+
+                                },
+                                // "友情链接"
+                                function() {
+
+                                },
+                                //  "店铺公告"
+                                function() {
+
+                                },
+                                // "成功案例"
+                                function() {
+
+                                },
+                                //  "添加成功案例"
+                                function() {
+
+                                },
+                                //  "博客管理"
+                                function() {
+
+                                },
+                                // "添加博客"
+                                showCreateBlog
+                        );
+                    },
+                    function() {
+                        var answerMenu = cMenu.create('menuWrapper', 'data/answerMenu.json', nav,
+                                function () {
+                                    $('#contentWrapper').empty();
+                                }
+                        );
+                    },
+                    function() {
+                        var otherMenu = cMenu.create('menuWrapper', 'data/otherMenu.json', nav,
+                                function () {
+                                    $('#contentWrapper').empty();
+                                }
+                        );
+                    }
+            );
+        }
+    </script>
+
+<link rel="Shortcut Icon" href="favicon.ico">
 <title>欢迎来到青帝网</title>
 </head>
 
-<body>
-	Fuck the whole universie!
+<body onload='init()'>
+<div id="mainContainerWrapper" class="mainContainerWrapper">
+    <div id="mainContainer" class="mainContainerWide2">
+        <div id="tabWrapper" class="tabWrapper"></div>
+        <div id="menuContent" class="menuContent">
+            <div id="menuWrapper" class="menuWrapper"></div>
+            <div id="contentWrapperThin" class="contentWrapperThin">
+                <div id="contentWrapper"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footContainer" class="footContainerAbs">
+</div>
 </body>
 </html>

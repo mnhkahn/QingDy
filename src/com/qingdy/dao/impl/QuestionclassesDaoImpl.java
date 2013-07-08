@@ -26,7 +26,7 @@ public class QuestionclassesDaoImpl extends CDaoImpl implements QuestionclassesD
 			while (rs.next()) {
 				Questionclasses questionclasses = new Questionclasses();
 				questionclasses.setClassid(rs.getInt("classid"));
-				questionclasses.setName(rs.getString("name"));
+				questionclasses.setName(rs.getString("questionclassesname"));
 				questionclasses.setParentid(rs.getInt("parentid"));
 				list.add(questionclasses);
 			}

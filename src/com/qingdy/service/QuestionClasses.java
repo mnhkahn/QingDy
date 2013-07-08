@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONSerializer;
+
 import com.qingdy.common.CServlet;
 import com.qingdy.dao.QuestionclassesDao;
 import com.qingdy.dao.impl.QuestionclassesDaoImpl;
@@ -33,10 +35,11 @@ public class QuestionClasses extends CServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (action.equals("")) {
-			list = questionclassesDao.getQuestionclasses();
+			object = questionclassesDao.getQuestionclasses();
 		}
 		
-		super.doGet(request, response);
+		String json = JSONSerializer.toJSON(object , jsonConfig).toString();
+		response.getWriter().write(json);
 	}
 
 }
