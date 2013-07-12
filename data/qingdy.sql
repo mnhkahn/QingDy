@@ -340,6 +340,53 @@ INSERT INTO `qd_loan` VALUES (1,79,1.5,'2012-08-30 23:09:31',2,2,1,1,'请好心�
 UNLOCK TABLES;
 
 --
+-- Table structure for table `qd_loanpawn`
+--
+
+DROP TABLE IF EXISTS `qd_loanpawn`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qd_loanpawn` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `lid` int(11) NOT NULL DEFAULT '0',
+  `pid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `qd_loanpawn`
+--
+
+LOCK TABLES `qd_loanpawn` WRITE;
+/*!40000 ALTER TABLE `qd_loanpawn` DISABLE KEYS */;
+/*!40000 ALTER TABLE `qd_loanpawn` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `qd_loanusesofloan`
+--
+
+DROP TABLE IF EXISTS `qd_loanusesofloan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qd_loanusesofloan` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `lid` int(11) NOT NULL DEFAULT '0',
+  `uid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `qd_loanusesofloan`
+--
+
+LOCK TABLES `qd_loanusesofloan` WRITE;
+/*!40000 ALTER TABLE `qd_loanusesofloan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `qd_loanusesofloan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `qd_mall`
 --
 
@@ -381,8 +428,126 @@ CREATE TABLE `qd_mall` (
 
 LOCK TABLES `qd_mall` WRITE;
 /*!40000 ALTER TABLE `qd_mall` DISABLE KEYS */;
-INSERT INTO `qd_mall` VALUES (1,45,'北京国强伟业投资担保有限公司成立于2004年2月，注册资金壹仟万元人民币，是一家专业化的金融服务机 构，公司主要从事贷款担保服务及金融服务。我们的员工本着“诚信、高效、专业”的企业宗旨，竭诚为广大客 户提供优质服务，力求在银行、客户及合作伙伴之间多方位、多轨道的全面合作，从而搭建一个快速、放心、便 捷的交易平台，实现多方共赢。        公司处提供的服务项目涵盖了个人贷款与金融服务领域的主要业务品种，个人贷款主要包括二手房按揭贷款； 房产抵押贷款；同名、交易类转按揭贷款；车、房短期质押贷款等信贷业务；金融服务主要包括股票融资；承 兑汇票贴现等服务。        公司集中了各方优势力量，通过有效的系统化管理，实现了业务的“终端化”专业服务，使客户在申请贷款时 只需面对国强担保一家金融机构，有效的减少了面对银行、评估所、保险公司、公证处、房管局等机构的各个环节 有效的简化了相关手续，大大缩短了贷款办理时间。真正做到让客户省心、省力、省时。        公司从最高管理层到普通员工大多是从事金融服务行业多年的专业人士，具有丰富的从业经验，且大学本科以 上学历占公司90%以上。国强担保本着年轻化、专业化、高质化的用人宗旨，遵循员工、客户与公司协同发展的 理念，最终必将在行业内树立国强品牌，成为社会公信力最强的企业。 ','欢迎光临，诚信贷款',1,'担保公司','宝鼎投资','13452172009','http://localhost:8080/QingDy/mall/showmall?mid=1','lichao0407@gmail.com','王府井','010-12345678','100081',140300,11,1,1,17,'2012-08-27 16:07:39',1),(2,47,'','123',1,'银行','北京国强伟业投资担保有限公司','15652997385','http://localhost:8080/QingDy/mall/showmall?mid=2','','','','',140300,11,1,1,1,'2012-08-29 00:03:18',1),(3,48,'北京国强伟业投资担保有限公司成立于2004年2月，注册资金壹仟万元人民币，是一家专业化的金融服务机 构，公司主要从事贷款担保服务及金融服务。我们的员工本着“诚信、高效、专业”的企业宗旨，竭诚为广大客 户提供优质服务，力求在银行、客户及合作伙伴之间多方位、多轨道的全面合作，从而搭建一个快速、放心、便 捷的交易平台，实现多方共赢。        公司处提供的服务项目涵盖了个人贷款与金融服务领域的主要业务品种，个人贷款主要包括二手房按揭贷款； 房产抵押贷款；同名、交易类转按揭贷款；车、房短期质押贷款等信贷业务；金融服务主要包括股票融资；承 兑汇票贴现等服务。        公司集中了各方优势力量，通过有效的系统化管理，实现了业务的“终端化”专业服务，使客户在申请贷款时 只需面对国强担保一家金融机构，有效的减少了面对银行、评估所、保险公司、公证处、房管局等机构的各个环节 有效的简化了相关手续，大大缩短了贷款办理时间。真正做到让客户省心、省力、省时。        公司从最高管理层到普通员工大多是从事金融服务行业多年的专业人士，具有丰富的从业经验，且大学本科以 上学历占公司90%以上。国强担保本着年轻化、专业化、高质化的用人宗旨，遵循员工、客户与公司协同发展的 理念，最终必将在行业内树立国强品牌，成为社会公信力最强的企业。 ','欢迎光临，诚信贷款',1,'担保公司','宝鼎投资','13452172009','http://localhost:8080/QingDy/mall/showmall?mid=1','','','','',140300,11,1,1,1,'2012-08-27 16:07:39',0),(4,1,'北京国强伟业投资担保有限公司成立于2004年2月，注册资金壹仟万元人民币，是一家专业化的金融服务机 构，公司主要从事贷款担保服务及金融服务。我们的员工本着“诚信、高效、专业”的企业宗旨，竭诚为广大客 户提供优质服务，力求在银行、客户及合作伙伴之间多方位、多轨道的全面合作，从而搭建一个快速、放心、便 捷的交易平台，实现多方共赢。        公司处提供的服务项目涵盖了个人贷款与金融服务领域的主要业务品种，个人贷款主要包括二手房按揭贷款； 房产抵押贷款；同名、交易类转按揭贷款；车、房短期质押贷款等信贷业务；金融服务主要包括股票融资；承 兑汇票贴现等服务。        公司集中了各方优势力量，通过有效的系统化管理，实现了业务的“终端化”专业服务，使客户在申请贷款时 只需面对国强担保一家金融机构，有效的减少了面对银行、评估所、保险公司、公证处、房管局等机构的各个环节 有效的简化了相关手续，大大缩短了贷款办理时间。真正做到让客户省心、省力、省时。        公司从最高管理层到普通员工大多是从事金融服务行业多年的专业人士，具有丰富的从业经验，且大学本科以 上学历占公司90%以上。国强担保本着年轻化、专业化、高质化的用人宗旨，遵循员工、客户与公司协同发展的 理念，最终必将在行业内树立国强品牌，成为社会公信力最强的企业。 ','欢迎光临，诚信贷款',2,'担保公司','宝鼎投资','13452172009','http://localhost:8080/QingDy/mall/showmall?mid=1','','','','',140300,11,1,1,1,'2012-08-27 16:07:39',0),(5,1,'北京国强伟业投资担保有限公司成立于2004年2月，注册资金壹仟万元人民币，是一家专业化的金融服务机 构，公司主要从事贷款担保服务及金融服务。我们的员工本着“诚信、高效、专业”的企业宗旨，竭诚为广大客 户提供优质服务，力求在银行、客户及合作伙伴之间多方位、多轨道的全面合作，从而搭建一个快速、放心、便 捷的交易平台，实现多方共赢。        公司处提供的服务项目涵盖了个人贷款与金融服务领域的主要业务品种，个人贷款主要包括二手房按揭贷款； 房产抵押贷款；同名、交易类转按揭贷款；车、房短期质押贷款等信贷业务；金融服务主要包括股票融资；承 兑汇票贴现等服务。        公司集中了各方优势力量，通过有效的系统化管理，实现了业务的“终端化”专业服务，使客户在申请贷款时 只需面对国强担保一家金融机构，有效的减少了面对银行、评估所、保险公司、公证处、房管局等机构的各个环节 有效的简化了相关手续，大大缩短了贷款办理时间。真正做到让客户省心、省力、省时。        公司从最高管理层到普通员工大多是从事金融服务行业多年的专业人士，具有丰富的从业经验，且大学本科以 上学历占公司90%以上。国强担保本着年轻化、专业化、高质化的用人宗旨，遵循员工、客户与公司协同发展的 理念，最终必将在行业内树立国强品牌，成为社会公信力最强的企业。 ','欢迎光临，诚信贷款',3,'担保公司','宝鼎投资','13452172009','http://localhost:8080/QingDy/mall/showmall?mid=1','','','','',140300,11,1,1,1,'2012-08-27 16:07:39',0);
+INSERT INTO `qd_mall` VALUES (1,45,'北京国强伟业投资担保有限公司成立于2004年2月，注册资金壹仟万元人民币，是一家专业化的金融服务机 构，公司主要从事贷款担保服务及金融服务。我们的员工本着“诚信、高效、专业”的企业宗旨，竭诚为广大客 户提供优质服务，力求在银行、客户及合作伙伴之间多方位、多轨道的全面合作，从而搭建一个快速、放心、便 捷的交易平台，实现多方共赢。        公司处提供的服务项目涵盖了个人贷款与金融服务领域的主要业务品种，个人贷款主要包括二手房按揭贷款； 房产抵押贷款；同名、交易类转按揭贷款；车、房短期质押贷款等信贷业务；金融服务主要包括股票融资；承 兑汇票贴现等服务。        公司集中了各方优势力量，通过有效的系统化管理，实现了业务的“终端化”专业服务，使客户在申请贷款时 只需面对国强担保一家金融机构，有效的减少了面对银行、评估所、保险公司、公证处、房管局等机构的各个环节 有效的简化了相关手续，大大缩短了贷款办理时间。真正做到让客户省心、省力、省时。        公司从最高管理层到普通员工大多是从事金融服务行业多年的专业人士，具有丰富的从业经验，且大学本科以 上学历占公司90%以上。国强担保本着年轻化、专业化、高质化的用人宗旨，遵循员工、客户与公司协同发展的 理念，最终必将在行业内树立国强品牌，成为社会公信力最强的企业。 ','欢迎光临，诚信贷款',1,'担保公司','宝鼎投资','13452172009','http://localhost:8080/QingDy/mall/showmall?mid=1','lichao0407@gmail.com','王府井','010-12345678','100081',140300,11,1,1,17,'2012-08-27 16:07:39',1),(2,47,'','123',1,'银行','北京国强伟业投资担保有限公司','15652997385','http://localhost:8080/QingDy/mall/showmall?mid=2','','','','',140300,11,1,1,1,'2012-08-29 00:03:18',0),(3,48,'北京国强伟业投资担保有限公司成立于2004年2月，注册资金壹仟万元人民币，是一家专业化的金融服务机 构，公司主要从事贷款担保服务及金融服务。我们的员工本着“诚信、高效、专业”的企业宗旨，竭诚为广大客 户提供优质服务，力求在银行、客户及合作伙伴之间多方位、多轨道的全面合作，从而搭建一个快速、放心、便 捷的交易平台，实现多方共赢。        公司处提供的服务项目涵盖了个人贷款与金融服务领域的主要业务品种，个人贷款主要包括二手房按揭贷款； 房产抵押贷款；同名、交易类转按揭贷款；车、房短期质押贷款等信贷业务；金融服务主要包括股票融资；承 兑汇票贴现等服务。        公司集中了各方优势力量，通过有效的系统化管理，实现了业务的“终端化”专业服务，使客户在申请贷款时 只需面对国强担保一家金融机构，有效的减少了面对银行、评估所、保险公司、公证处、房管局等机构的各个环节 有效的简化了相关手续，大大缩短了贷款办理时间。真正做到让客户省心、省力、省时。        公司从最高管理层到普通员工大多是从事金融服务行业多年的专业人士，具有丰富的从业经验，且大学本科以 上学历占公司90%以上。国强担保本着年轻化、专业化、高质化的用人宗旨，遵循员工、客户与公司协同发展的 理念，最终必将在行业内树立国强品牌，成为社会公信力最强的企业。 ','欢迎光临，诚信贷款',1,'担保公司','宝鼎投资','13452172009','http://localhost:8080/QingDy/mall/showmall?mid=1','','','','',140300,11,1,1,1,'2012-08-27 16:07:39',0),(4,1,'北京国强伟业投资担保有限公司成立于2004年2月，注册资金壹仟万元人民币，是一家专业化的金融服务机 构，公司主要从事贷款担保服务及金融服务。我们的员工本着“诚信、高效、专业”的企业宗旨，竭诚为广大客 户提供优质服务，力求在银行、客户及合作伙伴之间多方位、多轨道的全面合作，从而搭建一个快速、放心、便 捷的交易平台，实现多方共赢。        公司处提供的服务项目涵盖了个人贷款与金融服务领域的主要业务品种，个人贷款主要包括二手房按揭贷款； 房产抵押贷款；同名、交易类转按揭贷款；车、房短期质押贷款等信贷业务；金融服务主要包括股票融资；承 兑汇票贴现等服务。        公司集中了各方优势力量，通过有效的系统化管理，实现了业务的“终端化”专业服务，使客户在申请贷款时 只需面对国强担保一家金融机构，有效的减少了面对银行、评估所、保险公司、公证处、房管局等机构的各个环节 有效的简化了相关手续，大大缩短了贷款办理时间。真正做到让客户省心、省力、省时。        公司从最高管理层到普通员工大多是从事金融服务行业多年的专业人士，具有丰富的从业经验，且大学本科以 上学历占公司90%以上。国强担保本着年轻化、专业化、高质化的用人宗旨，遵循员工、客户与公司协同发展的 理念，最终必将在行业内树立国强品牌，成为社会公信力最强的企业。 ','欢迎光临，诚信贷款',2,'担保公司','宝鼎投资','13452172009','http://localhost:8080/QingDy/mall/showmall?mid=1','','','','',140300,11,1,1,1,'2012-08-27 16:07:39',0),(5,1,'北京国强伟业投资担保有限公司成立于2004年2月，注册资金壹仟万元人民币，是一家专业化的金融服务机 构，公司主要从事贷款担保服务及金融服务。我们的员工本着“诚信、高效、专业”的企业宗旨，竭诚为广大客 户提供优质服务，力求在银行、客户及合作伙伴之间多方位、多轨道的全面合作，从而搭建一个快速、放心、便 捷的交易平台，实现多方共赢。        公司处提供的服务项目涵盖了个人贷款与金融服务领域的主要业务品种，个人贷款主要包括二手房按揭贷款； 房产抵押贷款；同名、交易类转按揭贷款；车、房短期质押贷款等信贷业务；金融服务主要包括股票融资；承 兑汇票贴现等服务。        公司集中了各方优势力量，通过有效的系统化管理，实现了业务的“终端化”专业服务，使客户在申请贷款时 只需面对国强担保一家金融机构，有效的减少了面对银行、评估所、保险公司、公证处、房管局等机构的各个环节 有效的简化了相关手续，大大缩短了贷款办理时间。真正做到让客户省心、省力、省时。        公司从最高管理层到普通员工大多是从事金融服务行业多年的专业人士，具有丰富的从业经验，且大学本科以 上学历占公司90%以上。国强担保本着年轻化、专业化、高质化的用人宗旨，遵循员工、客户与公司协同发展的 理念，最终必将在行业内树立国强品牌，成为社会公信力最强的企业。 ','欢迎光临，诚信贷款',3,'担保公司','宝鼎投资','13452172009','http://localhost:8080/QingDy/mall/showmall?mid=1','','','','',140300,11,1,1,1,'2012-08-27 16:07:39',0);
 /*!40000 ALTER TABLE `qd_mall` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `qd_mallareas`
+--
+
+DROP TABLE IF EXISTS `qd_mallareas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qd_mallareas` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `mid` int(11) NOT NULL DEFAULT '0',
+  `aid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `qd_mallareas`
+--
+
+LOCK TABLES `qd_mallareas` WRITE;
+/*!40000 ALTER TABLE `qd_mallareas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `qd_mallareas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `qd_mallclients`
+--
+
+DROP TABLE IF EXISTS `qd_mallclients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qd_mallclients` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `mid` int(11) NOT NULL DEFAULT '0',
+  `cid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `qd_mallclients`
+--
+
+LOCK TABLES `qd_mallclients` WRITE;
+/*!40000 ALTER TABLE `qd_mallclients` DISABLE KEYS */;
+/*!40000 ALTER TABLE `qd_mallclients` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `qd_malllendtype`
+--
+
+DROP TABLE IF EXISTS `qd_malllendtype`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qd_malllendtype` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `mid` int(11) NOT NULL DEFAULT '0',
+  `lid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `qd_malllendtype`
+--
+
+LOCK TABLES `qd_malllendtype` WRITE;
+/*!40000 ALTER TABLE `qd_malllendtype` DISABLE KEYS */;
+/*!40000 ALTER TABLE `qd_malllendtype` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `qd_mallspeciality`
+--
+
+DROP TABLE IF EXISTS `qd_mallspeciality`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qd_mallspeciality` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `mid` int(11) NOT NULL DEFAULT '0',
+  `sid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `qd_mallspeciality`
+--
+
+LOCK TABLES `qd_mallspeciality` WRITE;
+/*!40000 ALTER TABLE `qd_mallspeciality` DISABLE KEYS */;
+/*!40000 ALTER TABLE `qd_mallspeciality` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `qd_mallusesofloan`
+--
+
+DROP TABLE IF EXISTS `qd_mallusesofloan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qd_mallusesofloan` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `mid` int(11) NOT NULL DEFAULT '0',
+  `uid` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `qd_mallusesofloan`
+--
+
+LOCK TABLES `qd_mallusesofloan` WRITE;
+/*!40000 ALTER TABLE `qd_mallusesofloan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `qd_mallusesofloan` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -473,7 +638,7 @@ CREATE TABLE `qd_news` (
   `classes` int(11) NOT NULL,
   `postdate` datetime NOT NULL,
   PRIMARY KEY (`nid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -482,7 +647,7 @@ CREATE TABLE `qd_news` (
 
 LOCK TABLES `qd_news` WRITE;
 /*!40000 ALTER TABLE `qd_news` DISABLE KEYS */;
-INSERT INTO `qd_news` VALUES (1,'发财了','送钱了',1,1,'2013-06-23 10:28:51'),(2,'发财了','送钱了',1,1,'2013-07-06 21:35:43'),(3,'','',45,1,'2013-07-06 21:51:16'),(4,'test','testcontent',45,6,'2013-07-06 21:51:41'),(5,'叮当','猜不透',45,12,'2013-07-06 21:54:25');
+INSERT INTO `qd_news` VALUES (2,'发财了','送钱了',1,1,'2013-07-06 21:35:43'),(4,'test','testcontent',45,6,'2013-07-06 21:51:41'),(5,'叮当','猜不透',45,12,'2013-07-06 21:54:25'),(6,'','<img src=\"/news/1373175710895235-5-1920x1080.jpg\" alt=\"\" />            ',45,1,'2013-07-07 13:41:55'),(7,'我和教主','<img src=\"/news/1373175729686l.jpg\" alt=\"\" /><img src=\"/news/1373175739423286d0b7693a2acfb329abb0ea1b81a71.jpeg\" alt=\"\" /><br />',45,1,'2013-07-07 13:42:24');
 /*!40000 ALTER TABLE `qd_news` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -528,6 +693,77 @@ LOCK TABLES `qd_product` WRITE;
 /*!40000 ALTER TABLE `qd_product` DISABLE KEYS */;
 INSERT INTO `qd_product` VALUES (3,45,1,'屌丝1',2,1,1,0,'2012-08-30 10:14:11',220600,1,1,1,'1','<p>发生的<br /></p>','<p>大事<br /></p>','<p> 的<br /></p>','<p>的<br /></p>',3421,'2012-08-30 10:14:11',1),(4,47,2,'屌丝2',2,1,1,0,'2012-08-30 10:14:11',220600,1,1,1,'1','<p>发生的<br /></p>','<p>大事<br /></p>','<p> 的<br /></p>','<p>的<br /></p>',34234,'2012-08-30 10:14:12',0),(5,48,3,'屌丝3',2,1,1,0,'2012-08-30 10:14:11',220600,1,1,1,'1','<p>发生的<br /></p>','<p>大事<br /></p>','<p> 的<br /></p>','<p>的<br /></p>',24,'2012-08-30 10:14:13',1);
 /*!40000 ALTER TABLE `qd_product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `qd_productclients`
+--
+
+DROP TABLE IF EXISTS `qd_productclients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qd_productclients` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `pid` int(11) NOT NULL DEFAULT '0',
+  `cid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `qd_productclients`
+--
+
+LOCK TABLES `qd_productclients` WRITE;
+/*!40000 ALTER TABLE `qd_productclients` DISABLE KEYS */;
+/*!40000 ALTER TABLE `qd_productclients` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `qd_productpawn`
+--
+
+DROP TABLE IF EXISTS `qd_productpawn`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qd_productpawn` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `pid` int(11) NOT NULL DEFAULT '0',
+  `pawnid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `qd_productpawn`
+--
+
+LOCK TABLES `qd_productpawn` WRITE;
+/*!40000 ALTER TABLE `qd_productpawn` DISABLE KEYS */;
+/*!40000 ALTER TABLE `qd_productpawn` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `qd_productusesofloan`
+--
+
+DROP TABLE IF EXISTS `qd_productusesofloan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qd_productusesofloan` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `pid` int(11) NOT NULL DEFAULT '0',
+  `uid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `qd_productusesofloan`
+--
+
+LOCK TABLES `qd_productusesofloan` WRITE;
+/*!40000 ALTER TABLE `qd_productusesofloan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `qd_productusesofloan` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -722,4 +958,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-07-06 22:02:42
+-- Dump completed on 2013-07-12 19:13:13
