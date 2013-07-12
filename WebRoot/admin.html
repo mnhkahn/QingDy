@@ -366,7 +366,7 @@ function init() {
                                 btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('transaction'," + data[i].id + ",1)\" />";
                             }
                             jQuery("#List").jqGrid('setRowData',ids[i],{act:btnVerify});
-                            $('input[type=checkbox]').checkbox();;
+                            $('input[type=checkbox]').checkbox();
                         }
                     },
                 });

@@ -537,6 +537,7 @@ a, a:link, a:active, a:hover, a:visited {
     background-color: #fff;
     display: block;
     float: left;
+
 }
 
 .contentWrapperThin {
@@ -551,6 +552,8 @@ a, a:link, a:active, a:hover, a:visited {
     background-color: #fff;
     display: block;
     float: left;
+
+    padding-left: 10px;
 }
 
 /* main container for 2 columns */
@@ -630,7 +633,7 @@ a, a:link, a:active, a:hover, a:visited {
 	width: 100%;
 	height: 32px;
 
-	background-image: url(http://mat1.gtimg.com/www/images/qq2012/qqbg_1.5.5.png);
+	background-image: url(/images/qqbg_1.5.5.png);
 	background-repeat: no-repeat;
 	
 	background-position: left -160px;
@@ -789,4 +792,15 @@ a, a:link, a:active, a:hover, a:visited {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f12519), to(#ff8684)); /* Safari + Chrome */
     color: #630f0a;
 
+}
+
+/* form */
+.input {
+    height: 20px;
+    border: 1px solid #CCCCCC;
+    width: 220px;
+}
+
+.input-gray {
+    color: #8b8b8b;
 }

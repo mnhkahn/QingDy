@@ -2,10 +2,339 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link href="css/base.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="css/ui.jqgrid.css" type="text/css"></link>
+<link href="css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
+<link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
+<link rel="stylesheet" href="css/jquery.checkbox.css" />
+
+<!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
+<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src='js/cTop.js'></script>
+<script type="text/javascript" src="js/cMenu.js"></script>
+<script type="text/javascript" src="js/jquery.jBox-2.3.min.js"></script>
+<script type="text/javascript" src="js/i18n/jquery.jBox-zh-CN.js"></script>
+<script type="text/javascript" src="js/jquery.jqGrid.src.js"></script>
+<script type="text/javascript" src="js/i18n/grid.locale-cn.js"></script>
+<script type="text/javascript" src="js/jquery.checkbox.min.js"></script>
+<script type="text/javascript" src="js/xheditor-1.2.1.min.js"></script>
+<script type="text/javascript" src="js/xheditor_lang/zh-cn.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+<script type="text/javascript" src="js/cTab.js"></script>
+
+<script type="text/javascript">
+function showCreateBlog() {
+    $('#contentWrapper').load('/js/templates/blog.html', function () {
+        console.debug('Load was performed.');
+        $.ajax({
+            url: '/rest/metadata/questionclasses',
+            type: 'GET',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $('#submit').bind('click', function () {
+                    var uid = 45;
+                    var title = $('#title').val();
+                    var category = $('#categorySel').val();
+                    var content = $('#content').val();
+                    console.debug(uid, title, category, content);
+                    var json = "{'Title': '" + title + "', 'Text':'" + content + "', 'Uid':" + uid + ", 'Classes':" + category + " }";
+                    $.ajax({
+                        url: '/rest/metadata/blogs',
+                        type: 'POST',
+                        dataType: "json",
+                        data: json,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (response) {
+                            $.jBox.info('添加成功');
+                        },
+                        error: function (response) {
+                            $.jBox.info('添加失败' + response);
+                        }
+                    });
+                });
+                for (var i = 0; i < response.length; i++) {
+                    $('#categorySel')
+                            .append($("<option></option>")
+                                    .attr("value", response[i].classid)
+                                    .text(response[i].name));
+                }
+            },
+            error: function(response) {
+                console.error(response);
+            }
+        })
+        $('#content').xheditor({
+            upImgUrl: "/rest/metadata/upload/blogs",
+            upImgExt: "jpg,jpeg,gif,png",
+            html5Upload : false,
+            onUpload: function () {
+            }
+        });
+    });
+}
+
+function init() {
+    commonInit();
+
+    var args = new Object();
+    args = GetUrlParms();
+    var nav = args['nav'];
+    var tab = args['tab'];
+
+    var height = $('#contentWrapper').height() - 80;
+
+    var lenderTab = cTab.create('tabWrapper', 'data/loanerTab.json', tab,
+            function() {
+                $('#menuWrapper').empty();
+                $('#contentWrapper').empty();
+            },
+            function() {
+                var mallMenu = cMenu.create('menuWrapper', 'data/loanerMenu.json', nav,
+                        function () {
+                            $('#contentWrapper').empty();
+                        },
+                        // "申请贷款"
+                        function() {
+                            $('#contentWrapper').load('/js/templates/loan.html', function () {
+                                $('#content').xheditor({
+                                    tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+                                    upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+                                    upImgExt: "jpg,jpeg,gif,png",
+                                    html5Upload : false,
+                                    onUpload: function () {
+                                    }
+                                });
+                                $('input[type=checkbox]').checkbox();
+                            });
+                        },
+                        // "我的贷款"
+                        function() {
+                            var list = $("<table></table>");
+                            list.attr("id", "List");
+                            list.css("height", "100%");
+                            var pager = $("<div></div>");
+                            pager.attr("id", "Pager");
+                            $('#contentWrapper').append(list);
+                            $('#contentWrapper').append(pager);
+                            jQuery("#List").jqGrid({
+//                                        url: '/rest/metadata/malls/verify',
+                                datatype: "json",
+                                autowidth: true,
+                                colNames: ['id', '标题', '状态', '发布时间', '更新时间'],
+                                colModel: [
+                                    {name: 'id', index: 'id', width: 55, frozen: true},
+                                    {name: 'name', index: 'name', width: 90, frozen: true},
+                                    {name: 'state', index: 'state', width: 200},
+                                    {name: 'postdate', index: 'postdate', width: 500, align: "center"},
+                                    {name: 'updatedate', index: 'updatedate', width: 80, align: "center"}
+                                ],
+                                rowList: [10, 20, 30],
+                                pager: '#Pager',
+                                sortname: 'mid',
+                                viewrecords: true,
+                                sortorder: "desc",
+                                caption: "店铺认证",
+                                gridview: true,
+                                gridComplete: function () {
+
+                                }
+                            });
+                            jQuery("#List").jqGrid('navGrid', '#Pager');
+                            $('.ui-jqgrid-bdiv').height(height);
+                        }
+                );
+            },
+            function() {
+                var answerMenu = cMenu.create('menuWrapper', 'data/answerMenu.json', nav,
+                        function () {
+                            $('#contentWrapper').empty();
+                        },
+                        // 资讯首页
+                        function() {
+
+                        },
+                        // 我的回答
+                        function() {
+                            var list = $("<table></table>");
+                            list.attr("id", "List");
+                            var pager = $("<div></div>");
+                            pager.attr("id", "Pager");
+                            $('#contentWrapper').append(list);
+                            $('#contentWrapper').append(pager);
+                            jQuery("#List").jqGrid({
+//                                        url: '/rest/metadata/malls/verify',
+                                datatype: "json",
+                                autowidth: true,
+                                colNames: ['id', '题目', '提问时间', '回答数', '状态'],
+                                colModel: [
+                                    {name: 'id', index: 'id', width: 55, frozen: true},
+                                    {name: 'name', index: 'name', width: 90, frozen: true},
+                                    {name: 'postdate', index: 'postdate', width: 200},
+                                    {name: 'answerno', index: 'answerno', width: 500, align: "center"},
+                                    {name: 'state', index: 'state', width: 80, align: "center"}
+                                ],
+                                rowList: [10, 20, 30],
+                                pager: '#Pager',
+                                sortname: 'mid',
+                                viewrecords: true,
+                                sortorder: "desc",
+                                caption: "店铺认证",
+                                gridview: true,
+                                gridComplete: function () {
+
+                                }
+                            });
+                            jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
+                            $('.ui-jqgrid-bdiv').height(height);
+                        },
+                        //我的提问
+                        function() {
+                            var list = $("<table></table>");
+                            list.attr("id", "List");
+                            list.css("height", "100%");
+                            var pager = $("<div></div>");
+                            pager.attr("id", "Pager");
+                            $('#contentWrapper').append(list);
+                            $('#contentWrapper').append(pager);
+                            jQuery("#List").jqGrid({
+//                                        url: '/rest/metadata/malls/verify',
+                                datatype: "json",
+                                autowidth: true,
+                                colNames: ['id', '题目', '提问时间', '回答数', '状态'],
+                                colModel: [
+                                    {name: 'id', index: 'id', width: 55, frozen: true},
+                                    {name: 'name', index: 'name', width: 90, frozen: true},
+                                    {name: 'postdate', index: 'postdate', width: 200},
+                                    {name: 'answerno', index: 'answerno', width: 500, align: "center"},
+                                    {name: 'state', index: 'state', width: 80, align: "center"}
+                                ],
+                                rowList: [10, 20, 30],
+                                pager: '#Pager',
+                                sortname: 'mid',
+                                viewrecords: true,
+                                sortorder: "desc",
+                                caption: "店铺认证",
+                                gridview: true,
+                                gridComplete: function () {
+
+                                }
+                            });
+                            jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
+                            $('.ui-jqgrid-bdiv').height(height);
+                        }
+                );
+            },
+            function() {
+                var otherMenu = cMenu.create('menuWrapper', 'data/otherMenu.json', nav,
+                        function () {
+                            $('#contentWrapper').empty();
+                        },
+                        // 个人信息
+                        function() {
+                            $('#contentWrapper').load('/js/templates/contact.html', function () {
+
+                            })
+                        },
+                        // 收藏管理
+                        function() {
+                            var list = $("<table></table>");
+                            list.attr("id", "List");
+                            list.css("height", "100%");
+                            var pager = $("<div></div>");
+                            pager.attr("id", "Pager");
+                            $('#contentWrapper').append(list);
+                            $('#contentWrapper').append(pager);
+                            jQuery("#List").jqGrid({
+//                                        url: '/rest/metadata/malls/verify',
+                                datatype: "json",
+                                autowidth: true,
+                                colNames: ['id', '名称', '网址', '收藏时间'],
+                                colModel: [
+                                    {name: 'id', index: 'id', width: 55, frozen: true},
+                                    {name: 'name', index: 'name', width: 90, frozen: true},
+                                    {name: 'site', index: 'site', width: 200},
+                                    {name: 'postdate', index: 'postdate', width: 500, align: "center"}
+                                ],
+                                rowList: [10, 20, 30],
+                                pager: '#Pager',
+                                sortname: 'mid',
+                                viewrecords: true,
+                                sortorder: "desc",
+                                caption: "店铺认证",
+                                gridview: true,
+                                gridComplete: function () {
+
+                                }
+                            });
+                            jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
+                            $('.ui-jqgrid-bdiv').height(height);
+                        },
+                        // 消息中心
+                        function() {
+                            var list = $("<table></table>");
+                            list.attr("id", "List");
+                            list.css("height", "100%");
+                            var pager = $("<div></div>");
+                            pager.attr("id", "Pager");
+                            $('#contentWrapper').append(list);
+                            $('#contentWrapper').append(pager);
+                            jQuery("#List").jqGrid({
+//                                        url: '/rest/metadata/malls/verify',
+                                datatype: "json",
+                                autowidth: true,
+                                colNames: ['id', '姓名', '联系电话', '处理状态', '性 质', '地 区', '贷款金额', '发布时间', '操作'],
+                                colModel: [
+                                    {name: 'id', index: 'id', width: 55, frozen: true},
+                                    {name: 'name', index: 'name', width: 90, frozen: true},
+                                    {name: 'tel', index: 'announcement', width: 200},
+                                    {name: 'state', index: 'state', width: 500, align: "center"},
+                                    {name: 'lendedyears', index: 'lendedyears', width: 80, align: "center"},
+                                    {name: 'ctype', index: 'ctype', width: 150, sortable: false},
+                                    {name: 'cname', index: 'cname', width: 150, sortable: false},
+                                    {name: 'cphonenumber', index: 'cphonenumber', width: 150, sortable: false},
+                                    {name: 'act', index: 'act', width: 150}
+                                ],
+                                rowList: [10, 20, 30],
+                                pager: '#Pager',
+                                sortname: 'mid',
+                                viewrecords: true,
+                                sortorder: "desc",
+                                caption: "店铺认证",
+                                gridview: true,
+                                gridComplete: function () {
+
+                                }
+                            });
+                            jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
+                            $('.ui-jqgrid-bdiv').height(height);
+                        }
+                );
+            }
+    );
+}
+</script>
+
+<link rel="Shortcut Icon" href="favicon.ico">
 <title>欢迎来到青帝网</title>
 </head>
 
-<body>
-	Fuck the whole universie!
+<body onload='init()'>
+<div id="mainContainerWrapper" class="mainContainerWrapper">
+    <div id="mainContainer" class="mainContainerWide2">
+        <div id="tabWrapper" class="tabWrapper"></div>
+        <div id="menuContent" class="menuContent">
+            <div id="menuWrapper" class="menuWrapper"></div>
+            <div id="contentWrapperThin" class="contentWrapperThin">
+                <div id="contentWrapper" style="height:100%"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footContainer" class="footContainerAbs">
+</div>
 </body>
 </html>
