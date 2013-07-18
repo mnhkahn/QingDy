@@ -2,6 +2,7 @@ package com.qingdy.dao;
 
 import java.util.List;
 
+import com.qingdy.common.SQLParameters;
 import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdBlog;
 

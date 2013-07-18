@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.qingdy.dao.SQLParameters;
 
 public class CDaoImpl {
 
@@ -31,6 +30,26 @@ public class CDaoImpl {
 	}
 
 	public String generateSql() {
+		parameter.setSize(parameter.getSize() != 0 ? parameter.getSize() : Constant.PAGE_DEFAULT_SIZE);
+		parameter.setPage(parameter.getPage() != 0 ? parameter.getPage() : Constant.PAGE_DEFAULT_NUMBER);
+
+		if (parameter.getOperator() == null) 
+			parameter.setOperator("");
+		switch (parameter.getOperator()) {
+		case "eq":
+			parameter.setOperator("=");
+			break;
+		case "cn":
+			parameter.setOperator(" like ");
+			break;
+
+		default:
+			parameter.setOperator(" like ");
+			break;
+		}
+		
+		parameter.setSord(parameter.getSord() != null ? parameter.getSord() : "");
+		
 		StringBuffer sb = new StringBuffer(baseSql);
 		System.out.println(parameter.getField() == null);
 		System.out.println(parameter.getField() + parameter.getOperator() + parameter.getValue());

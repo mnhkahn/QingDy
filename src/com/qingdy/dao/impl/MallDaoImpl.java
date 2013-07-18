@@ -8,9 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.qingdy.common.CDaoImpl;
+import com.qingdy.common.SQLParameters;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.MallDao;
-import com.qingdy.dao.SQLParameters;
 import com.qingdy.domain.Grid;
 import com.qingdy.domain.Mall;
 import com.qingdy.domain.QdAnswer;
@@ -66,7 +66,7 @@ public class MallDaoImpl extends CDaoImpl implements MallDao {
 		try {
 
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
-			String sql = "SELECT * FROM QingDyDB.qd_mall left outer join QingDyDB.qd_member on QingDyDB.qd_mall.uid=QingDyDB.qd_member.uid left outer join QingDyDB.areas on QingDyDB.qd_mall.clientlocation=QingDyDB.areas.areaid left outer join QingDyDB.usersofloan on QingDyDB.qd_mall.usesofloanid=QingDyDB.usersofloan.uolid left outer join QingDyDB.speciality on QingDyDB.qd_mall.specialityid=QingDyDB.speciality.speid left outer join QingDyDB.clients on QingDyDB.qd_mall.lendtypeid=QingDyDB.clients.ctid left outer join QingDyDB.lendtype on QingDyDB.qd_mall.lendtypeid=QingDyDB.lendtype.ltid left outer join QingDyDB.lendedyears on QingDyDB.qd_mall.lendedyearsid=QingDyDB.lendedyears.lid";
+			String sql = "SELECT * FROM QingDyDB.qd_mall left outer join QingDyDB.qd_member on QingDyDB.qd_mall.uid=QingDyDB.qd_member.uid left outer join QingDyDB.areas on QingDyDB.qd_mall.clientlocation=QingDyDB.areas.areaid left outer join QingDyDB.userofloan on QingDyDB.qd_mall.usesofloanid=QingDyDB.usesofloan.uolid left outer join QingDyDB.speciality on QingDyDB.qd_mall.specialityid=QingDyDB.speciality.speid left outer join QingDyDB.clients on QingDyDB.qd_mall.lendtypeid=QingDyDB.clients.ctid left outer join QingDyDB.lendtype on QingDyDB.qd_mall.lendtypeid=QingDyDB.lendtype.ltid left outer join QingDyDB.lendedyears on QingDyDB.qd_mall.lendedyearsid=QingDyDB.lendedyears.lid";
 			
 			ps = conn.prepareStatement(sql);
 
@@ -117,7 +117,7 @@ public class MallDaoImpl extends CDaoImpl implements MallDao {
 		Grid grid = new Grid();
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
-			sql = "SELECT * FROM QingDyDB.qd_mall left outer join QingDyDB.qd_member on QingDyDB.qd_mall.uid=QingDyDB.qd_member.uid left outer join QingDyDB.areas on QingDyDB.qd_mall.clientlocation=QingDyDB.areas.areaid left outer join QingDyDB.usersofloan on QingDyDB.qd_mall.usesofloanid=QingDyDB.usersofloan.uolid left outer join QingDyDB.speciality on QingDyDB.qd_mall.specialityid=QingDyDB.speciality.speid left outer join QingDyDB.clients on QingDyDB.qd_mall.lendtypeid=QingDyDB.clients.ctid left outer join QingDyDB.lendtype on QingDyDB.qd_mall.lendtypeid=QingDyDB.lendtype.ltid left outer join QingDyDB.lendedyears on QingDyDB.qd_mall.lendedyearsid=QingDyDB.lendedyears.lid where true ";
+			sql = "SELECT * FROM QingDyDB.qd_mall left outer join QingDyDB.qd_member on QingDyDB.qd_mall.uid=QingDyDB.qd_member.uid left outer join QingDyDB.areas on QingDyDB.qd_mall.clientlocation=QingDyDB.areas.areaid left outer join QingDyDB.usesofloan on QingDyDB.qd_mall.usesofloanid=QingDyDB.usesofloan.uolid left outer join QingDyDB.speciality on QingDyDB.qd_mall.specialityid=QingDyDB.speciality.speid left outer join QingDyDB.clients on QingDyDB.qd_mall.lendtypeid=QingDyDB.clients.ctid left outer join QingDyDB.lendtype on QingDyDB.qd_mall.lendtypeid=QingDyDB.lendtype.ltid left outer join QingDyDB.lendedyears on QingDyDB.qd_mall.lendedyearsid=QingDyDB.lendedyears.lid where true ";
 			setBaseSql(sql);
 			sql = generateSql();
 

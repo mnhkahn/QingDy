@@ -7,9 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.qingdy.common.CDaoImpl;
+import com.qingdy.common.SQLParameters;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.LoanDao;
-import com.qingdy.dao.SQLParameters;
 import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdLoan;
 import com.qingdy.domain.Row;
@@ -57,7 +57,7 @@ public class LoanDaoImpl extends CDaoImpl implements LoanDao {
 		Grid grid = new Grid();
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
-			sql = "select * from QingDyDB.qd_loan left outer join QingDyDB.qd_member on QingDyDB.qd_loan.uid=QingDyDB.qd_member.uid left outer join QingDyDB.usersofloan on QingDyDB.qd_loan.usesofloanid=QingDyDB.usersofloan.uolid left outer join QingDyDB.lendtype on QingDyDB.qd_loan.lendtypeid=QingDyDB.lendtype.ltid left outer join QingDyDB.pawn on QingDyDB.qd_loan.pawnid=QingDyDB.pawn.pid  left outer join QingDyDB.areas on QingDyDB.qd_loan.location=QingDyDB.areas.areaid where true";
+			sql = "select * from QingDyDB.qd_loan left outer join QingDyDB.qd_member on QingDyDB.qd_loan.uid=QingDyDB.qd_member.uid left outer join QingDyDB.usesofloan on QingDyDB.qd_loan.usesofloanid=QingDyDB.usesofloan.uolid left outer join QingDyDB.lendtype on QingDyDB.qd_loan.lendtypeid=QingDyDB.lendtype.ltid left outer join QingDyDB.pawn on QingDyDB.qd_loan.pawnid=QingDyDB.pawn.pid  left outer join QingDyDB.areas on QingDyDB.qd_loan.location=QingDyDB.areas.areaid where true";
 			setBaseSql(sql);
 			sql = generateSql();
 			

@@ -17,7 +17,7 @@ public class UserDaoImpl extends CDaoImpl implements UserDao {
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
 
-			sql = "insert into QingDyDB.qd_member(username,password,groupid,postdate) values(?,?,?,?);";
+			sql = "insert into QingDyDB.qd_member(username,password,groupid,regdate) values(?,?,?,?);";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getPassword());

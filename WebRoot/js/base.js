@@ -13,23 +13,23 @@ function commonInit() {
 				dataType: "json",
 				url: '/rest/metadata/members/login',
 				contentType: "application/json; charset=utf-8",
-				data: '{"Username": "' + username + '", "Password":"' + password + '" }',//{'Username' : username, 'Password' : password},
+				data: '{"username": "' + username + '", "password":"' + password + '" }',//{'Username' : username, 'Password' : password},
 				success: function(info) {
 					$.ajax({
 						type: "GET",
 						dataType: "json",
-						url: '/rest/metadata/messages/unread?id=' + info[0].uid,
+						url: '/rest/metadata/messages/' + info.uid + '/unread',
 						success: function(message) {
 							arr.info = new Object;
-							arr.info.icon = info[0].icon;
-							arr.info.name = info[0].firstname + info[0].lastname;
-							arr.info.message = message[0];
+							arr.info.icon = info.icon;
+							arr.info.name = info.lastname + info.firstname;
+							arr.info.message = message;
 							var link;
-							if (info[0].groupid == 2)
+							if (info.groupid == 2)
 								link = 'lender.html';
-							else if (info[0].groupid == 1)
+							else if (info.groupid == 1)
 								link = 'loaner.html';
-							else if (info[0].groupid == 0)
+							else if (info.groupid == 0)
 								link = 'admin.html';
 							arr.info.link = link;
 							ctop = cTop.create(arr);

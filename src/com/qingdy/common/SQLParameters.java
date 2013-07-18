@@ -1,4 +1,4 @@
-package com.qingdy.dao;
+package com.qingdy.common;
 
 public class SQLParameters {
 
@@ -64,11 +64,15 @@ public class SQLParameters {
 	 * @param value
 	 *            参数值 Object
 	 */
-	public SQLParameters(int size, int page, String field, String operator, String value) {
+	public SQLParameters(int size, int page, String field, String value, String operator, String sidx, String sord) {
 		super();
+		this.size = size;
+		this.page = page;
 		this.field = field;
 		this.value = value;
 		this.operator = operator;
+		this.sidx = sidx;
+		this.sord = sord;
 	}
 
 	public String getSidx() {

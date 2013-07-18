@@ -2,7 +2,6 @@ package com.qingdy.common;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.qingdy.dao.SQLParameters;
 
 public class Action {
 	

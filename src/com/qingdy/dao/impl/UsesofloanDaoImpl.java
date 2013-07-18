@@ -18,7 +18,7 @@ public class UsesofloanDaoImpl extends CDaoImpl implements UsesofloanDao{
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
 
-			sql = "select * from QingDyDB.usersofloan";
+			sql = "select * from QingDyDB.usesofloan";
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			

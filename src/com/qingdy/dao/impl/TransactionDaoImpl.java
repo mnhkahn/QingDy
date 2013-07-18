@@ -11,8 +11,8 @@ import java.util.List;
 import javax.sql.RowSet;
 
 import com.qingdy.common.CDaoImpl;
+import com.qingdy.common.SQLParameters;
 import com.qingdy.common.cJDBCUtilsSingleton;
-import com.qingdy.dao.SQLParameters;
 import com.qingdy.dao.TransactionDao;
 import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdTransaction;

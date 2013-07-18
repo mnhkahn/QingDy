@@ -7,9 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.qingdy.common.CDaoImpl;
+import com.qingdy.common.SQLParameters;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.ProductDao;
-import com.qingdy.dao.SQLParameters;
 import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdAnswer;
 import com.qingdy.domain.QdProduct;
@@ -65,7 +65,7 @@ public class ProductDaoImpl extends CDaoImpl implements ProductDao {
 		Grid grid = new Grid();
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
-			sql = "SELECT * FROM QingDyDB.qd_product join QingDyDB.qd_mall on QingDyDB.qd_product.mid=QingDyDB.qd_mall.mid inner join QingDyDB.qd_member on QingDyDB.qd_product.uid=QingDyDB.qd_member.uid left outer join QingDyDB.areas on QingDyDB.qd_product.clientlocation=QingDyDB.areas.areaid left outer join QingDyDB.usersofloan on QingDyDB.qd_product.usesofloanid=QingDyDB.usersofloan.uolid left outer join QingDyDB.clients on QingDyDB.qd_product.clientid=QingDyDB.clients.ctid left outer join QingDyDB.ratetype on QingDyDB.qd_product.ratetypeid=QingDyDB.ratetype.rid left outer join QingDyDB.repaymethod on QingDyDB.qd_product.repaymentmethodid=QingDyDB.repaymethod.rid left outer join QingDyDB.speciality on QingDyDB.qd_product.ptype=QingDyDB.speciality.speid where true ";
+			sql = "SELECT * FROM QingDyDB.qd_product join QingDyDB.qd_mall on QingDyDB.qd_product.mid=QingDyDB.qd_mall.mid inner join QingDyDB.qd_member on QingDyDB.qd_product.uid=QingDyDB.qd_member.uid left outer join QingDyDB.areas on QingDyDB.qd_product.clientlocation=QingDyDB.areas.areaid left outer join QingDyDB.usesofloan on QingDyDB.qd_product.usesofloanid=QingDyDB.usesofloan.uolid left outer join QingDyDB.clients on QingDyDB.qd_product.clientid=QingDyDB.clients.ctid left outer join QingDyDB.ratetype on QingDyDB.qd_product.ratetypeid=QingDyDB.ratetype.rid left outer join QingDyDB.repaymethod on QingDyDB.qd_product.repaymentmethodid=QingDyDB.repaymethod.rid left outer join QingDyDB.speciality on QingDyDB.qd_product.ptype=QingDyDB.speciality.speid where true ";
 			setBaseSql(sql);
 			sql = generateSql();
 

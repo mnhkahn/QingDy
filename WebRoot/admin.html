@@ -93,7 +93,7 @@ function showCreateNews() {
                     var category = $('#categorySel').val();
                     var content = $('#content').val();
                     console.debug(uid, title, category, content);
-                    var json = "{'Title': '" + title + "', 'Text':'" + content + "', 'Uid':" + uid + ", 'Classes':" + category + " }";
+                    var json = "{\"title\": \"" + title + "\", \"text\":\"" + content + "\", \"uid\":" + uid + ", \"classes\":" + category + " }";
                     $.ajax({
                         url: '/rest/metadata/news',
                         type: 'POST',
@@ -413,11 +413,12 @@ function init() {
                                 $.ajax({
                                     type: "GET",
                                     url: '/rest/metadata/news/' + id,
+                                    contentType: "application/json",
+                                    dataType: "json",
                                     success: function (response) {
-                                        var news = JSON.parse(response)
-                                        $('#categorySel').val(news.classes);
-                                        $('#title').val(news.title);
-                                        $('#content').val(news.text);
+                                        $('#categorySel').val(response.classes);
+                                        $('#title').val(response.title);
+                                        $('#content').val(response.text);
                                     },
                                     error: function (response) {
 
@@ -431,12 +432,15 @@ function init() {
                                         $.ajax({
                                             type: "DELETE",
                                             url: '/rest/metadata/news/' + id,
+                                            contentType: "application/json",
+                                            dataType: "json",
                                             success: function (response) {
                                                 $('#List').trigger('reloadGrid');
                                                 $.jBox.info('删除成功');
                                             },
                                             error: function (response) {
-
+                                                $('#List').trigger('reloadGrid');
+                                                $.jBox.info('删除失败');
                                             }
                                         });
                                     }

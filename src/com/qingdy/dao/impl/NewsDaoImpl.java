@@ -7,9 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.qingdy.common.CDaoImpl;
+import com.qingdy.common.SQLParameters;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.NewsDao;
-import com.qingdy.dao.SQLParameters;
 import com.qingdy.domain.Grid;
 import com.qingdy.domain.QdNews;
 import com.qingdy.domain.Row;

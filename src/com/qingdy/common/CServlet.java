@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qingdy.dao.SQLParameters;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
