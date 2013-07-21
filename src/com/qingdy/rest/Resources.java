@@ -1,8 +1,5 @@
 package com.qingdy.rest;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -21,6 +18,7 @@ import com.qingdy.dao.AreaDao;
 import com.qingdy.dao.ClientsDao;
 import com.qingdy.dao.LendTypeDao;
 import com.qingdy.dao.LoanDao;
+import com.qingdy.dao.LoanPawnDao;
 import com.qingdy.dao.MallDao;
 import com.qingdy.dao.MessageDao;
 import com.qingdy.dao.NewsDao;
@@ -36,6 +34,7 @@ import com.qingdy.dao.UserDao;
 import com.qingdy.dao.UsesofloanDao;
 import com.qingdy.dao.impl.AreaDaoImpl;
 import com.qingdy.dao.impl.ClientsDaoImpl;
+import com.qingdy.dao.impl.LaonPawnDaoImpl;
 import com.qingdy.dao.impl.LendTypeDaoImpl;
 import com.qingdy.dao.impl.LoanDaoImpl;
 import com.qingdy.dao.impl.MallDaoImpl;
@@ -51,9 +50,8 @@ import com.qingdy.dao.impl.SpecialityDaoImpl;
 import com.qingdy.dao.impl.TransactionDaoImpl;
 import com.qingdy.dao.impl.UserDaoImpl;
 import com.qingdy.dao.impl.UsesofloanDaoImpl;
-import com.qingdy.domain.QdHistory;
-import com.qingdy.domain.QdMember;
-import com.qingdy.domain.QdNews;
+
+import com.qingdy.domain.*;
 
 @Path("/metadata")
 public class Resources {
@@ -61,6 +59,7 @@ public class Resources {
 	private ProductDao productDao = new ProductDaoImpl();
 	private LoanDao loanDao = new LoanDaoImpl();
 	private TransactionDao transactionDao = new TransactionDaoImpl();
+	private LoanPawnDao loanPawnDao = new LaonPawnDaoImpl();
 	
 	private NewsDao newsDao = new NewsDaoImpl();
 	
@@ -187,6 +186,26 @@ public class Resources {
 		return Response.ok().build();
 	}
 	
+	@Path("/loans/")
+	@POST
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response addLoan(QdLoan loan) {
+		System.out.println(loan.getHaspawn());
+		return Response.ok().build();
+	}
+	
+	@Path("/usesofloan/{id}")
+	@POST
+	public Response addLoanUsesofloan(@PathParam("id") int id) {
+		return Response.ok().build();
+	}
+	
+	@Path("/pawn/{id}")
+	@POST
+	public Response addLoanPawn(@PathParam("id") int id) {
+		return Response.ok().build();
+	}
+	
 	@Path("/transactions/verify")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -261,6 +280,13 @@ public class Resources {
 	@GET
 	public Response getUnreadMessages(@PathParam("id") int id) {
 		return Response.ok(messageDao.getUnreadCount(id)).build();
+	}
+	
+	@Path("/productpawn")
+	@GET
+	public Response getProductPawns() {
+		System.out.println("fuck");
+		return Response.ok().build();
 	}
 	
 	@Path("/areas/province")
@@ -347,13 +373,13 @@ public class Resources {
 	}
 	
 
-	@Path("/history")
+/*	@Path("/history")
 	@GET
 	public List<String> getHistory() {
 		List<String> list = new LinkedList<String>();
 		list.add("hello");
 		return list;
-	}
+	}*/
 	
 	@Path("/history")
 	@POST

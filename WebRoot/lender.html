@@ -8,13 +8,18 @@
 <link href="css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
 <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
 <link rel="stylesheet" href="css/jquery.checkbox.css" />
+<link rel="stylesheet" href="css/chosen.css" />
 
 <!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
 <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.2.custom.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src='js/cTop.js'></script>
 <script type="text/javascript" src="js/cMenu.js"></script>
+<script src="js/formValidator-4.1.0.js" type="text/javascript" charset="UTF-8"></script>
+<script src="js/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
+<script language="javascript" src="../js/DateTimeMask.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/jquery.jBox-2.3.min.js"></script>
 <script type="text/javascript" src="js/i18n/jquery.jBox-zh-CN.js"></script>
 <script type="text/javascript" src="js/jquery.jqGrid.src.js"></script>
@@ -22,8 +27,10 @@
 <script type="text/javascript" src="js/jquery.checkbox.js"></script>
 <script type="text/javascript" src="js/xheditor-1.2.1.min.js"></script>
 <script type="text/javascript" src="js/xheditor_lang/zh-cn.js"></script>
+<script type="text/javascript" src="js/chosen.jquery.js"></script>
 <script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/cTab.js"></script>
+
 
     <script type="text/javascript">
         function showCreateBlog() {
@@ -36,6 +43,7 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
                         $('#submit').bind('click', function () {
+                            alert("add blog")
                             var uid = 45;
                             var title = $('#title').val();
                             var category = $('#categorySel').val();
@@ -62,6 +70,7 @@
                                             .attr("value", response[i].classid)
                                             .text(response[i].name));
                         }
+                        $('#categorySel').data("placeholder", "请选择").chosen();
                     },
                     error: function(response) {
                         console.error(response);
@@ -114,12 +123,179 @@
                                             onUpload: function () {
                                             }
                                         });
+                                        $.formValidator.initConfig({formID:"mallsettingForm",theme:"css/ArrowSolidBox",debug:true,submitOnce:true,
+                                            onError:function(msg,obj,errorlist){
+                                                $("#errorlist").empty();
+                                                $.map(errorlist,function(msg){
+                                                    $("#errorlist").append("<li>" + msg + "</li>")
+                                                });
+                                                alert(msg);
+                                            },
+                                            submitAfterAjaxPrompt : '有数据正在异步验证，请稍等...',
+                                            onShowClass : "",
+                                            onFocusClass : "",
+                                            onCorrectClass : ""
+                                        });
+                                        $("#name").formValidator({onShow:"请尽量填写你所在公司的完整名称。",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
+                                        $("#tel").formValidator({onShow:"手机或固话，固话请加上区号",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
+                                        $("#position").formValidator({onShow:"请尽量填写你所在公司的部门或职位。",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
+                                        $("#site").formValidator({onShow:"请注意网址必须以http://或https://开头。"});
+                                        var lendedyearsSel = $("#lendyearSel");
+                                        $.ajax({
+                                            url: "rest/metadata/lendedyears",
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                lendedyears = eval(response);
+                                                for(var i = 0; i < city.length; i++) {
+                                                    lendedyearsSel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", lendedyears[i].lid)
+                                                                    .text(lendedyears[i].lendedyears));
+                                                }
+                                                lendedyearsSel.chosen();
+                                            },
+                                            error: function(response) {
+                                                lendedyearsSel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        var typeSel = $("#typeSel");
+                                        $.ajax({
+                                            url: "rest/metadata/lendtype",
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                lendtype = eval(response);
+                                                for(var i = 0; i < lendtype.length; i++) {
+                                                    typeSel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", lendtype[i].ltid)
+                                                                    .text(lendtype[i].lendtype));
+                                                }
+                                                typeSel.chosen();
+                                            },
+                                            error: function(response) {
+                                                typeSel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        $("#submit").on("click", function () {
+                                            alert("mallsetting")
+                                        });
+                                        $("#preview").on("click", function () {
+                                            alert("preview")
+                                        });
+
                                     });
+
                                 },
                                 // "业务设置
                                 function() {
                                     $('#contentWrapper').load('/js/templates/businesssetting.html', function () {
-
+                                        var areasSel = $("#areasSel");
+                                        $.ajax({
+                                            url: "rest/metadata/city/" + 45,
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                cities = eval(response);
+                                                for(var i = 0; i < cities.length; i++) {
+                                                    areasSel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", cities[i].areaid)
+                                                                    .text(cities[i].name));
+                                                }
+                                                areasSel.chosen();
+                                            },
+                                            error: function(response) {
+                                                areasSel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        var usesofloanSel = $("#usesofloanSel");
+                                        $.ajax({
+                                            url: "rest/metadata/usesofloan",
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                usesofloan = eval(response);
+                                                for(var i = 0; i < usesofloan.length; i++) {
+                                                    usesofloanSel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", usesofloan[i].uid)
+                                                                    .text(usesofloan[i].usesofloan));
+                                                }
+                                                usesofloanSel.data("placeholder", "请选择").chosen();
+                                            },
+                                            error: function(response) {
+                                                usesofloanSel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        var specialitySel = $("#specialitySel");
+                                        $.ajax({
+                                            url: "rest/metadata/speciality",
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                speciality = eval(response);
+                                                for(var i = 0; i < speciality.length; i++) {
+                                                    specialitySel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", speciality[i].sid)
+                                                                    .text(speciality[i].speciality));
+                                                }
+                                                specialitySel.data("placeholder", "请选择").chosen();
+                                            },
+                                            error: function(response) {
+                                                specialitySel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        var clientsSel = $("#clientsSel");
+                                        $.ajax({
+                                            url: "rest/metadata/clients",
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                clients = eval(response);
+                                                for(var i = 0; i < clients.length; i++) {
+                                                    clientsSel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", clients[i].ctid)
+                                                                    .text(clients[i].ctype));
+                                                }
+                                                clientsSel.data("placeholder", "请选择").chosen();
+                                            },
+                                            error: function(response) {
+                                                clientsSel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        var lendtypeSel = $("#lendtypeSel");
+                                        $.ajax({
+                                            url: "rest/metadata/lendtype",
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                lendtype = eval(response);
+                                                for(var i = 0; i < lendtype.length; i++) {
+                                                    lendtypeSel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", lendtype[i].ltid)
+                                                                    .text(lendtype[i].lendtype));
+                                                }
+                                                lendtypeSel.data("placeholder", "请选择").chosen();
+                                            },
+                                            error: function(response) {
+                                                lendtypeSel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        $("#submit").on("click", function () {
+                                            alert("businesssetting")
+                                        });
                                     })
                                 },
                                 // "申请管理"
@@ -195,6 +371,167 @@
                                             html5Upload : false,
                                             onUpload: function () {
                                             }
+                                        });
+                                        $.formValidator.initConfig({formID:"productForm",theme:"css/ArrowSolidBox",debug:true,submitOnce:true,
+                                            onError:function(msg,obj,errorlist){
+                                                $("#errorlist").empty();
+                                                $.map(errorlist,function(msg){
+                                                    $("#errorlist").append("<li>" + msg + "</li>")
+                                                });
+                                                alert(msg);
+                                            },
+                                            submitAfterAjaxPrompt : '有数据正在异步验证，请稍等...',
+                                            onShowClass : "",
+                                            onFocusClass : "",
+                                            onCorrectClass : ""
+                                        });
+                                        $("#min").formValidator({onShow:"万元/单笔，若未满一万填写小数，如0.8，最多只能一位小数。",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
+
+                                        var typeSel = $("#typeSel");
+                                        $.ajax({
+                                            url: "rest/metadata/ratetype",
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                ratetype = eval(response);
+                                                for(var i = 0; i < ratetype.length; i++) {
+                                                    typeSel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", ratetype[i].rid)
+                                                                    .text(ratetype[i].ratetype));
+                                                }
+                                                typeSel.data("placeholder", "请选择").chosen();
+                                            },
+                                            error: function(response) {
+                                                typeSel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        var deadlineSel = $("#deadlineSel");
+                                        $.ajax({
+                                            url: "rest/metadata/deadline",
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                deadline = eval(response);
+                                                for(var i = 0; i < ratetype.length; i++) {
+                                                    deadlineSel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", deadline[i].rid)
+                                                                    .text(deadline[i].ratetype));
+                                                }
+                                                deadlineSel.data("placeholder", "请选择").chosen();
+                                            },
+                                            error: function(response) {
+                                                deadlineSel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        var areasSel = $("#areasSel");
+                                        $.ajax({
+                                            url: "rest/metadata/city/" + 45,
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                cities = eval(response);
+                                                for(var i = 0; i < cities.length; i++) {
+                                                    areasSel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", cities[i].areaid)
+                                                                    .text(cities[i].name));
+                                                }
+                                                areasSel.chosen();
+                                            },
+                                            error: function(response) {
+                                                areasSel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        var clientsSel = $("#clientsSel");
+                                        $.ajax({
+                                            url: "rest/metadata/clients",
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                clients = eval(response);
+                                                for(var i = 0; i < clients.length; i++) {
+                                                    clientsSel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", clients[i].ctid)
+                                                                    .text(clients[i].ctype));
+                                                }
+                                                clientsSel.data("placeholder", "请选择").chosen();
+                                            },
+                                            error: function(response) {
+                                                clientsSel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        var repaymethodSel = $("#repaymethodSel");
+                                        $.ajax({
+                                            url: "rest/metadata/repaymethod",
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                repaymethod = eval(response);
+                                                for(var i = 0; i < cities.length; i++) {
+                                                    repaymethodSel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", repaymethod[i].rid)
+                                                                    .text(repaymethod[i].repaymethod));
+                                                }
+                                                repaymethodSel.chosen();
+                                            },
+                                            error: function(response) {
+                                                repaymethodSel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        var producttypeSel = $("#producttypeSel");
+                                        $.ajax({
+                                            url: "rest/metadata/repaymethod",
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                producttype = eval(response);
+                                                for(var i = 0; i < cities.length; i++) {
+                                                    producttypeSel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", producttype[i].rid)
+                                                                    .text(producttype[i].repaymethod));
+                                                }
+                                                producttypeSel.chosen();
+                                            },
+                                            error: function(response) {
+                                                producttypeSel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        var usesofloanSel = $("#usesofloanSel");
+                                        $.ajax({
+                                            url: "rest/metadata/usesofloan",
+                                            type: "GET",
+                                            dateType: "json",
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                usesofloan = eval(response);
+                                                for(var i = 0; i < usesofloan.length; i++) {
+                                                    usesofloanSel
+                                                            .append($("<option></option>")
+                                                                    .attr("value", usesofloan[i].uid)
+                                                                    .text(usesofloan[i].usesofloan));
+                                                }
+                                                usesofloanSel.data("placeholder", "请选择").chosen();
+                                            },
+                                            error: function(response) {
+                                                usesofloanSel.data("placeholder", "请选择").chosen();
+                                            }
+                                        });
+                                        $("#submit").on("click", function () {
+                                            alert("add product")
+                                        });
+                                        $("#preview").on("click", function () {
+                                            alert("preview")
                                         });
                                     })
                                 },
@@ -310,6 +647,9 @@
                                             onUpload: function () {
                                             }
                                         });
+                                        $("#submit").on("click", function () {
+                                            alert("announcement")
+                                        });
                                     })
                                 },
                                 // "成功案例"
@@ -358,6 +698,23 @@
                                             html5Upload : false,
                                             onUpload: function () {
                                             }
+                                        });
+                                        $.formValidator.initConfig({formID:"transactionForm",theme:"css/ArrowSolidBox",debug:true,submitOnce:true,
+                                            onError:function(msg,obj,errorlist){
+                                                $("#errorlist").empty();
+                                                $.map(errorlist,function(msg){
+                                                    $("#errorlist").append("<li>" + msg + "</li>")
+                                                });
+                                                alert(msg);
+                                            },
+                                            submitAfterAjaxPrompt : '有数据正在异步验证，请稍等...',
+                                            onShowClass : "",
+                                            onFocusClass : "",
+                                            onCorrectClass : ""
+                                        });
+                                        $("#amount").formValidator({onShow:"单位：万",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
+                                        $("#submit").on("click", function () {
+                                            alert("add transaction")
                                         });
                                     })
                                 },
@@ -574,7 +931,7 @@
 </head>
 
 <body onload='init()'>
-<div id="mainContainerWrapper" class="mainContainerWrapper">
+<div id="mainContainerWrapper" style="height:700px; margin-top: 60px;">
     <div id="mainContainer" class="mainContainerWide2">
         <div id="tabWrapper" class="tabWrapper"></div>
         <div id="menuContent" class="menuContent">
@@ -585,7 +942,7 @@
         </div>
     </div>
 </div>
-<div id="footContainer" class="footContainerAbs">
+<div id="footContainer" class="footContainer">
 </div>
 </body>
 </html>

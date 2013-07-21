@@ -56,6 +56,7 @@
 	<target name="compile">
 		<echo>Compiling...</echo>
 		<javac srcdir="${source.root}" destdir="${class.root}" includeantruntime="false">
+			<compilerarg line="-encoding UTF-8 "/>
 			<classpath refid="webapp.lib.classpath" />
 		</javac>
 	</target>

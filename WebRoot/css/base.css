@@ -479,9 +479,7 @@ a, a:link, a:active, a:hover, a:visited {
 }
 
 .mainContainerWide {
-
     position: absolute;
-
     top: 100px;
     bottom: 100px;
     left: 5px;
@@ -522,6 +520,7 @@ a, a:link, a:active, a:hover, a:visited {
 	display: block;
 	float: left;
 
+    overflow: auto;
 	position: relative;
 }
 

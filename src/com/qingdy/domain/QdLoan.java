@@ -7,10 +7,10 @@ public class QdLoan {
 	private Integer uid;
 	private float amount;
 	private Timestamp deadline;
-	private Integer usesofloan;
+	private String usesofloan;
 	private Integer lendtype;
 	private Integer haspawn;
-	private Integer pawn;
+	private String pawn;
 	private String title;
 	private String introduce;
 	private Integer verify;
@@ -50,11 +50,11 @@ public class QdLoan {
 		this.deadline = deadline;
 	}
 	
-	public Integer getUsesofloan() {
+	public String getUsesofloan() {
 		return usesofloan;
 	}
 
-	public void setUsesofloan(Integer usesofloan) {
+	public void setUsesofloan(String usesofloan) {
 		this.usesofloan = usesofloan;
 	}
 	
@@ -74,11 +74,11 @@ public class QdLoan {
 		this.haspawn = haspawn;
 	}
 	
-	public int getPawn() {
+	public String getPawn() {
 		return pawn;
 	}
 
-	public void setPawn(Integer pawn) {
+	public void setPawn(String pawn) {
 		this.pawn = pawn;
 	}
 	

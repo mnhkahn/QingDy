@@ -1,10 +1,11 @@
+<form action="" method="post" name="productForm" id="productForm">
 <div id='Wrapper' style="width:750px; height:100%">
     <div class="hd" style="width:750px; height:32px">
         <div id='Header' class="newsTitle" style="width:320px;float: left">
             <div style="margin-top: 8px;margin-left: 10px;font-size: 1.5em;font-weight: bold;">发布产品</div>
         </div>
         <div id="actionWrapper" style="width:160px;height: 59px;float: right">
-            <input id='submit' class='largeBtn' style="float:left" type='button' value='预览产品'/>
+            <input id='preview' class='largeBtn' style="float:left" type='button' value='预览产品'/>
             <input id='submit' class='largeBtn' style="float:right" type='button' value='提交'/>
         </div>
     </div>
@@ -22,10 +23,10 @@
         <tr>
             <td width="100px;">放贷额度*</td>
             <td>
-                最低    万元   - 最高
+                <input id='min' class='input' style="width:50px; float:left" /><div style="width:10px; float:left"> ~ </div></div> <input id='max' class='input' style="width:50px; float:left" />
             </td>
             <td width="400px" colspan="3">
-                <span class="input-gray">万元  万元/单笔，若未满一万填写小数，如0.5。</span>
+                <span class="input-gray" id="minTip"></span>
             </td>
         </tr>
         <tr>
@@ -35,31 +36,31 @@
             </td>
             <td width="100px;">放贷期限*</td>
             <td width="250px">
-                <select id='typeSel' style="font-weight: bold;width: 100px;"></select>
+                <select id='deadlineSel' style="font-weight: bold;width: 100px;"></select>
             </td>
         </tr>
         <tr>
             <td width="100px;">针对地区*</td>
-            <td width="250px"><input id="tel" class='input' /></td>
+            <td width="250px"><select id='areasSel' class="chosen" multiple="true" style="font-weight: bold;width: 200px;"></select>
             <td width="100px;">适合用户*</td>
-            <td width="250px"><input id='position' class='input' /></td>
+            <td width="250px"><select id='clientsSel' class="chosen" multiple="true" style="font-weight: bold;width: 200px;"></select>
         </tr>
         <tr>
             <td width="100px;">还款方式*</td>
             <td width="250px" colspan="3">
-
+                <select id='repaymethodSel' class="chosen" style="font-weight: bold;width: 200px;"></select>
             </td>
         </tr>
         <tr>
             <td width="100px;">产品种类*</td>
             <td colspan=3>
-
+                <select id='producttypeSel' class="chosen" style="font-weight: bold;width: 200px;"></select>
             </td>
         </tr>
         <tr>
             <td width="100px;">产品用途*</td>
             <td colspan=3>
-
+                <select id='usesofloanSel' class="chosen" style="font-weight: bold;width: 200px;"></select>
             </td>
         </tr>
         <tr>
@@ -92,3 +93,4 @@
         </tr>
     </table>
 </div>
+</form>

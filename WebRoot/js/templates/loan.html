@@ -1,3 +1,4 @@
+<form action="" method="post" name="loanForm" id="loanForm">
 <div id='Wrapper' style="width:750px;height:100%">
     <div class="hd" style="width:750px; height:32px">
         <div id='Header' class="newsTitle" style="width:320px;float: left">
@@ -14,11 +15,9 @@
         </tr>
         <tr>
             <td width="100px;">所在地区</td>
-            <td width="100px;">
-                <div class='blodChar'></div>
-            </td>
-            <td width="450px">
-                <input id='submit' class='largeBtn' style="float:left" type='button' value='设置地区'/>
+            <td width="550px;" colspan="2">
+                <select id="provinceSel" class="chosen" style="width:150px;" onchange="getCity()"></select>
+                <select id="citySel" class="chosen" style="width:200px; margin-left: 10px;" ></select>
             </td>
         </tr>
         <tr>
@@ -27,37 +26,37 @@
                 <input id='amount' class='input' />
             </td>
             <td width="450px">
-                <span class="input-gray">万元/单笔，若未满一万填写小数，如0.8，最多只能一位小数。</span>
+                <span class="input-gray" id="amountTip"></span>
             </td>
         </tr>
         <tr>
             <td width="110px;">贷款期限</td>
             <td colspan=2 width="640px">
-                <select id='typeSel' style="font-weight: bold;width: 100px;"></select>
+                <input type="text" id="datepicker"></input>
             </td>
         </tr>
         <tr>
             <td width="110px;">贷款用途</td>
             <td colspan=2 width="640px">
-                <div class='blodChar'></div>
+                <select id="usesofloanSel" class="chosen" multiple="true" style="width:400px;" ></select>
             </td>
         </tr>
         <tr>
             <td width="110px;">有无抵押物</td>
             <td colspan=2 width="640px">
-                <input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' />
+                <input id='haspawn' name='checkbox.1.1' type='checkbox' />
             </td>
         </tr>
         <tr>
             <td width="110px;">*抵押物</td>
             <td colspan=2 width="640px">
-                <div class='blodChar'></div>
+                <select id="pawnSel" class="chosen" multiple="true" style="width:400px;" ></select>
             </td>
         </tr>
         <tr>
             <td width="110px;">标题</td>
             <td colspan=2 width="640px">
-                <input id='amount' class='input' style="width:90%" />
+                <input id='title' class='input' style="width:90%" />
             </td>
         </tr>
         <tr>
@@ -69,3 +68,4 @@
         </tr>
     </table>
 </div>
+</form>
