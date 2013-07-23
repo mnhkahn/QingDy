@@ -54,6 +54,8 @@
 	border-bottom-style: solid;
 	border-bottom-color: #fff;
 	border-bottom-width: 1px;
+
+    border-top: 1px solid rgb(217, 217, 217);;
 }
 
 .nav-ul-mall {

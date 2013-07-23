@@ -5,48 +5,55 @@
 <title>贷款机构</title>
 
 <link href="css/base.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="css/ui.jqgrid.css" type="text/css"></link>
-<link href="css/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
+<link href="css/flexisel.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/chosen.css" />
 
 
-<!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
-<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src='js/jquery-1.9.1.js'></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src='js/cTop.js'></script>
-<script type="text/javascript" src="js/jquery.jqGrid.src.js"></script>
-<script type="text/javascript" src="js/i18n/grid.locale-cn.js"></script>
+<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+<script type="text/javascript" src="js/jquery.esn.autobrowse.js"></script>
+<script type="text/javascript" src="js/jstorage.js"></script>
+<script type="text/javascript" src="js/chosen.jquery.js"></script>
 
 <link rel = "Shortcut Icon" href="favicon.ico">
 <script type="text/javascript">
 function init() {
 	commonInit();
-	
-	showNews();
+    $('#hot').load('/data/bankFlex.html', function () {
+        $("#bankUl").flexisel({
+            visibleItems: 5,
+            animationSpeed: 1000,
+            autoPlay: true,
+            autoPlaySpeed: 3000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint:480,
+                    visibleItems: 1
+                },
+                landscape: {
+                    changePoint:640,
+                    visibleItems: 2
+                },
+                tablet: {
+                    changePoint:768,
+                    visibleItems: 3
+                }
+            }
+        });
+    });
 
-	jQuery("#mallList").jqGrid({
-   	url:'/data/mall.json',//'/rest/metadata/malls?size=1000&page=1',
-	datatype: "json",
-//	mtype: 'GET',
-	autowidth: true,
-	colModel:[
-   		{name:'id',index:'id', width:55},
-   		{name:'invdate',index:'invdate', width:90},
-   		{name:'name',index:'name asc, invdate', width:100},
-   		{name:'amount',index:'amount', width:80, align:"right"},
-   		{name:'tax',index:'tax', width:80, align:"right"},		
-   		{name:'total',index:'total', width:80,align:"right"},		
-   		{name:'note',index:'note', width:150, sortable:false}		
-   	],
-   	rowNum:10,
-   	rowList:[10,20,30],
-   	pager: '#mallPager',
-   	sortname: 'id',
-    viewrecords: true,
-    sortorder: "desc",
-    caption:"JSON Example"
-});
-jQuery("#mallList").jqGrid('navGrid','#mallPager',{refresh:false,search:false,edit:false,add:false,del:false});
+    $('#filter').load('/js/templates/mallFilter.html', function () {
+        var provinceSel = $("#provinceSel");
+        provinceSel.data("placeholder", "请选择").chosen();
+
+        var citySel = $("#citySel");
+        citySel.data("placeholder", "请选择").chosen();
+    });
 }
 </script>
 
@@ -59,10 +66,19 @@ jQuery("#mallList").jqGrid('navGrid','#mallPager',{refresh:false,search:false,ed
     </div>
 	<div id="mainContainer2" class="mainContainer2">
 		<div id="mainContainerCenterLeft" class="mainContainerCenterLeft">
-			<table id="mallList"></table>
-			<div id="mallPager"></div>
+            <div id="hot" class="hot">
+
+            </div>
+            <div id="filter" style="height: 75px" class="filter container">
+            </div>
+            <div id="waterfall" class="waterfall">
+                <div class='page'>
+                    <div class='items' ></div>
+                </div>
+            </div>
 		</div>
 		<div id="recommendContainerRight" class="recommendContainerRight"></div>
+        <div style="clear:both;"></div>
 	</div>
 	</div>
 	<div id="footContainer" class="footContainer">

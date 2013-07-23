@@ -4,20 +4,56 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>贷款专家</title>
 
-<link href="css/base.css" rel="stylesheet" type="text/css" />
+    <link href="css/base.css" rel="stylesheet" type="text/css" />
+    <link href="css/flexisel.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/chosen.css" />
 
-<script type="text/javascript" src='js/jquery-1.9.1.js'></script>
-<script type="text/javascript" src="js/base.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript" src='js/cTop.js'></script>
+
+    <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src='js/cTop.js'></script>
+    <script type="text/javascript" src="js/jquery.flexisel.js"></script>
+    <script type="text/javascript" src="js/jquery.esn.autobrowse.js"></script>
+    <script type="text/javascript" src="js/jstorage.js"></script>
+    <script type="text/javascript" src="js/chosen.jquery.js"></script>
 <link rel = "Shortcut Icon" href="favicon.ico">
 <script type="text/javascript">
 function init() {
 	commonInit();
-	
-	showTopBanner();
-	showSearchBox();
-	showNews();
+
+    $('#hot').load('/data/bankFlex.html', function () {
+        $("#bankUl").flexisel({
+            visibleItems: 5,
+            animationSpeed: 1000,
+            autoPlay: true,
+            autoPlaySpeed: 3000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint:480,
+                    visibleItems: 1
+                },
+                landscape: {
+                    changePoint:640,
+                    visibleItems: 2
+                },
+                tablet: {
+                    changePoint:768,
+                    visibleItems: 3
+                }
+            }
+        });
+    });
+
+    $('#filter').load('/js/templates/specialistFilter.html', function () {
+        var provinceSel = $("#provinceSel");
+        provinceSel.data("placeholder", "请选择").chosen();
+
+        var citySel = $("#citySel");
+        citySel.data("placeholder", "请选择").chosen();
+    });
 }
 </script>
 
@@ -28,11 +64,22 @@ function init() {
     </div>
     <div id="searchboxContainer" class="searchboxContainer">
     </div>
-	<div id="mainContainer2" class="mainContainer2">
-		<div id="mainContainerCenterLeft" class="mainContainerCenterLeft"></div>
-		<div id="recommendContainerRight" class="recommendContainerRight"></div>
-	</div>
-	</div>
+    <div id="mainContainer2" class="mainContainer2">
+        <div id="mainContainerCenterLeft" class="mainContainerCenterLeft">
+            <div id="hot" class="hot">
+
+            </div>
+            <div id="filter" style="193px" class="filter container">
+            </div>
+            <div id="waterfall" class="waterfall">
+                <div class='page'>
+                    <div class='items' ></div>
+                </div>
+            </div>
+        </div>
+        <div id="recommendContainerRight" class="recommendContainerRight"></div>
+        <div style="clear:both;"></div>
+    </div>
 	<div id="footContainer" class="footContainer">
     </div>
 </body>

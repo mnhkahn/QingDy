@@ -4,8 +4,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>欢迎来到青帝网</title>
 
+<link rel = "Shortcut Icon" href="favicon.ico">
 <link href="css/base.css" rel="stylesheet" type="text/css" />
 <link href="css/index.css" rel="stylesheet" type="text/css" />
+<link href="css/grid-accordion.css" rel="stylesheet" type="text/css" />
+<link href="css/flexisel.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
 <script type="text/javascript" src="js/base.js"></script> 
@@ -13,7 +16,10 @@
 
 <script type="text/javascript" src='js/cTop.js'></script>
 <script type="text/javascript" src='js/cSlide.js'></script>
-<link rel = "Shortcut Icon" href="favicon.ico">
+<script type="text/javascript" src="js/jquery.gridAccordion.min.js"></script>
+<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+<script type="text/javascript" src="js/animateBackground-plugin.js"></script>
+
 <script type="text/javascript">
 function init() {
 	commonInit();
@@ -37,12 +43,139 @@ function init() {
 	
 	showNews();
 
-//	createSidebarTable('prodcutContainer');
-	createSidebarTable('demandContainer');
-	createVerticallistTable('specialistContainer');
-	createSidebarTable('mallContainer');
+    // create product grid
+    $('#prodcutContainer').load('/data/productGrid.html', function () {
+        $("#productUl").gridAccordion({
+            width: 660,
+            height: 300,
+            columns: 8,
+            distance: 2,
+            alignType: 'centerCenter',
+//            slideshow: true,
+            panelProperties: {
 
-	
+            }
+        });
+    });
+	// create demand grid
+    $('#demandContainer').load('/data/demandGrid.html', function () {
+        $("#demandtUl").gridAccordion({
+            width: 660,
+            height: 300,
+            columns: 4,
+            rows: 3,
+            distance: 2,
+            alignType: 'centerCenter',
+//            slideshow: true,
+            panelProperties: {
+
+            }
+        });
+    });
+	// create specialist grid
+    $('#specialistContainer').load('/data/specialistGrid.html', function () {
+        $("#specialistUl").gridAccordion({
+            width: 660,
+            height: 300,
+            columns: 8,
+            distance: 2,
+            alignType: 'centerCenter',
+//            slideshow: true,
+            panelProperties: {
+
+            }
+        });
+    });
+    // create mall grid
+    $('#mallContainer').load('/data/mallGrid.html', function () {
+        $("#mallUl").gridAccordion({
+            width: 660,
+            height: 300,
+            columns: 4,
+            rows: 3,
+            distance: 2,
+            alignType: 'centerCenter',
+//            slideshow: true,
+            panelProperties: {
+
+            }
+        });
+    });
+
+    // create bank container
+    $('#bankContainer').load('/data/bankFlex.html', function () {
+        $("#bankUl").flexisel({
+            visibleItems: 5,
+            animationSpeed: 1000,
+            autoPlay: true,
+            autoPlaySpeed: 3000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint:480,
+                    visibleItems: 1
+                },
+                landscape: {
+                    changePoint:640,
+                    visibleItems: 2
+                },
+                tablet: {
+                    changePoint:768,
+                    visibleItems: 3
+                }
+            }
+        });
+    });
+
+    function show_num(container, n){
+        var it = $(container + " i");
+        var len = String(n).length;
+        for(var i=0;i<len;i++){
+            if(it.length<=i){
+                $("#" + container).append("<i></i>");
+            }
+            var num=String(n).charAt(i);
+            var y = -parseInt(num)*30; //y轴位置
+            var obj = $("#" + container + " i").eq(i);
+            obj.animate(
+                    {
+                        'background-position-x': 0,
+                        'background-position-y': String(y) + 'px'
+                    },
+                    'slow',
+                    'swing',
+                    function () {
+                    }
+            );
+        }
+    }
+
+    function getdata() {
+        $.ajax({
+            url: '/data/count.json',
+            type: 'GET',
+            dataType: "json",
+            cache: false,
+            timeout: 10000,
+            error: function(response){
+                console.debug(response);
+            },
+            success: function(data){
+                show_num('mallCount', data.mallCount);
+                show_num('specialistCount', data.specialistCount);
+                show_num('transactionCount', data.transactionCount);
+            }
+        })
+    }
+    getdata();
+    $(function(){
+
+/*        setInterval(
+            getdata(),
+            3000);//每隔3秒执行一次 */
+    });
+
 }
 </script>
 
@@ -55,26 +188,61 @@ function init() {
     	<div id="mianContainerTop" class="mianContainerTop">
     		<div id="bannerContainer" class="bannerContainer">
     		</div>
-    		<div id="applyContainer" class="applyContainer">
-    		</div>
+    		<div id="transactionContainer" class="transactionContainer">
+                <div class="newsTitle" id="newsTitle" >诚信服务机构</div>
+                <div class="trustContianer" style="height: 83px">
+                    <p class="p_02"><img src="image/trust1.jpg"><br>认证机构</p>
+                    <p class="p_02"><img src="image/trust2.jpg"><br>成功才收费</p>
+                    <p class="p_02"><img src="image/trust3.jpg"><br>免费咨询</p>
+                    <div class="clear"></div>
+                </div>
+                <div class="trustContianer" style="height: 70px">
+                    <div class="p_02">
+                        <div id="total">
+                            <span class="t_num" id="mallCount">
+                            </span>
+                        </div>
+                        <span>服务机构</span>
+                    </div>
+                    <div class="p_02">
+                        <div id="total">
+                        <span class="t_num" id="specialistCount">
+                        </span>
+                        </div>
+                        <span>资深顾问</span>
+                    </div>
+                    <div class="p_02">
+                        <div id="total">
+                        <span class="t_num" id="transactionCount">
+                        </span>
+                        </div>
+                        <span>客户的信赖</span>
+                    </div>
+                </div>
+
+            </div>
     	</div>
     	<div id='newsContainer' class="newsContainer">
     	</div>
     	<div id="wrapperContainer">
     		<div id="mianContainerCenter" class="mianContainerCenter">
-	    		<div id="prodcutContainer" class="sidebar container">
+                <div class="newsTitle" id="newsTitle" style="margin-top: 10px">贷款产品</div>
+	    		<div id="prodcutContainer" class="container">
 	    		</div>
-	    		<div id="demandContainer" class="sidebar container">
+                <div class="newsTitle" id="newsTitle" style="margin-top: 10px">贷款需求</div>
+	    		<div id="demandContainer" class="container">
 	    		</div>
-	    		<div id="specialistContainer" class="verticallist container">
+                <div class="newsTitle" id="newsTitle" style="margin-top: 10px">贷款专家</div>
+	    		<div id="specialistContainer" class="container">
 	    		</div>
-	    		<div id="mallContainer" class="sidebar container">
+                <div class="newsTitle" id="newsTitle" style="margin-top: 10px">信贷机构</div>
+	    		<div id="mallContainer" class="container">
 	    		</div>
 	    	</div>
 	    	<div id="recommendContainer" class="recommendContainer">
 	    	</div>
     	</div>
-    	<div id="bankContainer" class="bankContainer container">
+    	<div id="bankContainer" class="bankContainer">
     	</div>
     </div>
     <div id="footContainer" class="footContainer">

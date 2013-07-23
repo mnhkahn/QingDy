@@ -12,7 +12,8 @@
 <script type="text/javascript" src="js/cTop.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/profile.js"></script>
-
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/cTab.js"></script>
 <link rel = "Shortcut Icon" href="favicon.ico">
 <script type="text/javascript">
 function init() {
@@ -20,7 +21,27 @@ function init() {
 	
 	showSkin('12345');
 	showAvatar('12345');
-	showMallNav(0);
+
+    var args = new Object();
+    args = GetUrlParms();
+    var tab = args['tab'];
+    var loanerTab = cTab.create('mallNav', 'data/mymallTab.json', tab,
+            function() {
+
+            },
+            function() {
+
+            },
+            function() {
+
+            },
+            function() {
+
+            },
+            function() {
+
+            }
+    )
 }
 </script>
 

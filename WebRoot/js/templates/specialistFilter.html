@@ -1,0 +1,52 @@
+<script type="text/javascript" src="js/jQuery.select2Buttons.js"></script>
+<link rel="stylesheet" href="css/select2Buttons.css" type="text/css" />
+<style type="text/css">
+    .filterTitle {
+        text-align: right;
+        font-weight: bold;
+        line-height: 25px;
+    }
+</style>
+<table id="filterTable" style="width: 99%; height: 99%; margin: auto">
+    <tr>
+        <td class="filterTitle dashedLine" width="100px;">性别：</td>
+        <td class="dashedLine" width="650px;">
+            <select name="simple-select">
+                <option>不限</option>
+                <option>男</option>
+                <option>女</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="filterTitle" width="100px;">擅长业务：</td>
+        <td width="650px;">
+            <select name="simple-select">
+                <option>不限</option>
+                <option>消费贷款</option>
+                <option>短期周转贷款</option>
+                <option>个体户经营贷款</option>
+                <option>装修贷款</option>
+                <option>创业贷款</option>
+                <option>旅游贷款</option>
+                <option>一手房按揭贷款</option>
+                <option>公积金贷款</option>
+                <option>二手房按揭贷款</option>
+                <option>新车按揭贷款</option>
+                <option>购二手车</option>
+                <option>经营性流动资金贷款</option>
+                <option>固定资产贷款</option>
+                <option>设备融资租赁</option>
+                <option>贸易融资</option>
+                <option>票据贴现</option>
+                <option>个体户经营贷款</option>
+                <option>项目贷款</option>
+                <option>创业贷款</option>
+                <option>旅游贷款</option>
+            </select>
+        </td>
+    </tr>
+</table>
+<script>
+    $('select[name=simple-select]').select2Buttons();
+</script>
