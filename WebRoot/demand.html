@@ -53,6 +53,45 @@ function init() {
         var citySel = $("#citySel");
         citySel.data("placeholder", "请选择").chosen();
     });
+
+    $(".page .items").autobrowse(
+            {
+                url: function (offset)
+                {
+                    return "/data/tests/loanWaterfall.json";
+                },
+                template: function (response)
+                {
+                    var markup='';
+                    for (var i = 0; i < response.items.length; i++)
+                    {
+                        markup += '<div style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
+                                '<div class="p_left"><a target="_blank" href="' + response.items[i].mall + '"><img width="48" height="48" alt="' + response.items[i].lastname + (response.items[i].sex ? '先生' : '女士') + '" src="' + response.items[i].icon + '"></a>' +
+                                '<p><a target="_blank" href="' + response.items[i].mall + '">' + response.items[i].lastname + (response.items[i].sex ? '先生' : '女士') + '</a></p>' +
+                                '</div>' +
+                                '<div class="p_right">' +
+                                '<h5><a href="' + response.items[i].product + '" class="cptit" target="_blank" style="float: left; width: 720px; overflow: hidden;">' + response.items[i].title + '</a></h5>' +
+                                '<div class="clear_both"></div>' +
+                                '<span class="p1">' + response.items[i].area + '</span>' +
+                                '<span class="p2">贷款用途：' + response.items[i].usesofloan + '</span>' +
+                                '<span class="p2">抵押贷款</span>' +
+                                '<span style="width: 40px">额度：</span>' +
+                                '<span class="p4">' + response.items[i].min + '万-' + response.items[i].max + '万</span>' +
+                                '<div class="clear_both"></div>' +
+                                '<p>' + response.items[i].description + '.</p>' +
+                                '</div></div>';
+                    };
+
+                    return markup;
+                },
+                itemsReturned: function (response) { return response.items.length; },
+                offset: 0,
+//            max: 100,
+                loader: '<div class="loader"></div>',
+                useCache: true,
+                expiration: 1
+            }
+    );
 }
 </script>
 </head>

@@ -445,6 +445,7 @@ input.textSearch:focus {
 	border-left: 1px solid rgb(221,221,221);
 	border-right: 1px solid rgb(221,221,221);
 	border-top: 1px solid rgb(221,221,221);
+    border-bottom: 1px solid rgb(221,221,221);
 	border-radius:5px;
 	font-family: Arial, Verdana, 宋体;
 	font-size: 14px;
@@ -832,7 +833,6 @@ table#filterTable td.dashedLine {
 .p_02 {
     width: 88px;
     float: left;
-    line-height: 28px;
     text-align: center;
     color: #525252;
 }
@@ -847,4 +847,112 @@ table#filterTable td.dashedLine {
     z-index: 1;
     left: 0px;
     height: 14px;
+}
+
+/* transaction slide */
+.VSlideUl {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 0px;
+    bottom: 0px;
+    list-style: none outside none;
+    padding: 0px;
+    margin: 0px;
+}
+.VSlideLi {
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px dashed #e6e6e6;
+}
+.VSlideTime {
+    padding-left: 10px;
+    margin-top: 12px;
+    height:16px;
+    width:54px;
+    background:url("../images/exp_new_icon.png") no-repeat 0 0;
+    _background:url("../images/exp_new_icon96.png") no-repeat 0 0;
+    color:#fff;
+}
+
+.VSlideTitle {
+    margin-top: 12px;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* waterfall */
+.p_left {
+    float: left;
+    display: inline;
+    overflow: hidden;
+    zoom: 1;
+}
+a {
+    text-decoration: none;
+    color: #000000;
+}
+.p_left p {
+    line-height: 18px;
+    text-align: center;
+}
+.p_left img {
+    padding: 2px;
+    border: 1px #ccc solid;
+}
+.p_left p {
+    padding: 0px;
+    margin: 0px;
+}
+.p_right {
+    width: 720px;
+    height: 78px;
+    float: left;
+    padding-left: 10px;
+    line-height: 25px;
+    display: inline;
+}
+body, h1, div, dl, dt, dd, ul, li, img, span, p, h1, h2, h3, h4, h5, h6, form {
+    margin: 0;
+    padding: 0;
+}
+.p_right h5 a {
+    font-size: 12px;
+    color: #0066cc;
+}
+.p_right span.p1 {
+    width: 140px;
+}
+.p_right span {
+    float: left;
+    height: 25px;
+    overflow: hidden;
+}
+body {
+    font-family: Arial,Verdana,宋体;
+    font-size: 12px;
+    color: #000000;
+}
+.p_right span.p2 {
+    width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.p_right span.p4 {
+    width: 100px;
+    color: #f75703;
+    font-size: 14px;
+    font-weight: bold;
+    overflow: hidden;
+    line-height: 22px;
+}
+.p_right p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    zoom: 1;
+    height: 28px;
+    width: 720px;
 }

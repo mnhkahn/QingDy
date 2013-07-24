@@ -19,10 +19,13 @@
 <script type="text/javascript" src="js/jquery.gridAccordion.min.js"></script>
 <script type="text/javascript" src="js/jquery.flexisel.js"></script>
 <script type="text/javascript" src="js/animateBackground-plugin.js"></script>
+    <script type="text/javascript" src="js/cVSlide.js"></script>
 
 <script type="text/javascript">
 function init() {
 	commonInit();
+
+    showNews();
 	
 	var size = new Object;
 	size.width = 700;
@@ -40,8 +43,8 @@ function init() {
 			console.error(response);
 		}
 	});
-	
-	showNews();
+
+    var cvslide = cVSlide.create('VSlideContainer', "/data/tests/transaction.json");
 
     // create product grid
     $('#prodcutContainer').load('/data/productGrid.html', function () {
@@ -191,12 +194,12 @@ function init() {
     		<div id="transactionContainer" class="transactionContainer">
                 <div class="newsTitle" id="newsTitle" >诚信服务机构</div>
                 <div class="trustContianer" style="height: 83px">
-                    <p class="p_02"><img src="image/trust1.jpg"><br>认证机构</p>
-                    <p class="p_02"><img src="image/trust2.jpg"><br>成功才收费</p>
-                    <p class="p_02"><img src="image/trust3.jpg"><br>免费咨询</p>
+                    <p class="p_02"><img src="images/trust1.jpg"><br>认证机构</p>
+                    <p class="p_02"><img src="images/trust2.jpg"><br>成功才收费</p>
+                    <p class="p_02"><img src="images/trust3.jpg"><br>免费咨询</p>
                     <div class="clear"></div>
                 </div>
-                <div class="trustContianer" style="height: 70px">
+                <div class="trustContianer" style="height: 59px">
                     <div class="p_02">
                         <div id="total">
                             <span class="t_num" id="mallCount">
@@ -219,7 +222,8 @@ function init() {
                         <span>客户的信赖</span>
                     </div>
                 </div>
-
+                <div id="VSlideContainer" class="VSlideContainer" style="height: 118px">
+                </div>
             </div>
     	</div>
     	<div id='newsContainer' class="newsContainer">
