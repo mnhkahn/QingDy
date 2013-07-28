@@ -1,12 +1,24 @@
 @charset "utf-8";
 
-/* Header */
-html,body{
-	font: 100%/120% "lft-etica","Helvetica Neue",Helvetica,Arial,sans-serif;
-	margin:  0px;
-	padding:  0px;
-	background-color: rgb(241, 241, 241);
+/* common */
+div.hover:hover {
+    background-color: rgb(241, 241, 241);
+    cursor: pointer;
 }
+li.hover:hover {
+    background-color: rgb(241, 241, 241);
+    cursor: pointer;
+}
+
+html,body{
+    font: 100%/120% "lft-etica","Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin:  0px;
+    padding:  0px;
+    background-color: rgb(241, 241, 241);
+}
+
+/* Header */
+
 
 .page-container{
 	position: relative;
@@ -209,6 +221,9 @@ html,body{
 	cursor: pointer;
 }
 
+.wrapperName {
+    cursor: pointer;
+}
 .ico {
 	width: 44px;
 	height: 100%;
@@ -256,6 +271,15 @@ div.button_has_message {
     background-position: 4px -52px;
 }
 
+div.button_logout {
+    background: url("../images/shutdown.png");
+    width: 24px;    /*May be different for specific buttons*/
+    height: 24px;
+    margin: 0 auto;
+    margin-top: 6px;
+
+}
+
 /* SearchBox */
 .searchboxContainer {
 	position: relative;
@@ -277,13 +301,19 @@ div.button_has_message {
 	width: 150px;
 	height: 100%;
 	float: left;
+    padding-top: 6px;
 }
 
 .selectType {
 	width: 100%;
 	height: 29px;
 	margin: 0 auto;
-	margin-top: 6px;
+	margin-top: 16px;
+}
+
+/* hidden search for chose.jquery */
+.chzn-search {
+    display:none;
 }
 
 .searchbox {
@@ -593,6 +623,30 @@ a, a:link, a:active, a:hover, a:visited {
     margin-bottom: 10px;
 }
 
+.newsSideContainerRight {
+    width: 320px;
+    height: 978px;
+    float: right;
+    background: #fdfffe;
+    border: 1px solid #d2e1f1;
+
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.sideContainer {
+    width: 180px;
+    height: 978px;
+    float: right;
+    background: #fdfffe;
+    border: 1px solid #d2e1f1;
+
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
 /* news */
 .container {
 	background-color: #fff;
@@ -602,7 +656,7 @@ a, a:link, a:active, a:hover, a:visited {
 
 .newsContainer {
 	width: 1000px;
-	height: 300px;
+	height: 244px;
 	background-color: #fff;
 	
 	border-top: 3px solid rgb(221,221,221);
@@ -644,7 +698,7 @@ a, a:link, a:active, a:hover, a:visited {
 }
 
 .newsHeight {
-	height: 666px !important;
+	height: 500px;
 }
 
 /* advisory */
@@ -835,6 +889,7 @@ table#filterTable td.dashedLine {
     float: left;
     text-align: center;
     color: #525252;
+    padding-top: 13px;
 }
 .data {
     position: absolute;
@@ -955,4 +1010,77 @@ body {
     zoom: 1;
     height: 28px;
     width: 720px;
+}
+/* news */
+.li1 {
+    height: 100px;
+    position: relative;
+}
+.li2 {
+    height: 27px;
+    position: relative;
+}
+.dashedBottomBorder {
+    border-bottom: 1px dashed #000000;
+}
+.newsTitleTime {
+    width: 100%;
+    height: 27px;
+    position: absolute;
+    top: 0px;
+}
+.newsName {
+    float: left;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+.newsTime {
+    float: right;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+.newsImg {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    width: 90px;
+    height: 73px;
+}
+.newsContent {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    width: 214px;
+    height: 73px;
+}
+/* visitors */
+.headerContainer {
+    height: 30px;
+    background-color: #f2f2f2;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+.visitorContainer {
+    padding: 10px;
+}
+.titleContainer30 {
+    height: 24px;
+    width: 100px;
+    float: left;
+    margin-left: 10px;
+    font-size: 20px;
+}
+.visitorWrapper {
+    overflow: hidden;
+}
+.visitorItem {
+    width: 50px;
+    height: 65px;
+    float: left;
+    padding: 10px;
+}
+.visitorItemName {
+    width: 50px;
+    height: 15px;
+    text-align: center;
 }

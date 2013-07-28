@@ -108,17 +108,12 @@ var cTop = {
 		var wrapperInfo = $('<div></div>');
 		wrapperInfo.addClass("wrapperInfo");
 		wrapperInfo.attr("id", "wrapperInfo");
-		wrapperInfo.css("width", 170);
+		wrapperInfo.css("width", 214);
 		wrapperInfo.css("height", "100%");
 		wrapperInfo.css("float", "right");
 		
 		// Has login
 		if (this.info.name != "") {
-			var that = this;
-			wrapperInfo.click(function() {
-				window.open(that.info.link ,'_newtab');
-			});
-
 			var divIcon = $('<div></div>');
 			divIcon.addClass("divIcon");
 			divIcon.attr("id", "divIcon");
@@ -147,17 +142,45 @@ var cTop = {
 			
 			wrapperName.append(divIcon);
 			wrapperName.append(divName);
-			
+
+            var that = this;
+            wrapperName.click(function() {
+                window.open(that.info.link + "?id=" + that.info.uid ,'_newtab');
+            });
+
+
+            var wrapperLogout = $('<div></div>');
+            wrapperLogout.addClass("wrapperLogout");
+            wrapperLogout.attr("id", "wrapperLogout");
+            wrapperLogout.css("width", 44);
+            wrapperLogout.css("height", "100%");
+            wrapperLogout.css("float", "left");
+
+            // Logout
+            var ico1 = $('<div></div>')
+            ico1.addClass("ico");
+            //		ico.attr("id", "ico");
+            wrapperLogout.click(function() {
+                alert("logout");
+            });
+
+
+            var element = $('<div></div>');
+            element.addClass("button_logout");
+            ico1.append(element);
+            wrapperLogout.append(ico1);
+
 			var wrapperMessage = $('<div></div>');
 			wrapperMessage.addClass("wrapperMessage");
 			wrapperMessage.attr("id", "wrapperMessage");
 			wrapperMessage.css("width", 44);
 			wrapperMessage.css("height", "100%");
 			wrapperMessage.css("float", "left");
-			
-			var ico = $('<div></div>')
-			ico.addClass("ico");
-	//		ico.attr("id", "ico");
+
+            // Message
+			var ico2 = $('<div></div>')
+			ico2.addClass("ico");
+	//		ico2.attr("id", "ico");
 			
 			
 			var element = $('<div></div>');
@@ -167,11 +190,16 @@ var cTop = {
 			else {
 				element.addClass("ui_element button_message");
 			}
-			ico.append(element);
-			wrapperMessage.append(ico);
+			ico2.append(element);
+			wrapperMessage.append(ico2);
+            wrapperMessage.click(function() {
+                window.open(that.info.link + "?id=" + that.info.uid + "&tab=2&nav=2" ,'_newtab');
+            });
+
 	//		wrapperMessage.html("<div class='ico'><div class='ui_element button_message'></div></div>");
 			wrapperInfo.append(wrapperName);
 			wrapperInfo.append(wrapperMessage);
+            wrapperInfo.append(wrapperLogout);
 		}
 		else {
 			var divLogin = $('<div></div>');

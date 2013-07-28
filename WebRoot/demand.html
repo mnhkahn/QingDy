@@ -65,7 +65,7 @@ function init() {
                     var markup='';
                     for (var i = 0; i < response.items.length; i++)
                     {
-                        markup += '<div style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
+                        markup += '<div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
                                 '<div class="p_left"><a target="_blank" href="' + response.items[i].mall + '"><img width="48" height="48" alt="' + response.items[i].lastname + (response.items[i].sex ? '先生' : '女士') + '" src="' + response.items[i].icon + '"></a>' +
                                 '<p><a target="_blank" href="' + response.items[i].mall + '">' + response.items[i].lastname + (response.items[i].sex ? '先生' : '女士') + '</a></p>' +
                                 '</div>' +

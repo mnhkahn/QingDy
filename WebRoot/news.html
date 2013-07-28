@@ -5,16 +5,26 @@
 <title>贷款资讯</title>
 
 <link href="css/base.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/chosen.css" />
 
 <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
+    <script type="text/javascript" src="js/chosen.jquery.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src='js/cTop.js'></script>
+    <script type="text/javascript" src="js/cNews.js"></script>
 <link rel = "Shortcut Icon" href="favicon.ico">
 <script type="text/javascript">
 function init() {
 	commonInit();
-	showNews();
+
+    $('#newsContainer1').cNews('data/tests/news.json');
+    $('#newsContainer2').cNews('data/tests/news.json');
+    $('#newsContainer3').cNews('data/tests/news.json');
+    $('#newsContainer4').cNews('data/tests/news.json');
+    $('#newsContainer5').cNews('data/tests/news.json');
+    $('#newsContainer6').cNews('data/tests/news.json');
+    $('#newsContainer7').cNews('data/tests/news.json');
 }
 </script>
 
@@ -27,10 +37,26 @@ function init() {
     </div>
 	<div id="mainContainer2" class="mainContainer2">
 		<div id='newsContainer' class="newsContainer">
+            <div id="newsContainer1" style="float: left;width: 330px;">
+            </div>
+            <div id="newsContainer2" style="float: left;width: 330px; border-left: 1px solid rgb(221,221,221); border-right: 1px solid rgb(221,221,221);">
+            </div>
+            <div id="newsContainer3" style="float: left;width: 330px;">
+            </div>
     	</div>
     	<div id='mainContainerNews' class='mainContainerNews'>
-			<div id="mainContainerCenterLeft" class="mainContainerCenterLeft newsHeight"></div>
-			<div id="recommendContainerRight" class="recommendContainerRight newsHeight"></div>
+			<div id="mainContainerCenterLeft" style="width: 662px;margin-left: 0px" class="mainContainerCenterLeft newsHeight">
+                <div id="newsContainer4" style="float: left;width: 330px;">
+                </div>
+                <div id="newsContainer5" style="float: left;width: 330px; border-left: 1px solid rgb(221,221,221); border-right: 1px solid rgb(221,221,221);">
+                </div>
+                <div id="newsContainer6" style="float: left;width: 330px; margin-top: 10px">
+                </div>
+                <div id="newsContainer7" style="float: left;width: 330px; margin-top: 10px; border-left: 1px solid rgb(221,221,221); border-right: 1px solid rgb(221,221,221);">
+                </div>
+			</div>
+			<div id="newsSideContainerRight" class="newsSideContainerRight newsHeight"></div>
+            <div style="clear:both;"></div>
 		</div>
         <div style="clear:both;"></div>
 	</div>

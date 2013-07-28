@@ -14,6 +14,7 @@
 <script type="text/javascript" src="js/profile.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript" src="js/cTab.js"></script>
+    <script type="text/javascript" src="js/cVisitors.js"></script>
 <link rel = "Shortcut Icon" href="favicon.ico">
 <script type="text/javascript">
 function init() {
@@ -22,15 +23,34 @@ function init() {
 	showSkin('12345');
 	showAvatar('12345');
 
+
+
     var args = new Object();
     args = GetUrlParms();
     var tab = args['tab'];
     var loanerTab = cTab.create('mallNav', 'data/mymallTab.json', tab,
             function() {
-
+                  $('#mallMain').empty();
             },
             function() {
+                var sideContainer = $('<div></div>');
+                sideContainer.attr("id", "sideContainer");
+                sideContainer.addClass("sideContainer");
+                var visitorsContainer = $('<div></div>');
+                visitorsContainer.attr('id', 'visitorsContainer');
+                visitorsContainer.css("margin", "auto");
+                visitorsContainer.css("width", "99%");
+                visitorsContainer.css("height", 400);
+                visitorsContainer.css("border-bottom", "1px solid #d9d9d9");
 
+                sideContainer.append(visitorsContainer);
+
+                var clear = $('<div></div>');
+                clear.css("clear", "both");
+
+                $('#mallMain').append(sideContainer);
+                $('#mallMain').append(clear);
+                $('#visitorsContainer').cVisitors("/data/tests/transaction.json");    // fack
             },
             function() {
 
@@ -64,6 +84,8 @@ function init() {
 		<div id="mallNav" class="mallNav">
 		</div>
 		<div id="mallMain" class="mallMain">
+            <div id="timeline" class="timeline">
+            </div>
 		</div>
 	</div>
     <div id="footContainer" class="footContainer">

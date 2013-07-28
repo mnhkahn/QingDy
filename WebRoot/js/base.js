@@ -11,7 +11,7 @@ function commonInit() {
 			$.ajax({
 				type: "POST",
 				dataType: "json",
-				url: '/rest/metadata/members/login',
+				url: 'data/tests/usertop.json',
 				contentType: "application/json; charset=utf-8",
 				data: '{"username": "' + username + '", "password":"' + password + '" }',//{'Username' : username, 'Password' : password},
 				success: function(info) {
@@ -21,6 +21,7 @@ function commonInit() {
 						url: '/rest/metadata/messages/' + info.uid + '/unread',
 						success: function(message) {
 							arr.info = new Object;
+                            arr.info.uid = info.uid;
 							arr.info.icon = info.icon;
 							arr.info.name = info.lastname + info.firstname;
 							arr.info.message = message;
@@ -54,26 +55,26 @@ function commonInit() {
 }
 
 function showSearchBox() {
-	var searchboxContent = document.createElement("DIV");
-	searchboxContent.className = "searchboxContent";
+	var searchboxContent = $("<div></div>");
+	searchboxContent.addClass("searchboxContent");
 	
-	var divSearchTypeSelect = document.createElement("DIV");
-	divSearchTypeSelect.className = "divSearchTypeSelect";
-	searchboxContent.appendChild(divSearchTypeSelect);
+	var divSearchTypeSelect = $("<div></div>");
+	divSearchTypeSelect.addClass("divSearchTypeSelect");
+	searchboxContent.append(divSearchTypeSelect);
 	
-	var selectType = document.createElement("select");
-	selectType.className = "selectType";
-	selectType.appendChild(new Option("贷款银行","product"));
-	selectType.appendChild(new Option("贷款需求","demand"));
-	selectType.appendChild(new Option("专家顾问","specialist"));
-	selectType.appendChild(new Option("贷款机构","mall"));
-	selectType.appendChild(new Option("贷款银行","bank"));
+	var selectType = $("<select><select>");
+	selectType.addClass("selectType");
+	selectType.append(new Option("贷款产品","product"));
+	selectType.append(new Option("贷款需求","demand"));
+	selectType.append(new Option("专家顾问","specialist"));
+	selectType.append(new Option("贷款机构","mall"));
+	selectType.append(new Option("贷款银行","bank"));
 	
-	divSearchTypeSelect.appendChild(selectType);
+	divSearchTypeSelect.append(selectType);
 	
 	var divSearchbox = document.createElement("DIV");
 	divSearchbox.className = "searchbox";
-	searchboxContent.appendChild(divSearchbox);
+	searchboxContent.append(divSearchbox);
 	
 	var divTextSearch = document.createElement("DIV");
 	divTextSearch.className = "divTextSearch";
@@ -87,6 +88,11 @@ function showSearchBox() {
 	
 	var btnSearch = document.createElement("button");
 	btnSearch.className = "largeBtn";
+    btnSearch.onclick = function() {
+        var type = $('.selectType').val();
+        var key = $('.textSearch').val();
+        window.open("s.html?type=" + type + "&keyword=" + key ,'_newtab');
+    }
 	
 	var spanIco = document.createElement("span");
 	spanIco.className = "smallcio searchico";
@@ -95,6 +101,8 @@ function showSearchBox() {
 	divSearchbox.appendChild(btnSearch);
 	
 	$("#searchboxContainer").append(searchboxContent);
+
+    selectType.chosen();
 }
 
 function showFoot() {

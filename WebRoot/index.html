@@ -9,23 +9,27 @@
 <link href="css/index.css" rel="stylesheet" type="text/css" />
 <link href="css/grid-accordion.css" rel="stylesheet" type="text/css" />
 <link href="css/flexisel.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/chosen.css" />
 
 <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
-<script type="text/javascript" src="js/base.js"></script> 
-<script type="text/javascript" src="js/index.js"></script>
-
 <script type="text/javascript" src='js/cTop.js'></script>
 <script type="text/javascript" src='js/cSlide.js'></script>
 <script type="text/javascript" src="js/jquery.gridAccordion.min.js"></script>
 <script type="text/javascript" src="js/jquery.flexisel.js"></script>
 <script type="text/javascript" src="js/animateBackground-plugin.js"></script>
     <script type="text/javascript" src="js/cVSlide.js"></script>
+    <script type="text/javascript" src="js/cNews.js"></script>
+    <script type="text/javascript" src="js/chosen.jquery.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 
 <script type="text/javascript">
 function init() {
 	commonInit();
 
-    showNews();
+    $('#newsContainer1').cNews('data/tests/news.json');
+    $('#newsContainer2').cNews('data/tests/news.json');
+    $('#newsContainer3').cNews('data/tests/news.json');
 	
 	var size = new Object;
 	size.width = 700;
@@ -156,7 +160,7 @@ function init() {
 
     function getdata() {
         $.ajax({
-            url: '/data/count.json',
+            url: '/data/tests/count.json',
             type: 'GET',
             dataType: "json",
             cache: false,
@@ -227,6 +231,12 @@ function init() {
             </div>
     	</div>
     	<div id='newsContainer' class="newsContainer">
+            <div id="newsContainer1" style="float: left;width: 330px;">
+            </div>
+            <div id="newsContainer2" style="float: left;width: 330px; border-left: 1px solid rgb(221,221,221); border-right: 1px solid rgb(221,221,221);">
+            </div>
+            <div id="newsContainer3" style="float: left;width: 330px;">
+            </div>
     	</div>
     	<div id="wrapperContainer">
     		<div id="mianContainerCenter" class="mianContainerCenter">
