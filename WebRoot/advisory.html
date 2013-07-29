@@ -9,14 +9,50 @@
 
 <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
+    <script type="text/javascript" src="js/jstorage.js"></script>
+    <script type="text/javascript" src="js/jquery.esn.autobrowse.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src='js/cTop.js'></script>
+    <script type="text/javascript" src="js/cSearch.js" ></script>
+    <script type="text/javascript" src="js/cMenuFloat.js"></script>
 <link rel = "Shortcut Icon" href="favicon.ico">
 <script type="text/javascript">
 function init() {
 	commonInit();
+    $('#questionClass').cMenuFloat('/data/questionMenu.json');
 
+    $(".page .items").autobrowse(
+            {
+                url: function (offset)
+                {
+                    return "/data/tests/questionWaterfall.json";
+                },
+                template: function (response)
+                {
+                    var markup='';
+                    for (var i = 0; i < response.items.length; i++)
+                    {
+                        markup += '<div style="width: 576px; border-bottom: 1px dashed #ddd; padding: 8px">' +
+                            '<div style="width: 588px;">' +
+                            '<span class="i-class">[' + response.items[i].type + ']</span>' +
+                            '<a class="questionTitle" href=question.html?id=' + response.items[i].id + ' target="_blank">' + response.items[i].title + '</a>' +
+                            '<span class="answer-num">' + response.items[i].answer + '回答' +
+                            '</span></div></div>';
+                    };
+
+                    return markup;
+                },
+                itemsReturned: function (response) { return response.items.length; },
+                offset: 0,
+                max: 100,
+                loader: '<div class="loader"></div>',
+                useCache: true,
+                expiration: 1
+            }
+    );
+
+    $('.chosen').chosen();
 }
 </script>
 
@@ -30,8 +66,30 @@ function init() {
 	<div id="mainContainer2" class="mainContainer2">
 		<div id="questionClass" class="questionClass"></div>
 		<div id="mainContainerQuestion" class="mainContainerQuestion">
-            <div id="askContainer" class="askContainer"></div>
-            <div id="questionContainer"></div>
+            <div id="askContainer" class="askContainer">
+                <div id="askTitle" class="newsTitle">
+                    <img src="images/question16.png" />
+                    一句话描述您的疑问
+                </div>
+                <div class="title-area-outter">
+                    <textarea id="title-area" placeholder="请在这里概述您的问题" class="" style="height: 20px;"></textarea>
+                </div>
+                <div class="title-area-outter" style="margin-top: 10px">
+                    <textarea id="title-area" placeholder="问题补充" class="" style="height: 20px;"></textarea>
+                </div>
+                <div id="questionAction" style="margin-top: 10px; padding-left: 12px;padding-right: 12px">
+                    <select id="questionClasses" class="chosen" style="width: 100px"></select>
+                    <select id="questionSubClasses" class="chosen" style="width: 150px"></select>
+                    <button class="largeBtn">提交问题</button>
+                </div>
+            </div>
+            <div id="waterfall" class="waterfall" style="border-top: 1px solid rgb(221,221,221);">
+                <div class="newsTitle">为您推荐的提问
+                </div>
+                <div class='page'>
+                    <div class='items' ></div>
+                </div>
+            </div>
    		</div>
 		<div id="recommendContainerRight" class="recommendContainerRight"></div>
         <div style="clear:both;"></div>

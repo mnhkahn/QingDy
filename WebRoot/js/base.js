@@ -48,7 +48,9 @@ function commonInit() {
 		}
 	});
 	
-	showSearchBox();
+//	showSearchBox();
+
+    $("#searchboxContainer").cSearch();
 	
 	showFoot();
 	

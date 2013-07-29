@@ -704,7 +704,6 @@ a, a:link, a:active, a:hover, a:visited {
 /* advisory */
 .questionClass {
 	width: 180px;
-	height: 978px;
 	float: left;
 	background: #fdfffe;
 	border: 1px solid #d2e1f1;
@@ -715,7 +714,6 @@ a, a:link, a:active, a:hover, a:visited {
 
 .mainContainerQuestion {
 	width: 594px;
-	height: 978px;
 	float: left;
 	background: #fffff;
 	border: 1px solid rgb(221,221,221);
@@ -725,6 +723,92 @@ a, a:link, a:active, a:hover, a:visited {
 	margin-right: 10px;
 }
 
+.askContainer {
+    width: 100%;
+    height: 200px;
+}
+
+.i-class {
+    color: #d34f1f;
+    padding-left: 17px;
+    width: 25px;
+    font-size: 15px;
+    margin-top: 2px;
+    line-height: 18px;
+}
+
+a:link, a:visited {
+    color: #2d64b3;
+    text-decoration: none;
+}
+
+span.answer-num {
+    float: right;
+    font-size: 12px;
+    color: #999;
+    margin-right: 17px;
+}
+
+.questionTitle {
+    font-size: 17px;
+}
+
+.questionClasses {
+    height: 20px;
+    line-height: 20px;
+    color: green;
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.title-area-outter {
+    position: relative;
+    margin-top: 15px;
+    overflow: auto;
+}
+
+#title-area {
+     margin-left: 9px;
+     float: left;
+     border: 1px solid #d6d6d6;
+     padding: 12px;
+     background: #fff;
+     resize: none;
+     width: 550px;
+     height: 20px;
+     font-size: 16px;
+     line-height: 20px;
+     overflow: hidden;
+     outline: 0;
+     -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+     border-radius: 2px;
+     -webkit-box-shadow: 1px 1px 1px #f8f8f8 inset;
+     -moz-box-shadow: 1px 1px 1px #f8f8f8 inset;
+     box-shadow: 1px 1px 1px #f8f8f8 inset;
+ }
+
+#title-area:focus {
+    margin-left: 9px;
+    float: left;
+    border: 1px solid green;
+    padding: 12px;
+    background: #fff;
+    resize: none;
+    width: 550px;
+    height: 20px;
+    font-size: 16px;
+    line-height: 20px;
+    overflow: hidden;
+    outline: 0;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 1px 1px 1px #f8f8f8 inset;
+    -moz-box-shadow: 1px 1px 1px #f8f8f8 inset;
+    box-shadow: 1px 1px 1px #f8f8f8 inset;
+}
 /* menu */
 
 .navItem {

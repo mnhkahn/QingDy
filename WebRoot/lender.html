@@ -30,7 +30,8 @@
 <script type="text/javascript" src="js/chosen.jquery.js"></script>
 <script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/cTab.js"></script>
-
+<script type="text/javascript" src="js/cSearch.js" ></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
     <script type="text/javascript">
         function showCreateBlog() {
@@ -109,7 +110,24 @@
                                 // "我的旺铺"
                                 function() {
                                     $('#contentWrapper').load('/js/templates/mymall.html', function () {
+                                        console.debug(google)
+                                        function drawChart() {
+                                            var data = google.visualization.arrayToDataTable([
+                                                ['Year', 'Sales', 'Expenses'],
+                                                ['2004',  1000,      400],
+                                                ['2005',  1170,      460],
+                                                ['2006',  660,       1120],
+                                                ['2007',  1030,      540]
+                                            ]);
 
+                                            var options = {
+                                                title: 'Company Performance',
+                                                hAxis: {title: 'Year',  titleTextStyle: {color: 'red'}}
+                                            };
+
+                                            var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+                                            chart.draw(data, options);
+                                        }
                                     });
                                 },
                                 // "旺铺资料"
