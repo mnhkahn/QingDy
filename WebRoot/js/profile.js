@@ -1,9 +1,8 @@
 function showSkin(id) {
-	$('#backgroundContainer').css("background-image", "url(skin/background.png)");
 }
 
 function showAvatar(id) {
-	$('#head').css("background-image", "url(avatar/avatar.png)");
+
 }
 
 function showMallNav(id) {

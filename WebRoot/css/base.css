@@ -17,6 +17,18 @@ html,body{
     background-color: rgb(241, 241, 241);
 }
 
+p{ text-indent:2em; padding:8px; margin:0px; }
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.borderRight {
+    border-right: 1px solid #d9d9d9;
+}
+
 /* Header */
 
 
@@ -1167,4 +1179,80 @@ body {
     width: 50px;
     height: 15px;
     text-align: center;
+}
+
+/* m.html */
+/* announcement */
+#bulletin {
+    position: relative;
+    width: 174px;
+    border: 3px solid #ECDFB5;
+    margin-bottom: 10px;
+}
+
+.mt {
+    background-color: #f9f3dd;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+#infoName {
+    font: normal 20px/30px "Microsoft Yahei";
+    margin-right: 3px;
+    float: left;
+}
+
+#infoIntroduce {
+    width: 692px;
+    height: 30px;
+    float: left;
+    margin-left: 20px;
+    margin-top: 11px;
+    color: #808080;
+}
+
+#infoGender {
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin-top: 10px;
+    padding-right: 10px;
+}
+
+#infoLocation {
+    float: left;
+    height: 24px;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 24px;
+}
+
+/* product m.html */
+.productDetailContainer {
+    width: 720px;/*100%;*/
+    overflow: auto;
+}
+
+.cm_content {
+    margin: 10px;
+}
+
+.cm_content h3 {
+    text-align: center;
+    font-size: 17px;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
+    border-bottom: 1px solid #e6e6e6;
+    color: #111;
+}
+
+.cm_user {
+    width: 100%;
+    height: 60px;
 }
