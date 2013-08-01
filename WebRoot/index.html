@@ -17,20 +17,23 @@
 <script type="text/javascript" src="js/jquery.gridAccordion.min.js"></script>
 <script type="text/javascript" src="js/jquery.flexisel.js"></script>
 <script type="text/javascript" src="js/animateBackground-plugin.js"></script>
-    <script type="text/javascript" src="js/cVSlide.js"></script>
     <script type="text/javascript" src="js/cNews.js"></script>
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script type="text/javascript" src="js/base.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/cSearch.js" ></script>
+    <script type="text/javascript" src="js/cForum.js"></script>
+<script type="text/javascript" src="js/jquery.tmpl.js"></script>
 
 <script type="text/javascript">
 function init() {
 	commonInit();
 
+    $('#VSlideContainer').cForum(['mallCount', 'specialistCount', 'transactionCount'], '/data/tests/count.json');
+
     $('#newsContainer1').cNews('data/tests/news.json');
-    $('#newsContainer2').cNews('data/tests/news.json');
-    $('#newsContainer3').cNews('data/tests/news.json');
+    $('#newsContainer2').cNews('data/tests/news1.json');
+    $('#newsContainer3').cNews('data/tests/news2.json');
 	
 	var size = new Object;
 	size.width = 700;
@@ -49,110 +52,341 @@ function init() {
 		}
 	});
 
-    var cvslide = cVSlide.create('VSlideContainer', "/data/tests/transaction.json");
-
     // create product grid
-    $('#prodcutContainer').load('/data/productGrid.html', function () {
-        $("#productUl").gridAccordion({
-            width: 660,
-            height: 300,
-            columns: 8,
-            distance: 2,
-            alignType: 'centerCenter',
-//            slideshow: true,
-            panelProperties: {
-
+    $.get("/js/templates/productGrid.html", function(template) {
+        $.template("productGridTmpl", template);
+        $.ajax({
+            url: "data/tests/productGrid.json",
+            type: "GET",
+            dataType: "json",
+            success: function(response) {
+                $.tmpl("productGridTmpl", response).appendTo("#productUl");
+                $("#productUl").gridAccordion({
+                    width: 660,
+                    height: 300,
+                    columns: 8,
+                    distance: 2,
+                    alignType: 'centerCenter',
+                    panelProperties: {
+                        0 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        1 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        2 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        3 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        4 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        5 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        6 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        7 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        }
+                    }
+                });
+            },
+            error: function(response) {
+                console.warn(response);
             }
         });
     });
 	// create demand grid
-    $('#demandContainer').load('/data/demandGrid.html', function () {
-        $("#demandtUl").gridAccordion({
-            width: 660,
-            height: 300,
-            columns: 4,
-            rows: 3,
-            distance: 2,
-            alignType: 'centerCenter',
-//            slideshow: true,
-            panelProperties: {
-
+    $.get("/js/templates/demandGrid.html", function(template) {
+        $.template("demandGridTmpl", template);
+        $.ajax({
+            url: "data/tests/demandGrid.json",
+            type: "GET",
+            dataType: "json",
+            success: function(response) {
+                $.tmpl("demandGridTmpl", response).appendTo("#demandUl");
+                $("#demandUl").gridAccordion({
+                    width: 660,
+                    height: 300,
+                    columns: 4,
+                    rows: 3,
+                    distance: 2,
+                    alignType: 'centerCenter',
+                    panelProperties: {
+                        0 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        1 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        2 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        3 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        4 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        5 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        6 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        7 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        8 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        9 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        10 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        11 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        }
+                    }
+                });
+            },
+            error: function(response) {
+                console.warn(response);
             }
         });
     });
 	// create specialist grid
-    $('#specialistContainer').load('/data/specialistGrid.html', function () {
-        $("#specialistUl").gridAccordion({
-            width: 660,
-            height: 300,
-            columns: 8,
-            distance: 2,
-            alignType: 'centerCenter',
-//            slideshow: true,
-            panelProperties: {
-                0 : {
-                    captionWidth: 173,
-                    captionHeight: 78,
-                    captionTop: 160,
-                    captionLeft: 120
-                },
-                1 : {
-                    captionWidth: 173,
-                    captionHeight: 78,
-                    captionTop: 160,
-                    captionLeft: 120
-                },
-                2 : {
-                    captionWidth: 173,
-                    captionHeight: 78,
-                    captionTop: 160,
-                    captionLeft: 120
-                },
-                3 : {
-                    captionWidth: 173,
-                    captionHeight: 78,
-                    captionTop: 160,
-                    captionLeft: 120
-                },
-                4 : {
-                    captionWidth: 173,
-                    captionHeight: 78,
-                    captionTop: 160,
-                    captionLeft: 120
-                },
-                5 : {
-                    captionWidth: 173,
-                    captionHeight: 78,
-                    captionTop: 160,
-                    captionLeft: 120
-                },
-                6 : {
-                    captionWidth: 173,
-                    captionHeight: 78,
-                    captionTop: 160,
-                    captionLeft: 120
-                },
-                7 : {
-                    captionWidth: 173,
-                    captionHeight: 78,
-                    captionTop: 160,
-                    captionLeft: 120
-                }
+    $.get("/js/templates/specialistGrid.html", function(template) {
+        $.template("specialistGridTmpl", template);
+        $.ajax({
+            url: "data/tests/specialistGrid.json",
+            type: "GET",
+            dataType: "json",
+            success: function(response) {
+                $.tmpl("specialistGridTmpl", response).appendTo("#specialistUl");
+                $("#specialistUl").gridAccordion({
+                    width: 660,
+                    height: 300,
+                    columns: 8,
+                    distance: 2,
+                    alignType: 'centerCenter',
+                    panelProperties: {
+                        0 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        1 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        2 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        3 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        4 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        5 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        6 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        7 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        }
+                    }
+                });
+            },
+            error: function(response) {
+                console.warn(response);
             }
         });
     });
     // create mall grid
-    $('#mallContainer').load('/data/mallGrid.html', function () {
-        $("#mallUl").gridAccordion({
-            width: 660,
-            height: 300,
-            columns: 4,
-            rows: 3,
-            distance: 2,
-            alignType: 'centerCenter',
-//            slideshow: true,
-            panelProperties: {
-
+    $.get("/js/templates/mallGrid.html", function(template) {
+        $.template("mallGridTmpl", template);
+        $.ajax({
+            url: "data/tests/mallGrid.json",
+            type: "GET",
+            dataType: "json",
+            success: function(response) {
+                $.tmpl("mallGridTmpl", response).appendTo("#mallUl");
+                $("#mallUl").gridAccordion({
+                    width: 660,
+                    height: 300,
+                    columns: 4,
+                    rows: 3,
+                    distance: 2,
+                    alignType: 'centerCenter',
+                    panelProperties: {
+                        0 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        1 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        2 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        3 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        4 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        5 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        6 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        7 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        8 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        9 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        10 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        },
+                        11 : {
+                            captionWidth: 173,
+                            captionHeight: 78,
+                            captionTop: 160,
+                            captionLeft: 120
+                        }
+                    }
+                });
+            },
+            error: function(response) {
+                console.warn(response);
             }
         });
     });
@@ -181,54 +415,6 @@ function init() {
                 }
             }
         });
-    });
-
-    function show_num(container, n){
-        var it = $(container + " i");
-        var len = String(n).length;
-        for(var i=0;i<len;i++){
-            if(it.length<=i){
-                $("#" + container).append("<i></i>");
-            }
-            var num=String(n).charAt(i);
-            var y = -parseInt(num)*30; //y轴位置
-            var obj = $("#" + container + " i").eq(i);
-            obj.animate(
-                    {
-                        'background-position-x': 0,
-                        'background-position-y': String(y) + 'px'
-                    },
-                    'slow',
-                    'swing',
-                    function () {
-                    }
-            );
-        }
-    }
-
-    function getdata() {
-        $.ajax({
-            url: '/data/tests/count.json',
-            type: 'GET',
-            dataType: "json",
-            cache: false,
-            timeout: 10000,
-            error: function(response){
-                console.debug(response);
-            },
-            success: function(data){
-                show_num('mallCount', data.mallCount);
-                show_num('specialistCount', data.specialistCount);
-                show_num('transactionCount', data.transactionCount);
-            }
-        })
-    }
-    getdata();
-    $(function(){
-
-/*        setInterval(
-            getdata(),
-            3000);//每隔3秒执行一次 */
     });
 
 }
@@ -290,15 +476,23 @@ function init() {
     		<div id="mianContainerCenter" class="mianContainerCenter">
                 <div class="newsTitle" id="newsTitle" style="margin-top: 10px">贷款产品</div>
 	    		<div id="prodcutContainer" class="container">
+                    <ul class="accordion" id="productUl" style="margin: 0 auto;">
+                    </ul>
 	    		</div>
                 <div class="newsTitle" id="newsTitle" style="margin-top: 10px">贷款需求</div>
 	    		<div id="demandContainer" class="container">
+                    <ul class="accordion" id="demandUl" style="margin: 0 auto;">
+                    </ul>
 	    		</div>
                 <div class="newsTitle" id="newsTitle" style="margin-top: 10px">贷款专家</div>
 	    		<div id="specialistContainer" class="container">
+                    <ul class="accordion" id="specialistUl" style="margin: 0 auto;">
+                    </ul>
 	    		</div>
                 <div class="newsTitle" id="newsTitle" style="margin-top: 10px">信贷机构</div>
 	    		<div id="mallContainer" class="container">
+                    <ul class="accordion" id="mallUl" style="margin: 0 auto;">
+                    </ul>
 	    		</div>
 	    	</div>
 	    	<div id="recommendContainer" class="recommendContainer">

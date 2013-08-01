@@ -106,6 +106,7 @@ function init() {
                         dataType: "json",
                         success: function(response) {
                             $.tmpl("productDetailTmpl", response).appendTo("#mallMain");
+                            autoScroll();
                         },
                         error: function(response) {
                             console.warn(response);
@@ -123,6 +124,7 @@ function init() {
                         dataType: "json",
                         success: function(response) {
                             $.tmpl("transactionDetailTmpl", response).appendTo("#mallMain");
+                            autoScroll();
                         },
                         error: function(response) {
                             console.warn(response);
@@ -140,6 +142,7 @@ function init() {
                         dataType: "json",
                         success: function(response) {
                             $.tmpl("blogDetailTmpl", response).appendTo("#mallMain");
+                            autoScroll();
                         },
                         error: function(response) {
                             console.warn(response);

@@ -29,6 +29,7 @@
 <script type="text/javascript" src="js/chosen.jquery.js"></script>
 <script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/cTab.js"></script>
+<script type="text/javascript" src="js/cSearch.js"></script>
 
 <script type="text/javascript">
 function showCreateBlog() {
@@ -153,14 +154,15 @@ function init() {
                                                 dateType: "json",
                                                 contentType: "application/json",
                                                 success: function (response) {
+                                                    citySel.empty();
                                                     city = eval(response);
                                                     for(var i = 0; i < city.length; i++) {
-                                                        citySel
-                                                                .append($("<option></option>")
-                                                                        .attr("value", city[i].areaid)
-                                                                        .text(city[i].name));
+                                                        citySel.append($("<option></option>")
+                                                            .attr("value", city[i].areaid)
+                                                            .text(city[i].name));
                                                     }
                                                     citySel.chosen();
+                                                    citySel.trigger("liszt:updated");
                                                 },
                                                 error: function(response) {
 

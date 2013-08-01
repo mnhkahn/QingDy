@@ -67,11 +67,11 @@ function init() {
                     var markup='';
                     for (var i = 0; i < response.items.length; i++)
                     {
-                        markup += '<div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
-                                '<div class="p_left"><a target="_blank" href="' + response.items[i].mall + '"><img width="80" height="80" alt="' + response.items[i].name + '经理" src="' + response.items[i].icon + '"></a>' +
+                        markup += '<a target="_blank" href="' + response.items[i].mall + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
+                                '<div class="p_left"><img width="80" height="80" alt="' + response.items[i].name + '经理" src="' + response.items[i].icon + '">' +
                                 '</div>' +
                                 '<div class="p_right" style="width: 690px">' +
-                                '<h5><a href="' + response.items[i].mall + '" class="cptit" target="_blank" style="float: left; width: 720px; overflow: hidden;">' + response.items[i].name + '</a></h5>' +
+                                '<h5>' + response.items[i].name + '</h5>' +
                                 '<div class="clear_both"></div>' +
                                 '<span class="p1">' + response.items[i].area + '</span>' +
                                 '<span class="p2" style="width: 400px;">贷款用途：' + response.items[i].usesofloan + '</span>' +
@@ -79,7 +79,7 @@ function init() {
                                 '<span class="p4">' + response.items[i].tel + '</span>' +
                                 '<div class="clear_both"></div>' +
                                 '<p>' + response.items[i].description + '.</p>' +
-                                '</div></div>';
+                                '</div></div></a>';
                     };
 
                     return markup;

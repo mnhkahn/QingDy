@@ -47,8 +47,6 @@ function commonInit() {
 			console.error(response);
 		}
 	});
-	
-//	showSearchBox();
 
     $("#searchboxContainer").cSearch();
 	
@@ -56,55 +54,10 @@ function commonInit() {
 	
 }
 
-function showSearchBox() {
-	var searchboxContent = $("<div></div>");
-	searchboxContent.addClass("searchboxContent");
-	
-	var divSearchTypeSelect = $("<div></div>");
-	divSearchTypeSelect.addClass("divSearchTypeSelect");
-	searchboxContent.append(divSearchTypeSelect);
-	
-	var selectType = $("<select><select>");
-	selectType.addClass("selectType");
-	selectType.append(new Option("贷款产品","product"));
-	selectType.append(new Option("贷款需求","demand"));
-	selectType.append(new Option("专家顾问","specialist"));
-	selectType.append(new Option("贷款机构","mall"));
-	selectType.append(new Option("贷款银行","bank"));
-	
-	divSearchTypeSelect.append(selectType);
-	
-	var divSearchbox = document.createElement("DIV");
-	divSearchbox.className = "searchbox";
-	searchboxContent.append(divSearchbox);
-	
-	var divTextSearch = document.createElement("DIV");
-	divTextSearch.className = "divTextSearch";
-//	divTextSearch.onfocus = function(){ border:1px solid #FFD42C; };
-	divSearchbox.appendChild(divTextSearch);
-	
-	var textSearch = document.createElement("input");
-	textSearch.className = "textSearch";
-	textSearch.type = "text";
-	divTextSearch.appendChild(textSearch);
-	
-	var btnSearch = document.createElement("button");
-	btnSearch.className = "largeBtn";
-    btnSearch.onclick = function() {
-        var type = $('.selectType').val();
-        var key = $('.textSearch').val();
-        window.open("s.html?type=" + type + "&keyword=" + key ,'_newtab');
-    }
-	
-	var spanIco = document.createElement("span");
-	spanIco.className = "smallcio searchico";
-	btnSearch.appendChild(spanIco);
-	
-	divSearchbox.appendChild(btnSearch);
-	
-	$("#searchboxContainer").append(searchboxContent);
-
-    selectType.chosen();
+function autoScroll() {
+    var url = window.location.toString();
+    var anchor = url.substring(url.indexOf("#") + 1);
+    $(document).scrollTop($("#" + anchor).offset().top);
 }
 
 function showFoot() {

@@ -1,0 +1,10 @@
+{
+    "id": 9665151,
+    "title": "相见恨晚之一——SQLHelper",
+    "classes": "贷款帮助",
+    "date": "2013-07-31 11:21",
+    "rnum": 409,
+    "favourite": 14,
+    "content": "111SQLHelper是对数据库操作方法进行封装的类，它可以简化我们重复写的那些数据库连接，比如SqlConnection、SqlCommand、SqlDataReader等等，SQLHlper封装后使用特别方便我们仅仅只需要给方法传入一些参数或数据库连接字符串就可以对我们的数据库进行增删改查各种操作。我是通过C#编写的我们SQLHlper类，其实通过哪种语言编写不是重点，重点是我们要了解SQLHlper的思想并能灵活运用。在进行SQLHlper介绍前，先将2个重要的概念向大家介绍下：ExecuteNonQuery,执行非查询类SQL语句或存储过程,也就是我们通常说的增、删、改语句，并返回受影响的行数。ExecuteReader，执行查询类SQL语句或存储过程，用于返回SqlDataReader对象，该对象包含由某一命令返回的结果集。下面就开始我们SQLHlper的介绍，首先我们需要添加我们的引用和进行我们的数据库连接的内容：",
+    "answer": -1
+}

@@ -30,6 +30,7 @@
             var li = $('<li></li>');
             li.attr('href', json.items[i].link);
             li.addClass('hover');
+
             if (i != json.items.length)
                 li.addClass('dashedBottomBorder');
 
@@ -38,6 +39,7 @@
 
             var title = $('<div></div>');
             title.addClass('newsName');
+            title.addClass("list");
             var time = $('<div></div>');
 
             time.addClass('newsTime');

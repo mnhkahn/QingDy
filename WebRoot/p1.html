@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
+    <title>贷款供应</title>
 
     <link href="css/base.css" rel="stylesheet" type="text/css" />
     <link href="css/flexisel.css" rel="stylesheet" type="text/css" />
@@ -24,14 +24,14 @@
         function init() {
             commonInit();
 
-            $.get("js/templates/s.html", function(template) {
-                $.template("sTmpl", template);
+            $.get("js/templates/p.html", function(template) {
+                $.template("pTmpl", template);
                 $.ajax({
-                    url: "data/tests/s.json",
+                    url: "data/tests/p.json",
                     type: "GET",
                     dataType: "json",
                     success: function(response) {
-                        $.tmpl("sTmpl", response).appendTo("#mainContainerCenterLeft");
+                        $.tmpl("pTmpl", response).appendTo("#mainContainerCenterLeft");
                     },
                     error: function(response) {
                         console.warn(response);

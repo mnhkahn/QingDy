@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
+    <title>贷款供应</title>
 
     <link href="css/base.css" rel="stylesheet" type="text/css" />
     <link href="css/flexisel.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/chosen.css" />
 
-    <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
+    <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.2.custom.js"></script>
+    <script type="text/javascript" src="js/xheditor-1.2.1.min.js"></script>
+    <script type="text/javascript" src="js/xheditor_lang/zh-cn.js"></script>
     <script type="text/javascript" src="js/base.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src='js/cTop.js'></script>
@@ -24,14 +27,37 @@
         function init() {
             commonInit();
 
-            $.get("js/templates/s.html", function(template) {
-                $.template("sTmpl", template);
+            $.get("js/templates/q.html", function(template) {
+                $.template("qTmpl", template);
                 $.ajax({
-                    url: "data/tests/s.json",
+                    url: "data/tests/q.json",
                     type: "GET",
                     dataType: "json",
                     success: function(response) {
-                        $.tmpl("sTmpl", response).appendTo("#mainContainerCenterLeft");
+                        $.tmpl("qTmpl", response).appendTo("#questionContainer");
+                        $.get("js/templates/a.html", function(atemplate) {
+                            $.template("aTmpl", atemplate);
+                            $.ajax({
+                                url: "data/tests/a.json",
+                                type: "GET",
+                                dateType: "json",
+                                success: function(answers) {
+                                    $.tmpl("aTmpl", answers).appendTo("#answerContainer");
+                                    if (response.answer != -1) {
+                                        $("#answer-" + response.answer).addClass("best-answer");
+                                    }
+                                    else {
+                                        $("#answerBlock").load("/js/templates/answerBlock.html", function() {
+
+                                    });
+
+                                    }
+                                },
+                                error: function(answers) {
+                                    console.warn(answers);
+                                }
+                            });
+                        });
                     },
                     error: function(response) {
                         console.warn(response);
@@ -50,7 +76,11 @@
 </div>
 <div id="mainContainer2" class="mainContainer2">
     <div id="mainContainerCenterLeft" class="mainContainerCenterLeft">
-
+        <div id="questionContainer"></div>
+        <div id="answerContainer">
+            <h2 style="margin: 20px 30px;font: bold 15px/24px 'Microsoft YaHei', 'SimHei, arial';">回答</h2>
+        </div>
+        <div id="answerBlock"></div>
     </div>
     <div id="recommendContainerRight" class="recommendContainerRight"></div>
     <div style="clear:both;"></div>

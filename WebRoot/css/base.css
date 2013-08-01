@@ -17,7 +17,7 @@ html,body{
     background-color: rgb(241, 241, 241);
 }
 
-p{ text-indent:2em; padding:8px; margin:0px; }
+/*p{ text-indent:2em; padding:8px; margin:0px; }*/
 
 .ellipsis {
     white-space: nowrap;
@@ -677,6 +677,11 @@ a, a:link, a:active, a:hover, a:visited {
 	margin-top: 10px;
 }
 
+.list {
+    background-image: url("/images/icobg_1.4.png");
+    background-position: left -389px;
+}
+
 #wrapperContainer {
 	width: 1000px;
 	height: 1390px;
@@ -1128,7 +1133,9 @@ body {
 .newsName {
     float: left;
     margin-left: 10px;
-    margin-top: 5px;
+    height: 100%;
+    line-height: 27px;
+    text-indent: 11px;
 }
 .newsTime {
     float: right;
@@ -1255,4 +1262,16 @@ body {
 .cm_user {
     width: 100%;
     height: 60px;
+}
+
+/* background p.html */
+/* skin */
+.backgroundContainer {
+    width: 1000px;
+    height: 300px;
+}
+
+/* q.html */
+.best-answer {
+    background-color: #f1fedd;
 }
