@@ -3,20 +3,20 @@ package com.qingdy.dao;
 import java.util.List;
 
 import com.qingdy.common.SQLParameters;
-import com.qingdy.domain.Grid;
-import com.qingdy.domain.QdNews;
+import com.qingdy.model.Grid;
+import com.qingdy.model.Blog;
 
 public interface NewsDao {
 
-	public int addNews(QdNews news);
+	public int addNews(Blog news);
 	
-	public List<QdNews> getNewsList(int size, int page, String keyword);
+	public List<Blog> getNewsList(int size, int page, String keyword);
 	
 	public Grid getNewsList(SQLParameters parameters);
 	
-	public QdNews getNews(int nid);
+	public Blog getNews(int nid);
 	
-	public int updateNews(QdNews news);
+	public int updateNews(Blog news);
 	
 	public int removeNews(int nid);
 }

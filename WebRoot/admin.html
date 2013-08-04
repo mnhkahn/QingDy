@@ -6,15 +6,15 @@
 <title>青帝管理</title>
 
 <link href="css/base.css" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="css/ui.jqgrid.css" type="text/css"></link>
+<link rel="stylesheet" href="css/ui.jqgrid.css" type="text/css" />
 <link href="css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
 <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
 <link rel="stylesheet" href="css/jquery.checkbox.css" />
+<link rel="stylesheet" href="css/chosen.css" />
 
 <!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
 <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src='js/cTop.js'></script>
 <script type="text/javascript" src="js/cMenu.js"></script>
 <script type="text/javascript" src="js/jquery.jBox-2.3.min.js"></script>
@@ -25,6 +25,8 @@
 <script type="text/javascript" src="js/xheditor-1.2.1.min.js"></script>
 <script type="text/javascript" src="js/xheditor_lang/zh-cn.js"></script>
 <script type="text/javascript" src="js/util.js"></script>
+<script type="text/javascript" src="js/cSearch.js"></script>
+<script type="text/javascript" src="js/chosen.jquery.js"></script>
 
 <link rel="Shortcut Icon" href="favicon.ico">
 <script type="text/javascript">
@@ -81,44 +83,28 @@ function reload() {
 function showCreateNews() {
     $('#List').load('/js/templates/blog.html', function () {
         console.debug('Load was performed.');
-        $.ajax({
-            url: '/rest/metadata/newsclasses',
-            type: 'GET',
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (response) {
-                $('#submit').bind('click', function () {
-                    var uid = 45;
-                    var title = $('#title').val();
-                    var category = $('#categorySel').val();
-                    var content = $('#content').val();
-                    console.debug(uid, title, category, content);
-                    var json = "{\"title\": \"" + title + "\", \"text\":\"" + content + "\", \"uid\":" + uid + ", \"classes\":" + category + " }";
-                    $.ajax({
-                        url: '/rest/metadata/news',
-                        type: 'POST',
-                        dataType: "json",
-                        data: json,
-                        contentType: "application/json; charset=utf-8",
-                        success: function (response) {
-                            $.jBox.info('添加成功');
-                        },
-                        error: function (response) {
-                            $.jBox.info('添加失败' + response);
-                        }
-                    });
-                });
-                for (var i = 0; i < response.length; i++) {
-                    $('#categorySel')
-                            .append($("<option></option>")
-                                    .attr("value", response[i].ncid)
-                                    .text(response[i].newsclasses));
+        $('#submit').bind('click', function () {
+            var uid = 45;
+            var title = $('#title').val();
+            var category = $('#categorySel').val();
+            var content = $('#content').val();
+            console.debug(uid, title, category, content);
+            var json = "{\"title\": \"" + title + "\", \"text\":\"" + content + "\", \"uid\":" + uid + ", \"classes\":" + category + " }";
+            $.ajax({
+                url: '/rest/metadata/news',
+                type: 'POST',
+                dataType: "json",
+                data: json,
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $.jBox.info('添加成功');
+                },
+                error: function (response) {
+                    $.jBox.info('添加失败' + response);
                 }
-            },
-            error: function(response) {
-                console.error(response);
-            }
-        })
+            });
+        });
+        $("#categorySel").data("placeholder", "请选择").chosen();
         $('#content').xheditor({
             upImgUrl: "/rest/metadata/upload/news",
             upImgExt: "jpg,jpeg,gif,png",
@@ -131,8 +117,6 @@ function showCreateNews() {
 
 function init() {
     commonInit();
-
-    showNews();
 
     var args = new Object();
     args = GetUrlParms();
@@ -460,8 +444,6 @@ function init() {
 </head>
 
 <body onload='init()'>
-<div id="site-header-container" class="site-header-container page-container">
-</div>
 <div id="searchboxContainer" class="searchboxContainer">
 </div>
 <div id="mainContainerWide" class="mainContainerWide">

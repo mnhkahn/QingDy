@@ -7,7 +7,7 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.RatetypeDao;
-import com.qingdy.domain.Ratetype;
+import com.qingdy.model.Ratetype;
 
 public class RatetypeDaoImpl extends CDaoImpl implements RatetypeDao {
 

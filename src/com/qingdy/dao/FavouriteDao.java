@@ -2,7 +2,7 @@ package com.qingdy.dao;
 
 import java.util.List;
 
-import com.qingdy.domain.QdFavourite;
+import com.qingdy.model.QdFavourite;
 
 public interface FavouriteDao {
 

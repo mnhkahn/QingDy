@@ -2,7 +2,7 @@ package com.qingdy.dao;
 
 import java.util.List;
 
-import com.qingdy.domain.QdQuestion;
+import com.qingdy.model.QdQuestion;
 
 public interface QuestionDao {
 

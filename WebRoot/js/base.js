@@ -107,3 +107,11 @@ function showFoot() {
 
 	$("#footContainer").append(footTable);
 }
+
+function commonInitPlugin() {
+    $('.textarea1').tah({
+        moreSpace: 10,
+        maxHeight: 600,
+        animateDur: 200
+    });
+}

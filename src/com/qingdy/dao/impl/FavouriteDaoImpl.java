@@ -9,8 +9,8 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.FavouriteDao;
-import com.qingdy.domain.QdFavourite;
-import com.qingdy.domain.QdTransaction;
+import com.qingdy.model.QdFavourite;
+import com.qingdy.model.QdTransaction;
 
 public class FavouriteDaoImpl extends CDaoImpl implements FavouriteDao {
 

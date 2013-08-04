@@ -7,7 +7,7 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.LinkDao;
-import com.qingdy.domain.QdLink;
+import com.qingdy.model.QdLink;
 
 public class LinkDaoImpl extends CDaoImpl implements LinkDao {
 

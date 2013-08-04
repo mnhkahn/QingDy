@@ -2,7 +2,7 @@ package com.qingdy.dao;
 
 import java.util.List;
 
-import com.qingdy.domain.QdMallClients;
+import com.qingdy.model.QdMallClients;
 
 public interface MallClientsDao {
 

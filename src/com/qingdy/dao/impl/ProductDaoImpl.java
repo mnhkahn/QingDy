@@ -10,10 +10,10 @@ import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.SQLParameters;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.ProductDao;
-import com.qingdy.domain.Grid;
-import com.qingdy.domain.QdAnswer;
-import com.qingdy.domain.QdProduct;
-import com.qingdy.domain.Row;
+import com.qingdy.model.Grid;
+import com.qingdy.model.QdAnswer;
+import com.qingdy.model.QdProduct;
+import com.qingdy.model.Row;
 
 public class ProductDaoImpl extends CDaoImpl implements ProductDao {
 

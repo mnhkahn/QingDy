@@ -3,8 +3,8 @@ package com.qingdy.dao.impl;
 import java.util.List;
 
 import com.qingdy.dao.LoanPawnDao;
-import com.qingdy.domain.Grid;
-import com.qingdy.domain.QdLoanPawn;
+import com.qingdy.model.Grid;
+import com.qingdy.model.QdLoanPawn;
 
 public class LaonPawnDaoImpl implements LoanPawnDao {
 

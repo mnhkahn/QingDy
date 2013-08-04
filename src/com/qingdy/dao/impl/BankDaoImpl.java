@@ -7,7 +7,7 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.BankDao;
-import com.qingdy.domain.QdBanks;
+import com.qingdy.model.QdBanks;
 
 public class BankDaoImpl extends CDaoImpl implements BankDao {
 

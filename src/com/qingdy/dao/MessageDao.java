@@ -2,7 +2,7 @@ package com.qingdy.dao;
 
 import java.util.List;
 
-import com.qingdy.domain.QdMessage;
+import com.qingdy.model.QdMessage;
 
 public interface MessageDao {
 

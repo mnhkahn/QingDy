@@ -7,7 +7,7 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.AreaDao;
-import com.qingdy.domain.Areas;
+import com.qingdy.model.Areas;
 
 public class AreaDaoImpl extends CDaoImpl implements AreaDao {
 

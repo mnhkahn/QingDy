@@ -1,6 +1,6 @@
 package com.qingdy.dao;
 
-import com.qingdy.domain.QdMember;
+import com.qingdy.model.QdMember;
 
 public interface UserDao {
 

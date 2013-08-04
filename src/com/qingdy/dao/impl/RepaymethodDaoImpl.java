@@ -7,7 +7,7 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.RepaymethodDao;
-import com.qingdy.domain.Repaymethod;
+import com.qingdy.model.Repaymethod;
 
 public class RepaymethodDaoImpl extends CDaoImpl implements RepaymethodDao {
 

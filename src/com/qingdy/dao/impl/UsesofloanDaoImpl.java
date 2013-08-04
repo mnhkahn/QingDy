@@ -7,7 +7,7 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.UsesofloanDao;
-import com.qingdy.domain.Usersofloan;
+import com.qingdy.model.Usersofloan;
 
 public class UsesofloanDaoImpl extends CDaoImpl implements UsesofloanDao{
 

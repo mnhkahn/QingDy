@@ -10,9 +10,9 @@ import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.SQLParameters;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.LoanDao;
-import com.qingdy.domain.Grid;
-import com.qingdy.domain.QdLoan;
-import com.qingdy.domain.Row;
+import com.qingdy.model.Grid;
+import com.qingdy.model.QdLoan;
+import com.qingdy.model.Row;
 
 public class LoanDaoImpl extends CDaoImpl implements LoanDao {
 

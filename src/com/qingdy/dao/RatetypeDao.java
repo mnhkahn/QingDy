@@ -2,7 +2,7 @@ package com.qingdy.dao;
 
 import java.util.List;
 
-import com.qingdy.domain.Ratetype;
+import com.qingdy.model.Ratetype;
 
 public interface RatetypeDao {
 

@@ -10,14 +10,14 @@ import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.SQLParameters;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.NewsDao;
-import com.qingdy.domain.Grid;
-import com.qingdy.domain.QdNews;
-import com.qingdy.domain.Row;
+import com.qingdy.model.Grid;
+import com.qingdy.model.Blog;
+import com.qingdy.model.Row;
 
 public class NewsDaoImpl extends CDaoImpl implements NewsDao {
 
 	@Override
-	public int addNews(QdNews news) {
+	public int addNews(Blog news) {
 		String sql;
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
@@ -101,8 +101,8 @@ public class NewsDaoImpl extends CDaoImpl implements NewsDao {
 	}
 
 	@Override
-	public List<QdNews> getNewsList(int size, int page, String keyword) {
-		List<QdNews> list = new LinkedList<>();
+	public List<Blog> getNewsList(int size, int page, String keyword) {
+		List<Blog> list = new LinkedList<>();
 		String sql;
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
@@ -118,7 +118,7 @@ public class NewsDaoImpl extends CDaoImpl implements NewsDao {
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				QdNews news = new QdNews();
+				Blog news = new Blog();
 				news.setNid(rs.getInt("nid"));
 				news.setTitle(rs.getString("title"));
 				news.setText(rs.getString("text"));
@@ -140,8 +140,8 @@ public class NewsDaoImpl extends CDaoImpl implements NewsDao {
 	}
 
 	@Override
-	public QdNews getNews(int nid) {
-		QdNews news = null;
+	public Blog getNews(int nid) {
+		Blog news = null;
 		String sql;
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();
@@ -153,7 +153,7 @@ public class NewsDaoImpl extends CDaoImpl implements NewsDao {
 			rs = ps.executeQuery();
 			
 			if (rs.next()) {
-				news = new QdNews();
+				news = new Blog();
 				news.setNid(rs.getInt("nid"));
 				news.setTitle(rs.getString("title"));
 				news.setText(rs.getString("text"));
@@ -173,7 +173,7 @@ public class NewsDaoImpl extends CDaoImpl implements NewsDao {
 	}
 
 	@Override
-	public int updateNews(QdNews news) {
+	public int updateNews(Blog news) {
 		String sql;
 		try {
 			conn = cJDBCUtilsSingleton.getInstance().getConnection();

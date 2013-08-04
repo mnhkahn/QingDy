@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.qingdy.model.Evaluate" table="evaluate">
+		<id name="id" column="id" unsaved-value="null">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="star" column="star" not-null="true">
+		</property>
+		<property name="postDate" column="post_date" not-null="true">
+		</property>
+		<many-to-one name="blog" column="id" not-null="true">
+		</many-to-one>
+		<many-to-one name="poster" column="username" not-null="true">
+		</many-to-one>
+	</class>
+</hibernate-mapping>

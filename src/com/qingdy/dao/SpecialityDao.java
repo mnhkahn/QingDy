@@ -1,6 +1,6 @@
 package com.qingdy.dao;
 
-import com.qingdy.domain.Speciality;
+import com.qingdy.model.Speciality;
 
 import java.util.List;
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.qingdy.model.Blog" table="blog">
+		<id name="id" column="id" unsaved-value="null">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="title" column="title" length="50" not-null="true">
+		</property>
+		<property name="content" column="content" length="3000" not-null="true">
+		</property>
+		<many-to-one name="poster" column="username" not-null="true">
+		</many-to-one>
+		<property name="postDate" column="post_date" not-null="true">
+		</property>
+		<property name="category" column="category" length="50" not-null="true">
+		</property>
+		<set name="evaluate" lazy="false" inverse="true" cascade="all-delete-orphan">
+			<meta attribute="field-description">
+				@hibernate.list lazy="true" inverse="false" cascade="none"
+				@hibernate.collection-key column="id"
+				@hibernate.collection-one-to-many class="com.qingdy.model.Evaluate"
+			</meta>
+		</set>
+	</class>
+</hibernate-mapping>

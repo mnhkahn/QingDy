@@ -17,6 +17,64 @@ html,body{
     background-color: rgb(241, 241, 241);
 }
 
+.title1 {
+    width: 320px;
+    height: 32px;
+    padding-top: 8px;
+    padding-left: 10px;
+    margin-bottom: -8px;
+    font-size: 1.5em;
+    font-weight: bold;
+
+    background-image: url(/images/qqbg_1.5.5.png);
+    background-repeat: no-repeat;
+
+    background-position: left -160px;
+}
+
+.title2 {
+    margin: 20px 30px;
+    font: bold 15px/24px 'Microsoft YaHei', 'SimHei, arial'
+}
+
+.title3 {
+    font-size: 12px;
+    padding: 0 5px 0 0;
+    font-weight: bold;
+}
+
+fieldset {
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-color: #e6e6e6;
+}
+
+.item {
+    font-size: 12px;
+    line-height: 30px;
+    margin-bottom: 5px;
+    position: relative;
+    display: block;
+}
+
+.label {
+    float: left;
+    width: 43px;
+    text-align: right;
+    white-space: nowrap;
+    color: #808080;
+}
+
+.con {
+    margin-left: 57px;
+    padding: 0 10px;
+    word-wrap: break-word;
+}
+
+.important {
+    color: #f75703;
+    font-weight: bold;
+}
 /*p{ text-indent:2em; padding:8px; margin:0px; }*/
 
 .ellipsis {

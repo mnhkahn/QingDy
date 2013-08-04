@@ -7,8 +7,8 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.NewsclassesDao;
-import com.qingdy.domain.Areas;
-import com.qingdy.domain.Newsclasses;
+import com.qingdy.model.Areas;
+import com.qingdy.model.Newsclasses;
 
 public class NewsclassesDaoImpl extends CDaoImpl implements NewsclassesDao {
 

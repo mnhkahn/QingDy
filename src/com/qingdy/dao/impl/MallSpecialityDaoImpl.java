@@ -3,8 +3,8 @@ package com.qingdy.dao.impl;
 import java.util.List;
 
 import com.qingdy.dao.MallSpecialityDao;
-import com.qingdy.domain.Grid;
-import com.qingdy.domain.QdMallSpeciality;
+import com.qingdy.model.Grid;
+import com.qingdy.model.QdMallSpeciality;
 
 public class MallSpecialityDaoImpl implements MallSpecialityDao {
 

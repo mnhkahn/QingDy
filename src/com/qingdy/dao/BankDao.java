@@ -2,7 +2,7 @@ package com.qingdy.dao;
 
 import java.util.List;
 
-import com.qingdy.domain.QdBanks;
+import com.qingdy.model.QdBanks;
 
 public interface BankDao {
 

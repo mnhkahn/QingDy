@@ -9,8 +9,8 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.AnswerDao;
-import com.qingdy.domain.QdAnswer;
-import com.qingdy.domain.QdNews;
+import com.qingdy.model.QdAnswer;
+import com.qingdy.model.Blog;
 
 public class AnswerDaoImpl extends CDaoImpl implements AnswerDao {
 

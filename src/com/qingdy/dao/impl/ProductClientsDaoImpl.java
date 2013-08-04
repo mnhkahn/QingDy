@@ -3,8 +3,8 @@ package com.qingdy.dao.impl;
 import java.util.List;
 
 import com.qingdy.dao.ProductClientsDao;
-import com.qingdy.domain.Grid;
-import com.qingdy.domain.QdProductClients;
+import com.qingdy.model.Grid;
+import com.qingdy.model.QdProductClients;
 
 public class ProductClientsDaoImpl implements ProductClientsDao {
 

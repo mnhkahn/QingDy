@@ -2,8 +2,8 @@ package com.qingdy.dao;
 
 import java.util.List;
 
-import com.qingdy.domain.Grid;
-import com.qingdy.domain.QdLoanUsesofloan;
+import com.qingdy.model.Grid;
+import com.qingdy.model.QdLoanUsesofloan;
 
 public interface LoanUsesofloanDao {
 

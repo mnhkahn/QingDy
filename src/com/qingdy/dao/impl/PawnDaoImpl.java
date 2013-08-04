@@ -7,7 +7,7 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.PawnDao;
-import com.qingdy.domain.Pawn;
+import com.qingdy.model.Pawn;
 
 public class PawnDaoImpl extends CDaoImpl implements PawnDao {
 

@@ -8,7 +8,7 @@
 <link href="css/flexisel.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="css/chosen.css" />
 
-<script type="text/javascript" src='js/jquery-1.9.1.js'></script>
+<script type="text/javascript" src='js/jquery-1.7.2.js'></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src='js/cTop.js'></script>
@@ -16,6 +16,7 @@
 <script type="text/javascript" src="js/jquery.esn.autobrowse.js"></script>
 <script type="text/javascript" src="js/jstorage.js"></script>
 <script type="text/javascript" src="js/chosen.jquery.js"></script>
+    <script type="text/javascript" src="js/cArea.js"></script>
     <script type="text/javascript" src="js/cSearch.js" ></script>
 <link rel = "Shortcut Icon" href="favicon.ico">
 
@@ -48,6 +49,7 @@ function init() {
     });
 
     $('#filter').load('/js/templates/supplyFilter.html', function () {
+        $.cArea("福建福州");
         var provinceSel = $("#provinceSel");
         provinceSel.data("placeholder", "请选择").chosen();
 

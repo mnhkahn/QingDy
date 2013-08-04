@@ -3,8 +3,8 @@ package com.qingdy.dao;
 import java.util.List;
 
 import com.qingdy.common.SQLParameters;
-import com.qingdy.domain.Grid;
-import com.qingdy.domain.QdLoan;
+import com.qingdy.model.Grid;
+import com.qingdy.model.QdLoan;
 
 public interface LoanDao {
 	

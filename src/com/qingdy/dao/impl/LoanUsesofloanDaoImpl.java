@@ -3,8 +3,8 @@ package com.qingdy.dao.impl;
 import java.util.List;
 
 import com.qingdy.dao.LoanUsesofloanDao;
-import com.qingdy.domain.Grid;
-import com.qingdy.domain.QdLoanUsesofloan;
+import com.qingdy.model.Grid;
+import com.qingdy.model.QdLoanUsesofloan;
 
 public class LoanUsesofloanDaoImpl implements LoanUsesofloanDao {
 

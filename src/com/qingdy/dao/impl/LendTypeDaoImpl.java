@@ -7,8 +7,8 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.LendTypeDao;
-import com.qingdy.domain.Clients;
-import com.qingdy.domain.Lendtype;
+import com.qingdy.model.Clients;
+import com.qingdy.model.Lendtype;
 
 public class LendTypeDaoImpl extends CDaoImpl implements LendTypeDao {
 

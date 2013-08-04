@@ -2,7 +2,7 @@ package com.qingdy.dao;
 
 import java.util.List;
 
-import com.qingdy.domain.Areas;
+import com.qingdy.model.Areas;
 
 public interface AreaDao {
 	

@@ -11,16 +11,16 @@
     <tr>
         <td class="filterTitle dashedLine" width="100px;">地区：</td>
         <td class="dashedLine" width="650px;">
-            <select id="provinceSel" class="chosen" style="width: 100px;" onchange="getCity()">
+            <select id="provinceSel" name="provinceSel" class="chosen" style="width: 100px;">
             </select>
-            <select id="citySel" class="chosen" style="width: 100px;" >
+            <select id="citySel" name="citySel" class="chosen" style="width: 100px;" >
             </select>
         </td>
     </tr>
     <tr>
         <td class="filterTitle dashedLine" width="100px;">贷款种类：</td>
         <td class="dashedLine" width="650px;">
-            <select name="simple-select">
+            <select name="simple-select" id="pawnSel">
                 <option>不限</option>
                 <option>抵押贷款</option>
                 <option>无抵押信用贷款</option>
@@ -30,7 +30,7 @@
     <tr>
         <td class="filterTitle dashedLine" width="100px;">针对用户：</td>
         <td class="dashedLine" width="650px;">
-            <select name="simple-select">
+            <select name="simple-select" id="clientSel">
                 <option>不限</option>
                 <option>公务员/律师/教师</option>
                 <option>企业法人</option>

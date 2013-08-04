@@ -7,8 +7,8 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.SpecialityDao;
-import com.qingdy.domain.Areas;
-import com.qingdy.domain.Speciality;
+import com.qingdy.model.Areas;
+import com.qingdy.model.Speciality;
 
 public class SpecialityDaoImpl extends CDaoImpl implements SpecialityDao {
 

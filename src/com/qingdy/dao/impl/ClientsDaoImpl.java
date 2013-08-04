@@ -7,7 +7,7 @@ import java.util.List;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.ClientsDao;
-import com.qingdy.domain.Clients;
+import com.qingdy.model.Clients;
 
 public class ClientsDaoImpl extends CDaoImpl implements ClientsDao {
 

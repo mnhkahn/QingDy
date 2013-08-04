@@ -51,7 +51,11 @@ import com.qingdy.dao.impl.TransactionDaoImpl;
 import com.qingdy.dao.impl.UserDaoImpl;
 import com.qingdy.dao.impl.UsesofloanDaoImpl;
 
-import com.qingdy.domain.*;
+import com.qingdy.domain.QdHistory;
+import com.qingdy.domain.QdLoan;
+import com.qingdy.domain.QdMember;
+import com.qingdy.domain.QdNews;
+import com.qingdy.model.*;
 
 @Path("/metadata")
 public class Resources {

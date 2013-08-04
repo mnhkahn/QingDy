@@ -9,6 +9,8 @@
 <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
 <link rel="stylesheet" href="css/jquery.checkbox.css" />
 <link rel="stylesheet" href="css/chosen.css" />
+<link rel="stylesheet" href="css/daterangepicker-bs2.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css" />
 <!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
 <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.2.custom.js"></script>
@@ -30,6 +32,9 @@
 <script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/cTab.js"></script>
 <script type="text/javascript" src="js/cSearch.js"></script>
+<script type="text/javascript" src="js/cArea.js"></script>
+<script type="text/javascript" src="js/daterangepicker.js"></script>
+<script type="text/javascript" src="js/moment.js"></script>
 
 <script type="text/javascript">
 function showCreateBlog() {
@@ -129,78 +134,35 @@ function init() {
                                     }
                                 });
                                 $('input[type=checkbox]').checkbox();
-                                $("#datepicker").datepicker();
-                                $.ajax({
-                                    url: "rest/metadata/areas/province",
-                                    type: "GET",
-                                    dateType: "json",
-                                    contentType: "application/json",
-                                    success: function (response) {
-                                        province = eval(response);
-                                        for(var i = 0; i < province.length; i++) {
-                                            $('#provinceSel')
-                                                    .append($("<option></option>")
-                                                            .attr("value", province[i].areaid)
-                                                            .text(province[i].joinname));
+                                $("#datepicker").daterangepicker();
+
+                                $.cArea("北京海淀");
+
+                                $("#submit").on("click", function() {
+                                    var area = $('#citySel').val();
+                                    var amount = $("#amount").val();
+                                    var deadline = "2013-7-29";//$("#datepicker").val();
+                                    var usesofloan = $("#usesofloanSel").val();
+                                    var haspawn = $("#haspawn").val() == "on" ? 1 : 0;
+                                    var pawn = $("#pawnSel").val();
+                                    var title = $('#title').val();
+                                    var introduce = $("#content").val();
+                                    console.debug(area, usesofloan, pawn);
+
+
+                                    $.ajax({
+                                        url: "rest/metadata/loans",
+                                        type: "POST",
+                                        dateType: "json",
+                                        contentType: "application/json",
+                                        data: '{"uid": 79,"amount": "' + amount + '","deadline": "' + deadline + '","usesofloan": "' + usesofloan + '","haspawn": "' + haspawn + '", "pawn": "' + pawn + '", "title": "' + title + '", "introduce": "' + introduce + '" }',
+                                        success: function (response) {
+                                            $.jBox.info('添加成功');
+                                        },
+                                        error: function (response) {
+                                            $.jBox.info('添加失败' + response);
                                         }
-                                        getCity = function() {
-                                            // clear all options
-                                            var citySel = $("#citySel");
-
-                                            var province =  $('#provinceSel').val();
-                                            $.ajax({
-                                                url: "rest/metadata/areas/city?province=" + province,
-                                                type: "GET",
-                                                dateType: "json",
-                                                contentType: "application/json",
-                                                success: function (response) {
-                                                    citySel.empty();
-                                                    city = eval(response);
-                                                    for(var i = 0; i < city.length; i++) {
-                                                        citySel.append($("<option></option>")
-                                                            .attr("value", city[i].areaid)
-                                                            .text(city[i].name));
-                                                    }
-                                                    citySel.chosen();
-                                                    citySel.trigger("liszt:updated");
-                                                },
-                                                error: function(response) {
-
-                                                }
-                                            });
-                                        }
-                                        getCity();
-                                        $('#provinceSel').data("placeholder", "请选择").chosen();
-
-                                        $("#submit").on("click", function() {
-                                            var area = $('#citySel').val();
-                                            var amount = $("#amount").val();
-                                            var deadline = "2013-7-29";//$("#datepicker").val();
-                                            var usesofloan = $("#usesofloanSel").val();
-                                            var haspawn = $("#haspawn").val() == "on" ? 1 : 0;
-                                            var pawn = $("#pawnSel").val();
-                                            var title = $('#title').val();
-                                            var introduce = $("#content").val();
-                                            console.debug(area, usesofloan, pawn);
-
-
-                                            $.ajax({
-                                                url: "rest/metadata/loans",
-                                                type: "POST",
-                                                dateType: "json",
-                                                contentType: "application/json",
-                                                data: '{"uid": 79,"amount": "' + amount + '","deadline": "' + deadline + '","usesofloan": "' + usesofloan + '","haspawn": "' + haspawn + '", "pawn": "' + pawn + '", "title": "' + title + '", "introduce": "' + introduce + '" }',
-                                                success: function (response) {
-                                                    $.jBox.info('添加成功');
-                                                },
-                                                error: function (response) {
-                                                    $.jBox.info('添加失败' + response);
-                                                }
-                                            });
-                                        });
-                                    },
-                                    error: function(response) {
-                                    }
+                                    });
                                 });
                                 // usesofloan select
                                 $.ajax({
@@ -235,11 +197,12 @@ function init() {
                                                             .attr("value", pawns[i].pid)
                                                             .text(pawns[i].pawn));
                                         }
-                                        $('#pawnSel').data("placeholder", "请选择").chosen();
                                     },
                                     error: function () {
                                     }
                                 });
+
+                                $('.chosen').data("placeholder", "请选择").chosen();
                             });
                         },
                         // "我的贷款"

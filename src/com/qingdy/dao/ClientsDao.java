@@ -2,7 +2,7 @@ package com.qingdy.dao;
 
 import java.util.List;
 
-import com.qingdy.domain.Clients;
+import com.qingdy.model.Clients;
 
 public interface ClientsDao {
 

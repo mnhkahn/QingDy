@@ -11,11 +11,11 @@ import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.SQLParameters;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.MallDao;
-import com.qingdy.domain.Grid;
-import com.qingdy.domain.Mall;
-import com.qingdy.domain.QdAnswer;
-import com.qingdy.domain.QdMall;
-import com.qingdy.domain.Row;
+import com.qingdy.model.Grid;
+import com.qingdy.model.Mall;
+import com.qingdy.model.QdAnswer;
+import com.qingdy.model.QdMall;
+import com.qingdy.model.Row;
 
 public class MallDaoImpl extends CDaoImpl implements MallDao {
 

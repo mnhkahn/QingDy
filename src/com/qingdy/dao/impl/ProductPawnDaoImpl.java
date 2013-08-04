@@ -3,8 +3,8 @@ package com.qingdy.dao.impl;
 import java.util.List;
 
 import com.qingdy.dao.ProductPawnDao;
-import com.qingdy.domain.Grid;
-import com.qingdy.domain.QdProductPawn;
+import com.qingdy.model.Grid;
+import com.qingdy.model.QdProductPawn;
 
 public class ProductPawnDaoImpl implements ProductPawnDao {
 

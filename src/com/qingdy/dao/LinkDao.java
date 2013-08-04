@@ -2,7 +2,7 @@ package com.qingdy.dao;
 
 import java.util.List;
 
-import com.qingdy.domain.QdLink;
+import com.qingdy.model.QdLink;
 
 public interface LinkDao {
 

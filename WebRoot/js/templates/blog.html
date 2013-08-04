@@ -1,22 +1,33 @@
 <div id='Wrapper' style="width:750px;">
-    <div class="hd" style="width:750px; height:32px">
-        <div class="newsTitle" id="newsTitle" style="margin-top: 10px">日志添加</div>
+    <div class="hd" style="width:750px;">
+        <div class="newsTitle" id="newsTitle" style="margin-top: 10px; float: left">日志添加</div>
         <div id="actionWrapper" style="width:160px;height: 59px;float: right">
             <input id='submit' class='largeBtn' style="float:right" type='button' value='提交'/>
         </div>
+        <div style="clear: both"></div>
     </div>
-    <div id='titleWrapper' style="width:640px;height:100px;margin-top:30px;float: left">
-        <div>标题:</div>
-        <input id='title'
-               style="float:right;-webkit-margin-before: 1.33em;-webkit-margin-after: 1.33em;-webkit-margin-start: 0px;-webkit-margin-end: 0px;font-weight: bold;width: 640px;"/>
+    <div id='titleWrapper' style="width:600px;float: left">
+        <textarea id="title-area" placeholder="标题"/>
     </div>
-    <div id="categoryWrapper" style="width:100px;height:100px;margin-top: 30px;float: right">
-        <div style="margin-bottom: 12px">分类:</div>
-        <select id='categorySel'
-                style="-webkit-margin-before: 1.33em;-webkit-margin-after: 1.33em;-webkit-margin-start: 0px;-webkit-margin-end: 0px;font-weight: bold;width: 100px;"></select>
+    <div id="categoryWrapper" style="width:100px;padding-top: 10px;float: left">
+        <select id="categorySel" class="chosen" style="width:130px;">
+            <option value="小额贷款">小额贷款</option>
+            <option value="无抵押贷款">无抵押贷款</option>
+            <option value="消费贷款">消费贷款</option>
+            <option value="求学贷款">求学贷款</option>
+            <option value="房产贷款">房产贷款</option>
+            <option value="汽车贷款">汽车贷款</option>
+            <option value="银行贷款">银行贷款</option>
+            <option value="银行卡">银行卡</option>
+            <option value="民间借贷">民间借贷</option>
+            <option value="小贷公司">小贷公司</option>
+            <option value="创业贷款">创业贷款</option>
+            <option value="企业贷款">企业贷款</option>
+        </select>
     </div>
-    <div id="contentWrapper" style="width:100%;height:100px;">
-        <textarea id="content" name="content" rows="20" cols="100" style="width: 100%; height: 300px">
+    <div style="clear: both"></div>
+    <div id="contentWrapper" style="width:100%;margin-top: 10px;padding-left: 10px;">
+        <textarea id="content" name="content" rows="5" cols="100" style="height: 250px">
         </textarea><br/><br/>
     </div>
 </div>

@@ -1,7 +1,8 @@
 package com.qingdy.dao;
 
 import java.util.List;
-import com.qingdy.domain.Newsclasses;
+
+import com.qingdy.model.Newsclasses;
 
 public interface NewsclassesDao {
 

@@ -7,8 +7,8 @@ import java.util.Date;
 import com.qingdy.common.CDaoImpl;
 import com.qingdy.common.cJDBCUtilsSingleton;
 import com.qingdy.dao.UserDao;
-import com.qingdy.domain.QdAnswer;
-import com.qingdy.domain.QdMember;
+import com.qingdy.model.QdAnswer;
+import com.qingdy.model.QdMember;
 
 public class UserDaoImpl extends CDaoImpl implements UserDao {
 

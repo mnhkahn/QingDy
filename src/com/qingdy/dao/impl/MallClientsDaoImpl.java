@@ -3,7 +3,7 @@ package com.qingdy.dao.impl;
 import java.util.List;
 
 import com.qingdy.dao.MallClientsDao;
-import com.qingdy.domain.QdMallClients;
+import com.qingdy.model.QdMallClients;
 
 public class MallClientsDaoImpl implements MallClientsDao {
 
