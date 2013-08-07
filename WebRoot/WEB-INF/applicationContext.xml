@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.1.xsd
+  http://www.springframework.org/schema/context classpath:org/springframework/context/config/spring-context-3.1.xsd
+  http://www.springframework.org/schema/tool classpath:org/springframework/beans/factory/xml/spring-tool-3.1.xsd">
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/QingDyDB?characterEncoding=utf8" />
+		<property name="username" value="qingdy" />
+		<property name="password" value="qingdy" />
+		<property name="maxActive" value="100" />
+		<property name="maxIdle" value="30" />
+		<property name="maxWait" value="1000" />
+		<property name="defaultAutoCommit" value="true" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="60" />
+		<property name="logAbandoned" value="true" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mappingResources">
+			<list>
+				<value>com/qingdy/model/User.hbm.xml</value>
+   				<value>com/qingdy/model/Blog.hbm.xml</value>
+				<value>com/qingdy/model/Evaluate.hbm.xml</value> 
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- Use the HibernateAware mapper instead of the default 
+	<bean
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="objectMapper">
+			<bean class="com.fasterxml.jackson.datatype.hibernate4.HibernateAwareObjectMapper" />
+		</property>
+	</bean>-->
+
+	<bean id="daoTemplate" abstract="true" lazy-init="true">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="dao" class="com.qingdy.dao.hibernate.BaseDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="blogDao" class="com.qingdy.dao.hibernate.BlogDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="evaluateDao" class="com.qingdy.dao.hibernate.EvaluateDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="userDao" class="com.qingdy.dao.hibernate.UserDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+
+	<bean id="transactionManager"
+	    class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	    <property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+<!-- <bean id="txProxyTemplate" abstract="true"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_REQUIRED, readOnly</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="facadeManager" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.qingdy.service.impl.FacadeManagerImpl">
+				<property name="blogDao" ref="blogDao"></property>
+				<property name="evaluateDao" ref="evaluateDao"></property>
+				<property name="userDao" ref="userDao"></property>
+			</bean>
+		</property>
+	</bean>-->
+</beans>

@@ -1,16 +1,11 @@
 package com.qingdy.dao;
 
-import com.qingdy.model.QdMember;
+import com.qingdy.model.User;
 
-public interface UserDao {
+public interface UserDao extends DAO {
 
-	public int addUser(QdMember user);
+	public User getUser(String username);
+	public void saveUser(User user);
+	public void removeUser(String username);
 	
-	public QdMember getUser(String username, String password);
-	
-	public int updateUser(QdMember user);
-	
-	public int getUid(String username);
-	
-//	public List<QdPost> getPosts(String username);
 }

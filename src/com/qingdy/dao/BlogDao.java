@@ -2,21 +2,12 @@ package com.qingdy.dao;
 
 import java.util.List;
 
-import com.qingdy.common.SQLParameters;
-import com.qingdy.model.Grid;
-import com.qingdy.model.QdBlog;
+import com.qingdy.model.Blog;
 
-public interface BlogDao {
+public interface BlogDao extends DAO {
 
-	public int addBlog(QdBlog blog);
-	
-	public Grid getBlogList(SQLParameters parameters);
-	
-	public QdBlog getBlog(int bid);
-	
-	public List<QdBlog> getBlogByUser(String username, int size, int page);
-	
-	public int updateBlog(QdBlog blog);
-	
-	public int removeBlog(int bid);
+	public Blog getBlog(Long blogId);
+	public void saveBlog(Blog blog);
+	public void removeBlog(Long blogId);
+	public List getBlogs();
 }

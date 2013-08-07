@@ -1,17 +1,17 @@
 package com.qingdy.model;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Set;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Blog extends BaseObject {
 	private Long id;
 	private String title;
 	private String content;
 	private User poster;
-	private Date postDate;
+	private Timestamp postDate;
 	private String category;
 	private Set evaluate;
 	
@@ -51,11 +51,11 @@ public class Blog extends BaseObject {
 		this.poster = poster;
 	}
 
-	public Date getPostDate() {
+	public Timestamp getPostDate() {
 		return postDate;
 	}
 
-	public void setPostDate(Date postDate) {
+	public void setPostDate(Timestamp postDate) {
 		this.postDate = postDate;
 	}
 
@@ -71,7 +71,7 @@ public class Blog extends BaseObject {
 		return evaluate;
 	}
 
-	public void setEvaluateSet(Set evaluate) {
+	public void setEvaluate(Set evaluate) {
 		this.evaluate = evaluate;
 	}
 
@@ -79,8 +79,8 @@ public class Blog extends BaseObject {
 	public String toString() {
 		return new ToStringBuilder(this).append("id", this.id).append("title", this.title)
 				.append("postDate", this.postDate).append("content", this.content)
-				.append("poster", this.poster).append("category", this.category)
-				.append("evaluate", evaluate).toString();
+				.append("poster", this.poster).append("category", this.category).toString();
+//				.append("evaluate", evaluate).toString();
 	}
 
 	@Override
@@ -95,8 +95,7 @@ public class Blog extends BaseObject {
 
 	@Override
 	public int hashCode() {
-		return this.poster.hashCode() + this.postDate.hashCode();
-	}
-	
-	
+		//return this.poster.hashCode() + this.postDate.hashCode();
+		return 0;
+	}	
 }

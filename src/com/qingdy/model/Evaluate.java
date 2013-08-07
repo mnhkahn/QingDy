@@ -1,13 +1,16 @@
 package com.qingdy.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Evaluate extends BaseObject {
 
 	private Long id;
 	private Integer star;
-	private Date postDate;
+	private Timestamp postDate;
 	private Blog blog;
 	private User poster;
 	
@@ -31,11 +34,11 @@ public class Evaluate extends BaseObject {
 		this.star = star;
 	}
 
-	public Date getPostDate() {
+	public Timestamp getPostDate() {
 		return postDate;
 	}
 
-	public void setPostdate(Date postDate) {
+	public void setPostDate(Timestamp postDate) {
 		this.postDate = postDate;
 	}
 
