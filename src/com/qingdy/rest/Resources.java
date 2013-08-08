@@ -79,7 +79,11 @@ public class Resources {
 	
 	@Path("/blog/{id}")
 	@DELETE
-	public Response deleteBlog(@PathParam("id") int id) {
+	public Response deleteBlog(@PathParam("id") Long id) {
+		ApplicationContext ctx = new FileSystemXmlApplicationContext("C:/Users/Bryce/Documents/GitHub/QingDy/WebRoot/WEB-INF/applicationContext.xml");
+		mgr = (FacadeManager)ctx.getBean("facadeManager");
+		Blog blog = (Blog)mgr.getBlog(id);
+		System.out.println("fuck your ass" + blog.getCategory());
 		return null;
 	}
 	

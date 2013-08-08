@@ -27,16 +27,23 @@
 	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/applicationContext.xml</param-value>
+		<param-value>META-INF/server/wink-core-context.xml
+					 WEB-INF/applicationContext.xml
+		</param-value>
 	</context-param>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
 
 	<servlet>
 		<servlet-name>restService</servlet-name>
 		<servlet-class>org.apache.wink.server.internal.servlet.RestServlet</servlet-class>
-		<init-param>
+<!-- 		<init-param>
 			<param-name>javax.ws.rs.Application</param-name>
 			<param-value>com.qingdy.rest.QingDyApplication</param-value>
-		</init-param>
+		</init-param> -->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 

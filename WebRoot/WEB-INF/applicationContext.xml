@@ -21,7 +21,7 @@
 	</bean>
 
 	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="mappingResources">
 			<list>
@@ -47,7 +47,7 @@
 		</property>
 	</bean>-->
 
-	<bean id="daoTemplate" abstract="true" lazy-init="true">
+ 	<bean id="daoTemplate" abstract="true" lazy-init="true">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="dao" class="com.qingdy.dao.hibernate.BaseDaoHibernate"
@@ -64,11 +64,11 @@
 	</bean>
 
 	<bean id="transactionManager"
-	    class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	    class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 	    <property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-<!-- <bean id="txProxyTemplate" abstract="true"
+	<bean id="txProxyTemplate" abstract="true"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager" ref="transactionManager"></property>
 		<property name="transactionAttributes">
@@ -88,5 +88,18 @@
 				<property name="userDao" ref="userDao"></property>
 			</bean>
 		</property>
-	</bean>-->
+	</bean>
+	
+	<bean id="restResource" class="com.qingdy.rest.Resources"></bean>
+	<bean class="org.apache.wink.spring.Registrar">
+		<property name="classes">
+			<set value-type="java.lang.Class">
+			</set>
+		</property>
+		<property name="instances">
+			<set>
+				<ref bean="restResource"></ref>
+			</set>
+		</property>
+	</bean>
 </beans>
