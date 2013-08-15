@@ -6,6 +6,8 @@
   http://www.springframework.org/schema/context classpath:org/springframework/context/config/spring-context-3.1.xsd
   http://www.springframework.org/schema/tool classpath:org/springframework/beans/factory/xml/spring-tool-3.1.xsd">
 
+	<context:component-scan base-package="com.qingdy" />
+
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/QingDyDB?characterEncoding=utf8" />
@@ -28,6 +30,7 @@
 				<value>com/qingdy/model/User.hbm.xml</value>
    				<value>com/qingdy/model/Blog.hbm.xml</value>
 				<value>com/qingdy/model/Evaluate.hbm.xml</value> 
+				<value>com/qingdy/model/UserDetail.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -62,12 +65,37 @@
 	<bean id="userDao" class="com.qingdy.dao.hibernate.UserDaoHibernate"
 		parent="daoTemplate">
 	</bean>
+	<bean id="userDetailDao" class="com.qingdy.dao.hibernate.UserDetailDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="answerDao" class="com.qingdy.dao.hibernate.AnswerDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="loanDao" class="com.qingdy.dao.hibernate.LoanDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="mallDao" class="com.qingdy.dao.hibernate.MallDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="newsDao" class="com.qingdy.dao.hibernate.NewsDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="productDao" class="com.qingdy.dao.hibernate.ProductDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="questionDao" class="com.qingdy.dao.hibernate.QuestionDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="transactionDao" class="com.qingdy.dao.hibernate.TransactionDaoHibernate"
+		parent="daoTemplate">
+	</bean>
 
 	<bean id="transactionManager"
 	    class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 	    <property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
+	
+		
 	<bean id="txProxyTemplate" abstract="true"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager" ref="transactionManager"></property>
@@ -80,7 +108,7 @@
 		</property>
 	</bean>
 
-	<bean id="facadeManager" parent="txProxyTemplate">
+<!-- 	<bean id="facadeManager" parent="txProxyTemplate">
 		<property name="target">
 			<bean class="com.qingdy.service.impl.FacadeManagerImpl">
 				<property name="blogDao" ref="blogDao"></property>
@@ -88,9 +116,10 @@
 				<property name="userDao" ref="userDao"></property>
 			</bean>
 		</property>
-	</bean>
+	</bean> -->
 	
 	<bean id="restResource" class="com.qingdy.rest.Resources"></bean>
+	<bean id="qingdyApplication" class="com.qingdy.provider.QingDyJacksonJaxbJsonProvider"></bean>
 	<bean class="org.apache.wink.spring.Registrar">
 		<property name="classes">
 			<set value-type="java.lang.Class">
@@ -99,6 +128,7 @@
 		<property name="instances">
 			<set>
 				<ref bean="restResource"></ref>
+				<ref bean="qingdyApplication"></ref>
 			</set>
 		</property>
 	</bean>

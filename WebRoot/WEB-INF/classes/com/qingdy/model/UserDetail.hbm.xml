@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-8-10 6:40:25 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.qingdy.model.UserDetail" table="USERDETAIL" lazy="false">
+        <id name="username" type="java.lang.String">
+            <column name="USERNAME" />
+<!--             <generator class="foreign">
+            	<param name="property">user</param>
+            </generator> -->
+        </id>
+<!--         <one-to-one name="user" class="com.qingdy.model.User" constrained="true"></one-to-one> -->
+        <property name="lastname" type="java.lang.String">
+            <column name="LASTNAME" />
+        </property>
+        <property name="firstname" type="java.lang.String">
+            <column name="FIRSTNAME" />
+        </property>
+        <property name="gender" type="int">
+            <column name="GENDER" />
+        </property>
+        <property name="avatar" type="java.lang.String">
+            <column name="AVATAR" />
+        </property>
+        <property name="tel" type="java.lang.String">
+            <column name="TEL" />
+        </property>
+        <property name="qq" type="java.lang.String">
+            <column name="QQ" />
+        </property>
+        <property name="site" type="java.lang.String">
+            <column name="SITE" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="EMAIL" />
+        </property>
+        <property name="introduce" type="java.lang.String">
+            <column name="INTRODUCE" />
+        </property>
+        <property name="location" type="java.lang.String">
+            <column name="LOCATION" />
+        </property>
+        <property name="regdate" type="java.sql.Timestamp">
+            <column name="REGDATE" />
+        </property>
+    </class>
+</hibernate-mapping>

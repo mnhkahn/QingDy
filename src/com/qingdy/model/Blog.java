@@ -1,18 +1,27 @@
 package com.qingdy.model;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
+@SuppressWarnings("serial")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Blog extends BaseObject {
+	@JsonProperty("id")
 	private Long id;
+	@JsonProperty("title")
 	private String title;
+	@JsonProperty("content")
 	private String content;
-	private User poster;
-	private Timestamp postDate;
+	@JsonProperty("poster")
+	private UserDetail poster;
+	@JsonProperty("postDate")
+	private Date postDate;
+	@JsonProperty("category")
 	private String category;
+	@JsonProperty("evaluate")
 	private Set evaluate;
 	
 	public Blog() {
@@ -43,19 +52,19 @@ public class Blog extends BaseObject {
 		this.content = content;
 	}
 
-	public User getPoster() {
+	public UserDetail getPoster() {
 		return poster;
 	}
 
-	public void setPoster(User poster) {
+	public void setPoster(UserDetail poster) {
 		this.poster = poster;
 	}
 
-	public Timestamp getPostDate() {
+	public Date getPostDate() {
 		return postDate;
 	}
 
-	public void setPostDate(Timestamp postDate) {
+	public void setPostDate(Date postDate) {
 		this.postDate = postDate;
 	}
 

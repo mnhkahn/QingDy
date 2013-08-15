@@ -156,7 +156,6 @@
 		</property>
 	</bean>
 
-
 	<util:constant id="winkInternalNullContant"
 		static-field="org.apache.wink.spring.internal.RequestProcessorBuilder.NULL" />
 

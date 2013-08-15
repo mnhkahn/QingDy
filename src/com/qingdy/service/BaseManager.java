@@ -7,7 +7,7 @@ import java.util.List;
 import com.mysql.jdbc.log.LogFactory;
 import com.qingdy.dao.DAO;
 
-public class BaseManager/* implements Manager*/ {
+public class BaseManager implements Manager {
 	protected DAO dao = null;
 	//protected final Log log = LogFactory.getLog(getClass());
 	public void setDAO(DAO dao) {

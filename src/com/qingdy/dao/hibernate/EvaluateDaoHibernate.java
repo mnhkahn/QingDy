@@ -1,11 +1,14 @@
 package com.qingdy.dao.hibernate;
 
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 import com.qingdy.dao.EvaluateDao;
 import com.qingdy.model.Evaluate;
 
+@Service("evaluateDao")
 public class EvaluateDaoHibernate extends BaseDaoHibernate implements
 		EvaluateDao {
 

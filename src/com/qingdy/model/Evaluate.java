@@ -4,15 +4,20 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Evaluate extends BaseObject {
-
+	@JsonProperty
 	private Long id;
+	@JsonProperty
 	private Integer star;
-	private Timestamp postDate;
+	@JsonProperty
+	private Date postDate;
+	@JsonProperty
 	private Blog blog;
-	private User poster;
+	@JsonProperty
+	private UserDetail poster;
 	
 	public Evaluate() {
 		
@@ -34,11 +39,11 @@ public class Evaluate extends BaseObject {
 		this.star = star;
 	}
 
-	public Timestamp getPostDate() {
+	public Date getPostDate() {
 		return postDate;
 	}
 
-	public void setPostDate(Timestamp postDate) {
+	public void setPostDate(Date postDate) {
 		this.postDate = postDate;
 	}
 
@@ -50,11 +55,11 @@ public class Evaluate extends BaseObject {
 		this.blog = blog;
 	}
 
-	public User getPoster() {
+	public UserDetail getPoster() {
 		return poster;
 	}
 
-	public void setPoster(User poster) {
+	public void setPoster(UserDetail poster) {
 		this.poster = poster;
 	}
 

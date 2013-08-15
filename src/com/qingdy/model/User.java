@@ -1,11 +1,13 @@
 package com.qingdy.model;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User extends BaseObject {
-	
+	@JsonProperty("username")
 	private String username;
+	@JsonProperty("password")
 	private String password;
 	
 	public User() {

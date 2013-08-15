@@ -6,6 +6,7 @@ public interface UserDao extends DAO {
 
 	public User getUser(String username);
 	public void saveUser(User user);
+	public void updateUser(User user);
 	public void removeUser(String username);
-	
+	public boolean isUserExists(String username);	
 }

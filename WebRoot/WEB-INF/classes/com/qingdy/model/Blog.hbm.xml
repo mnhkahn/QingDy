@@ -2,23 +2,23 @@
 <!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
 <hibernate-mapping>
 	<class name="com.qingdy.model.Blog" table="BLOG" lazy="false">
-		<id name="id" column="id" unsaved-value="null">
+		<id name="id" column="ID" unsaved-value="null">
 			<generator class="increment">
 			</generator>
 		</id>
- 		<property name="title" column="title" length="50" not-null="true">
+ 		<property name="title" column="TITLE" length="50" not-null="true">
 		</property>
-		<property name="content" column="content" length="3000" not-null="true">
+		<property name="content" column="CONTENT" length="3000" not-null="true">
 		</property>
-		<many-to-one name="poster" column="username" not-null="true" class="com.qingdy.model.User" >
+ 		<many-to-one name="poster" column="USERNAME" not-null="true" class="com.qingdy.model.UserDetail" >
 		</many-to-one>
-		<property name="postDate" column="post_date" not-null="true">
+		<property name="postDate" column="POSTDATE" not-null="true">
 		</property>
-		<property name="category" column="category" length="50" not-null="true">
+		<property name="category" column="CATEGORY" length="50" not-null="true">
 		</property>
-   		<set name="evaluate" lazy="false" inverse="true">
-			<key column="blogid"></key>
-			<one-to-many class="com.qingdy.model.Evaluate"/>
+   		<set name="evaluate" table="EVALUATE" lazy="false" cascade="all">
+			<key column="BLOGID"></key>
+			<element type="long" column="STAR"></element>
 		</set>
 	</class>
 </hibernate-mapping>

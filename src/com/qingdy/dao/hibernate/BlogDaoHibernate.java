@@ -3,10 +3,12 @@ package com.qingdy.dao.hibernate;
 import java.util.List;
 
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.stereotype.Service;
 
 import com.qingdy.dao.BlogDao;
 import com.qingdy.model.Blog;
 
+@Service("blogDao")
 public class BlogDaoHibernate extends BaseDaoHibernate implements BlogDao {
 
 	@Override
@@ -25,7 +27,9 @@ public class BlogDaoHibernate extends BaseDaoHibernate implements BlogDao {
 
 	@Override
 	public void removeBlog(Long blogId) {
-		getHibernateTemplate().delete(blogId);
+		Blog blog = (Blog)getHibernateTemplate().get(Blog.class, blogId);
+		System.out.println(blog.getPostDate() + "^^^" + blog.getId());
+		getHibernateTemplate().delete(blog);
 	}
 
 	@Override
