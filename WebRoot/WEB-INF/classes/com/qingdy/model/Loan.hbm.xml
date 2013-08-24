@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-8-22 10:17:54 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.qingdy.model.Loan" table="LOAN" lazy="false">
+        <id name="id" column="ID" unsaved-value="null">
+			<generator class="increment">
+			</generator>
+		</id>
+        <many-to-one name="poster" class="com.qingdy.model.UserDetail" fetch="join" update="false">
+            <column name="POSTER" />
+        </many-to-one>
+        <property name="amount" type="float">
+            <column name="AMOUNT" />
+        </property>
+        <property name="startTime" type="java.util.Date">
+            <column name="STARTTIME" />
+        </property>
+        <property name="endTime" type="java.util.Date">
+            <column name="ENDTIME" />
+        </property>
+        <property name="usesofloan" type="java.lang.String">
+            <column name="USESOFLOAN" />
+        </property>
+        <property name="lendType" type="java.lang.String">
+            <column name="LENDTYPE" />
+        </property>
+        <property name="hasPawn" type="java.lang.Integer">
+            <column name="HASPAWN" />
+        </property>
+        <property name="pawn" type="java.lang.String">
+            <column name="PAWN" />
+        </property>
+        <property name="title" type="java.lang.String">
+            <column name="TITLE" />
+        </property>
+        <property name="content" type="java.lang.String">
+            <column name="CONTENT" />
+        </property>
+        <property name="postDate" type="java.util.Date" update="false">
+            <column name="POSTDATE" />
+        </property>
+        <property name="location" type="java.lang.String">
+            <column name="LOCATION" />
+        </property>
+        <property name="verify" type="java.lang.Integer">
+            <column name="VERIFY" />
+        </property>
+    </class>
+</hibernate-mapping>

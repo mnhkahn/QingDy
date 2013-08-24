@@ -6,5 +6,7 @@
 		</id>
 		<property name="password" column="PASSWORD" length="50" not-null="true">
 		</property>
+		<property name="groupid" column="GROUPID" not-null="true">
+		</property>
 	</class>
 </hibernate-mapping>

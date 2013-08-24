@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2013-8-10 6:40:25 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.qingdy.model.UserDetail" table="USERDETAIL" lazy="false">
+    <class name="com.qingdy.model.UserDetail" table="USERDETAIL" >
         <id name="username" type="java.lang.String">
             <column name="USERNAME" />
 <!--             <generator class="foreign">
@@ -41,7 +41,7 @@
         <property name="location" type="java.lang.String">
             <column name="LOCATION" />
         </property>
-        <property name="regdate" type="java.sql.Timestamp">
+        <property name="regdate" type="java.sql.Timestamp" update="false">
             <column name="REGDATE" />
         </property>
     </class>

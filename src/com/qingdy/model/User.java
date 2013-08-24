@@ -9,6 +9,8 @@ public class User extends BaseObject {
 	private String username;
 	@JsonProperty("password")
 	private String password;
+	@JsonProperty("groupid")
+	private int groupid = 0;
 	
 	public User() {
 		
@@ -28,6 +30,14 @@ public class User extends BaseObject {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public int getGroupid() {
+		return groupid;
+	}
+
+	public void setGroupid(int groupid) {
+		this.groupid = groupid;
 	}
 
 	@Override

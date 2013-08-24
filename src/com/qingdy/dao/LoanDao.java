@@ -6,7 +6,7 @@ import com.qingdy.model.Loan;
 
 public interface LoanDao {
 	
-	public List<Loan> getLoans();
+	public List<Loan> getLoans(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public List<Loan> getLoans(String username);
 	

@@ -8,11 +8,11 @@
 		</id>
 		<property name="star" column="STAR" not-null="true">
 		</property>
-		<property name="postDate" column="POSTDATE" not-null="true">
+		<property name="postDate" column="POSTDATE" not-null="true" update="false">
 		</property>
-  		<many-to-one name="blog" column="BLOGID" not-null="true" class="com.qingdy.model.Blog">
+  		<many-to-one name="blog" column="BLOGID" not-null="true" class="com.qingdy.model.Blog" update="false">
 		</many-to-one>
-		<many-to-one name="poster" column="USERNAME" not-null="true" unique="true" class="com.qingdy.model.UserDetail" >
+		<many-to-one name="poster" column="USERNAME" not-null="true" unique="true" class="com.qingdy.model.UserDetail" update="false">
 		</many-to-one>
 	</class>
 </hibernate-mapping>

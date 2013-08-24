@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-8-22 10:17:54 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.qingdy.model.Answer" table="ANSWER" lazy="false">
+		<id name="id" column="ID" unsaved-value="null">
+			<generator class="increment">
+			</generator>
+		</id>
+        <many-to-one name="poster" class="com.qingdy.model.UserDetail" fetch="join" update="false">
+            <column name="POSTER" />
+        </many-to-one>
+        <property name="answer" type="java.lang.String">
+            <column name="ANSWER" />
+        </property>
+        <property name="postDate" type="java.util.Date" update="false">
+            <column name="POSTDATE" />
+        </property>
+        <many-to-one name="question" class="com.qingdy.model.Question" fetch="join" update="false">
+        	<column name="QUESTION"></column>
+        </many-to-one>
+        <property name="verify" type="java.lang.Integer">
+            <column name="VERIFY" />
+        </property>
+    </class>
+</hibernate-mapping>

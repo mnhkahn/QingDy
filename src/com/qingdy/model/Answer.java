@@ -16,6 +16,8 @@ public class Answer extends BaseObject{
 	private Date postDate;
 	@JsonProperty("question")
 	private Question question;
+	@JsonProperty("verify")
+	private Integer verify = -1;
 	
 	public Answer() {
 		
@@ -51,6 +53,16 @@ public class Answer extends BaseObject{
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
+	
+	
+	public Integer getVerify() {
+		return verify;
+	}
+
+	public void setVerify(Integer verify) {
+		this.verify = verify;
+	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

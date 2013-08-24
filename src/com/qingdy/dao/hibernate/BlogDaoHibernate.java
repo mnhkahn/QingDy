@@ -27,13 +27,12 @@ public class BlogDaoHibernate extends BaseDaoHibernate implements BlogDao {
 
 	@Override
 	public void removeBlog(Long blogId) {
-		Blog blog = (Blog)getHibernateTemplate().get(Blog.class, blogId);
-		System.out.println(blog.getPostDate() + "^^^" + blog.getId());
+		Blog blog = getBlog(blogId);
 		getHibernateTemplate().delete(blog);
 	}
 
 	@Override
-	public List getBlogs() {
+	public List getBlogs(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
 		return getHibernateTemplate().find("from Blog");
 	}
 

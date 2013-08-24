@@ -5,7 +5,7 @@ import java.util.List;
 import com.qingdy.model.Answer;
 
 public interface AnswerDao {
-	public List<Answer> getAnswers();
+	public List<Answer> getAnswers(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 
 	public void saveAnswer(Answer answer);
 	

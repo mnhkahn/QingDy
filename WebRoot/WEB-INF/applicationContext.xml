@@ -10,7 +10,7 @@
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/QingDyDB?characterEncoding=utf8" />
+		<property name="url" value="jdbc:mysql://localhost:3306/QingDy?useUnicode=true&amp;characterEncoding=utf-8" />
 		<property name="username" value="qingdy" />
 		<property name="password" value="qingdy" />
 		<property name="maxActive" value="100" />
@@ -31,15 +31,27 @@
    				<value>com/qingdy/model/Blog.hbm.xml</value>
 				<value>com/qingdy/model/Evaluate.hbm.xml</value> 
 				<value>com/qingdy/model/UserDetail.hbm.xml</value>
+				<value>com/qingdy/model/Mall.hbm.xml</value>
+				<value>com/qingdy/model/Product.hbm.xml</value>
+				<value>com/qingdy/model/Loan.hbm.xml</value>
+				<value>com/qingdy/model/Question.hbm.xml</value>
+				<value>com/qingdy/model/Answer.hbm.xml</value>
+				<value>com/qingdy/model/News.hbm.xml</value>
+				<value>com/qingdy/model/Transaction.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
 			<props>
+				<prop key="hibernate.connection.useUnicode">true</prop>
+	            <prop key="hibernate.connection.characterEncoding">UTF8</prop>
+	            <prop key="hibernate.connection.charSet">UTF8</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
+<!-- 		<property name="connection.useUnicode">true</property>
+		<property name="connection.characterEncoding">UTF-8</property> -->
 	</bean>
 	
 	<!-- Use the HibernateAware mapper instead of the default 

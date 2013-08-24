@@ -1,9 +1,11 @@
 package com.qingdy.model;
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-
+@SuppressWarnings("serial")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Mall extends BaseObject{
 	@JsonProperty("id")
 	private Long id;
@@ -46,7 +48,7 @@ public class Mall extends BaseObject{
 	@JsonProperty("postDate")
 	private Date postDate;
 	@JsonProperty("verify")
-	private Integer verify;
+	private Integer verify = -1;
 	
 	public Mall() {
 		

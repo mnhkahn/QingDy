@@ -31,7 +31,8 @@ public class UserDaoHibernate extends BaseDaoHibernate implements UserDao {
 
 	@Override
 	public void removeUser(String username) {
-		getHibernateTemplate().delete(username);
+		User user = getHibernateTemplate().get(User.class, username);
+		getHibernateTemplate().delete(user);
 	}
 
 	@Override

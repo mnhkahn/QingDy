@@ -21,8 +21,10 @@ public class Question extends BaseObject {
 	private Date postDate;
 	@JsonProperty("answers")
 	private Set<Answer> answers;
-	@JsonProperty("answer")
-	private Answer answer;
+	@JsonProperty("verify")
+	private Integer verify = -1;
+	@JsonProperty("best")
+	private Answer best;
 	
 	public Question() {
 		
@@ -83,13 +85,21 @@ public class Question extends BaseObject {
 	public void setAnswers(Set<Answer> answers) {
 		this.answers = answers;
 	}
-
-	public Answer getAnswer() {
-		return answer;
+	
+	public Integer getVerify() {
+		return verify;
 	}
 
-	public void setAnswer(Answer answer) {
-		this.answer = answer;
+	public void setVerify(Integer verify) {
+		this.verify = verify;
+	}
+
+	public Answer getBest() {
+		return best;
+	}
+
+	public void setBest(Answer best) {
+		this.best = best;
 	}
 
 	@Override

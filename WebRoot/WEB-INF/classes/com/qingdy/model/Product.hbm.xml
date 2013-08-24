@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-8-22 10:17:54 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.qingdy.model.Product" table="PRODUCT" lazy="false">
+        <id name="id" column="ID" unsaved-value="null">
+			<generator class="increment">
+			</generator>
+		</id>
+        <many-to-one name="poster" class="com.qingdy.model.UserDetail" fetch="join" update="false">
+            <column name="POSTER" />
+        </many-to-one>
+        <many-to-one name="mall" class="com.qingdy.model.Mall" fetch="join" update="false">
+            <column name="MALL" />
+        </many-to-one>
+        <property name="pName" type="java.lang.String" access="field">
+            <column name="PNAME" />
+        </property>
+        <property name="max" type="java.lang.Integer">
+            <column name="MAX" />
+        </property>
+        <property name="min" type="java.lang.Integer">
+            <column name="MIN" />
+        </property>
+        <property name="rateType" type="java.lang.String">
+            <column name="RATETYPE" />
+        </property>
+        <property name="rate" type="float">
+            <column name="RATE" />
+        </property>
+        <property name="startTime" type="java.util.Date">
+            <column name="STARTTIME" />
+        </property>
+        <property name="endTIme" type="java.util.Date">
+            <column name="ENDTIME" />
+        </property>
+        <property name="clientLocation" type="java.lang.String">
+            <column name="CLIENTLOCATION" />
+        </property>
+        <property name="client" type="java.lang.String">
+            <column name="CLIENT" />
+        </property>
+        <property name="repaymentMethod" type="java.lang.String">
+            <column name="REPAYMENTMETHOD" />
+        </property>
+        <property name="pType" type="java.lang.String" access="field">
+            <column name="PTYPE" />
+        </property>
+        <property name="usesofloan" type="java.lang.String">
+            <column name="USESOFLOAN" />
+        </property>
+        <property name="content" type="java.lang.String">
+            <column name="CONTENT" />
+        </property>
+        <property name="processes" type="java.lang.String">
+            <column name="PROCESSES" />
+        </property>
+        <property name="application" type="java.lang.String">
+            <column name="APPLICATION" />
+        </property>
+        <property name="faq" type="java.lang.String">
+            <column name="FAQ" />
+        </property>
+        <property name="postDate" type="java.util.Date" update="false">
+            <column name="POSTDATE" />
+        </property>
+        <property name="verify" type="java.lang.Integer">
+            <column name="VERIFY" />
+        </property>
+    </class>
+</hibernate-mapping>

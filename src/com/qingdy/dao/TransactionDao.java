@@ -7,7 +7,7 @@ public interface TransactionDao {
 
 	public void saveTransaction(Transaction transaction);
 	
-	public List<Transaction> geTransactions();
+	public List<Transaction> geTransactions(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public Transaction getTransaction(Long id);
 	

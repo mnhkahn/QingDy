@@ -27,8 +27,10 @@ import com.qingdy.model.Mall;
 import com.qingdy.model.News;
 import com.qingdy.model.Product;
 import com.qingdy.model.Question;
+import com.qingdy.model.Transaction;
 import com.qingdy.model.User;
 import com.qingdy.model.UserDetail;
+import com.qingdy.model.UserTop;
 import com.qingdy.service.FacadeManager;
 
 @Path("/metadata")
@@ -63,6 +65,7 @@ public class Resources {
 	@Path("/user/{username}")
 	@PUT
 	public Response updateUser(@PathParam("username") String username, User user) {
+		user.setUsername(username);
 		facadeManager.updateUser(user);
 		return Response.ok().build();
 	}
@@ -70,7 +73,8 @@ public class Resources {
 	@Path("/user/{username}")
 	@DELETE
 	public Response deleteUser(@PathParam("username") String username) {
-		return null;
+		facadeManager.removeUser(username);
+		return Response.noContent().build();
 	}
 	
 	/*
@@ -124,7 +128,7 @@ public class Resources {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUserContact(@PathParam("username") String username) {
-		return Response.ok().build();
+		return Response.ok(facadeManager.getUserDetail(username)).build();
 	}
 	
 	/*
@@ -139,12 +143,14 @@ public class Resources {
 		return Response.status(Response.Status.CREATED).build();
 	}
 	
-	@Path("/blog/manage")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVerifiedBlog(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Blog> blogs = facadeManager.getBlogs();
-		return Response.ok(blogs).build();
+	@Path("/blog/{id}")
+	@PUT
+	public Response updateBlog(@PathParam("id") Long id, Blog blog) {
+		blog.setId(id);
+		Blog oldBlog = facadeManager.getBlog(id);
+		blog.setPostDate(oldBlog.getPostDate());
+		facadeManager.saveBlog(blog);
+		return null;
 	}
 	
 	@Path("/blog/{id}")
@@ -154,14 +160,20 @@ public class Resources {
 		return Response.noContent().build();
 	}
 	
-	@Path("/blog/{id}")
-	@PUT
-	public Response updateBlog(@PathParam("id") Long id, Blog blog) {
-		blog.setId(id);
-		Blog oldBlog = facadeManager.getBlog(id);
-		blog.setPostDate(oldBlog.getPostDate());
-		facadeManager.saveBlog(blog);
-		return null;
+	@Path("/blog/{id}/activate")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response activateBlog(@PathParam("id") Long id) {
+		facadeManager.verifyBlog(id, true);
+		return Response.noContent().build();
+	}
+	
+	@Path("/blog/{id}/deactivate")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deactivateBlog(@PathParam("id") Long id) {
+		facadeManager.verifyBlog(id, false);
+		return Response.noContent().build();
 	}
 	
 	@Path("/blog/{id}")
@@ -175,26 +187,19 @@ public class Resources {
 	@Path("/blog")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllBlogs() {
-		List<Blog> blogs = facadeManager.getBlogs();
+	public Response getVerifiedBlog(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Blog> blogs = facadeManager.getBlogs(size,  page, field, value, operator, sidx, sord, true);
 		return Response.ok(blogs).build();
 	}
 	
-	@Path("/blog/{id}/activate")
-	@POST
+	@Path("/blog/manage")
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response activateBlog(@PathParam("id") Long id) {
-		
-		return Response.noContent().build();
+	public Response getAllBlogs(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Blog> blogs = facadeManager.getBlogs(size,  page, field, value, operator, sidx, sord, false);
+		return Response.ok(blogs).build();
 	}
 	
-	@Path("/blog/{id}/deactivate")
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response deactivateBlog(@PathParam("id") Long id) {
-		
-		return Response.noContent().build();
-	}
 	
 	/*
 	 * Evaluate
@@ -219,293 +224,483 @@ public class Resources {
 	 * Mall
 	 */
 	@Path("/mall")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getMalls() {
-		return null;
-	}
-	
-	@Path("/mall/{id}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getMall(@PathParam("id") Long id) {
-		return null;
-	}
-	
-	@Path("/mall")
 	@POST
 	public Response addMall(Mall mall) {
+		mall.setPostDate(new Date());
+		facadeManager.saveMall(mall);
 		return Response.status(Response.Status.CREATED).build();
 	}
 	
 	@Path("/mall/{id}")
 	@PUT
 	public Response updateMall(Mall mall, @PathParam("id") Long id) {
+		mall.setId(id);
+		facadeManager.saveMall(mall);
 		return Response.noContent().build();
 	}
 	
 	@Path("/mall/{id}")
 	@DELETE
 	public Response removeMall(@PathParam("id") Long id) {
+		facadeManager.removeMall(id);
 		return Response.noContent().build();
 	}
 	
 	@Path("/mall/{id}/activate")
 	@POST
 	public Response activateMall(@PathParam("id") Long id) {
+		facadeManager.verifyMall(id, true);
 		return Response.noContent().build();
 	}
 	
 	@Path("/mall/{id}/deactivate")
 	@POST
 	public Response deactivateMall(@PathParam("id") Long id) {
+		facadeManager.verifyMall(id, false);
 		return Response.noContent().build();
 	}
+	
+	@Path("/mall/{id}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getMall(@PathParam("id") Long id) {
+		Mall mall = facadeManager.getMall(id);
+		return Response.ok(mall).build();
+	}
+	
+	@Path("/mall")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVerifiedMalls(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Mall> malls = facadeManager.getMalls(size,  page, field, value, operator, sidx, sord, true);
+		return Response.ok(malls).build();
+	}
+	
+	@Path("/mall/manage")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllMalls(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Mall> malls = facadeManager.getMalls(size,  page, field, value, operator, sidx, sord, false);
+		return Response.ok(malls).build();
+	}
+	
 	
 	/*
 	 * Product
 	 */
 	@Path("/product")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getProducts() {
-		return Response.ok().build();
-	}
-	
-	@Path("/product/{id}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getProduct(@PathParam("id") Long id) {
-		return Response.ok().build();
-	}
-	
-	@Path("/product")
 	@POST
 	public Response addProduct(Product product) {
-		return Response.noContent().build();
+		facadeManager.saveProduct(product);
+		return Response.status(Response.Status.CREATED).build();
 	}
 	
 	@Path("/product/{id}")
 	@PUT
 	public Response updateProduct(Product product, @PathParam("id") Long id) {
+		product.setId(id);
+		facadeManager.saveProduct(product);
 		return Response.noContent().build();
 	}
 	
 	@Path("/product/{id}")
 	@DELETE
 	public Response removeProduct(@PathParam("id") Long id) {
+		facadeManager.removeProduct(id);
 		return Response.noContent().build();
 	}
 	
-	@Path("/product/activate")
+	@Path("/product/{id}/activate")
 	@POST
 	public Response activateProduct(@PathParam("id") Long id) {
+		facadeManager.verifyProduct(id, true);
 		return Response.noContent().build();
 	}
 	
-	@Path("/product/deactivate")
+	@Path("/product/{id}/deactivate")
 	@POST
 	public Response deactivateProduct(@PathParam("id") Long id) {
+		facadeManager.verifyProduct(id, false);
 		return Response.noContent().build();
 	}
+	
+	@Path("/product")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVerifiedProducts(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Product> products = facadeManager.getProducts(size,  page, field, value, operator, sidx, sord, true);
+		return Response.ok(products).build();
+	}
+	
+	@Path("/product/{id}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getProduct(@PathParam("id") Long id) {
+		Product product = facadeManager.getProduct(id);
+		return Response.ok(product).build();
+	}
+	
+	@Path("/product/manage")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllProducts(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Product> products = facadeManager.getProducts(size,  page, field, value, operator, sidx, sord, false);
+		return Response.ok(products).build();
+	}
+	
+	
 	
 	/*
 	 * Question
 	 */
-	@Path("/quesion")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getQuestions() {
-		return Response.ok().build();
-	}
-	
-	@Path("/quesion/{id}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getQuestion(@PathParam("id") Long id) {
-		return Response.ok().build();
-	}
-	
-	@Path("/quesion/{username}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getQuestion(@PathParam("username") String username) {
-		return Response.ok().build();
-	}
-	
-	@Path("/quesion")
+	@Path("/question")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addQuestion(Question question) {
-		return Response.noContent().build();
+		question.setPostDate(new Date());
+		facadeManager.saveQuestion(question);
+		return Response.status(Response.Status.CREATED).build();
 	}
 	
 	@Path("/question/{id}")
 	@PUT
 	public Response updateQuestion(Question question, @PathParam("id") Long id) {
+		question.setId(id);
+		facadeManager.saveQuestion(question);
 		return Response.noContent().build();
 	}
 	
 	@Path("/question/{id}")
 	@DELETE
 	public Response removeQuestion(@PathParam("id") Long id) {
+		facadeManager.removeQuestion(id);
 		return Response.noContent().build();
 	}
 	
 	@Path("/question/{id}/activate")
 	@POST
 	public Response activateQuestion(@PathParam("id") Long id) {
+		facadeManager.verifyQuestion(id, true);
 		return Response.noContent().build();
 	}
 	
 	@Path("/question/{id}/deactivate")
 	@POST
 	public Response deactivateQuestion(@PathParam("id") Long id) {
+		facadeManager.verifyQuestion(id, false);
 		return Response.noContent().build();
 	}
 	
-	@Path("/question/{id}/best")
+	@Path("/question/{id}/best/{answerId}")
 	@POST
-	public Response bestAnswer(@PathParam("id") Long id) {
+	public Response bestAnswer(@PathParam("id") Long id, @PathParam("answerId") Long answerId) {
+		facadeManager.bestAnswer(id, answerId);
 		return Response.noContent().build();
 	}
+	
+	@Path("/question")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVerifiedQuestions(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Question> questions = facadeManager.getQuestions(size,  page, field, value, operator, sidx, sord, true);
+		return Response.ok(questions).build();
+	}
+	
+	@Path("/question/{id}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getQuestion(@PathParam("id") Long id) {
+		Question question = facadeManager.getQuestion(id);
+		return Response.ok(question).build();
+	}
+	
+	@Path("/question")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getQuestion(@QueryParam("username") String username) {
+		List<Question> questions = facadeManager.getQuestion(username);
+		System.out.println(questions.get(0).getPoster().getUsername());
+		return Response.ok(questions).build();
+	}
+	
+	@Path("/question/manage")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllQuestions(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Question> questions = facadeManager.getQuestions(size,  page, field, value, operator, sidx, sord, false);
+		return Response.ok(questions).build();
+	}
+	
 	
 	/*
 	 * Answer
 	 */
-	@Path("/answer/{qid}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAnswers(@PathParam("qid") Long qid) {
-		return Response.ok().build();
-	}
-	
-	@Path("/answer/{username}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAnswers(@PathParam("username") String username) {
-		return Response.ok().build();
-	}
-	
-	@Path("/answer/{id}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAnswer(@PathParam("id") Long id) {
-		return Response.ok().build();
-	}
-	
 	@Path("/answer")
 	@POST
 	public Response addAnswer(Answer answer) {
+		answer.setPostDate(new Date());
+		facadeManager.saveAnswer(answer);
+		return Response.status(Response.Status.CREATED).build();
+	}
+	
+	@Path("/answer/{id}")
+	@PUT
+	public Response updateAnswer(@PathParam("id") Long id, Answer answer) {
+		answer.setId(id);
+		facadeManager.saveAnswer(answer);
 		return Response.noContent().build();
 	}
 	
 	@Path("/answer/{id}")
 	@DELETE
 	public Response removeAnswer(@PathParam("id") Long id) {
+		facadeManager.removeAnswer(id);
 		return Response.noContent().build();
 	}
 	
 	@Path("/answer/{id}/activate")
 	@POST
 	public Response activateAnswer(@PathParam("id") Long id) {
+		facadeManager.verifyAnswer(id, true);
 		return Response.noContent().build();
 	}
 	
 	@Path("/answer/{id}/deactivate")
 	@POST
 	public Response deactivateAnswer(@PathParam("id") Long id) {
+		facadeManager.verifyAnswer(id, false);
 		return Response.noContent().build();
 	}
+	
+	@Path("/answer/{qid}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAnswers(@PathParam("qid") Long qid) {
+		List<Answer> answers = facadeManager.getAnswers(qid);
+		return Response.ok(answers).build();
+	}
+	
+	@Path("/answer")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVerifiedAnswers(@QueryParam("username") String username) {
+		List<Answer> answers = facadeManager.getAnswers(username);
+		return Response.ok(answers).build();
+	}
+	
+	@Path("/answer/manage")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllAnswers(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Answer> answers = facadeManager.getAnswers(size, page, field, value, operator, sidx, sord, false);
+		return Response.ok(answers).build();
+	}
+	
+/*	@Path("/answer/{id}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAnswer(@PathParam("id") Long id) {
+		Answer answer = facadeManager.getAnswer(id);
+		return Response.ok(answer).build();
+	}
+*/	
+	
 	
 	/*
 	 * News
 	 */
 	@Path("/news")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getNews() {
-		return Response.ok().build();
-	}
-	
-	@Path("/news/{id}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getNews(@PathParam("id") Long id) {
-		return Response.ok().build();
-	}
-	
-	@Path("/news")
 	@POST
 	public Response addNews(News news) {
-		return Response.noContent().build();
+		news.setPostDate(new Date());
+		facadeManager.saveNews(news);
+		return Response.status(Response.Status.CREATED).build();
 	}
 	
 	@Path("/news/{id}")
 	@PUT
 	public Response updateNews(News news, @PathParam("id") Long id) {
+		news.setId(id);
+		facadeManager.saveNews(news);
 		return Response.noContent().build();
 	}
 	
 	@Path("/news/{id}")
 	@DELETE
 	public Response removeNews(@PathParam("id") Long id) {
+		facadeManager.removeNews(id);
 		return Response.noContent().build();
+	}
+	
+	@Path("/news")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVerifiedNews(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<News> newses = facadeManager.getNews(size, page, field, value, operator, sidx, sord, true);
+		return Response.ok(newses).build();
+	}
+	
+	@Path("/news/{id}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getNews(@PathParam("id") Long id) {
+		News news = facadeManager.getNews(id);
+		return Response.ok(news).build();
+	}
+	
+	@Path("/news/manage")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllNews(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<News> newses = facadeManager.getNews(size, page, field, value, operator, sidx, sord, false);
+		return Response.ok(newses).build();
+	}
+	
+	
+	/*
+	 * Transaction
+	 */
+	@Path("/transaction")
+	@POST
+	public Response addTransaction(Transaction transaction) {
+		transaction.setPostDate(new Date());
+		facadeManager.saveTransaction(transaction);
+		return Response.status(Response.Status.CREATED).build();
+	}
+	
+	@Path("/transaction/{id}")
+	@PUT
+	public Response updateTransaction(Transaction transaction, @PathParam("id") Long id) {
+		transaction.setId(id);
+		facadeManager.saveTransaction(transaction);
+		return Response.noContent().build();
+	}
+	
+	@Path("/transaction/{id}")
+	@DELETE
+	public Response removeTransaction(Transaction transaction, @PathParam("id") Long id) {
+		facadeManager.removeTransaction(id);
+		return Response.noContent().build();
+	}
+	
+	@Path("/transaction/{id}/activate")
+	@POST
+	public Response activateTransaction(@PathParam("id") Long id) {
+		facadeManager.verifyTransaction(id, true);
+		return Response.noContent().build();
+	}
+	
+	@Path("/transaction/{id}/deactivate")
+	@POST
+	public Response deactivateTransaction(@PathParam("id") Long id) {
+		facadeManager.verifyTransaction(id, false);
+		return Response.noContent().build();
+	}
+	
+	@Path("/transaction")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVerifiedTransactions(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Transaction> transactions = facadeManager.getTransactions(size,  page, field, value, operator, sidx, sord, true);
+		return Response.ok(transactions).build();
+	}
+	
+	@Path("/transaction/manage")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllTransactions(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Transaction> transactions = facadeManager.getTransactions(size,  page, field, value, operator, sidx, sord, false);
+		return Response.ok(transactions).build();
+	}
+	
+	@Path("/transaction/{id}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTransaction(@PathParam("id") Long id) {
+		Transaction transaction = facadeManager.getTransaction(id);
+		return Response.ok(transaction).build();
+	}
+	
+	@Path("/transaction")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTransactions(@QueryParam("username") String username) {
+		List<Loan> transactions = facadeManager.getLoans(username);
+		return Response.ok(transactions).build();
 	}
 	
 	/*
 	 * Loan
 	 */
 	@Path("/loan")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getLoans() {
-		return Response.ok().build();
-	}
-	
-	@Path("/loan/{id}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getLoan(@PathParam("id") Long id) {
-		return Response.ok().build();
-	}
-	
-	@Path("/loan/{username}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getLoans(@PathParam("username") String username) {
-		return Response.ok().build();
-	}
-	
-	@Path("/loan")
 	@POST
 	public Response addLoan(Loan loan) {
-		return Response.noContent().build();
+		loan.setPostDate(new Date());
+		facadeManager.saveLoan(loan);
+		return Response.status(Response.Status.CREATED).build();
 	}
 	
 	@Path("/loan/{id}")
-	@POST
+	@PUT
 	public Response updateLoan(Loan loan, @PathParam("id") Long id) {
+		loan.setId(id);
+		facadeManager.saveLoan(loan);
 		return Response.noContent().build();
 	}
 	
 	@Path("/loan/{id}")
 	@DELETE
 	public Response removeLoan(Loan loan, @PathParam("id") Long id) {
+		facadeManager.removeLoan(id);
 		return Response.noContent().build();
 	}
 	
 	@Path("/loan/{id}/activate")
 	@POST
 	public Response activateLoan(@PathParam("id") Long id) {
+		facadeManager.verifyLoan(id, true);
 		return Response.noContent().build();
 	}
 	
 	@Path("/loan/{id}/deactivate")
 	@POST
 	public Response deactivateLoan(@PathParam("id") Long id) {
+		facadeManager.verifyLoan(id, false);
 		return Response.noContent().build();
 	}
+	
+	@Path("/loan")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVerifiedLoans(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Loan> loans = facadeManager.getLoans(size,  page, field, value, operator, sidx, sord, true);
+		return Response.ok(loans).build();
+	}
+	
+	@Path("/loan/manage")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllLoans(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Loan> loans = facadeManager.getLoans(size,  page, field, value, operator, sidx, sord, false);
+		return Response.ok(loans).build();
+	}
+	
+	@Path("/loan/{id}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getLoan(@PathParam("id") Long id) {
+		Loan loan = facadeManager.getLoan(id);
+		return Response.ok(loan).build();
+	}
+	
+	@Path("/loan")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getLoans(@QueryParam("username") String username) {
+		List<Loan> loans = facadeManager.getLoans(username);
+		return Response.ok(loans).build();
+	}
+	
 	
 	/*
 	 * UserTop
@@ -514,6 +709,7 @@ public class Resources {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUserTop(@PathParam("username") String username) {
-		return Response.ok().build();
+		UserTop userTop = facadeManager.getUserTop(username);
+		return Response.ok(userTop).build();
 	}
 }

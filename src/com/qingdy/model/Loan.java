@@ -11,7 +11,7 @@ public class Loan extends BaseObject {
 	private UserDetail poster;
 	@JsonProperty("amount")
 	private float amount;
-	@JsonProperty("startime")
+	@JsonProperty("startTime")
 	private Date startTime;
 	@JsonProperty("endTime")
 	private Date endTime;
@@ -32,7 +32,7 @@ public class Loan extends BaseObject {
 	@JsonProperty("location")
 	private String location;
 	@JsonProperty("verify")
-	private Integer verify;
+	private Integer verify = -1;
 
 	public Long getId() {
 		return id;

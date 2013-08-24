@@ -48,7 +48,7 @@ public class Product extends BaseObject{
 	@JsonProperty("postDate")
 	private Date postDate;
 	@JsonProperty("verify")
-	private Integer verify;
+	private Integer verify = -1;
 	
 	public Product() {
 		

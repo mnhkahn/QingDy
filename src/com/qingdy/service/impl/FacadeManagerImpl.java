@@ -28,6 +28,7 @@ import com.qingdy.model.Transaction;
 import com.qingdy.model.User;
 import com.qingdy.model.Blog;
 import com.qingdy.model.UserDetail;
+import com.qingdy.model.UserTop;
 import com.qingdy.service.BaseManager;
 import com.qingdy.service.FacadeManager;
 
@@ -179,8 +180,8 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * @see com.qingdy.service.FacadeManager#getBlog(java.lang.Long)
 	 */
 	@Override
-	public List<Blog> getBlogs() {
-		return blogDao.getBlogs();
+	public List<Blog> getBlogs(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
+		return blogDao.getBlogs(size, page, field, value, operator, sidx, sord, true);
 	}
 	
 	@Override
@@ -228,8 +229,8 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * @see com.qingdy.service.FacadeManager#getMalls()
 	 */
 	@Override
-	public List<Mall> getMalls() {
-		return mallDao.getMalls();
+	public List<Mall> getMalls(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
+		return mallDao.getMalls(size, page, field, value, operator, sidx, sord, true);
 	}
 
 	@Override
@@ -257,8 +258,8 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * @see com.qingdy.service.FacadeManager#getProducts()
 	 */
 	@Override
-	public List<Product> getProducts() {
-		return productDao.getProducts();
+	public List<Product> getProducts(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
+		return productDao.getProducts(size, page, field, value, operator, sidx, sord, true);
 	}
 
 	@Override
@@ -286,8 +287,8 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * @see com.qingdy.service.FacadeManager#getqQuestions()
 	 */
 	@Override
-	public List<Question> getQuestions() {
-		return questionDao.getQuestions();
+	public List<Question> getQuestions(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
+		return questionDao.getQuestions(size, page, field, value, operator, sidx, sord, true);
 	}
 
 	@Override
@@ -311,9 +312,13 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	}
 	
 	@Override
-	public void bestAnswer(Long id) {
-		// TODO Auto-generated method stub
-		
+	public void removeQuestion(Long id) {
+		questionDao.removeQuestion(id);
+	}
+	
+	@Override
+	public void bestAnswer(Long qid, Long aid) {
+		questionDao.bestAnswer(qid, aid);
 	}
 
 	/*
@@ -321,8 +326,14 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * @see com.qingdy.service.FacadeManager#getAnswers()
 	 */
 	@Override
-	public List<Answer> getAnswers() {
-		return answerDao.getAnswers();
+	public List<Answer> getAnswers(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
+		return answerDao.getAnswers(size, page, field, value, operator, sidx, sord, true);
+	}
+
+	@Override
+	public List<Answer> getAnswers(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -355,8 +366,8 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * @see com.qingdy.service.FacadeManager#getNews()
 	 */
 	@Override
-	public List<News> getNews() {
-		return newsDao.getNews();
+	public List<News> getNews(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
+		return newsDao.getNews(size, page, field, value, operator, sidx, sord, true);
 	}
 
 	@Override
@@ -379,8 +390,8 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * @see com.qingdy.service.FacadeManager#getLoans()
 	 */
 	@Override
-	public List<Loan> getLoans() {
-		return loanDao.getLoans();
+	public List<Loan> getLoans(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
+		return loanDao.getLoans(size, page, field, value, operator, sidx, sord, true);
 	}
 
 	@Override
@@ -397,6 +408,12 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	public void removeLoan(Long id) {
 		loanDao.removeLoan(id);
 	}
+	
+	@Override
+	public List<Loan> getLoans(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public void verifyLoan(Long id, boolean verify) {
@@ -408,8 +425,8 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * @see com.qingdy.service.FacadeManager#geTransactions()
 	 */
 	@Override
-	public List<Transaction> geTransactions() {
-		return transactionDao.geTransactions();
+	public List<Transaction> getTransactions(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
+		return transactionDao.geTransactions(size, page, field, value, operator, sidx, sord, true);
 	}
 
 	@Override
@@ -435,6 +452,18 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	@Override
 	public void verifyTransaction(Long id, boolean verify) {
 		transactionDao.verifyTransaction(id, verify);
+	}
+
+	
+	/*
+	 * UserTop(non-Javadoc)
+	 * @see com.qingdy.service.FacadeManager#getUserTop(java.lang.String)
+	 */
+
+	@Override
+	public UserTop getUserTop(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

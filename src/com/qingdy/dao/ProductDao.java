@@ -7,7 +7,7 @@ public interface ProductDao {
 	
 	public void saveProduct(Product product);
 	
-	public List<Product> getProducts();
+	public List<Product> getProducts(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public Product getProduct(Long id);
 	

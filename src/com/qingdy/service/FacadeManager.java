@@ -13,6 +13,7 @@ import com.qingdy.model.Question;
 import com.qingdy.model.Transaction;
 import com.qingdy.model.User;
 import com.qingdy.model.UserDetail;
+import com.qingdy.model.UserTop;
 
 public interface FacadeManager {
 	/*
@@ -48,7 +49,7 @@ public interface FacadeManager {
 	/*
 	 * Blog
 	 */
-	public List<Blog> getBlogs();
+	public List<Blog> getBlogs(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public Blog getBlog(Long id);
 	
@@ -70,7 +71,7 @@ public interface FacadeManager {
 	/*
 	 * Mall
 	 */
-	public List<Mall> getMalls();
+	public List<Mall> getMalls(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public Mall getMall(Long id);
 	
@@ -83,7 +84,7 @@ public interface FacadeManager {
 	/*
 	 * Product
 	 */
-	public List<Product> getProducts();
+	public List<Product> getProducts(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public Product getProduct(Long id);
 	
@@ -96,7 +97,7 @@ public interface FacadeManager {
 	/*
 	 * Question
 	 */
-	public List<Question> getQuestions();
+	public List<Question> getQuestions(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public Question getQuestion(Long id);
 	
@@ -104,20 +105,24 @@ public interface FacadeManager {
 	
 	public void saveQuestion(Question question);
 	
+	public void removeQuestion(Long id);
+	
 	public void verifyQuestion(Long id, boolean verify);
 	
 	/*
 	 * Answer
 	 */
-	public List<Answer> getAnswers();
+	public List<Answer> getAnswers(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public List<Answer> getAnswers(Long qid);
+	
+	public List<Answer> getAnswers(String username);
 	
 	public Answer getAnswer(Long id);
 	
 	public void saveAnswer(Answer answer);
 	
-	public void bestAnswer(Long id);
+	public void bestAnswer(Long qid, Long aid);
 	
 	public void removeAnswer(Long id);
 	
@@ -126,7 +131,7 @@ public interface FacadeManager {
 	/*
 	 * News
 	 */
-	public List<News> getNews();
+	public List<News> getNews(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public News getNews(Long id);
 	
@@ -137,7 +142,9 @@ public interface FacadeManager {
 	/*
 	 * Loan
 	 */
-	public List<Loan> getLoans();
+	public List<Loan> getLoans(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
+	
+	public List<Loan> getLoans(String username);
 	
 	public Loan getLoan(Long id);
 	
@@ -150,7 +157,7 @@ public interface FacadeManager {
 	/*
 	 * Transaction
 	 */
-	public List<Transaction> geTransactions();
+	public List<Transaction> getTransactions(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public Transaction getTransaction(Long id);
 	
@@ -165,4 +172,5 @@ public interface FacadeManager {
 	/*
 	 * UserTop
 	 */
+	public UserTop getUserTop(String username);
 }

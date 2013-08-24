@@ -4,10 +4,8 @@ import java.util.List;
 import com.qingdy.model.Mall;
 
 public interface MallDao {
-	
-	public List<Mall> getVerifiedMalls();
-	
-	public List<Mall> getMalls();
+
+	public List<Mall> getMalls(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public Mall getMall(Long id);
 	

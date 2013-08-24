@@ -22,7 +22,7 @@ public class Transaction extends BaseObject {
 	@JsonProperty("frontcover")
 	private String frontcover;
 	@JsonProperty("verify")
-	private Integer verify;
+	private Integer verify = -1;
 	
 	public Transaction() {
 		

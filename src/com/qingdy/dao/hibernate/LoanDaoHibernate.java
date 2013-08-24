@@ -2,6 +2,9 @@ package com.qingdy.dao.hibernate;
 
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import com.qingdy.dao.LoanDao;
@@ -11,39 +14,45 @@ import com.qingdy.model.Loan;
 public class LoanDaoHibernate extends BaseDaoHibernate implements LoanDao {
 
 	@Override
-	public List<Loan> getLoans() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Loan> getLoans(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Loan.class));
 	}
 
 	@Override
 	public List<Loan> getLoans(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Loan.class).add(Restrictions.ge("poster", username)));
 	}
 
 	@Override
 	public void saveLoan(Loan loan) {
-		// TODO Auto-generated method stub
-		
+		getHibernateTemplate().saveOrUpdate(loan);
 	}
 
 	@Override
 	public Loan getLoan(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Loan loan = getHibernateTemplate().get(Loan.class, id);
+		if (loan == null) {
+			throw new ObjectRetrievalFailureException(Loan.class, id);
+		}
+		return loan;
 	}
 
 	@Override
 	public void verifyLoan(Long id, boolean verify) {
-		// TODO Auto-generated method stub
-		
+		Loan loan = getHibernateTemplate().get(Loan.class, id);
+		if (verify) {
+			loan.setVerify(1);
+		}
+		else {
+			loan.setVerify(0);
+		}
+		getHibernateTemplate().update(loan);
 	}
 
 	@Override
 	public void removeLoan(Long id) {
-		// TODO Auto-generated method stub
-		
+		Loan loan = getLoan(id);
+		getHibernateTemplate().delete(loan);
 	}
 
 
