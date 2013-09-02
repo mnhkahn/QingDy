@@ -6,8 +6,11 @@
 
 <link href="css/base.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/chosen.css" />
+    <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
 
-<script type="text/javascript" src='js/jquery-1.9.1.js'></script>
+<script type="text/javascript" src='js/jquery-1.7.2.js'></script>
+    <script type="text/javascript" src="js/jquery.jBox-2.3.min.js"></script>
+    <script type="text/javascript" src="js/i18n/jquery.jBox-zh-CN.js"></script>
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script type="text/javascript" src="js/jstorage.js"></script>
     <script type="text/javascript" src="js/jquery.esn.autobrowse.js"></script>
@@ -16,34 +19,42 @@
 <script type="text/javascript" src='js/cTop.js'></script>
     <script type="text/javascript" src="js/cSearch.js" ></script>
     <script type="text/javascript" src="js/cMenuFloat.js"></script>
+    <script type="text/javascript" src="js/cQuestion.js"></script>
 <link rel = "Shortcut Icon" href="favicon.ico">
 <script type="text/javascript">
 function init() {
 	commonInit();
     $('#questionClass').cMenuFloat('/data/questionMenu.json');
 
+    // default size & page
+    var size = 10;
+    var page = 1;
     $(".page .items").autobrowse(
             {
                 url: function (offset)
                 {
-                    return "/data/tests/questionWaterfall.json";
+                    if (offset < size && offset > 0)
+                        size = offset;
+                    if (offset > 0)
+                        page = offset / size + 1;
+                    return "/rest/metadata/question?rows=" + size + "&page=" + page + "&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc";//"/data/tests/questionWaterfall.json";
                 },
                 template: function (response)
                 {
                     var markup='';
-                    for (var i = 0; i < response.items.length; i++)
+                    for (var i = 0; i < response.length; i++)
                     {
                         markup += '<div style="width: 576px; border-bottom: 1px dashed #ddd; padding: 8px">' +
                             '<div style="width: 588px;">' +
-                            '<span class="i-class">[' + response.items[i].type + ']</span>' +
-                            '<a class="questionTitle" href=q.html?id=' + response.items[i].id + ' target="_blank">' + response.items[i].title + '</a>' +
-                            '<span class="answer-num">' + response.items[i].answer + '回答' +
+                            '<span class="i-class">[' + response[i].classes + ']</span>' +
+                            '<a class="questionTitle" href=q.html?id=' + response[i].id + ' target="_blank">' + response[i].title + '</a>' +
+                            '<span class="answer-num">' + response[i].answers.length + '回答' +
                             '</span></div></div>';
                     };
 
                     return markup;
                 },
-                itemsReturned: function (response) { return response.items.length; },
+                itemsReturned: function (response) { return response.length; },
                 offset: 0,
                 max: 100,
                 loader: '<div class="loader"></div>',
@@ -51,8 +62,27 @@ function init() {
                 expiration: 1
             }
     );
-
+    $.cQuestion("个人贷款创业贷款");
     $('.chosen').chosen();
+
+    $("#submit").bind("click", function() {
+        var title = $("#title");
+        var content = $("#content");
+        var classes = $("#questionClasses").val() + $("#questionSubClasses").val();
+        $.ajax({
+            url: '/rest/metadata/question',
+            type: 'POST',
+            dataType: "json",
+            data: '{"title": "' + title.val() + '", "content": "' + content.val() + '", "classes": "' + classes + '", "poster": {"username": "' + username + '"}}',
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $.jBox.info('添加成功');
+            },
+            error: function (response) {
+                $.jBox.info('添加失败' + response);
+            }
+        });
+    })
 }
 </script>
 
@@ -72,15 +102,16 @@ function init() {
                     一句话描述您的疑问
                 </div>
                 <div class="title-area-outter">
-                    <textarea id="title-area" placeholder="请在这里概述您的问题" class="" style="height: 20px;"></textarea>
+                    <textarea id="title" class="title-area" placeholder="请在这里概述您的问题" style="height: 20px;"></textarea>
                 </div>
                 <div class="title-area-outter" style="margin-top: 10px">
-                    <textarea id="title-area" placeholder="问题补充" class="" style="height: 20px;"></textarea>
+                    <textarea id="content" class="title-area" placeholder="问题补充" style="height: 20px;"></textarea>
                 </div>
                 <div id="questionAction" style="margin-top: 10px; padding-left: 12px;padding-right: 12px">
-                    <select id="questionClasses" class="chosen" style="width: 100px"></select>
-                    <select id="questionSubClasses" class="chosen" style="width: 150px"></select>
-                    <button class="largeBtn">提交问题</button>
+                    <select id="questionClasses" name="questionClasses" class="chosen" style="width: 100px">
+                    </select>
+                    <select id="questionSubClasses" name="questionSubClasses" class="chosen" style="width: 150px"></select>
+                    <button id="submit" class="largeBtn">提交问题</button>
                 </div>
             </div>
             <div id="waterfall" class="waterfall" style="border-top: 1px solid rgb(221,221,221);">

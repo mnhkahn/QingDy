@@ -29,11 +29,11 @@
 function init() {
 	commonInit();
 
-    $('#VSlideContainer').cForum(['mallCount', 'specialistCount', 'transactionCount'], '/data/tests/count.json');
+    $('#VSlideContainer').cForum(['mallCount', 'specialistCount', 'transactionCount'], "/rest/metadata/forum?rows=20"/*'/data/tests/count.json'*/);
 
-    $('#newsContainer1').cNews('data/tests/news.json');
-    $('#newsContainer2').cNews('data/tests/news1.json');
-    $('#newsContainer3').cNews('data/tests/news2.json');
+    $('#newsContainer1').cNews("重要新闻", '/rest/metadata/news?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc'/* 'data/tests/news.json'*/);
+    $('#newsContainer2').cNews("易贷问答", "/rest/metadata/question?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc"/*'data/tests/news1.json'*/);
+    $('#newsContainer3').cNews("贷款资讯", "/rest/metadata/blog?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc"/*'data/tests/news2.json'*/);
 	
 	var size = new Object;
 	size.width = 700;
@@ -56,7 +56,7 @@ function init() {
     $.get("/js/templates/productGrid.html", function(template) {
         $.template("productGridTmpl", template);
         $.ajax({
-            url: "data/tests/productGrid.json",
+            url: "data/productGrid.json",
             type: "GET",
             dataType: "json",
             success: function(response) {
@@ -128,7 +128,7 @@ function init() {
     $.get("/js/templates/demandGrid.html", function(template) {
         $.template("demandGridTmpl", template);
         $.ajax({
-            url: "data/tests/demandGrid.json",
+            url: "data/demandGrid.json",
             type: "GET",
             dataType: "json",
             success: function(response) {
@@ -225,7 +225,7 @@ function init() {
     $.get("/js/templates/specialistGrid.html", function(template) {
         $.template("specialistGridTmpl", template);
         $.ajax({
-            url: "data/tests/specialistGrid.json",
+            url: "/rest/metadata/specialist?rows=8&page=1",//"data/specialistGrid.json",
             type: "GET",
             dataType: "json",
             success: function(response) {
@@ -297,7 +297,7 @@ function init() {
     $.get("/js/templates/mallGrid.html", function(template) {
         $.template("mallGridTmpl", template);
         $.ajax({
-            url: "data/tests/mallGrid.json",
+            url: "data/mallGrid.json",
             type: "GET",
             dataType: "json",
             success: function(response) {

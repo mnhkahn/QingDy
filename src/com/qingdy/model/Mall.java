@@ -16,7 +16,7 @@ public class Mall extends BaseObject{
 	@JsonProperty("announcement")
 	private String announcement;
 	@JsonProperty("experience")
-	private Integer experience;
+	private String experience;
 	@JsonProperty("cType")
 	private String cType;
 	@JsonProperty("cName")
@@ -102,13 +102,13 @@ public class Mall extends BaseObject{
 
 
 
-	public Integer getExperience() {
+	public String getExperience() {
 		return experience;
 	}
 
 
 
-	public void setExperience(Integer experience) {
+	public void setExperience(String experience) {
 		this.experience = experience;
 	}
 

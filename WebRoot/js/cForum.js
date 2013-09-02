@@ -47,7 +47,9 @@
                 _show_num(countContainer[1], data.specialistCount);
                 _show_num(countContainer[2], data.transactionCount);
 
-                _showSlide(container, data.forums);
+                if (data.forums) {
+                    _showSlide(container, data.forums);
+                }
                 startMove(container);
             }
         })

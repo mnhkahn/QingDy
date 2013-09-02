@@ -11,11 +11,5 @@
 		{"title":"贷款需求","link":"demand.html"},
 		{"title":"贷款咨询","link":"advisory.html"},
 		{"title":"贷款资讯","link":"news.html"}
-	],
-	"info":{
-		"icon":"",
-		"name":"",
-		"message":10,
-		"link":""
-	}
+	]
 }

@@ -7,8 +7,11 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
+import com.qingdy.common.cRestrictions;
 import com.qingdy.dao.ProductDao;
+import com.qingdy.model.Blog;
 import com.qingdy.model.Product;
+import com.qingdy.model.UserDetail;
 
 @Service("productDao")
 public class ProductDaoHibernate extends BaseDaoHibernate implements ProductDao {
@@ -18,10 +21,10 @@ public class ProductDaoHibernate extends BaseDaoHibernate implements ProductDao 
 		getHibernateTemplate().saveOrUpdate(product);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> getProducts(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		// TODO Auto-generated method stub
-		return null;
+		return getHibernateTemplate().findByCriteria(cRestrictions.getRestrictions(Product.class, field, value, operator, sidx, sord, verify), size * (page - 1), size);
 	}
 
 	@Override
@@ -35,7 +38,8 @@ public class ProductDaoHibernate extends BaseDaoHibernate implements ProductDao 
 
 	@Override
 	public List<Product> getProduct(String username) {
-		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Product.class).add(Restrictions.ge("poster", username)));
+		UserDetail poster = getHibernateTemplate().get(UserDetail.class, username);
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Product.class).add(Restrictions.ge("poster", poster)));
 	}
 
 	@Override

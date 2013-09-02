@@ -27,10 +27,13 @@ import com.qingdy.model.Mall;
 import com.qingdy.model.News;
 import com.qingdy.model.Product;
 import com.qingdy.model.Question;
+import com.qingdy.model.Score;
 import com.qingdy.model.Transaction;
 import com.qingdy.model.User;
 import com.qingdy.model.UserDetail;
-import com.qingdy.model.UserTop;
+import com.qingdy.model.domain.Forums;
+import com.qingdy.model.domain.Specialist;
+import com.qingdy.model.domain.UserTop;
 import com.qingdy.service.FacadeManager;
 
 @Path("/metadata")
@@ -109,7 +112,7 @@ public class Resources {
 	@Path("/userdetail")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUsersDetail(@PathParam("username") String username) {
+	public Response getUsersDetail() {
 		List<UserDetail> list = facadeManager.getUsersDetail();
 		return Response.ok(list).build();
 	}
@@ -268,6 +271,14 @@ public class Resources {
 		return Response.ok(mall).build();
 	}
 	
+	@Path("/mall/username/{username}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getMall(@PathParam("username") String username) {
+		Mall mall = facadeManager.getMall(username);
+		return Response.ok(mall).build();
+	}
+	
 	@Path("/mall")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -329,6 +340,14 @@ public class Resources {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getVerifiedProducts(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
 		List<Product> products = facadeManager.getProducts(size,  page, field, value, operator, sidx, sord, true);
+		return Response.ok(products).build();
+	}
+	
+	@Path("/product/username/{username}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getProducts(@PathParam("username") String username) {
+		List<Product> products = facadeManager.getProducts(username);
 		return Response.ok(products).build();
 	}
 	
@@ -505,6 +524,17 @@ public class Resources {
 	}
 */	
 	
+	/*
+	 * Specialist
+	 */
+	@Path("/specialist")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getSpecialists(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Score> specialists = facadeManager.getSpecialists(size, page, field, value, operator, sidx, sord, true);
+		return Response.ok(specialists).build();
+	}
+	
 	
 	/*
 	 * News
@@ -536,7 +566,7 @@ public class Resources {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getVerifiedNews(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<News> newses = facadeManager.getNews(size, page, field, value, operator, sidx, sord, true);
+		List<News> newses = facadeManager.getNews(size, page, field, value, operator, sidx, sord, false);
 		return Response.ok(newses).build();
 	}
 	
@@ -547,15 +577,7 @@ public class Resources {
 		News news = facadeManager.getNews(id);
 		return Response.ok(news).build();
 	}
-	
-	@Path("/news/manage")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllNews(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<News> newses = facadeManager.getNews(size, page, field, value, operator, sidx, sord, false);
-		return Response.ok(newses).build();
-	}
-	
+
 	
 	/*
 	 * Transaction
@@ -601,6 +623,7 @@ public class Resources {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getVerifiedTransactions(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		System.out.println("*****************8");
 		List<Transaction> transactions = facadeManager.getTransactions(size,  page, field, value, operator, sidx, sord, true);
 		return Response.ok(transactions).build();
 	}
@@ -621,11 +644,12 @@ public class Resources {
 		return Response.ok(transaction).build();
 	}
 	
-	@Path("/transaction")
+	@Path("/transaction/username/{username}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getTransactions(@QueryParam("username") String username) {
-		List<Loan> transactions = facadeManager.getLoans(username);
+	public Response getTransactions(@PathParam("username") String username) {
+		System.out.println("fuck the whole universe");
+		List<Transaction> transactions = facadeManager.getTransactions(username);
 		return Response.ok(transactions).build();
 	}
 	
@@ -711,5 +735,16 @@ public class Resources {
 	public Response getUserTop(@PathParam("username") String username) {
 		UserTop userTop = facadeManager.getUserTop(username);
 		return Response.ok(userTop).build();
+	}
+	
+	/*
+	 * Forum
+	 */
+	@Path("/forum")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getForum(@QueryParam("rows") int size) {
+		Forums forums = facadeManager.getForums();
+		return Response.ok(forums).build();
 	}
 }

@@ -30,4 +30,9 @@
             <column name="VERIFY" />
         </property>
     </class>
+    <query name="queryTransactionCount">
+        <![CDATA[
+			from Transaction
+        ]]>
+	</query>
 </hibernate-mapping>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-9-2 9:17:19 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.qingdy.model.Score" table="SCORE" lazy="false">
+        <id name="id" column="ID" unsaved-value="null">
+			<generator class="increment">
+			</generator>
+		</id>
+        <many-to-one name="poster" class="com.qingdy.model.UserDetail" fetch="join" update="false">
+            <column name="POSTER" />
+        </many-to-one>
+        <property name="score" type="java.lang.Integer" update="false">
+            <column name="SCORE" />
+        </property>
+    </class>
+    <query name="querySpecialistCount">
+        <![CDATA[
+			select distinct poster from Score
+        ]]>
+	</query>
+	<query name="querySpecialist">
+         <![CDATA[
+         	select s.poster, sum(s.score) as score from Score as s group by s.poster order by score desc
+         ]]>
+	</query>
+</hibernate-mapping>

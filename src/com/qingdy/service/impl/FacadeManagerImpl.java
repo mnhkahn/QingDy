@@ -14,6 +14,8 @@ import com.qingdy.dao.MallDao;
 import com.qingdy.dao.NewsDao;
 import com.qingdy.dao.ProductDao;
 import com.qingdy.dao.QuestionDao;
+import com.qingdy.dao.ScoreDao;
+import com.qingdy.dao.SpecialistDao;
 import com.qingdy.dao.TransactionDao;
 import com.qingdy.dao.UserDao;
 import com.qingdy.dao.UserDetailDao;
@@ -21,14 +23,18 @@ import com.qingdy.model.Answer;
 import com.qingdy.model.Evaluate;
 import com.qingdy.model.Loan;
 import com.qingdy.model.Mall;
+import com.qingdy.model.Message;
 import com.qingdy.model.News;
 import com.qingdy.model.Product;
 import com.qingdy.model.Question;
+import com.qingdy.model.Score;
 import com.qingdy.model.Transaction;
 import com.qingdy.model.User;
 import com.qingdy.model.Blog;
 import com.qingdy.model.UserDetail;
-import com.qingdy.model.UserTop;
+import com.qingdy.model.domain.Forums;
+import com.qingdy.model.domain.Specialist;
+import com.qingdy.model.domain.UserTop;
 import com.qingdy.service.BaseManager;
 import com.qingdy.service.FacadeManager;
 
@@ -45,6 +51,8 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	private UserDetailDao userDetailDao;
 	@Resource(name = "answerDao")
 	private AnswerDao answerDao;
+	@Resource(name = "specialistDao")
+	private SpecialistDao specialistDao;
 	@Resource(name = "loanDao")
 	private LoanDao loanDao;
 	@Resource(name = "mallDao")
@@ -57,6 +65,8 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	private QuestionDao questionDao;
 	@Resource(name = "transactionDao")
 	private TransactionDao transactionDao;
+	@Resource(name = "scoreDao")
+	private ScoreDao scoreDao;
 	
 	public void setAnswerDao(AnswerDao answerDao) {
 		this.answerDao = answerDao;
@@ -81,6 +91,10 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	public void setQuestionDao(QuestionDao questionDao) {
 		this.questionDao = questionDao;
 	}
+	
+	public void setSpecialistDao(SpecialistDao specialistDao) {
+		this.specialistDao = specialistDao;
+	}
 
 	public void setTransactionDao(TransactionDao transactionDao) {
 		this.transactionDao = transactionDao;
@@ -101,6 +115,11 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	public void setUserDetailDao(UserDetailDao userDetailDao) {
 		this.userDetailDao = userDetailDao;
 	}
+	
+	public void setScoreDao(ScoreDao scoreDao) {
+		this.scoreDao = scoreDao;
+	}
+	
 	/*
 	 * User(non-Javadoc)
 	 * @see com.qingdy.service.FacadeManager#getUser(java.lang.String)
@@ -181,7 +200,7 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 */
 	@Override
 	public List<Blog> getBlogs(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		return blogDao.getBlogs(size, page, field, value, operator, sidx, sord, true);
+		return blogDao.getBlogs(size, page, field, value, operator, sidx, sord, verify);
 	}
 	
 	@Override
@@ -197,6 +216,11 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	@Override
 	public void removeBlog(Long id) {
 		blogDao.removeBlog(id);
+	}
+	
+	@Override
+	public void verifyBlog(Long id, boolean verify) {
+		blogDao.verifyBlog(id, verify);
 	}
 
 	/*
@@ -218,24 +242,23 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 		evaluateDao.removeEvaluate(id);
 	}
 
-	@Override
-	public void verifyBlog(Long id, boolean verify) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	/*
 	 * Mall(non-Javadoc)
 	 * @see com.qingdy.service.FacadeManager#getMalls()
 	 */
 	@Override
 	public List<Mall> getMalls(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		return mallDao.getMalls(size, page, field, value, operator, sidx, sord, true);
+		return mallDao.getMalls(size, page, field, value, operator, sidx, sord, verify);
 	}
 
 	@Override
 	public Mall getMall(Long id) {
 		return mallDao.getMall(id);
+	}
+	
+	@Override
+	public Mall getMall(String username) {
+		return mallDao.getMall(username);
 	}
 
 	@Override
@@ -259,7 +282,12 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 */
 	@Override
 	public List<Product> getProducts(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		return productDao.getProducts(size, page, field, value, operator, sidx, sord, true);
+		return productDao.getProducts(size, page, field, value, operator, sidx, sord, verify);
+	}
+	
+	@Override
+	public List<Product> getProducts(String username) {
+		return productDao.getProduct(username);
 	}
 
 	@Override
@@ -288,7 +316,7 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 */
 	@Override
 	public List<Question> getQuestions(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		return questionDao.getQuestions(size, page, field, value, operator, sidx, sord, true);
+		return questionDao.getQuestions(size, page, field, value, operator, sidx, sord, verify);
 	}
 
 	@Override
@@ -327,7 +355,7 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 */
 	@Override
 	public List<Answer> getAnswers(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		return answerDao.getAnswers(size, page, field, value, operator, sidx, sord, true);
+		return answerDao.getAnswers(size, page, field, value, operator, sidx, sord, verify);
 	}
 
 	@Override
@@ -360,6 +388,14 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	public void verifyAnswer(Long id, boolean verify) {
 		answerDao.verifyAnswer(id, verify);
 	}
+	
+	/*
+	 * Specialist
+	 */
+	@Override
+	public List<Score> getSpecialists(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
+		return specialistDao.getSpecialists(size, page, field, value, operator, sidx, sord, verify);
+	}
 
 	/*
 	 * News(non-Javadoc)
@@ -367,7 +403,7 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 */
 	@Override
 	public List<News> getNews(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		return newsDao.getNews(size, page, field, value, operator, sidx, sord, true);
+		return newsDao.getNews(size, page, field, value, operator, sidx, sord, verify);
 	}
 
 	@Override
@@ -391,7 +427,7 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 */
 	@Override
 	public List<Loan> getLoans(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		return loanDao.getLoans(size, page, field, value, operator, sidx, sord, true);
+		return loanDao.getLoans(size, page, field, value, operator, sidx, sord, verify);
 	}
 
 	@Override
@@ -426,7 +462,7 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 */
 	@Override
 	public List<Transaction> getTransactions(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		return transactionDao.geTransactions(size, page, field, value, operator, sidx, sord, true);
+		return transactionDao.geTransactions(size, page, field, value, operator, sidx, sord, verify);
 	}
 
 	@Override
@@ -435,8 +471,8 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	}
 
 	@Override
-	public Transaction getTransaction(String username) {
-		return getTransaction(username);
+	public List<Transaction> getTransactions(String username) {
+		return transactionDao.getTransactions(username);
 	}
 
 	@Override
@@ -462,8 +498,28 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 
 	@Override
 	public UserTop getUserTop(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = getUser(username);
+		UserDetail userDetail = getUserDetail(username);
+		Message message = new Message();
+		
+		UserTop userTop = new UserTop();
+		userTop.setName(userDetail.getLastname() + userDetail.getFirstname());
+		userTop.setAvatar(userDetail.getAvatar());
+		userTop.setMessage(3);
+		userTop.setGroupId(user.getGroupid());
+		
+		return userTop;
+	}
+	
+	/*
+	 * Forum
+	 */
+	public Forums getForums() {
+		Forums forums = new Forums();
+		
+		forums.setMallCount(mallDao.getMallCount());
+		forums.setSpecialistCount(scoreDao.getSpecialistCount());
+		return forums;
 	}
 
 

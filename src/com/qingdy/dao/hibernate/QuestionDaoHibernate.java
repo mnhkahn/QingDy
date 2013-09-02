@@ -7,6 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
+import com.qingdy.common.cRestrictions;
 import com.qingdy.dao.QuestionDao;
 import com.qingdy.model.Answer;
 import com.qingdy.model.Blog;
@@ -24,7 +25,7 @@ public class QuestionDaoHibernate extends BaseDaoHibernate implements QuestionDa
 
 	@Override
 	public List<Question> getQuestions(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		return getHibernateTemplate().find("find Question");
+		return getHibernateTemplate().findByCriteria(cRestrictions.getRestrictions(Question.class, field, value, operator, sidx, sord, verify), size * (page - 1), size);
 	}
 
 	@Override
@@ -63,9 +64,7 @@ public class QuestionDaoHibernate extends BaseDaoHibernate implements QuestionDa
 	@Override
 	public void bestAnswer(Long qid, Long aid) {
 		Question question = getQuestion(qid);
-		System.out.println("$$$$$$$$$$$" + aid);
-		Answer answer = getHibernateTemplate().get(Answer.class, aid);
-		question.setBest(answer);
+		question.setBest(aid);
 		saveQuestion(question);
 	}
 

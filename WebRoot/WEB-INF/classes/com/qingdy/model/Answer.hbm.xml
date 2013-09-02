@@ -8,7 +8,7 @@
 			<generator class="increment">
 			</generator>
 		</id>
-        <many-to-one name="poster" class="com.qingdy.model.UserDetail" fetch="join" update="false">
+        <many-to-one name="poster" unique="true" class="com.qingdy.model.UserDetail" fetch="join" update="false">
             <column name="POSTER" />
         </many-to-one>
         <property name="answer" type="java.lang.String">
@@ -17,9 +17,8 @@
         <property name="postDate" type="java.util.Date" update="false">
             <column name="POSTDATE" />
         </property>
-        <many-to-one name="question" class="com.qingdy.model.Question" fetch="join" update="false">
-        	<column name="QUESTION"></column>
-        </many-to-one>
+        <many-to-one name="question" column="QUESTION" not-null="true" class="com.qingdy.model.Question" update="false">
+		</many-to-one>
         <property name="verify" type="java.lang.Integer">
             <column name="VERIFY" />
         </property>

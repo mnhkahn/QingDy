@@ -24,17 +24,15 @@
         <property name="postDate" type="java.util.Date" update="false">
             <column name="POSTDATE" />
         </property>
-        <set name="answers" table="ANSWER" inverse="false" lazy="true" fetch="join">
-            <key>
-                <column name="ID" />
-            </key>
-            <one-to-many class="com.qingdy.model.Answer" />
-        </set>
+        <set name="answers" table="ANSWER" lazy="false" cascade="all">
+			<key column="ID"></key>
+			<element type="java.lang.String" column="ANSWER"></element>
+		</set>
         <property name="verify" type="java.lang.Integer">
             <column name="VERIFY" />
         </property>
-        <many-to-one name="best" class="com.qingdy.model.Answer"  fetch="join" >
-            <column name="BEST" />
-        </many-to-one>
+        <property name="best" type="long">
+        	<column name="BEST" />
+        </property>
     </class>
 </hibernate-mapping>

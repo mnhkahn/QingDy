@@ -1,58 +1,60 @@
 package com.qingdy.model.domain;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import com.qingdy.model.BaseObject;
-import com.qingdy.model.Message;
-import com.qingdy.model.UserDetail;
+public class UserTop {
 
-@SuppressWarnings("serial")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class UserTop extends BaseObject {
-
-	@JsonProperty("user")
-	private UserDetail user;
+	@JsonProperty("name")
+	private String name;
+	@JsonProperty("avatar")
+	private String avatar;
 	@JsonProperty("message")
-	private Message message;
+	private Integer message;
+	@JsonProperty("groupId")
+	private Integer groupId;
 	
 	public UserTop() {
 		
 	}
 
-	public UserDetail getUser() {
-		return user;
+
+	public String getName() {
+		return name;
 	}
 
-	public void setUser(UserDetail user) {
-		this.user = user;
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Message getMessage() {
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+
+	public Integer getMessage() {
 		return message;
 	}
 
-	public void setMessage(Message message) {
+
+	public void setMessage(Integer message) {
 		this.message = message;
 	}
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public Integer getGroupId() {
+		return groupId;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
 	}
 
-	@Override
-	public int hashCode() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	
 }

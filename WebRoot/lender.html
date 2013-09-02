@@ -37,47 +37,31 @@
         function showCreateBlog() {
             $('#contentWrapper').load('/js/templates/blog.html', function () {
                 console.debug('Load was performed.');
-                $.ajax({
-                    url: '/rest/metadata/questionclasses',
-                    type: 'GET',
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (response) {
-                        $('#submit').bind('click', function () {
-                            alert("add blog")
-                            var uid = 45;
-                            var title = $('#title').val();
-                            var category = $('#categorySel').val();
-                            var content = $('#content').val();
-                            console.debug(uid, title, category, content);
-                            var json = "{'Title': '" + title + "', 'Text':'" + content + "', 'Uid':" + uid + ", 'Classes':" + category + " }";
-                            $.ajax({
-                                url: '/rest/metadata/blogs',
-                                type: 'POST',
-                                dataType: "json",
-                                data: json,
-                                contentType: "application/json; charset=utf-8",
-                                success: function (response) {
-                                    $.jBox.info('添加成功');
-                                },
-                                error: function (response) {
-                                    $.jBox.info('添加失败' + response);
-                                }
-                            });
-                        });
-                        for (var i = 0; i < response.length; i++) {
-                            $('#categorySel')
-                                    .append($("<option></option>")
-                                            .attr("value", response[i].classid)
-                                            .text(response[i].name));
+                $('#submit').bind('click', function () {
+                    var uid = 45;
+                    var title = $('#title').val();
+                    var category = $('#categorySel').val();
+                    var content = $('#content').val();
+                    console.debug(uid, title, category, content);
+                    var json = '{"title": "' + title + '", "content":"' + content + '", "poster": {"username":"' + username + '"}, "category":"' + category + '"}';
+                    $.ajax({
+                        url: '/rest/metadata/blog',
+                        type: 'POST',
+                        dataType: "json",
+                        data: json,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (response) {
+                            $.jBox.info('添加成功');
+                        },
+                        error: function (response) {
+                            $.jBox.info('添加失败' + response);
                         }
-                        $('#categorySel').data("placeholder", "请选择").chosen();
-                    },
-                    error: function(response) {
-                        console.error(response);
-                    }
-                })
-                $('#content').xheditor({
+                    });
+                });
+                var categorySel =  $('#categorySel')
+                categorySel.data("placeholder", "请选择").chosen();
+                var content = $('#content');
+                content.xheditor({
                     upImgUrl: "/rest/metadata/upload/blogs",
                     upImgExt: "jpg,jpeg,gif,png",
                     html5Upload : false,
@@ -110,7 +94,7 @@
                                 // "我的旺铺"
                                 function() {
                                     $('#contentWrapper').load('/js/templates/mymall.html', function () {
-                                        console.debug(google)
+                                        console.debug(google);
                                         function drawChart() {
                                             var data = google.visualization.arrayToDataTable([
                                                 ['Year', 'Sales', 'Expenses'],
@@ -133,7 +117,18 @@
                                 // "旺铺资料"
                                 function() {
                                     $('#contentWrapper').load('/js/templates/mallsetting.html', function () {
-                                        $('#content').xheditor({
+                                        var id;
+                                        var content = $('#content');
+                                        content.xheditor({
+                                            tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+                                            upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+                                            upImgExt: "jpg,jpeg,gif,png",
+                                            html5Upload : false,
+                                            onUpload: function () {
+                                            }
+                                        });
+                                        var announcement = $('#announcement');
+                                        announcement.xheditor({
                                             tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
                                             upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
                                             upImgExt: "jpg,jpeg,gif,png",
@@ -154,52 +149,65 @@
                                             onFocusClass : "",
                                             onCorrectClass : ""
                                         });
-                                        $("#name").formValidator({onShow:"请尽量填写你所在公司的完整名称。",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
-                                        $("#tel").formValidator({onShow:"手机或固话，固话请加上区号",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
-                                        $("#position").formValidator({onShow:"请尽量填写你所在公司的部门或职位。",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
-                                        $("#site").formValidator({onShow:"请注意网址必须以http://或https://开头。"});
+                                        var cname = $("#name");
+                                        cname.formValidator({onShow:"请尽量填写你所在公司的完整名称。",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
+                                        var tel =  $("#tel");
+                                        tel.formValidator({onShow:"手机或固话，固话请加上区号",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
+                                        var position = $("#position")
+                                        position.formValidator({onShow:"请尽量填写你所在公司的部门或职位。",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
+                                        var site = $("#site");
+                                        site.formValidator({onShow:"请注意网址必须以http://或https://开头。"});
+
                                         var lendedyearsSel = $("#lendyearSel");
-                                        $.ajax({
-                                            url: "rest/metadata/lendedyears",
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                lendedyears = eval(response);
-                                                for(var i = 0; i < city.length; i++) {
-                                                    lendedyearsSel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", lendedyears[i].lid)
-                                                                    .text(lendedyears[i].lendedyears));
-                                                }
-                                                lendedyearsSel.chosen();
-                                            },
-                                            error: function(response) {
-                                                lendedyearsSel.data("placeholder", "请选择").chosen();
-                                            }
-                                        });
+                                        lendedyearsSel.chosen();
                                         var typeSel = $("#typeSel");
+                                        typeSel.chosen();
+
+                                        var email = $("#email");
+                                        var address = $("#address");
+                                        var fax = $("#fax");
+                                        var postcode = $("#postcode");
+                                        // initialize data
                                         $.ajax({
-                                            url: "rest/metadata/lendtype",
+                                            url: "/rest/metadata/mall/username/" + username,
                                             type: "GET",
                                             dateType: "json",
                                             contentType: "application/json",
                                             success: function (response) {
-                                                lendtype = eval(response);
-                                                for(var i = 0; i < lendtype.length; i++) {
-                                                    typeSel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", lendtype[i].ltid)
-                                                                    .text(lendtype[i].lendtype));
-                                                }
-                                                typeSel.chosen();
+                                                id = response.id;
+                                                content.val(response.content);
+                                                announcement.val(response.announcement);
+                                                lendedyearsSel.val(response.experience);
+                                                typeSel.val(response.cType);
+                                                cname.val(response.cName);
+                                                tel.val(response.cPhoneNumber);
+                                                position.val(response.position);
+                                                site.val(response.site);
+                                                email.val(response.email);
+                                                address.val(response.address);
+                                                fax.val(response.fax);
+                                                postcode.val(response.postCode);
+
+                                                console.warn(response);
                                             },
                                             error: function(response) {
-                                                typeSel.data("placeholder", "请选择").chosen();
+                                                console.warn(response);
                                             }
                                         });
                                         $("#submit").on("click", function () {
-                                            alert("mallsetting")
+                                            $.ajax({
+                                                url: '/rest/metadata/mall/' + id,
+                                                type: 'PUT',
+                                                dataType: "json",
+                                                contentType: "application/json; charset=utf-8",
+                                                data: '{"content": "' + content.val() + '", "announcement": "' + announcement.val() + '","experience": "' + lendedyearsSel.val() + '", "cType": "' + typeSel.val() + '","cName": "' + cname.val() + '", "cPhoneNumber": "' + tel.val() + '", "position": "' + position.val() + '", "site": "' + site.val() + '", "email": "' + email.val() + '", "address": "' + address.val() + '", "fax": "' + fax.val() + '", "postCode": "' + postcode.val() + '"} }',
+                                                success: function (response) {
+                                                    $.jBox.info('修改成功');
+                                                },
+                                                error: function(response) {
+                                                    $.jBox.info('修改失败' + response);
+                                                }
+                                            })
                                         });
                                         $("#preview").on("click", function () {
                                             alert("preview")
@@ -211,154 +219,61 @@
                                 // "业务设置
                                 function() {
                                     $('#contentWrapper').load('/js/templates/businesssetting.html', function () {
-                                        var areasSel = $("#areasSel");
-                                        $.ajax({
-                                            url: "rest/metadata/city/" + 45,
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                cities = eval(response);
-                                                for(var i = 0; i < cities.length; i++) {
-                                                    areasSel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", cities[i].areaid)
-                                                                    .text(cities[i].name));
-                                                }
-                                                areasSel.chosen();
-                                            },
-                                            error: function(response) {
-                                                areasSel.data("placeholder", "请选择").chosen();
-                                            }
-                                        });
+                                        var id;
+                                        var provinceSel = $("#provinceSel");
+                                        var citySel = $("#citySel");
                                         var usesofloanSel = $("#usesofloanSel");
-                                        $.ajax({
-                                            url: "rest/metadata/usesofloan",
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                usesofloan = eval(response);
-                                                for(var i = 0; i < usesofloan.length; i++) {
-                                                    usesofloanSel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", usesofloan[i].uid)
-                                                                    .text(usesofloan[i].usesofloan));
-                                                }
-                                                usesofloanSel.data("placeholder", "请选择").chosen();
-                                            },
-                                            error: function(response) {
-                                                usesofloanSel.data("placeholder", "请选择").chosen();
-                                            }
-                                        });
+                                        usesofloanSel.data("placeholder", "请选择").chosen();
                                         var specialitySel = $("#specialitySel");
-                                        $.ajax({
-                                            url: "rest/metadata/speciality",
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                speciality = eval(response);
-                                                for(var i = 0; i < speciality.length; i++) {
-                                                    specialitySel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", speciality[i].sid)
-                                                                    .text(speciality[i].speciality));
-                                                }
-                                                specialitySel.data("placeholder", "请选择").chosen();
-                                            },
-                                            error: function(response) {
-                                                specialitySel.data("placeholder", "请选择").chosen();
-                                            }
-                                        });
+                                        specialitySel.data("placeholder", "请选择").chosen();
                                         var clientsSel = $("#clientsSel");
-                                        $.ajax({
-                                            url: "rest/metadata/clients",
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                clients = eval(response);
-                                                for(var i = 0; i < clients.length; i++) {
-                                                    clientsSel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", clients[i].ctid)
-                                                                    .text(clients[i].ctype));
-                                                }
-                                                clientsSel.data("placeholder", "请选择").chosen();
-                                            },
-                                            error: function(response) {
-                                                clientsSel.data("placeholder", "请选择").chosen();
-                                            }
-                                        });
+                                        clientsSel.data("placeholder", "请选择").chosen();
                                         var lendtypeSel = $("#lendtypeSel");
+                                        lendtypeSel.data("placeholder", "请选择").chosen();
                                         $.ajax({
-                                            url: "rest/metadata/lendtype",
+                                            url: "/rest/metadata/mall/username/" + username,
                                             type: "GET",
                                             dateType: "json",
                                             contentType: "application/json",
                                             success: function (response) {
-                                                lendtype = eval(response);
-                                                for(var i = 0; i < lendtype.length; i++) {
-                                                    lendtypeSel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", lendtype[i].ltid)
-                                                                    .text(lendtype[i].lendtype));
-                                                }
-                                                lendtypeSel.data("placeholder", "请选择").chosen();
+                                                id = response.id;
+                                                $.cArea(response.clientLocation);
+                                                provinceSel.data("placeholder", "请选择").chosen();
+                                                citySel.data("placeholder", "请选择").chosen();
+                                                usesofloanSel.val(response.announcement);
+                                                specialitySel.val(response.experience);
+                                                clientsSel.val(response.cType);
+                                                lendtypeSel.val(response.cName);
                                             },
                                             error: function(response) {
-                                                lendtypeSel.data("placeholder", "请选择").chosen();
+                                                console.warn(response);
                                             }
                                         });
                                         $("#submit").on("click", function () {
-                                            alert("businesssetting")
+                                            $.ajax({
+                                                url: '/rest/metadata/mall/' + id,
+                                                type: 'PUT',
+                                                dataType: "json",
+                                                contentType: "application/json; charset=utf-8",
+                                                data: '{"clientLocation": "' + provinceSel.val() + citySel.val() + '", "usesofloan": "' + usesofloanSel.val() + '", "speciality": "' + specialitySel.val() + '", "clients": "' + clientsSel.val() + '", "lendType": "' + lendtypeSel.val() + '"}',
+                                                success: function (response) {
+                                                    $.jBox.info('修改成功');
+                                                },
+                                                error: function(response) {
+                                                    $.jBox.info('修改失败' + response);
+                                                }
+                                            })
                                         });
                                     })
-                                },
-                                // "申请管理"
-                                function() {
-                                    var list = $("<table></table>");
-                                    list.attr("id", "List");
-                                    list.css("height", "100%");
-                                    var pager = $("<div></div>");
-                                    pager.attr("id", "Pager");
-                                    $('#contentWrapper').append(list);
-                                    $('#contentWrapper').append(pager);
-                                    jQuery("#List").jqGrid({
-//                                        url: '/rest/metadata/malls/verify',
-                                        datatype: "json",
-                                        autowidth: true,
-                                        colNames: ['id', '姓名', '联系电话', '处理状态', '性 质', '地 区', '贷款金额', '发布时间', '操作'],
-                                        colModel: [
-                                            {name: 'id', index: 'id', width: 55, frozen: true},
-                                            {name: 'name', index: 'name', width: 90, frozen: true},
-                                            {name: 'tel', index: 'announcement', width: 200},
-                                            {name: 'state', index: 'state', width: 500, align: "center"},
-                                            {name: 'lendedyears', index: 'lendedyears', width: 80, align: "center"},
-                                            {name: 'ctype', index: 'ctype', width: 150, sortable: false},
-                                            {name: 'cname', index: 'cname', width: 150, sortable: false},
-                                            {name: 'cphonenumber', index: 'cphonenumber', width: 150, sortable: false},
-                                            {name: 'act', index: 'act', width: 150}
-                                        ],
-                                        rowList: [10, 20, 30],
-                                        pager: '#Pager',
-                                        sortname: 'mid',
-                                        viewrecords: true,
-                                        sortorder: "desc",
-                                        caption: "店铺认证",
-                                        gridview: true,
-                                        gridComplete: function () {
-
-                                        }
-                                    });
-                                    jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
-                                    $('.ui-jqgrid-bdiv').height(height);
                                 },
                                 // 添加产品
                                 function() {
                                     $('#contentWrapper').load('/js/templates/product.html', function () {
-                                        $('#content1').xheditor({
+                                        var pname = $("#pname");
+                                        var min = $("#min");
+                                        var max = $("#max");
+                                        var content1 =  $('#content1');
+                                        content1.xheditor({
                                             tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
                                             upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
                                             upImgExt: "jpg,jpeg,gif,png",
@@ -366,7 +281,8 @@
                                             onUpload: function () {
                                             }
                                         });
-                                        $('#content2').xheditor({
+                                        var content2 =  $('#content2');
+                                        content2.xheditor({
                                             tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
                                             upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
                                             upImgExt: "jpg,jpeg,gif,png",
@@ -374,7 +290,8 @@
                                             onUpload: function () {
                                             }
                                         });
-                                        $('#content3').xheditor({
+                                        var content3 =  $('#content3');
+                                        content3.xheditor({
                                             tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
                                             upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
                                             upImgExt: "jpg,jpeg,gif,png",
@@ -382,7 +299,8 @@
                                             onUpload: function () {
                                             }
                                         });
-                                        $('#content4').xheditor({
+                                        var content4 =  $('#content4');
+                                        content4.xheditor({
                                             tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
                                             upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
                                             upImgExt: "jpg,jpeg,gif,png",
@@ -406,147 +324,43 @@
                                         $("#min").formValidator({onShow:"万元/单笔，若未满一万填写小数，如0.8，最多只能一位小数。",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
 
                                         var typeSel = $("#typeSel");
-                                        $.ajax({
-                                            url: "rest/metadata/ratetype",
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                ratetype = eval(response);
-                                                for(var i = 0; i < ratetype.length; i++) {
-                                                    typeSel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", ratetype[i].rid)
-                                                                    .text(ratetype[i].ratetype));
-                                                }
-                                                typeSel.data("placeholder", "请选择").chosen();
-                                            },
-                                            error: function(response) {
-                                                typeSel.data("placeholder", "请选择").chosen();
-                                            }
-                                        });
+                                        typeSel.data("placeholder", "请选择").chosen();
+
                                         var deadlineSel = $("#deadlineSel");
-                                        $.ajax({
-                                            url: "rest/metadata/deadline",
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                deadline = eval(response);
-                                                for(var i = 0; i < ratetype.length; i++) {
-                                                    deadlineSel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", deadline[i].rid)
-                                                                    .text(deadline[i].ratetype));
-                                                }
-                                                deadlineSel.data("placeholder", "请选择").chosen();
-                                            },
-                                            error: function(response) {
-                                                deadlineSel.data("placeholder", "请选择").chosen();
-                                            }
-                                        });
-                                        var areasSel = $("#areasSel");
-                                        $.ajax({
-                                            url: "rest/metadata/city/" + 45,
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                cities = eval(response);
-                                                for(var i = 0; i < cities.length; i++) {
-                                                    areasSel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", cities[i].areaid)
-                                                                    .text(cities[i].name));
-                                                }
-                                                areasSel.chosen();
-                                            },
-                                            error: function(response) {
-                                                areasSel.data("placeholder", "请选择").chosen();
-                                            }
-                                        });
+                                        deadlineSel.data("placeholder", "请选择").chosen();
+
+                                        $.cArea("福建福州");
+                                        var provinceSel = $("#provinceSel");
+                                        provinceSel.data("placeholder", "请选择").chosen();
+
+                                        var citySel = $("#citySel");
+                                        citySel.data("placeholder", "请选择").chosen();
                                         var clientsSel = $("#clientsSel");
-                                        $.ajax({
-                                            url: "rest/metadata/clients",
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                clients = eval(response);
-                                                for(var i = 0; i < clients.length; i++) {
-                                                    clientsSel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", clients[i].ctid)
-                                                                    .text(clients[i].ctype));
-                                                }
-                                                clientsSel.data("placeholder", "请选择").chosen();
-                                            },
-                                            error: function(response) {
-                                                clientsSel.data("placeholder", "请选择").chosen();
-                                            }
-                                        });
+                                        clientsSel.data("placeholder", "请选择").chosen();
+
                                         var repaymethodSel = $("#repaymethodSel");
-                                        $.ajax({
-                                            url: "rest/metadata/repaymethod",
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                repaymethod = eval(response);
-                                                for(var i = 0; i < cities.length; i++) {
-                                                    repaymethodSel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", repaymethod[i].rid)
-                                                                    .text(repaymethod[i].repaymethod));
-                                                }
-                                                repaymethodSel.chosen();
-                                            },
-                                            error: function(response) {
-                                                repaymethodSel.data("placeholder", "请选择").chosen();
-                                            }
-                                        });
+                                        repaymethodSel.data("placeholder", "请选择").chosen();
+
                                         var producttypeSel = $("#producttypeSel");
-                                        $.ajax({
-                                            url: "rest/metadata/repaymethod",
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                producttype = eval(response);
-                                                for(var i = 0; i < cities.length; i++) {
-                                                    producttypeSel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", producttype[i].rid)
-                                                                    .text(producttype[i].repaymethod));
-                                                }
-                                                producttypeSel.chosen();
-                                            },
-                                            error: function(response) {
-                                                producttypeSel.data("placeholder", "请选择").chosen();
-                                            }
-                                        });
+                                        producttypeSel.data("placeholder", "请选择").chosen();
+
                                         var usesofloanSel = $("#usesofloanSel");
-                                        $.ajax({
-                                            url: "rest/metadata/usesofloan",
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                usesofloan = eval(response);
-                                                for(var i = 0; i < usesofloan.length; i++) {
-                                                    usesofloanSel
-                                                            .append($("<option></option>")
-                                                                    .attr("value", usesofloan[i].uid)
-                                                                    .text(usesofloan[i].usesofloan));
-                                                }
-                                                usesofloanSel.data("placeholder", "请选择").chosen();
-                                            },
-                                            error: function(response) {
-                                                usesofloanSel.data("placeholder", "请选择").chosen();
-                                            }
-                                        });
+                                        usesofloanSel.data("placeholder", "请选择").chosen();
+
                                         $("#submit").on("click", function () {
-                                            alert("add product")
+                                            $.ajax({
+                                                url: '/rest/metadata/product',
+                                                type: 'POST',
+                                                dataType: "json",
+                                                contentType: "application/json; charset=utf-8",
+                                                data: '{"pName": "' + pname.val() + '", "max": ' + max.val() + ',"min": '+ min.val() + '"rateType": "", "rate": , "startTime": "", "endTime": "", "clientLocation": "' + provinceSel.val() + citySel.val() + '", "clients": "' + clientsSel.val() + '", "repayMethod": "' + repaymethodSel.val() + '", "pType": "' + typeSel.val() + '", "usesofloan": "' + usesofloanSel.val() + '", "content": "' + content1.val() + '", "processes": "' + content2.val() + '", "application": "' + content3.val() + '", "faq": "' + content4.val() + '"}',
+                                                success: function (response) {
+                                                    $.jBox.info('修改成功');
+                                                },
+                                                error: function(response) {
+                                                    $.jBox.info('修改失败' + response);
+                                                }
+                                            })
                                         });
                                         $("#preview").on("click", function () {
                                             alert("preview")
@@ -562,23 +376,23 @@
                                     $('#contentWrapper').append(list);
                                     $('#contentWrapper').append(pager);
                                     jQuery("#List").jqGrid({
-//                                        url: '/rest/metadata/malls/verify',
+                                        url: '/rest/metadata/product/username/' + username,
                                         datatype: "json",
                                         autowidth: true,
                                         colNames: ['id', '姓名', '状态', '发布时间', '操作'],
                                         colModel: [
                                             {name: 'id', index: 'id', width: 55, frozen: true},
-                                            {name: 'name', index: 'name', width: 500, frozen: true},
-                                            {name: 'state', index: 'state', width: 80, align: "center"},
-                                            {name: 'postdate', index: 'postdate', width: 150, align: "center"},
+                                            {name: 'cName', index: 'cName', width: 500, frozen: true},
+                                            {name: 'verify', index: 'verify', width: 80, align: "center"},
+                                            {name: 'postDate', index: 'postDate', width: 150, align: "center"},
                                             {name: 'act', index: 'act', width: 80}
                                         ],
                                         rowList: [10, 20, 30],
                                         pager: '#Pager',
-                                        sortname: 'mid',
+                                        sortname: 'id',
                                         viewrecords: true,
                                         sortorder: "desc",
-                                        caption: "店铺认证",
+                                        caption: "产品管理",
                                         gridview: true,
                                         gridComplete: function () {
 
@@ -655,7 +469,7 @@
                                     $('.ui-jqgrid-bdiv').height(height);
                                 },
                                 //  "店铺公告"
-                                function() {
+/*                                function() {
                                     $('#contentWrapper').load('/js/templates/announcement.html', function () {
                                         $('#content').xheditor({
                                             tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
@@ -669,7 +483,7 @@
                                             alert("announcement")
                                         });
                                     })
-                                },
+                                },  */
                                 // "成功案例"
                                 function() {
                                     var list = $("<table></table>");
@@ -709,7 +523,9 @@
                                 //  "添加成功案例"
                                 function() {
                                     $('#contentWrapper').load('/js/templates/transaction.html', function () {
-                                        $('#content').xheditor({
+                                        var title = $("#title");
+                                        var content = $('#content');
+                                        content.xheditor({
                                             tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
                                             upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
                                             upImgExt: "jpg,jpeg,gif,png",
@@ -730,9 +546,24 @@
                                             onFocusClass : "",
                                             onCorrectClass : ""
                                         });
-                                        $("#amount").formValidator({onShow:"单位：万",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
+                                        var amount = $("#amount");
+                                        amount.formValidator({onShow:"单位：万",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
                                         $("#submit").on("click", function () {
-                                            alert("add transaction")
+                                            var title = $("#title");
+                                            var loaner = $("#loaner");
+                                            $.ajax({
+                                                url: '/rest/metadata/transaction',
+                                                type: 'POST',
+                                                dataType: "json",
+                                                contentType: "application/json; charset=utf-8",
+                                                data: '{"loaner": {"username": "' + loaner.val() + '"}, "lender": {"username": "' + username + '"},"title": "'+ title.val() + '", "comments": "' + content.val() + '"}',
+                                                success: function (response) {
+                                                    $.jBox.info('添加成功');
+                                                },
+                                                error: function(response) {
+                                                    $.jBox.info('添加失败' + response);
+                                                }
+                                            })
                                         });
                                     })
                                 },
@@ -861,8 +692,67 @@
                                 },
                                 // 个人信息
                                 function() {
-                                    $('#contentWrapper').load('/js/templates/contact.html', function () {
-
+                                    $('#contentWrapper').load('/js/templates/contactSetting.html', function () {
+                                        var avatar = $("#avatar");
+                                        var username = $("#username");
+                                        var groupid = $("#groupid");
+                                        var gender = $("#gender");
+                                        var location = $("#location");
+                                        var firstname = $("#firstname");
+                                        var lastname = $("#lastname");
+                                        var tel = $("#tel");
+                                        var qq = $("#qq");
+                                        var site = $("#site");
+                                        var email = $("#email");
+                                        var introduce = $("#introduct");
+                                        introduce.xheditor({
+                                            upImgUrl: "/rest/metadata/upload/blogs",
+                                            upImgExt: "jpg,jpeg,gif,png",
+                                            html5Upload : false,
+                                            onUpload: function () {
+                                            }
+                                        });
+                                        var oldPWD = $("#oldPWD");
+                                        var newPWD = $("#newPWD");
+                                        var newPWD2 = $("#newPWD2");
+                                        $.ajax({
+                                            url: '/rest/metadata/userdetail/' + "lender",
+                                            type: 'GET',
+                                            dataType: "json",
+                                            contentType: "application/json; charset=utf-8",
+                                            success: function (response) {
+                                                avatar.attr("src", response.avatar);
+                                                username.html(response.username);
+                                                groupid.html(response.groupId == 1 ? "借贷者" : "放贷者");
+                                                gender.html(response.gender == 1 ? "男" : "女");
+                                                location.html(response.location);
+                                                lastname.val(response.lastname);
+                                                firstname.val(response.firstname);
+                                                tel.val(response.tel);
+                                                qq.val(response.qq);
+                                                email.val(response.email);
+                                                site.val(response.site);
+                                                introduce.val(response.introduce);
+                                            },
+                                            error: function(response) {
+                                                console.warn(response);
+                                            }
+                                        });
+                                        $("#submit").bind('click', function () {
+                                            $.ajax({
+                                                url: '/rest/metadata/userdetail/' + "lender",
+                                                type: 'PUT',
+                                                dataType: "json",
+                                                contentType: "application/json; charset=utf-8",
+                                                data: '{"avatar": "' + avatar.attr("src") + '", "firstname": "' + firstname.val() + '","lastname": "' + lastname.val() + '", "tel": "' + tel.val() + '","qq": "' + qq.val() + '", "site": "' + site.val() + '", "email": "' + email.val() + '", "introduce": "' + introduce.val() + '"} }',
+                                                success: function (response) {
+                                                    $.jBox.info('修改成功');
+                                                },
+                                                error: function(response) {
+                                                    $.jBox.info('修改失败' + response);
+                                                }
+                                            })
+                                        });
                                     })
                                 },
                                 // 收藏管理

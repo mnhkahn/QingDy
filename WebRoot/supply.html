@@ -57,37 +57,47 @@ function init() {
         citySel.data("placeholder", "请选择").chosen();
     });
 
+    // default size & page
+    /*
+          第一次获得的item个数是第二次的offset。需要计算page，防止载入重复的item
+    */
+    var size = 10;
+    var page = 1;
     $(".page .items").autobrowse(
         {
             url: function (offset)
             {
-                return "/data/tests/supplyWaterfall.json";
+                if (offset < size && offset > 0)
+                    size = offset;
+                if (offset > 0)
+                    page = offset / size + 1;
+                return "/rest/metadata/product?rows=" + size + "&page=" + page + "&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc";//"/data/tests/supplyWaterfall.json";
             },
             template: function (response)
             {
                 var markup='';
-                for (var i = 0; i < response.items.length; i++)
+                for (var i = 0; i < response.length; i++)
                 {
-                    markup += '<a target="_blank" href="' + response.items[i].product + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
-                        '<div class="p_left"><img width="48" height="48" alt="' + response.items[i].lastname + '经理" src="' + response.items[i].icon + '">' +
-                        '<p>' + response.items[i].lastname + '经理</p>' +
+                    markup += '<a target="_blank" href="' + response[i].product + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
+                        '<div class="p_left"><img width="48" height="48" alt="' + response[i].poster.lastname + '经理" src="' + response[i].poster.avatar + '">' +
+                        '<p>' + response[i].poster.lastname + '经理</p>' +
                         '</div>' +
                         '<div class="p_right">' +
-                        '<h5>' + response.items[i].title + '</h5>' +
+                        '<h5>' + response[i].pName + '</h5>' +
                         '<div class="clear_both"></div>' +
-                        '<span class="p1">' + response.items[i].area + '</span>' +
-                        '<span class="p2">贷款用途：' + response.items[i].usesofloan + '</span>' +
+                        '<span class="p1">' + response[i].clientLocation + '</span>' +
+                        '<span class="p2">贷款用途：' + response[i].usesofloan + '</span>' +
                         '<span class="p2">抵押贷款</span>' +
                         '<span style="width: 40px">额度：</span>' +
-                        '<span class="p4">' + response.items[i].min + '万-' + response.items[i].max + '万</span>' +
+                        '<span class="p4">' + response[i].min + '万-' + response[i].max + '万</span>' +
                         '<div class="clear_both"></div>' +
-                        '<p>' + response.items[i].description + '.</p>' +
+                        '<p>' + response[i].content + '.</p>' +
                         '</div></div></a>';
                 };
 
                 return markup;
             },
-            itemsReturned: function (response) { return response.items.length; },
+            itemsReturned: function (response) { return response.length; },
             offset: 0,
 //            max: 100,
             loader: '<div class="loader"></div>',

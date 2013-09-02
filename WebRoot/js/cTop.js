@@ -8,7 +8,6 @@ var cTop = {
 		this.link = arr.link;
 		
 		this.items = arr.items;
-		
 		this.info = arr.info;
 		
 		this.DEFAULT_UL_WIDTH = 80;

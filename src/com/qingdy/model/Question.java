@@ -24,7 +24,7 @@ public class Question extends BaseObject {
 	@JsonProperty("verify")
 	private Integer verify = -1;
 	@JsonProperty("best")
-	private Answer best;
+	private Long best = new Long(-1);
 	
 	public Question() {
 		
@@ -94,11 +94,11 @@ public class Question extends BaseObject {
 		this.verify = verify;
 	}
 
-	public Answer getBest() {
+	public Long getBest() {
 		return best;
 	}
 
-	public void setBest(Answer best) {
+	public void setBest(Long best) {
 		this.best = best;
 	}
 

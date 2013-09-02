@@ -11,9 +11,11 @@ public interface TransactionDao {
 	
 	public Transaction getTransaction(Long id);
 	
-	public List<Transaction> getTransaction(String username);
+	public List<Transaction> getTransactions(String username);
 
 	public void verifyTransaction(Long id, boolean verify);
 	
 	public void removeTransaction(Long id);
+	
+	public Long getTransactionCount();
 }

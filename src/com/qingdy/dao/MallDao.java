@@ -16,4 +16,6 @@ public interface MallDao {
 	public void verifyMall(Long id, boolean verify);
 	
 	public void removeMall(Long id);
+	
+	public Long getMallCount();
 }

@@ -10,10 +10,13 @@ import com.qingdy.model.Mall;
 import com.qingdy.model.News;
 import com.qingdy.model.Product;
 import com.qingdy.model.Question;
+import com.qingdy.model.Score;
 import com.qingdy.model.Transaction;
 import com.qingdy.model.User;
 import com.qingdy.model.UserDetail;
-import com.qingdy.model.UserTop;
+import com.qingdy.model.domain.Forums;
+import com.qingdy.model.domain.Specialist;
+import com.qingdy.model.domain.UserTop;
 
 public interface FacadeManager {
 	/*
@@ -75,6 +78,8 @@ public interface FacadeManager {
 	
 	public Mall getMall(Long id);
 	
+	public Mall getMall(String username);
+	
 	public void saveMall(Mall mall);
 	
 	public void removeMall(Long id);
@@ -87,6 +92,8 @@ public interface FacadeManager {
 	public List<Product> getProducts(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public Product getProduct(Long id);
+	
+	public List<Product> getProducts(String username);
 	
 	public void saveProduct(Product product);
 	
@@ -129,6 +136,10 @@ public interface FacadeManager {
 	public void verifyAnswer(Long id, boolean verify);
 	
 	/*
+	 * Specialist
+	 */
+	public List<Score> getSpecialists(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
+	/*
 	 * News
 	 */
 	public List<News> getNews(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
@@ -161,7 +172,7 @@ public interface FacadeManager {
 	
 	public Transaction getTransaction(Long id);
 	
-	public Transaction getTransaction(String username);
+	public List<Transaction> getTransactions(String username);
 	
 	public void saveTransaction(Transaction transaction);
 	
@@ -173,4 +184,9 @@ public interface FacadeManager {
 	 * UserTop
 	 */
 	public UserTop getUserTop(String username);
+	
+	/*
+	 * Forum
+	 */
+	public Forums getForums();
 }

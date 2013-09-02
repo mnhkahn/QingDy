@@ -1,5 +1,5 @@
 function commonInit() {
-	var username = 'bryce';
+	username = 'lender';
 	var password = 'bryce';
 	var ctop;
 	
@@ -9,39 +9,32 @@ function commonInit() {
 		url: 'data/top.json',
 		success: function(arr) {
 			$.ajax({
-				type: "POST",
+				type: "GET",
 				dataType: "json",
-				url: 'data/tests/usertop.json',
+				url: '/rest/metadata/usertop/' + username,//'data/tests/usertop.json',
 				contentType: "application/json; charset=utf-8",
-				data: '{"username": "' + username + '", "password":"' + password + '" }',//{'Username' : username, 'Password' : password},
+//				data: '{"username": "' + username + '", "password":"' + password + '" }',//{'Username' : username, 'Password' : password},
 				success: function(info) {
-					$.ajax({
-						type: "GET",
-						dataType: "json",
-						url: '/rest/metadata/messages/' + info.uid + '/unread',
-						success: function(message) {
-							arr.info = new Object;
-                            arr.info.uid = info.uid;
-							arr.info.icon = info.icon;
-							arr.info.name = info.lastname + info.firstname;
-							arr.info.message = message;
-							var link;
-							if (info.groupid == 2)
-								link = 'lender.html';
-							else if (info.groupid == 1)
-								link = 'loaner.html';
-							else if (info.groupid == 0)
-								link = 'admin.html';
-							arr.info.link = link;
-							ctop = cTop.create(arr);
-						}
-					});			
+                    arr.info = new Object;
+                    arr.info.uid = username;
+                    arr.info.icon = info.avatar;
+                    arr.info.name = info.name;
+                    arr.info.message = info.message;
+                    var link;
+                    if (info.groupId == 2)
+                        link = 'lender.html';
+                    else if (info.groupId == 1)
+                        link = 'loaner.html';
+                    else if (info.groupId == 0)
+                        link = 'admin.html';
+                    arr.info.link = link;
+                    ctop = cTop.create(arr);
 				},
 				error: function(response) {
 					console.error(response);
 				}
 			});
-			
+
 		},
 		error: function(response) {
 			console.error(response);

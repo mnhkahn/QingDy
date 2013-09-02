@@ -17,7 +17,7 @@
         <property name="firstname" type="java.lang.String">
             <column name="FIRSTNAME" />
         </property>
-        <property name="gender" type="int">
+        <property name="gender" type="int" update="false">
             <column name="GENDER" />
         </property>
         <property name="avatar" type="java.lang.String">
@@ -38,7 +38,7 @@
         <property name="introduce" type="java.lang.String">
             <column name="INTRODUCE" />
         </property>
-        <property name="location" type="java.lang.String">
+        <property name="location" type="java.lang.String" update="false">
             <column name="LOCATION" />
         </property>
         <property name="regdate" type="java.sql.Timestamp" update="false">

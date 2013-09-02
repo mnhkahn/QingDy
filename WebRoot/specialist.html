@@ -56,11 +56,18 @@ function init() {
         citySel.data("placeholder", "请选择").chosen();
     });
 
+    // default size & page
+    var size = 10;
+    var page = 1;
     $(".page .items").autobrowse(
             {
                 url: function (offset)
                 {
-                    return "/data/tests/specialistWaterfall.json";
+                    if (offset < size && offset > 0)
+                        size = offset;
+                    if (offset > 0)
+                        page = offset / size + 1;
+                    return "/rest/metadata/?rows=" + size + "&page=" + page + "&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc";//"/data/tests/specialistWaterfall.json";
                 },
                 template: function (response)
                 {

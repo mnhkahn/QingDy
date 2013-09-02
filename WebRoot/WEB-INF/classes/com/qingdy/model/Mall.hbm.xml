@@ -17,7 +17,7 @@
         <property name="announcement" type="java.lang.String">
             <column name="ANNOUNCEMENT" />
         </property>
-        <property name="experience" type="java.lang.Integer">
+        <property name="experience" type="java.lang.String">
             <column name="EXPERIENCE" />
         </property>
         <property name="cType" type="java.lang.String" access="field">
@@ -69,4 +69,9 @@
             <column name="VERIFY" />
         </property>
     </class>
+    <query name="queryMallCount">
+        <![CDATA[
+			from Mall
+        ]]>
+	</query>
 </hibernate-mapping>

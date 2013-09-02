@@ -7,15 +7,18 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
+import com.qingdy.common.cRestrictions;
 import com.qingdy.dao.MallDao;
+import com.qingdy.model.Blog;
 import com.qingdy.model.Mall;
+import com.qingdy.model.UserDetail;
 
 @Service("mallDao")
 public class MallDaoHibernate extends BaseDaoHibernate implements MallDao {
 
 	@Override
 	public List<Mall> getMalls(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		return getHibernateTemplate().find("from Mall");
+		return getHibernateTemplate().findByCriteria(cRestrictions.getRestrictions(Mall.class, field, value, operator, sidx, sord, verify), size * (page - 1), size);
 	}
 
 	@Override
@@ -29,7 +32,8 @@ public class MallDaoHibernate extends BaseDaoHibernate implements MallDao {
 
 	@Override
 	public Mall getMall(String username) {
-		return getHibernateTemplate().get(Mall.class, username);
+		UserDetail poster = getHibernateTemplate().get(UserDetail.class, username);
+		return (Mall)getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Mall.class).add(Restrictions.eq("poster", poster))).get(0);
 	}
 
 	@Override
@@ -55,6 +59,9 @@ public class MallDaoHibernate extends BaseDaoHibernate implements MallDao {
 		getHibernateTemplate().delete(mall);
 	}
 
-	
+	@Override
+	public Long getMallCount() {
+		return new Long(getHibernateTemplate().findByNamedQuery("queryMallCount").size());
+	}
 
 }

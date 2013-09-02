@@ -1,5 +1,5 @@
 (function($) {
-    $.fn.cNews = function(url) {
+    $.fn.cNews = function(name, url) {
         var container = this;
         console.debug(container);
 
@@ -13,25 +13,25 @@
                 console.debug(response);
             },
             success: function(data){
-                _showNews(container, data);
+                _showNews(name, container, data);
             }
         })
     };
 
-    var _showNews = function(container, json) {
+    var _showNews = function(name, container, json) {
         var newsTitle = $('<div></div>');
         newsTitle.addClass("newsTitle");
-        newsTitle.html(json.name);
+        newsTitle.html(name);
         container.append(newsTitle);
 
         var ul = $('<ul></ul>');
         ul.css("list-style", "none");
-        for (var i = 0; i < json.items.length; i++) {
+        for (var i = 0; i < json.length; i++) {
             var li = $('<li></li>');
-            li.attr('href', json.items[i].link);
+            li.attr('href', json[i].link);
             li.addClass('hover');
 
-            if (i != json.items.length)
+            if (i != json.length)
                 li.addClass('dashedBottomBorder');
 
             var titletime = $('<div></div>');
@@ -44,20 +44,20 @@
 
             time.addClass('newsTime');
 
-            title.html(json.items[i].title);
-            time.html(json.items[i].date);
+            title.html(json[i].title);
+            time.html(json[i].postDate);
 
             if (i === 0) {
                 li.addClass('li1');
 
                 var img = $('<div></div>');
                 img.addClass('newsImg');
-                img.html('<img style="width: 90px; height: 73px" src="' + json.items[i].img + '" alt="' + json.items[i].title + '">');
+//                img.html('<img style="width: 90px; height: 73px" src="' + json[i].img + '" alt="' + json[i].title + '">');
                 li.append(img);
 
                 var content = $('<div></div>');
                 content.addClass('newsContent');
-                content.html(json.items[i].content);
+                content.html(json[i].content);
                 li.append(content);
             }
             else {

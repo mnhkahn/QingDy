@@ -3,6 +3,7 @@ import java.util.Date;
 import java.util.Set;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -23,6 +24,8 @@ public class Blog extends BaseObject {
 	private String category;
 	@JsonProperty("evaluate")
 	private Set evaluate;
+	@JsonProperty("verify")
+	private int verify = -1;
 	
 	public Blog() {
 		
@@ -82,6 +85,14 @@ public class Blog extends BaseObject {
 
 	public void setEvaluate(Set evaluate) {
 		this.evaluate = evaluate;
+	}
+
+	public int isVerify() {
+		return verify;
+	}
+
+	public void setVerify(int verify) {
+		this.verify = verify;
 	}
 
 	@Override

@@ -2,10 +2,13 @@ package com.qingdy.dao.hibernate;
 
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
+import com.qingdy.common.cRestrictions;
 import com.qingdy.dao.NewsDao;
+import com.qingdy.model.Blog;
 import com.qingdy.model.News;
 
 @Service("newsDao")
@@ -18,7 +21,7 @@ public class NewsDaoHibernate extends BaseDaoHibernate implements NewsDao {
 
 	@Override
 	public List<News> getNews(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		return null;
+		return getHibernateTemplate().findByCriteria(cRestrictions.getRestrictions(News.class, field, value, operator, sidx, sord, verify), size * (page - 1), size);
 	}
 
 	@Override

@@ -15,13 +15,13 @@
         <tr>
             <td width="100px;">产品名称*</td>
             <td colspan=3 width="650px;">
-                <input id='amount' class='input' />
+                <input id='pname' class='input' />
             </td>
         </tr>
         <tr>
             <td width="100px;">放贷额度*</td>
             <td>
-                <input id='min' class='input' style="width:50px; float:left" /><div style="width:10px; float:left"> ~ </div></div> <input id='max' class='input' style="width:50px; float:left" />
+                <input id='min' class='input' style="width:50px; float:left" /><div style="width:10px; float:left"> ~ </div> <input id='max' class='input' style="width:50px; float:left" />
             </td>
             <td width="400px" colspan="3">
                 <span class="input-gray" id="minTip"></span>
@@ -39,26 +39,63 @@
         </tr>
         <tr>
             <td width="100px;">针对地区*</td>
-            <td width="250px"><select id='areasSel' class="chosen" multiple="true" style="font-weight: bold;width: 200px;"></select>
+            <td width="250px">
+                <select id="provinceSel" name="provinceSel" class="chosen" style="width: 100px;">
+                </select>
+                <select id="citySel" name="citySel" class="chosen" style="width: 100px;" >
+                </select>
             <td width="100px;">适合用户*</td>
-            <td width="250px"><select id='clientsSel' class="chosen" multiple="true" style="font-weight: bold;width: 200px;"></select>
+            <td width="250px">
+                <select id="clientsSel" class="chosen" multiple="true" style="width:250px;" >
+                    <option value="公务员/律师/教师">公务员/律师/教师</option>
+                    <option value="企业法人">企业法人</option>
+                    <option value="个体工商户">个体工商户</option>
+                    <option value="公司职员">公司职员</option>
+                    <option value="学生">学生</option>
+                    <option value="自由职业者">自由职业者</option>
+                </select>
         </tr>
         <tr>
             <td width="100px;">还款方式*</td>
             <td width="250px" colspan="3">
-                <select id='repaymethodSel' class="chosen" style="font-weight: bold;width: 200px;"></select>
+                <select id='repaymethodSel' class="chosen" style="font-weight: bold;width: 200px;">
+                    <option value="面议">面议</option>
+                    <option value="每月还息，到期还本">每月还息，到期还本</option>
+                    <option value="到期本息一次性偿还">到期本息一次性偿还</option>
+                    <option value="等额本息">等额本息</option>
+                </select>
             </td>
         </tr>
         <tr>
             <td width="100px;">产品种类*</td>
             <td colspan=3>
-                <select id='producttypeSel' class="chosen" style="font-weight: bold;width: 200px;"></select>
+                <select id='producttypeSel' class="chosen" style="font-weight: bold;width: 200px;">
+
+                </select>
             </td>
         </tr>
         <tr>
             <td width="100px;">产品用途*</td>
             <td colspan=3>
-                <select id='usesofloanSel' class="chosen" style="font-weight: bold;width: 200px;"></select>
+                <select id="usesofloanSel" class="chosen" multiple="true" style="width:400px;" >
+                    <option value="消费贷款">消费贷款</option>
+                    <option value="短期周转贷款">短期周转贷款</option>
+                    <option value="个体户经营贷款">个体户经营贷款</option>
+                    <option value="装修贷款">装修贷款</option>
+                    <option value="创业贷款">创业贷款</option>
+                    <option value="旅游贷款">旅游贷款</option>
+                    <option value="一手房按揭贷款">一手房按揭贷款</option>
+                    <option value="公积金贷款">公积金贷款</option>
+                    <option value="二手房按揭贷款">二手房按揭贷款</option>
+                    <option value="新车按揭贷款">新车按揭贷款</option>
+                    <option value="购二手车">购二手车</option>
+                    <option value="经营性流动资金贷款">经营性流动资金贷款</option>
+                    <option value="固定资产贷款">固定资产贷款</option>
+                    <option value="设备融资租赁">设备融资租赁</option>
+                    <option value="贸易融资">贸易融资</option>
+                    <option value="票据贴现">票据贴现</option>
+                    <option value="项目贷款">项目贷款</option>
+                </select>
             </td>
         </tr>
         <tr>
@@ -92,3 +129,4 @@
     </table>
 </div>
 </form>
+<script type="text/javascript" src="js/cArea.js"></script>

@@ -38,6 +38,7 @@
 				<value>com/qingdy/model/Answer.hbm.xml</value>
 				<value>com/qingdy/model/News.hbm.xml</value>
 				<value>com/qingdy/model/Transaction.hbm.xml</value>
+				<value>com/qingdy/model/Score.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -95,10 +96,16 @@
 	<bean id="productDao" class="com.qingdy.dao.hibernate.ProductDaoHibernate"
 		parent="daoTemplate">
 	</bean>
+	<bean id="specialistDao" class="com.qingdy.dao.hibernate.SpecialistDaoHibernate"
+		parent="daoTemplate">
+	</bean>
 	<bean id="questionDao" class="com.qingdy.dao.hibernate.QuestionDaoHibernate"
 		parent="daoTemplate">
 	</bean>
 	<bean id="transactionDao" class="com.qingdy.dao.hibernate.TransactionDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="scoreDao" class="com.qingdy.dao.hibernate.ScoreDaoHibernate"
 		parent="daoTemplate">
 	</bean>
 

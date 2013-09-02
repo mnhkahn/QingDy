@@ -2,14 +2,14 @@
 <div class="title-area-outter" style="padding: 0 30px">
     <textarea id="content" name="content" class="textarea1" style="width: 726px; height: 100px">
     </textarea>
-    <button class="largeBtn">提交回答</button>
+    <button id="submit" class="largeBtn">提交回答</button>
 </div>
-        <script type="text/javascript">
-           $('#content').xheditor({
-                upImgUrl: "/rest/metadata/upload/blogs",
-                upImgExt: "jpg,jpeg,gif,png",
-                html5Upload : false,
-                onUpload: function () {
-                }
-            });
-        </script>
+<script type="text/javascript">
+    $('#content').xheditor({
+        upImgUrl: "/rest/metadata/upload/blogs",
+        upImgExt: "jpg,jpeg,gif,png",
+        html5Upload: false,
+        onUpload: function () {
+        }
+    });
+</script>

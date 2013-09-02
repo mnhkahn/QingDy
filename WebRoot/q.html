@@ -7,12 +7,16 @@
     <link href="css/base.css" rel="stylesheet" type="text/css" />
     <link href="css/flexisel.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/chosen.css" />
+    <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
 
     <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="js/jquery.jBox-2.3.min.js"></script>
+    <script type="text/javascript" src="js/i18n/jquery.jBox-zh-CN.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.10.2.custom.js"></script>
     <script type="text/javascript" src="js/xheditor-1.2.1.min.js"></script>
     <script type="text/javascript" src="js/xheditor_lang/zh-cn.js"></script>
     <script type="text/javascript" src="js/base.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src='js/cTop.js'></script>
     <script type="text/javascript" src="js/jquery.flexisel.js"></script>
@@ -21,43 +25,50 @@
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script type="text/javascript" src="js/cSearch.js"></script>
     <script type="text/javascript" src="js/jquery.tmpl.js"></script>
-    <script type="text/javascript" src="js/textareaAutoHeight.js"></script>
+    <!--<script type="text/javascript" src="js/textareaAutoHeight.js"></script>-->
     <link rel = "Shortcut Icon" href="favicon.ico">
 
     <script type="text/javascript">
         function init() {
             commonInit();
 
+            var args = new Object();
+            args = GetUrlParms();
+            var id = args['id'];
             $.get("js/templates/q.html", function(template) {
                 $.template("qTmpl", template);
                 $.ajax({
-                    url: "data/tests/q.json",
+                    url: "/rest/metadata/question/" + id,//"data/tests/q.json",
                     type: "GET",
                     dataType: "json",
                     success: function(response) {
                         $.tmpl("qTmpl", response).appendTo("#questionContainer");
                         $.get("js/templates/a.html", function(atemplate) {
                             $.template("aTmpl", atemplate);
-                            $.ajax({
-                                url: "data/tests/a.json",
-                                type: "GET",
-                                dateType: "json",
-                                success: function(answers) {
-                                    $.tmpl("aTmpl", answers).appendTo("#answerContainer");
-                                    if (response.answer != -1) {
-                                        $("#answer-" + response.answer).addClass("best-answer");
-                                    }
-                                    else {
-                                        $("#answerBlock").load("/js/templates/answerBlock.html", function() {
-
-                                    });
-
-                                    }
-                                },
-                                error: function(answers) {
-                                    console.warn(answers);
-                                }
-                            });
+                            $.tmpl("aTmpl", response.answers).appendTo("#answerContainer");
+                            if (response.best != -1) {
+                                $("#answer-" + response.answers).addClass("best-answer");
+                            }
+                            else {
+                                $("#answerBlock").load("/js/templates/answerBlock.html", function() {
+                                    $("#submit").bind("click", function() {
+                                        var content = $("#content");
+                                        $.ajax({
+                                            url: '/rest/metadata/answer',
+                                            type: 'POST',
+                                            dataType: "json",
+                                            data: '{"poster": {"username": "' + username + '"}, "answer": "' + content.val() + '", "question": {"id": ' + id + '}}',
+                                            contentType: "application/json; charset=utf-8",
+                                            success: function (response) {
+                                                $.jBox.info('添加成功');
+                                            },
+                                            error: function (response) {
+                                                $.jBox.info('添加失败' + response);
+                                            }
+                                        });
+                                    })
+                                });
+                            }
                         });
                     },
                     error: function(response) {

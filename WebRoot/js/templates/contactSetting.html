@@ -10,32 +10,41 @@
         <tr>
             <p class="hs-description" style="color: #666;padding: 5px 0 0 5px;line-height: 22px;">以下带‘*’为必填，否则不能进行提交。</p>
         </tr>
-        <td width="100px;">头像</td>
-        <td width="650px;">
-
-        </td>
+            <td width="100px;"><input id='uploadAvatar' class='largeBtn' style="float: left" type='button' value='更改头像'/></td>
+            <td width="650px;">
+                <div>
+                    <img id="avatar" />
+                </div>
+            </td>
         <tr>
             <td width="110px;">帐号</td>
             <td width="640px">
-                <div class='blodChar'></div>
+                <div class='blodChar' id="username"></div>
             </td>
         </tr>
         <tr>
             <td width="110px;">用户类型</td>
             <td width="640px">
-                <div class='blodChar'></div>
+                <div class='blodChar' id="groupid"></div>
             </td>
         </tr>
         <tr>
             <td width="110px;">现居地</td>
             <td width="640px">
-                <div class='blodChar'></div>
+                <div class='blodChar' id="location"></div>
+            </td>
+        </tr>
+        <tr>
+            <td width="110px;">性别</td>
+            <td width="640px">
+                <div class='blodChar' id="gender"></div>
             </td>
         </tr>
         <tr>
             <td width="110px;">联系人姓名*</td>
             <td width="640px">
-                <input id="tel" class='input' />
+                <input id="lastname" class='input' />
+                <input id="firstname" class='input' />
             </td>
         </tr>
         <tr>
@@ -47,25 +56,44 @@
         <tr>
             <td width="110px;">QQ</td>
             <td width="640px">
-                <input id="tel" class='input' />
+                <input id="qq" class='input' />
+            </td>
+        </tr>
+        <tr>
+            <td width="110px;">个人网站</td>
+            <td width="640px">
+                <input id="site" class='input' />
+            </td>
+        </tr>
+        <tr>
+            <td width="110px;">电子邮箱</td>
+            <td width="640px">
+                <input id="email" class='input' />
+            </td>
+        </tr>
+        <tr>
+            <td width="110px;">个人简介</td>
+            <td width="640px">
+                <textarea id="introduct" name="content" rows="3" cols="100" style="width: 100%; height: 60px">
+                </textarea>
             </td>
         </tr>
         <tr>
             <td width="110px;">原始密码</td>
             <td width="640px">
-                <input id="tel" class='input' />
+                <input id="oldPWD" class='input' />
             </td>
         </tr>
         <tr>
             <td width="110px;">新密码</td>
             <td width="640px">
-                <input id="tel" class='input' />
+                <input id="newPWD" class='input' />
             </td>
         </tr>
         <tr>
             <td width="110px;">重复新密码</td>
             <td width="640px">
-                <input id="tel" class='input' />
+                <input id="newPWD2" class='input' />
             </td>
         </tr>
     </table>

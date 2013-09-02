@@ -10,7 +10,7 @@
 		</property>
 		<property name="content" column="CONTENT" length="3000" not-null="true">
 		</property>
- 		<many-to-one name="poster" column="USERNAME" not-null="true" class="com.qingdy.model.UserDetail" update="false">
+ 		<many-to-one name="poster" column="USERNAME" not-null="true" class="com.qingdy.model.UserDetail" fetch="join" update="false">
 		</many-to-one>
 		<property name="postDate" column="POSTDATE" not-null="true"  update="false">
 		</property>
@@ -20,5 +20,8 @@
 			<key column="BLOGID"></key>
 			<element type="long" column="STAR"></element>
 		</set>
+		<property name="verify" type="java.lang.Integer">
+            <column name="VERIFY" />
+        </property>
 	</class>
 </hibernate-mapping>

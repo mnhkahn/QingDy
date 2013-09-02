@@ -7,8 +7,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
+import com.qingdy.common.cRestrictions;
 import com.qingdy.dao.AnswerDao;
 import com.qingdy.model.Answer;
+import com.qingdy.model.Blog;
 import com.qingdy.model.Question;
 
 @Service("answerDao")
@@ -16,7 +18,7 @@ public class AnswerDaoHibernate extends BaseDaoHibernate implements AnswerDao {
 
 	@Override
 	public List<Answer> getAnswers(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		return getHibernateTemplate().find("from answer");
+		return getHibernateTemplate().findByCriteria(cRestrictions.getRestrictions(Answer.class, field, value, operator, sidx, sord, verify), size * (page - 1), size);
 	}
 
 	@Override
@@ -27,7 +29,7 @@ public class AnswerDaoHibernate extends BaseDaoHibernate implements AnswerDao {
 	@Override
 	public List<Answer> getAnswers(Long qid) {
 		Question question = getHibernateTemplate().get(Question.class, qid);
-		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Answer.class).add(Restrictions.ge("question", question)));
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Answer.class).add(Restrictions.eq("question", question)));
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class AnswerDaoHibernate extends BaseDaoHibernate implements AnswerDao {
 
 	@Override
 	public List<Answer> getAnswer(String username) {
-		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Answer.class).add(Restrictions.ge("poster", username)));
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Answer.class).add(Restrictions.eq("poster", username)));
 	}
 
 	@Override

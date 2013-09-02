@@ -87,6 +87,15 @@ fieldset {
     border-right: 1px solid #d9d9d9;
 }
 
+/* Font */
+.blodChar {
+    color: #f75703;
+    font-size: 14px;
+    font-weight: bold;
+    overflow: hidden;
+    line-height: 22px;
+}
+
 /* Header */
 
 
@@ -458,7 +467,7 @@ input.textSearch:focus {
 }
 
 .largeBtn {
-	width: 70px;
+	width: 70px !important;
 	height: 30px;
 	float: right;
 	margin-top: 5px;
@@ -843,7 +852,7 @@ span.answer-num {
     overflow: auto;
 }
 
-#title-area {
+.title-area {
      margin-left: 9px;
      float: left;
      border: 1px solid #d6d6d6;
@@ -864,7 +873,7 @@ span.answer-num {
      box-shadow: 1px 1px 1px #f8f8f8 inset;
  }
 
-#title-area:focus {
+.title-area:focus {
     margin-left: 9px;
     float: left;
     border: 1px solid green;
