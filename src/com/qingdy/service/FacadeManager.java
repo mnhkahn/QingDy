@@ -7,6 +7,7 @@ import com.qingdy.model.Blog;
 import com.qingdy.model.Evaluate;
 import com.qingdy.model.Loan;
 import com.qingdy.model.Mall;
+import com.qingdy.model.Message;
 import com.qingdy.model.News;
 import com.qingdy.model.Product;
 import com.qingdy.model.Question;
@@ -189,4 +190,19 @@ public interface FacadeManager {
 	 * Forum
 	 */
 	public Forums getForums();
+	
+	/*
+	 * Message
+	 */
+	public void addMessage(Message message);
+	
+	public void removeMessage(Long id);
+	
+	public void readMessage(Long id);
+	
+	public List<Message> getSendMessages(String username);
+	
+	public List<Message> getReceiveMessages(String username);
+	
+	public Integer getUnreadCount(String username);
 }

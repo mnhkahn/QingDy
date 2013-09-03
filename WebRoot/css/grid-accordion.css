@@ -13,8 +13,8 @@
 	background-position:center center;
 	position:absolute;
 	overflow:hidden;
+    height: 300px !important;
 }
-
 
 .accordion .shadow
 {

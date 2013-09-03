@@ -11,6 +11,7 @@ import com.qingdy.dao.BlogDao;
 import com.qingdy.dao.EvaluateDao;
 import com.qingdy.dao.LoanDao;
 import com.qingdy.dao.MallDao;
+import com.qingdy.dao.MessageDao;
 import com.qingdy.dao.NewsDao;
 import com.qingdy.dao.ProductDao;
 import com.qingdy.dao.QuestionDao;
@@ -67,6 +68,8 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	private TransactionDao transactionDao;
 	@Resource(name = "scoreDao")
 	private ScoreDao scoreDao;
+	@Resource(name = "messageDao")
+	private MessageDao messageDao;
 	
 	public void setAnswerDao(AnswerDao answerDao) {
 		this.answerDao = answerDao;
@@ -119,6 +122,11 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	public void setScoreDao(ScoreDao scoreDao) {
 		this.scoreDao = scoreDao;
 	}
+	
+	public void setMessageDao(MessageDao messageDao) {
+		this.messageDao = messageDao;
+	}
+	
 	
 	/*
 	 * User(non-Javadoc)
@@ -520,6 +528,40 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 		forums.setMallCount(mallDao.getMallCount());
 		forums.setSpecialistCount(scoreDao.getSpecialistCount());
 		return forums;
+	}
+
+	/*
+	 * Message(non-Javadoc)
+	 * @see com.qingdy.service.FacadeManager#addMessage(com.qingdy.model.Message)
+	 */
+	@Override
+	public void addMessage(Message message) {
+		messageDao.saveMessage(message);
+	}
+	
+	@Override
+	public void readMessage(Long id) {
+		messageDao.readMessage(id);
+	}
+
+	@Override
+	public void removeMessage(Long id) {
+		messageDao.removeMessage(id);
+	}
+
+	@Override
+	public List<Message> getSendMessages(String username) {
+		return messageDao.getSendMessages(username);
+	}
+
+	@Override
+	public List<Message> getReceiveMessages(String username) {
+		return messageDao.getReceiveMessages(username);
+	}
+	
+	@Override
+	public Integer getUnreadCount(String username) {
+		return messageDao.getUnreadCount(username);
 	}
 
 

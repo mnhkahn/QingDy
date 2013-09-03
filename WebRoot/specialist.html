@@ -67,31 +67,31 @@ function init() {
                         size = offset;
                     if (offset > 0)
                         page = offset / size + 1;
-                    return "/rest/metadata/?rows=" + size + "&page=" + page + "&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc";//"/data/tests/specialistWaterfall.json";
+                    return "/rest/metadata/specialist?rows=" + size + "&page=" + page + "&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc";//"/data/tests/specialistWaterfall.json";
                 },
                 template: function (response)
                 {
                     var markup='';
-                    for (var i = 0; i < response.items.length; i++)
+                    for (var i = 0; i < response.length; i++)
                     {
-                        markup += '<a target="_blank" href="' + response.items[i].mall + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
-                                '<div class="p_left"><img width="80" height="80" alt="' + response.items[i].lastname + '经理" src="' + response.items[i].icon + '">' +
+                        markup += '<a target="_blank" href="' + response[i].mall + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
+                                '<div class="p_left"><img width="80" height="80" alt="' + response[i].poster.lastname + '经理" src="' + response[i].poster.avatar + '">' +
                                 '</div>' +
                                 '<div class="p_right" style="width: 690px">' +
-                                '<h5>' + response.items[i].lastname + '经理</h5>' +
+                                '<h5>' + response[i].poster.lastname + '经理</h5>' +
                                 '<div class="clear_both"></div>' +
-                                '<span class="p1">' + response.items[i].area + '</span>' +
-                                '<span class="p2" style="width: 400px;">贷款用途：' + response.items[i].usesofloan + '</span>' +
+                                '<span class="p1">' + response[i].poster.location + '</span>' +
+                                //'<span class="p2" style="width: 400px;">贷款用途：' + response[i].usesofloan + '</span>' +
                                 '<span style="width: 40px">电话：</span>' +
-                                '<span class="p4">' + response.items[i].tel + '</span>' +
+                                '<span class="p4">' + response[i].poster.tel + '</span>' +
                                 '<div class="clear_both"></div>' +
-                                '<p>' + response.items[i].description + '.</p>' +
+                                '<p>' + response[i].poster.introduce + '.</p>' +
                                 '</div></div></a>';
                     };
 
                     return markup;
                 },
-                itemsReturned: function (response) { return response.items.length; },
+                itemsReturned: function (response) { return response.length; },
                 offset: 0,
 //            max: 100,
                 loader: '<div class="loader"></div>',

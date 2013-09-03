@@ -39,6 +39,7 @@
 				<value>com/qingdy/model/News.hbm.xml</value>
 				<value>com/qingdy/model/Transaction.hbm.xml</value>
 				<value>com/qingdy/model/Score.hbm.xml</value>
+				<value>com/qingdy/model/Message.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -106,6 +107,9 @@
 		parent="daoTemplate">
 	</bean>
 	<bean id="scoreDao" class="com.qingdy.dao.hibernate.ScoreDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="messageDao" class="com.qingdy.dao.hibernate.MessageDaoHibernate"
 		parent="daoTemplate">
 	</bean>
 

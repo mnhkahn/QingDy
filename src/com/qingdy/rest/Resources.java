@@ -15,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,6 +25,7 @@ import com.qingdy.model.Blog;
 import com.qingdy.model.Evaluate;
 import com.qingdy.model.Loan;
 import com.qingdy.model.Mall;
+import com.qingdy.model.Message;
 import com.qingdy.model.News;
 import com.qingdy.model.Product;
 import com.qingdy.model.Question;
@@ -746,5 +748,52 @@ public class Resources {
 	public Response getForum(@QueryParam("rows") int size) {
 		Forums forums = facadeManager.getForums();
 		return Response.ok(forums).build();
+	}
+	
+	/*
+	 * Message
+	 */
+	@Path("/message")
+	@POST
+	public Response addMessage(Message message) {
+		message.setPostDate(new Date());
+		facadeManager.addMessage(message);
+		return Response.status(Response.Status.CREATED).build();
+	}
+	
+	@Path("/message/{id}")
+	@POST
+	public Response readMessage(@PathParam("id") Long id) {
+		facadeManager.readMessage(id);
+		return Response.noContent().build();
+	}
+	
+	@Path("/message/{id}")
+	@DELETE
+	public Response removeMessage(@PathParam("id") Long id) {
+		facadeManager.removeMessage(id);
+		return Response.noContent().build();
+	}
+	
+	@Path("/message/{username}/send")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getSendMessages(@PathParam("username") String username) {
+		List<Message> messages = facadeManager.getSendMessages(username);
+		return Response.ok(messages).build();
+	}
+	
+	@Path("/message/{username}/receive")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getReceiveMessages(@PathParam("username") String username) {
+		List<Message> messages = facadeManager.getReceiveMessages(username);
+		return Response.ok(messages).build();
+	}
+	
+	@Path("/message/{username}/unread")
+	@HEAD
+	public Response getUnreadCount(@PathParam("username") String username) {
+		return Response.ok().header("unread", facadeManager.getUnreadCount(username)).build();
 	}
 }

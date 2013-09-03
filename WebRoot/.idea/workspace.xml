@@ -27,12 +27,12 @@
     <file path="/chosen.css" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374322940897" ignored="false" />
     <file path="/index.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375344039958" ignored="false" />
     <file path="/productGrid.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375342615167" ignored="false" />
-    <file path="/specialistGrid.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378113788653" ignored="false" />
+    <file path="/specialistGrid.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378128957417" ignored="false" />
     <file path="/mallGrid.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375344088919" ignored="false" />
     <file path="/bankFlex.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374498973005" ignored="false" />
     <file path="/supply.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377417777680" ignored="false" />
     <file path="/supplyFilter.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375597550099" ignored="false" />
-    <file path="/specialist.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374826184904" ignored="false" />
+    <file path="/specialist.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378131325906" ignored="false" />
     <file path="/mall.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377418129060" ignored="false" />
     <file path="/cVSlide.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375337639130" ignored="false" />
     <file path="/supplyTemplate.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374670995619" ignored="false" />
@@ -92,6 +92,7 @@
     <file path="/cQuestion.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377523276743" ignored="false" />
     <file path="$PROJECT_DIR$/WEB-INF/classes/com/qingdy/model/UserDetail.hbm.xml" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377833258575" ignored="false" />
     <file path="$PROJECT_DIR$/WEB-INF/classes/com/qingdy/model/Score.hbm.xml" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378113429966" ignored="false" />
+    <file path="/grid-accordion.css" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378129746301" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,29 +112,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="cForum.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/cForum.js">
+      <file leaf-file-name="specialist.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/specialist.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="90" selection-start="834" selection-end="834" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="79" column="57" selection-start="3418" selection-end="3418" vertical-scroll-proportion="0.30172414">
+              <folding>
+                <marker date="1378131331260" expanded="false" signature="3043:3143" placeholder="..." />
+                <marker date="1378131331260" expanded="false" signature="3422:3434" placeholder="..." />
+                <marker date="1378131331260" expanded="false" signature="3745:3758" placeholder="..." />
+                <marker date="1378131331260" expanded="false" signature="3852:3863" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/index.html">
+      <file leaf-file-name="demand.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demand.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="227" column="18" selection-start="9193" selection-end="9193" vertical-scroll-proportion="-0.077586204">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="specialistGrid.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/templates/specialistGrid.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="64" selection-start="64" selection-end="64" vertical-scroll-proportion="-0.0">
-              <folding />
+            <state line="69" column="59" selection-start="2450" selection-end="2607" vertical-scroll-proportion="-6.107143">
+              <folding>
+                <marker date="1377435073863" expanded="false" signature="3121:3221" placeholder="..." />
+                <marker date="1377435073863" expanded="false" signature="4096:4107" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -148,8 +148,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/js/templates/businesssetting.html" />
-        <option value="$PROJECT_DIR$/data/lenderMenu.json" />
         <option value="$PROJECT_DIR$/js/templates/product.html" />
         <option value="$PROJECT_DIR$/js/templates/loan.html" />
         <option value="$PROJECT_DIR$/js/templates/contactSetting.html" />
@@ -162,8 +160,10 @@
         <option value="$PROJECT_DIR$/q.html" />
         <option value="$PROJECT_DIR$/js/templates/answerBlock.html" />
         <option value="$PROJECT_DIR$/js/cForum.js" />
-        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/css/grid-accordion.css" />
         <option value="$PROJECT_DIR$/js/templates/specialistGrid.html" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/specialist.html" />
       </list>
     </option>
   </component>
@@ -213,6 +213,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -295,9 +296,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebRoot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebRoot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -305,8 +319,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="FullScreen" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -357,7 +371,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981302" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17053103" sideWeight="0.6701031" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23859386" sideWeight="0.6701031" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -435,47 +449,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/cQuestion.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="161" selection-start="429" selection-end="429" vertical-scroll-proportion="4.94" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/advisory.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="1" selection-start="522" selection-end="677" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1377524269990" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1377524269990" expanded="false" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loaner.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="461" selection-end="532" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/util.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lender.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="32" selection-start="2894" selection-end="3436" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/templates/q.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/tests/a.json">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -485,16 +458,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/q.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="47" selection-start="2889" selection-end="2900" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="52" column="47" selection-start="2889" selection-end="2900" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/templates/answerBlock.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="16" selection-start="485" selection-end="485" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="13" column="16" selection-start="485" selection-end="485" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/tests/count.json">
@@ -513,20 +482,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/demandGrid.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="65" selection-start="306" selection-end="306" vertical-scroll-proportion="-0.6850095">
-          <folding>
-            <element signature="n#style#0;n#ul#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
+        <state line="5" column="65" selection-start="306" selection-end="306" vertical-scroll-proportion="-0.6850095" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/specialistGrid.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="48" selection-start="522" selection-end="522" vertical-scroll-proportion="-6.785714">
-          <folding>
-            <element signature="n#style#0;n#ul#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
+        <state line="10" column="48" selection-start="522" selection-end="522" vertical-scroll-proportion="-6.785714" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/specialistGrid.json">
@@ -536,17 +497,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/templates/specialistGrid.html">
+    <entry file="file://$PROJECT_DIR$/js/jquery.gridAccordion.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="64" selection-start="64" selection-end="64" vertical-scroll-proportion="0.0">
+        <state line="2" column="98" selection-start="1118" selection-end="1127" vertical-scroll-proportion="0.07723577">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/grid-accordion.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="0" selection-start="257" selection-end="286" vertical-scroll-proportion="0.5135135">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="227" column="18" selection-start="9193" selection-end="9193" vertical-scroll-proportion="-0.077586204">
+        <state line="284" column="43" selection-start="11564" selection-end="11564" vertical-scroll-proportion="-12.25">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/templates/specialistGrid.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="90" selection-start="194" selection-end="194" vertical-scroll-proportion="0.072106265">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demand.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="59" selection-start="2450" selection-end="2607" vertical-scroll-proportion="-6.107143">
+          <folding>
+            <marker date="1377435073863" expanded="false" signature="3121:3221" placeholder="..." />
+            <marker date="1377435073863" expanded="false" signature="4096:4107" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/cTop.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="47" selection-start="264" selection-end="264" vertical-scroll-proportion="-3.99631">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/specialist.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="57" selection-start="3418" selection-end="3418" vertical-scroll-proportion="0.30172414">
+          <folding>
+            <marker date="1378131331260" expanded="false" signature="3043:3143" placeholder="..." />
+            <marker date="1378131331260" expanded="false" signature="3422:3434" placeholder="..." />
+            <marker date="1378131331260" expanded="false" signature="3745:3758" placeholder="..." />
+            <marker date="1378131331260" expanded="false" signature="3852:3863" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>

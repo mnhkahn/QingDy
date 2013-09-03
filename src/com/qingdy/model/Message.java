@@ -5,15 +5,17 @@ import java.util.Date;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import com.qingdy.common.Constant;
+
 @SuppressWarnings("serial")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends BaseObject {
 	@JsonProperty("id")
 	private Long id;
-	@JsonProperty("from")
-	private UserDetail from;
-	@JsonProperty("to")
-	private UserDetail to;
+	@JsonProperty("sender")
+	private UserDetail sender;
+	@JsonProperty("receiver")
+	private UserDetail receiver;
 	@JsonProperty("title")
 	private String title;
 	@JsonProperty("message")
@@ -21,7 +23,7 @@ public class Message extends BaseObject {
 	@JsonProperty("postDate")
 	private Date postDate;
 	@JsonProperty("isReaded")
-	private int isReaded;
+	private int isReaded = Constant.UNREAD;
 	
 	public Message() {
 		
@@ -35,20 +37,20 @@ public class Message extends BaseObject {
 		this.id = id;
 	}
 
-	public UserDetail getFrom() {
-		return from;
+	public UserDetail getSender() {
+		return sender;
 	}
 
-	public void setFrom(UserDetail from) {
-		this.from = from;
+	public void setSender(UserDetail sender) {
+		this.sender = sender;
 	}
 
-	public UserDetail getTo() {
-		return to;
+	public UserDetail getReceiver() {
+		return receiver;
 	}
 
-	public void setTo(UserDetail to) {
-		this.to = to;
+	public void setReceiver(UserDetail receiver) {
+		this.receiver = receiver;
 	}
 
 	public String getTitle() {

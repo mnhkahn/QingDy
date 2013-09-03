@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-9-2 22:42:54 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.qingdy.model.Message" table="MESSAGE" lazy="false">
+        <id name="id" column="ID" unsaved-value="null">
+			<generator class="increment">
+			</generator>
+		</id>
+        <many-to-one name="sender" class="com.qingdy.model.UserDetail" fetch="join">
+            <column name="SENDER" />
+        </many-to-one>
+        <many-to-one name="receiver" class="com.qingdy.model.UserDetail" fetch="join">
+            <column name="RECEIVER" />
+        </many-to-one>
+        <property name="title" type="java.lang.String">
+            <column name="TITLE" />
+        </property>
+        <property name="message" type="java.lang.String">
+            <column name="MESSAGE" />
+        </property>
+        <property name="postDate" type="java.util.Date">
+            <column name="POSTDATE" />
+        </property>
+        <property name="isReaded" type="int">
+            <column name="ISREADED" />
+        </property>
+    </class>
+        <query name="queryUnreadCount">
+        <![CDATA[
+			from Message
+        ]]>
+	</query>
+</hibernate-mapping>
