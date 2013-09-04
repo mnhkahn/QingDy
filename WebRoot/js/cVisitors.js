@@ -38,15 +38,15 @@
         visitorWrapper.css("width", visitorContainer.width() - 20);
         visitorWrapper.css("height", visitorContainer.height() - 20);
 
-        for (var i = 0; i < 23; i++) {
+        for (var i = 0; i < json.length; i++) {
             var visitorItem = $('<div></div>');
             visitorItem.addClass('visitorItem');
             var visitorItemIcon = $('<div><div>');
             visitorItemIcon.addClass('visitorItemIcon');
-            visitorItemIcon.html('<img style="width:50px; height: 50px" src="avatar/avatar.png" />');
+            visitorItemIcon.html('<img style="width:50px; height: 50px" src="' + json[i].user.avatar + '" />');
             var visitorItemName = $('<div></div>');
             visitorItemName.addClass('visitorItemName');
-            visitorItemName.html("dzkkk");
+            visitorItemName.html(json[i].user.lastname + json[i].user.firstname);
 
             visitorItem.append(visitorItemIcon);
             visitorItem.append(visitorItemName);

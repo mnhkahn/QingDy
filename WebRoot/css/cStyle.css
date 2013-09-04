@@ -1,0 +1,79 @@
+.messageContainer {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 0px;
+    right: 0px;
+}
+
+.message {
+    margin: -1px 20px 0;
+    padding: 21px 0 0px;
+    zoom: 1;
+}
+
+.messageFace {
+    float: left;
+}
+
+.messageBody {
+    float: right;
+    position: relative;
+    width: 630px;
+    padding: 15px 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px;
+    border-color: #d9d9d9;
+    background-color: rgb(242, 242, 242);
+}
+
+.message_arrow {
+    position: absolute;
+    font-family: "SimSun";
+    overflow: hidden;
+    font-size: 20px;
+    line-height: 1.231;
+    display: block;
+    height: 20px;
+    top: 15px;
+    left: -9px;
+    width: 10px;
+    overflow: hidden;
+}
+
+.S_line1_c {
+    color: rgb(217, 217, 217);
+    display: block;
+    font-family: SimSun;
+    font-size: 20px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    height: 20px;
+    line-height: 24px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 10px;
+    zoom: 1;
+}
+
+.S_bg1_c {
+    color: rgb(242, 242, 242);
+    display: block;
+    font-family: SimSun;
+    font-size: 20px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    height: 20px;
+    line-height: 24px;
+    margin-bottom: 0px;
+    margin-left: 1px;
+    margin-right: 0px;
+    margin-top: -20px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 9px;
+    zoom: 1;;
+}

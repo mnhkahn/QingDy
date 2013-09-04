@@ -27,6 +27,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="mappingResources">
 			<list>
+				<value>com/qingdy/model/query.xml</value>
 				<value>com/qingdy/model/User.hbm.xml</value>
    				<value>com/qingdy/model/Blog.hbm.xml</value>
 				<value>com/qingdy/model/Evaluate.hbm.xml</value> 
@@ -40,6 +41,7 @@
 				<value>com/qingdy/model/Transaction.hbm.xml</value>
 				<value>com/qingdy/model/Score.hbm.xml</value>
 				<value>com/qingdy/model/Message.hbm.xml</value>
+				<value>com/qingdy/model/Visit.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -110,6 +112,12 @@
 		parent="daoTemplate">
 	</bean>
 	<bean id="messageDao" class="com.qingdy.dao.hibernate.MessageDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="timelineDao" class="com.qingdy.dao.hibernate.TimelineDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="visitDao" class="com.qingdy.dao.hibernate.VisitDaoHibernate"
 		parent="daoTemplate">
 	</bean>
 

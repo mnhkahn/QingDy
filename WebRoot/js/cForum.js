@@ -47,8 +47,8 @@
                 _show_num(countContainer[1], data.specialistCount);
                 _show_num(countContainer[2], data.transactionCount);
 
-                if (data.forums) {
-                    _showSlide(container, data.forums);
+                if (data.timelines) {
+                    _showSlide(container, data.timelines);
                 }
                 startMove(container);
             }
@@ -80,7 +80,7 @@
             time.html(json[i].time);
 
             var title = $("<div></div>");
-            title.html('<a href="' + json[i].link + '" target="_blank" title="' + json[i].title + '" class="">' + json[i].title + '</a>');
+            title.html('<a href="' + getLink(json[i].type, json[i].id) + '" target="_blank" title="' + json[i].name + '" class="">' + "[" + json[i].name + "]   " + getTitle(json[i].type) + '</a>');
             title.addClass("VSlideTitle");
             VSlideLi.append(time);
             VSlideLi.append(title);

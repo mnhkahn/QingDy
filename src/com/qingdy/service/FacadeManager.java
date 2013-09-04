@@ -12,10 +12,13 @@ import com.qingdy.model.News;
 import com.qingdy.model.Product;
 import com.qingdy.model.Question;
 import com.qingdy.model.Score;
+import com.qingdy.model.Timeline;
 import com.qingdy.model.Transaction;
 import com.qingdy.model.User;
 import com.qingdy.model.UserDetail;
+import com.qingdy.model.Visit;
 import com.qingdy.model.domain.Forums;
+import com.qingdy.model.domain.Item;
 import com.qingdy.model.domain.Specialist;
 import com.qingdy.model.domain.UserTop;
 
@@ -205,4 +208,23 @@ public interface FacadeManager {
 	public List<Message> getReceiveMessages(String username);
 	
 	public Integer getUnreadCount(String username);
+	
+	/*
+	 * Timeline
+	 */
+	public List<Timeline> getTimelines(int size, int page);
+	
+	public List<Timeline> getTimelinesByUser(String username, int size, int page);
+	
+	/*
+	 * Search
+	 */
+	public List<Item> search(int type, String keyword, int size, int page);
+	
+	/*
+	 * Visit
+	 */
+	public List<Visit> getMallVisits(Long id, int size, int page);
+	
+	public void visitMall(Visit visit);
 }

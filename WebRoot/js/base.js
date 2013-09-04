@@ -108,3 +108,75 @@ function commonInitPlugin() {
         animateDur: 200
     });
 }
+
+var ANSWER = 1;
+var BLOG = 2;
+var EVALUATE = 3;
+var LOAN = 4;
+var MALL = 5;
+var PRODUCT = 6;
+var QUESTION = 7;
+var TRANSACTION = 8;
+var NEWS = 9;
+var USER = 10;
+
+var DEFAULT_SIZE = 20;
+var DEFAULT_PAGE = 1;
+
+function getLink(type, id) {
+    switch (type) {
+        case ANSWER:
+            return "";
+            break;
+        case BLOG:
+            return "p.html?id=" + id;
+            break;
+        case EVALUATE:
+            return "";
+            break;
+        case LOAN:
+            return "d.html?id=" + id;
+            break;
+        case MALL:
+            return "m.html?id=" + id;
+            break;
+        case PRODUCT:
+            return "m.html?tab=1&id=" + id;
+            break;
+        case QUESTION:
+            return "q.html?id=" + id;
+            break;
+        case TRANSACTION:
+            return "m.html?tab=2&id=" + id;
+            break;
+    }
+}
+
+function getTitle(type) {
+    switch (type) {
+        case ANSWER:
+            return "回答了问题";
+            break;
+        case BLOG:
+            return "发布了日志";
+            break;
+        case EVALUATE:
+            return "评价了";
+            break;
+        case LOAN:
+            return "发布了贷款需求";
+            break;
+        case MALL:
+            return "创建了店铺";
+            break;
+        case PRODUCT:
+            return "发布了产品";
+            break;
+        case QUESTION:
+            return "提出了问题";
+            break;
+        case TRANSACTION:
+            return "成功贷款";
+            break;
+    }
+}

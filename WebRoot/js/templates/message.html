@@ -1,0 +1,23 @@
+<div class="message" >
+    <div class="messageBox">
+        <div class="messageFace">
+            <img src="${sender.avatar}" style="width: 50px; height: 50px" />
+        </div>
+        <div class="messageBody">
+            <div class="message_arrow">
+                <em class="S_line1_c">◆</em>
+                <span class="S_bg1_c">◆</span>
+            </div>
+            <p class="detail">
+                <a title="${sender.lastname}${sender.firstname}"href="#">${sender.lastname}${sender.firstname}</a>
+                <span style="margin-left: 10px;">标题：<b>${title}</b></span>
+                <p>内容：<b>${message}</b></p>
+            </p>
+            <p class="action" style="margin-top: 10px;">
+                <span>${postDate}</span>
+                <span style="display: block; float: right;"><a href="javascript:void(0);">回复</a></span>
+            </p>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+</div>

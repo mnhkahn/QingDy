@@ -27,7 +27,7 @@
             <column name="ISREADED" />
         </property>
     </class>
-        <query name="queryUnreadCount">
+    <query name="queryUnreadCount">
         <![CDATA[
 			from Message
         ]]>

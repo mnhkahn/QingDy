@@ -2,9 +2,10 @@ package com.qingdy.model;
 import java.util.Date;
 import java.util.Set;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Answer extends BaseObject{
 	@JsonProperty("id")
 	private Long id;

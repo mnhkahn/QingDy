@@ -9,6 +9,7 @@
 <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
 <link rel="stylesheet" href="css/jquery.checkbox.css" />
 <link rel="stylesheet" href="css/chosen.css" />
+<link rel="stylesheet" href="css/cStyle.css" />
 
 <!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
 <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
@@ -31,7 +32,9 @@
 <script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/cTab.js"></script>
 <script type="text/javascript" src="js/cSearch.js" ></script>
+<script type="text/javascript" src="js/cMessage.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="js/jquery.tmpl.js"></script>
 
     <script type="text/javascript">
         function showCreateBlog() {
@@ -791,42 +794,7 @@
                                 },
                                 // 消息中心
                                 function() {
-                                    var list = $("<table></table>");
-                                    list.attr("id", "List");
-                                    list.css("height", "100%");
-                                    var pager = $("<div></div>");
-                                    pager.attr("id", "Pager");
-                                    $('#contentWrapper').append(list);
-                                    $('#contentWrapper').append(pager);
-                                    jQuery("#List").jqGrid({
-//                                        url: '/rest/metadata/malls/verify',
-                                        datatype: "json",
-                                        autowidth: true,
-                                        colNames: ['id', '姓名', '联系电话', '处理状态', '性 质', '地 区', '贷款金额', '发布时间', '操作'],
-                                        colModel: [
-                                            {name: 'id', index: 'id', width: 55, frozen: true},
-                                            {name: 'name', index: 'name', width: 90, frozen: true},
-                                            {name: 'tel', index: 'announcement', width: 200},
-                                            {name: 'state', index: 'state', width: 500, align: "center"},
-                                            {name: 'lendedyears', index: 'lendedyears', width: 80, align: "center"},
-                                            {name: 'ctype', index: 'ctype', width: 150, sortable: false},
-                                            {name: 'cname', index: 'cname', width: 150, sortable: false},
-                                            {name: 'cphonenumber', index: 'cphonenumber', width: 150, sortable: false},
-                                            {name: 'act', index: 'act', width: 150}
-                                        ],
-                                        rowList: [10, 20, 30],
-                                        pager: '#Pager',
-                                        sortname: 'mid',
-                                        viewrecords: true,
-                                        sortorder: "desc",
-                                        caption: "店铺认证",
-                                        gridview: true,
-                                        gridComplete: function () {
-
-                                        }
-                                    });
-                                    jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
-                                    $('.ui-jqgrid-bdiv').height(height);
+                                    $("#contentWrapper").cMessage("/rest/metadata/message/" + username + "/receive");
                                 }
                         );
                     }

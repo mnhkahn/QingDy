@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-9-2 22:42:54 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <query name="queryAnswerTimeline">
+        <![CDATA[
+        	select a.id, a.poster as user, a.postDate as time, 1 as type from Answer as a
+        ]]>
+	</query>
+	<query name="queryBlogTimeline">
+	 	<![CDATA[
+			select b.id, b.poster as user, b.postDate as time, 2 as type from Blog as b
+        ]]>
+	</query>
+	<query name="queryEvaluateTimeline">
+	 	<![CDATA[
+			select e.id, e.poster as user, e.postDate as time, 3 as type from Evaluate as e
+        ]]>
+	</query>
+	<query name="queryLoanTimeline">
+	 	<![CDATA[
+			select l.id, l.poster as user, l.postDate as time, 4 as type from Loan as l
+        ]]>
+	</query>
+	<query name="queryMallTimeline">
+	 	<![CDATA[
+			select m.id, m.poster as user, m.postDate as time, 5 as type from Mall as m
+        ]]>
+	</query>
+	<query name="queryProductTimeline">
+	 	<![CDATA[
+			select p.id, p.poster as user, p.postDate as time, 6 as type from Product as p
+        ]]>
+	</query>
+	<query name="queryQuestionTimeline">
+	 	<![CDATA[
+			select q.id, q.poster as user, q.postDate as time, 7 as type from Question as q
+        ]]>
+	</query>
+	<query name="queryTransactionTimeline">
+	 	<![CDATA[
+			select t.id, t.lender as user, t.postDate as time, 8 as type from Transaction as t
+        ]]>
+	</query>
+	
+	<query name="queryAnswerTimelineByUser">
+        <![CDATA[
+        	select a.id, a.poster as user, a.postDate as time, 1 as type from Answer as a where a.poster=?
+        ]]>
+	</query>
+	<query name="queryBlogTimelineByUser">
+	 	<![CDATA[
+			select b.id, b.poster as user, b.postDate as time, 2 as type from Blog as b where b.poster=?
+        ]]>
+	</query>
+	<query name="queryEvaluateTimelineByUser">
+	 	<![CDATA[
+			select e.id, e.poster as user, e.postDate as time, 3 as type from Evaluate as e where e.poster=?
+        ]]>
+	</query>
+	<query name="queryLoanTimelineByUser">
+	 	<![CDATA[
+			select l.id, l.poster as user, l.postDate as time, 4 as type from Loan as l where l.poster=?
+        ]]>
+	</query>
+	<query name="queryMallTimelineByUser">
+	 	<![CDATA[
+			select m.id, m.poster as user, m.postDate as time, 5 as type from Mall as m where m.poster=?
+        ]]>
+	</query>
+	<query name="queryProductTimelineByUser">
+	 	<![CDATA[
+			select p.id, p.poster as user, p.postDate as time, 6 as type from Product as p where p.poster=?
+        ]]>
+	</query>
+	<query name="queryQuestionTimelineByUser">
+	 	<![CDATA[
+			select q.id, q.poster as user, q.postDate as time, 7 as type from Question as q where q.poster=?
+        ]]>
+	</query>
+	<query name="queryTransactionTimelineByUser">
+	 	<![CDATA[
+			select t.id, t.lender as user, t.postDate as time, 8 as type from Transaction as t where t.lender=?
+        ]]>
+	</query>
+	
+</hibernate-mapping>

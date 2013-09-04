@@ -1,6 +1,9 @@
 package com.qingdy.model.domain;
 
+import java.util.List;
 import java.util.Set;
+
+import com.qingdy.model.Timeline;
 
 public class Forums {
 	
@@ -10,7 +13,7 @@ public class Forums {
 	
 	private Long transactionCount = new Long(0);
 	
-	private Set<Forum> forums = null;
+	private List<Timeline> timelines = null;
 	
 	public Forums() {
 		
@@ -40,13 +43,14 @@ public class Forums {
 		this.transactionCount = transactionCount;
 	}
 
-	public Set<Forum> getForums() {
-		return forums;
+	public List<Timeline> getTimelines() {
+		return timelines;
 	}
 
-	public void setForums(Set<Forum> forums) {
-		this.forums = forums;
+	public void setTimelines(List<Timeline> timelines) {
+		this.timelines = timelines;
 	}
-	
+
+
 	
 }

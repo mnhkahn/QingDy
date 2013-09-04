@@ -15,7 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,11 +29,12 @@ import com.qingdy.model.News;
 import com.qingdy.model.Product;
 import com.qingdy.model.Question;
 import com.qingdy.model.Score;
+import com.qingdy.model.Timeline;
 import com.qingdy.model.Transaction;
 import com.qingdy.model.User;
 import com.qingdy.model.UserDetail;
+import com.qingdy.model.Visit;
 import com.qingdy.model.domain.Forums;
-import com.qingdy.model.domain.Specialist;
 import com.qingdy.model.domain.UserTop;
 import com.qingdy.service.FacadeManager;
 
@@ -795,5 +795,54 @@ public class Resources {
 	@HEAD
 	public Response getUnreadCount(@PathParam("username") String username) {
 		return Response.ok().header("unread", facadeManager.getUnreadCount(username)).build();
+	}
+	
+	/*
+	 * Timeline
+	 */
+	@Path("/timeline")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTimeline(@QueryParam("rows") int size, @QueryParam("page") int page) {
+		List<Timeline> timelines = facadeManager.getTimelines(size, page);
+		return Response.ok(timelines).build();
+	}
+	
+	@Path("/timeline/{username}/recent")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTimelineByUser(@QueryParam("rows") int size, @QueryParam("page") int page, @PathParam("username") String username) {
+		List<Timeline> timelines = facadeManager.getTimelinesByUser(username, size, page);
+		return Response.ok(timelines).build();
+	}
+	
+	/*
+	 * Search
+	 */
+	@Path("/s")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response search(@QueryParam("type") int type, @QueryParam("keyword") String keyword, @QueryParam("page") int page, @QueryParam("size") int size) {
+		return Response.ok().build();
+	}
+	
+	/*
+	 * Visit
+	 */
+	@Path("/visit/{id}/mall/")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getMallVisits(@PathParam("id") Long id, @QueryParam("size") int size, @QueryParam("page") int page) {
+		List<Visit> visits = facadeManager.getMallVisits(id, size, page);
+		return Response.ok(visits).build();
+	}
+	
+	@Path("/visit/mall/")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response visitMall(Visit visit) {
+		visit.setDate(new Date());
+		facadeManager.visitMall(visit);
+		return Response.noContent().build();
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +29,13 @@ public class MessageDaoHibernate extends BaseDaoHibernate implements MessageDao 
 	@Override
 	public List<Message> getSendMessages(String username) {
 		UserDetail sender = getHibernateTemplate().get(UserDetail.class, username);
-		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Message.class).add(Restrictions.eq("sender", sender)));
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Message.class).add(Restrictions.eq("sender", sender)).addOrder(Order.desc("postDate")));
 	}
 
 	@Override
 	public List<Message> getReceiveMessages(String username) {
 		UserDetail receiver = getHibernateTemplate().get(UserDetail.class, username);
-		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Message.class).add(Restrictions.eq("receiver", receiver)));
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Message.class).add(Restrictions.eq("receiver", receiver)).addOrder(Order.desc("postDate")));
 	}
 
 	@Override

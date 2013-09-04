@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.qingdy.common.Constant;
 import com.qingdy.dao.AnswerDao;
 import com.qingdy.dao.BlogDao;
 import com.qingdy.dao.EvaluateDao;
@@ -17,9 +18,11 @@ import com.qingdy.dao.ProductDao;
 import com.qingdy.dao.QuestionDao;
 import com.qingdy.dao.ScoreDao;
 import com.qingdy.dao.SpecialistDao;
+import com.qingdy.dao.TimelineDao;
 import com.qingdy.dao.TransactionDao;
 import com.qingdy.dao.UserDao;
 import com.qingdy.dao.UserDetailDao;
+import com.qingdy.dao.VisitDao;
 import com.qingdy.model.Answer;
 import com.qingdy.model.Evaluate;
 import com.qingdy.model.Loan;
@@ -29,11 +32,14 @@ import com.qingdy.model.News;
 import com.qingdy.model.Product;
 import com.qingdy.model.Question;
 import com.qingdy.model.Score;
+import com.qingdy.model.Timeline;
 import com.qingdy.model.Transaction;
 import com.qingdy.model.User;
 import com.qingdy.model.Blog;
 import com.qingdy.model.UserDetail;
+import com.qingdy.model.Visit;
 import com.qingdy.model.domain.Forums;
+import com.qingdy.model.domain.Item;
 import com.qingdy.model.domain.Specialist;
 import com.qingdy.model.domain.UserTop;
 import com.qingdy.service.BaseManager;
@@ -70,6 +76,10 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	private ScoreDao scoreDao;
 	@Resource(name = "messageDao")
 	private MessageDao messageDao;
+	@Resource(name = "timelineDao")
+	private TimelineDao timelineDao;
+	@Resource(name = "visitDao")
+	private VisitDao visitDao;
 	
 	public void setAnswerDao(AnswerDao answerDao) {
 		this.answerDao = answerDao;
@@ -125,6 +135,10 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	
 	public void setMessageDao(MessageDao messageDao) {
 		this.messageDao = messageDao;
+	}
+	
+	public void setVisitDao(VisitDao visitDao) {
+		this.visitDao = visitDao;
 	}
 	
 	
@@ -513,7 +527,7 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 		UserTop userTop = new UserTop();
 		userTop.setName(userDetail.getLastname() + userDetail.getFirstname());
 		userTop.setAvatar(userDetail.getAvatar());
-		userTop.setMessage(3);
+		userTop.setMessage(getUnreadCount(username));
 		userTop.setGroupId(user.getGroupid());
 		
 		return userTop;
@@ -527,6 +541,9 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 		
 		forums.setMallCount(mallDao.getMallCount());
 		forums.setSpecialistCount(scoreDao.getSpecialistCount());
+		forums.setTransactionCount(transactionDao.getTransactionCount());
+		forums.setTimelines(getTimelines(Constant.DEFAULT_SIZE, Constant.DEFAULT_PAGE));
+		
 		return forums;
 	}
 
@@ -562,6 +579,45 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	@Override
 	public Integer getUnreadCount(String username) {
 		return messageDao.getUnreadCount(username);
+	}
+
+	/*
+	 * Timeline(non-Javadoc)
+	 * @see com.qingdy.service.FacadeManager#getTimelines(int, int)
+	 */
+	@Override
+	public List<Timeline> getTimelines(int size, int page) {
+		return timelineDao.getTimelines(size, page);
+	}
+
+	@Override
+	public List<Timeline> getTimelinesByUser(String username, int size, int page) {
+		return timelineDao.geTimelinesByUser(username, size, page);
+	}
+
+	/*
+	 * Search(non-Javadoc)
+	 * @see com.qingdy.service.FacadeManager#search(int, java.lang.String, int, int)
+	 */
+	@Override
+	public List<Item> search(int type, String keyword, int size, int page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	/*
+	 * Visit(non-Javadoc)
+	 * @see com.qingdy.service.FacadeManager#getMallVisits(java.lang.Long, int, int)
+	 */
+	@Override
+	public List<Visit> getMallVisits(Long id, int size, int page) {
+		return visitDao.getVisits(Constant.MALL, id, size, page);
+	}
+
+	@Override
+	public void visitMall(Visit visit) {
+		visitDao.addVisit(visit);
 	}
 
 

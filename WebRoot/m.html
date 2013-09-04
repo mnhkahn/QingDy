@@ -61,6 +61,8 @@ function init() {
 
     var args = new Object();
     args = GetUrlParms();
+
+    var id = args['id'];
     var tab = args['tab'];
     var loanerTab = cTab.create('mallNav', 'data/mymallTab.json', tab,
             function() {
@@ -93,8 +95,8 @@ function init() {
                 $('#mallMain').append(sideContainer);
                 $('#mallMain').append(clear);
 
-                timeline.cTimeline("/data/tests/timeline.json");
-                visitorsContainer.cVisitors("/data/tests/transaction.json");    // fack
+                timeline.cTimeline("/rest/metadata/timeline/" + username + "/recent"/*"/data/tests/timeline.json"*/);
+                visitorsContainer.cVisitors("/rest/metadata/visit/" + id + "/mall/");    // fack
             },
             // product detail
             function() {

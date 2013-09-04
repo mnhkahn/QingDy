@@ -21,10 +21,10 @@
     var _getDate = function(response) {
         var date = [];
         for (var i = 0; i < response.length; i++) {
-            var tempdate = _getDate1(response[i].date);
+            var tempdate = _getDate1(response[i].time);
             var predate;
-            if (date[date.length - 1] && date[date.length - 1].date)
-                predate = _getDate1(date[date.length - 1].date);
+            if (date[date.length - 1] && date[date.length - 1].time)
+                predate = _getDate1(date[date.length - 1].time);
             if (!(date[date.length - 1] && predate.year === tempdate.year && predate.month === tempdate.month)) {
                 date.push(tempdate);
             }
@@ -75,11 +75,11 @@
             else {
                 time = $("<a></a>");
                 time.addClass("ss-circle");
-                time.html(data[i].date);
+                time.html(data[i].time);
                 title = $("<h3></h3>");
                 var titlea = $("<a></a>");
-                titlea.attr("href", data[i].link);
-                titlea.html(data[i].title);
+                titlea.attr("href", getLink(data[i].type, data[i].id));
+                titlea.html(getTitle(data[i].type));
                 title.append(titlea);
             }
 
