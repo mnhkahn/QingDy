@@ -20,6 +20,7 @@
     <script type="text/javascript" src="js/cNews.js"></script>
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript"  src="js/util.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/cSearch.js" ></script>
     <script type="text/javascript" src="js/cForum.js"></script>
@@ -31,9 +32,9 @@ function init() {
 
     $('#VSlideContainer').cForum(['mallCount', 'specialistCount', 'transactionCount'], "/rest/metadata/forum?rows=20"/*'/data/tests/count.json'*/);
 
-    $('#newsContainer1').cNews("重要新闻", '/rest/metadata/news?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc'/* 'data/tests/news.json'*/);
-    $('#newsContainer2').cNews("易贷问答", "/rest/metadata/question?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc"/*'data/tests/news1.json'*/);
-    $('#newsContainer3').cNews("贷款资讯", "/rest/metadata/blog?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc"/*'data/tests/news2.json'*/);
+    $('#newsContainer1').cNews(NEWS, '/rest/metadata/news?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc'/* 'data/tests/news.json'*/);
+    $('#newsContainer2').cNews(QUESTION, "/rest/metadata/question?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc"/*'data/tests/news1.json'*/);
+    $('#newsContainer3').cNews(BLOG, "/rest/metadata/blog?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc"/*'data/tests/news2.json'*/);
 	
 	var size = new Object;
 	size.width = 700;
@@ -56,10 +57,13 @@ function init() {
     $.get("/js/templates/productGrid.html", function(template) {
         $.template("productGridTmpl", template);
         $.ajax({
-            url: "data/productGrid.json",
+            url: "/rest/metadata/product?rows=10&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc",//"data/productGrid.json",
             type: "GET",
             dataType: "json",
             success: function(response) {
+                for (var i = 0; i < response.length; i++) {
+                    response[i].link = getLink(PRODUCT, response[i].id);
+                }
                 $.tmpl("productGridTmpl", response).appendTo("#productUl");
                 $("#productUl").gridAccordion({
                     width: 660,
@@ -128,10 +132,13 @@ function init() {
     $.get("/js/templates/demandGrid.html", function(template) {
         $.template("demandGridTmpl", template);
         $.ajax({
-            url: "data/demandGrid.json",
+            url: "/rest/metadata/loan?rows=10&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc",//"data/demandGrid.json",
             type: "GET",
             dataType: "json",
             success: function(response) {
+                for (var i = 0; i < response.length; i++) {
+                    response[i].link = getLink(LOAN, response[i].id);
+                }
                 $.tmpl("demandGridTmpl", response).appendTo("#demandUl");
                 $("#demandUl").gridAccordion({
                     width: 660,
@@ -229,6 +236,9 @@ function init() {
             type: "GET",
             dataType: "json",
             success: function(response) {
+                for (var i = 0; i < response.length; i++) {
+                    response[i].link = getLink(SPECIALIST, response[i].id);
+                }
                 $.tmpl("specialistGridTmpl", response).appendTo("#specialistUl");
                 $("#specialistUl").gridAccordion({
                     width: 660,
@@ -297,10 +307,13 @@ function init() {
     $.get("/js/templates/mallGrid.html", function(template) {
         $.template("mallGridTmpl", template);
         $.ajax({
-            url: "data/mallGrid.json",
+            url: "/rest/metadata/mall?rows=10&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc",//"data/mallGrid.json",
             type: "GET",
             dataType: "json",
             success: function(response) {
+                for (var i = 0; i < response.length; i++) {
+                    response[i].link = getLink(MALL, response[i].id);
+                }
                 $.tmpl("mallGridTmpl", response).appendTo("#mallUl");
                 $("#mallUl").gridAccordion({
                     width: 660,

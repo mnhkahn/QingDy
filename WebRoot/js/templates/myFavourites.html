@@ -1,0 +1,23 @@
+<div class="message" >
+    <div class="messageBox">
+        <div class="messageFace">
+            <img src="${obj.poster.avatar}" style="width: 50px; height: 50px" />
+        </div>
+        <div class="messageBody">
+            <div class="message_arrow">
+                <em class="S_line1_c">◆</em>
+                <span class="S_bg1_c">◆</span>
+            </div>
+            <p class="detail">
+                <a title="${obj.cName}"href="#">${obj.cName}</a>
+                <span style="margin-left: 10px;">网址：<b><a href="${link}">${link}</a></b></span>
+            <p>内容：<b>${obj.content}</b></p>
+            </p>
+            <p class="action" style="margin-top: 10px;">
+                <span>${postDate}</span>
+                <span style="display: block; float: right;"><a href="javascript:void(0);" onclick="delFavourite(${id})">取消收藏</a></span>
+            </p>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+</div>

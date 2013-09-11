@@ -14,6 +14,11 @@ public class Favourite extends BaseObject {
 	private String title;
 	@JsonProperty("link")
 	private String link;
+	@JsonProperty("oid")
+	private Long  oid;
+	@JsonProperty("type")
+	private Integer type;
+
 	@JsonProperty("postDate")
 	private Date postDate;
 	
@@ -77,6 +82,22 @@ public class Favourite extends BaseObject {
 	public int hashCode() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	public Long getOid() {
+		return oid;
+	}
+
+	public void setOid(Long oid) {
+		this.oid = oid;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.qingdy.rest;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import com.qingdy.model.Answer;
 import com.qingdy.model.Blog;
 import com.qingdy.model.Evaluate;
+import com.qingdy.model.Favourite;
 import com.qingdy.model.Loan;
 import com.qingdy.model.Mall;
 import com.qingdy.model.Message;
@@ -69,10 +71,14 @@ public class Resources {
 	
 	@Path("/user/{username}")
 	@PUT
-	public Response updateUser(@PathParam("username") String username, User user) {
-		user.setUsername(username);
-		facadeManager.updateUser(user);
-		return Response.ok().build();
+	public Response updateUser(@PathParam("username") String username, HashMap<String, String> params) {
+		User user = facadeManager.getUser(username);
+		if (user.getPassword().equals(params.get("oldPWD"))) {
+			user.setPassword(params.get("newPWD"));
+			facadeManager.updateUser(user);
+		}
+
+		return Response.noContent().build();
 	}
 	
 	@Path("/user/{username}")
@@ -202,6 +208,14 @@ public class Resources {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllBlogs(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
 		List<Blog> blogs = facadeManager.getBlogs(size,  page, field, value, operator, sidx, sord, false);
+		return Response.ok(blogs).build();
+	}
+	
+	@Path("/blog/username/{username}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getBlogsByUser(@PathParam("username") String username) {
+		List<Blog> blogs = facadeManager.getBlogsByUser(username);
 		return Response.ok(blogs).build();
 	}
 	
@@ -435,12 +449,11 @@ public class Resources {
 		return Response.ok(question).build();
 	}
 	
-	@Path("/question")
+	@Path("/question/username/{username}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getQuestion(@QueryParam("username") String username) {
+	public Response getQuestion(@PathParam("username") String username) {
 		List<Question> questions = facadeManager.getQuestion(username);
-		System.out.println(questions.get(0).getPoster().getUsername());
 		return Response.ok(questions).build();
 	}
 	
@@ -505,6 +518,7 @@ public class Resources {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getVerifiedAnswers(@QueryParam("username") String username) {
+		System.out.println(username);
 		List<Answer> answers = facadeManager.getAnswers(username);
 		return Response.ok(answers).build();
 	}
@@ -844,5 +858,46 @@ public class Resources {
 		visit.setDate(new Date());
 		facadeManager.visitMall(visit);
 		return Response.noContent().build();
+	}
+	
+	
+	/*
+	 * Favourite
+	 */
+	@Path("/favourite")
+	@POST
+	public Response addFavourite(Favourite favourite) {
+		favourite.setPostDate(new Date());
+		facadeManager.addFavourite(favourite);
+		return Response.noContent().build();
+	}
+	
+	@Path("/favourite/{id}")
+	@DELETE
+	public Response deleteFavourite(@PathParam("id") Long id) {
+		facadeManager.deleteFavourite(id);
+		return Response.noContent().build();
+	}
+	
+	@Path("/favourite/username/{username}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getFavourites(@PathParam("username") String username) {
+		List<Favourite> favourites = facadeManager.getFavourites(username);
+		return Response.ok(favourites).build();
+	}
+	
+	@Path("/favourite/type/{type}/id/{id}")
+	@HEAD
+	public Response getFavouriteCount(@PathParam("type") Integer type, @PathParam("id") Long oid) {
+		int id = facadeManager.getFavouriteCount(type, oid);
+		return Response.noContent().header("count", id).build();
+	}
+	
+	@Path("/favourite/type/{type}/id/{id}/username/{username}")
+	@HEAD
+	public Response isFavourite(@PathParam("type") Integer type, @PathParam("id") Long oid, @PathParam("username") String username) {
+		boolean isFavourite = facadeManager.isFavourite(type, oid, username);
+		return Response.noContent().header("is", isFavourite).build();
 	}
 }

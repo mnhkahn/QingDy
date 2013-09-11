@@ -14,6 +14,7 @@ import org.hibernate.type.Type;
 import org.springframework.stereotype.Service;
 
 import com.qingdy.common.cRestrictions;
+import com.qingdy.dao.MallDao;
 import com.qingdy.dao.SpecialistDao;
 import com.qingdy.model.Blog;
 import com.qingdy.model.Score;
@@ -58,6 +59,7 @@ public class SpecialistDaoHibernate extends BaseDaoHibernate implements Speciali
 			Score score = new Score();
 			
 			UserDetail poster = (UserDetail)lists.get(i)[0];
+
 			score.setPoster(poster);
 			
 			Integer s = new Integer(lists.get(i)[1].toString());

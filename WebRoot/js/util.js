@@ -13,3 +13,34 @@ function GetUrlParms()
     }
     return args;
 }
+
+function timeFormat(time, type) {
+    var date = new Date(Date.parse(time.replace(/-/g, "/")));
+    switch (type) {
+        case 1: // *分钟前
+            var now = new Date();
+            var diff = now - date;
+            var hour = (date.getHours() < 10) ? "0" + date.getHours() : date.getHours();
+            var min = (date.getMinutes() < 10) ? "0" + date.getMinutes() : date.getMinutes();
+            if (diff > 172800000) {
+                return (date.getMonth() + 1) + "月" + date.getDate() + "日";
+            }
+            else if (diff > 86400000 && diff <= 172800000) {
+                return "前天" + hour + ":" + min;
+            }
+            else if (diff <= 86400000 && diff > 3600000) {
+                return "今天" + hour + ":" + min;
+            }
+            else if (diff > 60000 && diff <= 3600000) {
+                return Math.round(diff / 60000) + "分钟前";
+            }
+            else if (diff > 0 && diff <= 60000) {
+                return Math.round(diff / 1000) + "秒前";
+            }
+            break;
+    }
+}
+
+function refresh() {
+    window.location.reload();
+}

@@ -42,6 +42,7 @@
 				<value>com/qingdy/model/Score.hbm.xml</value>
 				<value>com/qingdy/model/Message.hbm.xml</value>
 				<value>com/qingdy/model/Visit.hbm.xml</value>
+				<value>com/qingdy/model/Favourite.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -118,6 +119,9 @@
 		parent="daoTemplate">
 	</bean>
 	<bean id="visitDao" class="com.qingdy.dao.hibernate.VisitDaoHibernate"
+		parent="daoTemplate">
+	</bean>
+	<bean id="favouriteDao" class="com.qingdy.dao.hibernate.FavouriteDaoHibernate"
 		parent="daoTemplate">
 	</bean>
 

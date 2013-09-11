@@ -1,0 +1,19 @@
+<div style="width: 750px; border-bottom: 1px dashed #ddd; padding: 8px">
+    <div style="width: 748px;">
+        <span class="i-class">[${question.classes}]</span>
+        <a class="questionTitle" href="" target="_blank">${question.title}(answer)</a>
+        <span class="answer-num" id="best${id}">
+            <script type="text/javascript">
+                if (${question.best} == -1) {
+                    $("#best" + ${id}).html("等提问者处理");
+                }
+                else if (${question.best} > 0 && ${question.best} == ${id}) {
+                    $("#best" + ${id}).html("被采纳");
+                }
+                else if (${question.best} > 0 && ${question.best} != ${id}) {
+                    $("#best" + ${id}).html("提问者已处理");
+                }
+            </script>
+        </span>
+    </div>
+</div>

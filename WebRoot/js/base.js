@@ -119,6 +119,15 @@ var QUESTION = 7;
 var TRANSACTION = 8;
 var NEWS = 9;
 var USER = 10;
+var SPECIALIST = 11;
+
+var NEWS1 = 101;
+var NEWS2 = 102;
+var NEWS3 = 103;
+var NEWS4 = 104;
+var NEWS5 = 105;
+var NEWS6 = 106;
+var NEWS7 = 107;
 
 var DEFAULT_SIZE = 20;
 var DEFAULT_PAGE = 1;
@@ -140,6 +149,9 @@ function getLink(type, id) {
         case MALL:
             return "m.html?id=" + id;
             break;
+        case NEWS:
+            return "p1.html?id=" + id;
+            break;
         case PRODUCT:
             return "m.html?tab=1&id=" + id;
             break;
@@ -148,6 +160,87 @@ function getLink(type, id) {
             break;
         case TRANSACTION:
             return "m.html?tab=2&id=" + id;
+            break;
+        case SPECIALIST:
+            return "m.html?tab=0&id=" + id;
+            break;
+        case NEWS1:
+        case NEWS2:
+        case NEWS3:
+        case NEWS4:
+        case NEWS5:
+        case NEWS6:
+        case NEWS7:
+            return "p1.html?id=" + id;
+            break;
+    }
+}
+
+// 过滤掉img标签
+function getBrief(str) {
+    return str.replace(/<(script)[\S\s]*?\1>|<\/?(a|img)[^>]*>/gi, "");
+}
+
+function getFrontCover(str) {
+    var re = "<img.*src=(.*?)[^>]*?>";
+    var url = str.match(re);
+    if (url == null) {
+        return DEFAULT_FRONT_COVER;
+    }
+    url = url[0].match("((http|ftp|https)://)(([a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6})|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,4})*(/[a-zA-Z0-9\&%_\./-~-]*)?")
+    return url[0];
+}
+
+function getName(type) {
+    switch (type) {
+        case ANSWER:
+            return "";
+            break;
+        case BLOG:
+            return "贷款资讯";
+            break;
+        case EVALUATE:
+            return "";
+            break;
+        case LOAN:
+            return "d.html?id=" + id;
+            break;
+        case MALL:
+            return "m.html?id=" + id;
+            break;
+        case NEWS:
+            return "重要新闻";
+            break;
+        case PRODUCT:
+            return "m.html?tab=1&id=" + id;
+            break;
+        case QUESTION:
+            return "易贷问答";
+            break;
+        case TRANSACTION:
+            return "m.html?tab=2&id=" + id;
+            break;
+
+        case NEWS1:
+            return "小额贷款";
+            break;
+        case NEWS2:
+            return "无抵押贷款";
+            break;
+        case NEWS3:
+            return "消费贷款";
+            break;
+        case NEWS4:
+            return "求学贷款";
+            break;
+        case NEWS5:
+            return "银行贷款";
+            break;
+        case NEWS6:
+            return "房产贷款";
+            break;
+        case NEWS7:
+            return "创业贷款";
             break;
     }
 }
@@ -179,4 +272,68 @@ function getTitle(type) {
             return "成功贷款";
             break;
     }
+}
+
+var DEFAULT_FRONT_COVER = "http://localhost:8080/avatar/avatar.png";
+
+function getObject(type, id) {
+    var baseURL = "/rest/metadata/";
+    var obj;
+    switch (type) {
+        case ANSWER:
+            baseURL += "answer/" + id;
+            break;
+        case BLOG:
+            baseURL += "blog/" + id;
+            break;
+        case LOAN:
+            baseURL += "loan/" + id;
+            break;
+        case MALL:
+            baseURL += "mall/" + id;
+            break;
+        case PRODUCT:
+            baseURL += "product/" + id;
+            break;
+        case QUESTION:
+            baseURL += "question/" + id;
+            break;
+        case NEWS:
+            baseURL += "news/" + id;
+            break;
+    }
+    $.ajax({
+        url: baseURL,
+        type: 'GET',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        async: false,
+        success: function (response) {
+            obj = response;
+        },
+        error: function(response) {
+            console.warn(response);
+        }
+    });
+    return obj;
+}
+
+function getFavouriteCount(type, id) {
+    var baseURL = "/rest/metadata/favourite/type/" + type + "/id/" + id;
+    var count = 0;
+
+    $.ajax({
+        url: baseURL,
+        type: 'HEAD',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        async: false,
+        success: function (data, textStatus, jqXHR) {
+            count = jqXHR.getResponseHeader("count");
+        },
+        error: function(response) {
+            console.warn(response);
+        }
+    });
+    return count;
 }

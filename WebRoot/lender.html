@@ -35,6 +35,7 @@
 <script type="text/javascript" src="js/cMessage.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript" src="js/jquery.tmpl.js"></script>
+<script type="text/javascript" src="js/cTemplate.js"></script>
 
     <script type="text/javascript">
         function showCreateBlog() {
@@ -619,72 +620,12 @@
                                 },
                                 // 我的回答
                                 function() {
-                                    var list = $("<table></table>");
-                                    list.attr("id", "List");
-                                    var pager = $("<div></div>");
-                                    pager.attr("id", "Pager");
-                                    $('#contentWrapper').append(list);
-                                    $('#contentWrapper').append(pager);
-                                    jQuery("#List").jqGrid({
-//                                        url: '/rest/metadata/malls/verify',
-                                        datatype: "json",
-                                        autowidth: true,
-                                        colNames: ['id', '题目', '提问时间', '回答数', '状态'],
-                                        colModel: [
-                                            {name: 'id', index: 'id', width: 55, frozen: true},
-                                            {name: 'name', index: 'name', width: 90, frozen: true},
-                                            {name: 'postdate', index: 'postdate', width: 200},
-                                            {name: 'answerno', index: 'answerno', width: 500, align: "center"},
-                                            {name: 'state', index: 'state', width: 80, align: "center"}
-                                        ],
-                                        rowList: [10, 20, 30],
-                                        pager: '#Pager',
-                                        sortname: 'mid',
-                                        viewrecords: true,
-                                        sortorder: "desc",
-                                        caption: "店铺认证",
-                                        gridview: true,
-                                        gridComplete: function () {
+                                    $('#contentWrapper').cTemplate("/rest/metadata/answer?username=" + username, "/js/templates/myAnswers.html");
 
-                                        }
-                                    });
-                                    jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
-                                    $('.ui-jqgrid-bdiv').height(height);
                                 },
                                 //我的提问
                                 function() {
-                                    var list = $("<table></table>");
-                                    list.attr("id", "List");
-                                    list.css("height", "100%");
-                                    var pager = $("<div></div>");
-                                    pager.attr("id", "Pager");
-                                    $('#contentWrapper').append(list);
-                                    $('#contentWrapper').append(pager);
-                                    jQuery("#List").jqGrid({
-//                                        url: '/rest/metadata/malls/verify',
-                                        datatype: "json",
-                                        autowidth: true,
-                                        colNames: ['id', '题目', '提问时间', '回答数', '状态'],
-                                        colModel: [
-                                            {name: 'id', index: 'id', width: 55, frozen: true},
-                                            {name: 'name', index: 'name', width: 90, frozen: true},
-                                            {name: 'postdate', index: 'postdate', width: 200},
-                                            {name: 'answerno', index: 'answerno', width: 500, align: "center"},
-                                            {name: 'state', index: 'state', width: 80, align: "center"}
-                                        ],
-                                        rowList: [10, 20, 30],
-                                        pager: '#Pager',
-                                        sortname: 'mid',
-                                        viewrecords: true,
-                                        sortorder: "desc",
-                                        caption: "店铺认证",
-                                        gridview: true,
-                                        gridComplete: function () {
-
-                                        }
-                                    });
-                                    jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
-                                    $('.ui-jqgrid-bdiv').height(height);
+                                    $('#contentWrapper').cTemplate("/rest/metadata/question/username/" + username, "/js/templates/myQuestions.html");
                                 }
                         );
                     },
@@ -707,14 +648,8 @@
                                         var qq = $("#qq");
                                         var site = $("#site");
                                         var email = $("#email");
-                                        var introduce = $("#introduct");
-                                        introduce.xheditor({
-                                            upImgUrl: "/rest/metadata/upload/blogs",
-                                            upImgExt: "jpg,jpeg,gif,png",
-                                            html5Upload : false,
-                                            onUpload: function () {
-                                            }
-                                        });
+                                        var introduce = $("#introduce");
+
                                         var oldPWD = $("#oldPWD");
                                         var newPWD = $("#newPWD");
                                         var newPWD2 = $("#newPWD2");
@@ -758,39 +693,60 @@
                                         });
                                     })
                                 },
+                                // 修改密码
+                                function() {
+                                    $('#contentWrapper').load('/js/templates/changePWD.html', function () {
+                                        var oldPWD = $("#oldPWD");
+                                        var newPWD = $("#newPWD");
+                                        var newPWD2 = $("#newPWD2");
+                                        $("#submit").bind('click', function () {
+                                            $.ajax({
+                                                url: '/rest/metadata/user/' + "lender",
+                                                type: 'PUT',
+                                                dataType: "json",
+                                                contentType: "application/json; charset=utf-8",
+                                                data: '{"oldPWD": "' + oldPWD.val() + '", "newPWD": "' + newPWD.val() + '"}',
+                                                success: function (response) {
+                                                    $.jBox.info('密码修改成功');
+                                                },
+                                                error: function(response) {
+                                                    $.jBox.info('密码修改失败' + response);
+                                                }
+                                            })
+                                        });
+                                    })
+                                },
                                 // 收藏管理
                                 function() {
-                                    var list = $("<table></table>");
-                                    list.attr("id", "List");
-                                    list.css("height", "100%");
-                                    var pager = $("<div></div>");
-                                    pager.attr("id", "Pager");
-                                    $('#contentWrapper').append(list);
-                                    $('#contentWrapper').append(pager);
-                                    jQuery("#List").jqGrid({
-//                                        url: '/rest/metadata/malls/verify',
-                                        datatype: "json",
-                                        autowidth: true,
-                                        colNames: ['id', '名称', '网址', '收藏时间'],
-                                        colModel: [
-                                            {name: 'id', index: 'id', width: 55, frozen: true},
-                                            {name: 'name', index: 'name', width: 90, frozen: true},
-                                            {name: 'site', index: 'site', width: 200},
-                                            {name: 'postdate', index: 'postdate', width: 500, align: "center"}
-                                        ],
-                                        rowList: [10, 20, 30],
-                                        pager: '#Pager',
-                                        sortname: 'mid',
-                                        viewrecords: true,
-                                        sortorder: "desc",
-                                        caption: "店铺认证",
-                                        gridview: true,
-                                        gridComplete: function () {
-
+                                    $('#contentWrapper').cTemplate("/rest/metadata/favourite/username/" + username, "/js/templates/myFavourites.html",
+                                        function(data) {
+                                            for (var i = 0; i < data.length; i++) {
+                                                data[i].obj = getObject(data[i].type, data[i].oid);
+                                            }
                                         }
-                                    });
-                                    jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
-                                    $('.ui-jqgrid-bdiv').height(height);
+                                    );
+
+                                    var fid;
+                                    var submit = function (v, h, f) {
+                                        if (v == 'ok') {
+                                            $.ajax({
+                                                type: "DELETE",
+                                                url: "/rest/metadata//favourite/" + fid,
+                                                success: function (response) {
+                                                    refresh();
+                                                },
+                                                error: function (response) {
+                                                    console.debug(id + 'negative error');
+                                                }
+                                            });
+                                        }
+                                        else if (v == 'cancel')
+                                            return true; //close
+                                    };
+                                    delFavourite = function(id) {
+                                        fid = id;
+                                        $.jBox.confirm("确定取消收藏吗?", "确认", submit);
+                                    }
                                 },
                                 // 消息中心
                                 function() {

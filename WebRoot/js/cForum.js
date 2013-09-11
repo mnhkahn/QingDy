@@ -77,7 +77,7 @@
 
             var time = $("<div></div>");
             time.addClass("VSlideTime");
-            time.html(json[i].time);
+            time.html(timeFormat(json[i].time, 1));
 
             var title = $("<div></div>");
             title.html('<a href="' + getLink(json[i].type, json[i].id) + '" target="_blank" title="' + json[i].name + '" class="">' + "[" + json[i].name + "]   " + getTitle(json[i].type) + '</a>');

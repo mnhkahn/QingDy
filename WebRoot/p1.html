@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>贷款供应</title>
+    <title></title>
 
     <link href="css/base.css" rel="stylesheet" type="text/css" />
     <link href="css/flexisel.css" rel="stylesheet" type="text/css" />
@@ -18,20 +18,28 @@
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script type="text/javascript" src="js/cSearch.js"></script>
     <script type="text/javascript" src="js/jquery.tmpl.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
     <link rel = "Shortcut Icon" href="favicon.ico">
 
     <script type="text/javascript">
         function init() {
             commonInit();
 
+            var args = new Object();
+            args = GetUrlParms();
+
+            var id = args['id'];
+
             $.get("js/templates/p.html", function(template) {
                 $.template("pTmpl", template);
                 $.ajax({
-                    url: "data/tests/p.json",
+                    url: "/rest/metadata/news/" + id,//"data/tests/p.json",
                     type: "GET",
                     dataType: "json",
                     success: function(response) {
+                        document.title = response.title;
                         $.tmpl("pTmpl", response).appendTo("#mainContainerCenterLeft");
+                        $("#article-content").html(response.content);
                     },
                     error: function(response) {
                         console.warn(response);

@@ -40,7 +40,7 @@ public class QuestionDaoHibernate extends BaseDaoHibernate implements QuestionDa
 	@Override
 	public List<Question> getQuestion(String username) {
 		UserDetail userDetail = getHibernateTemplate().get(UserDetail.class, username);
-		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Question.class).add(Restrictions.ge("poster", userDetail)));
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Question.class).add(Restrictions.eq("poster", userDetail)));
 	}
 
 	@Override

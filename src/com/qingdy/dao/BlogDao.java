@@ -10,5 +10,6 @@ public interface BlogDao extends DAO {
 	public void saveBlog(Blog blog);
 	public void removeBlog(Long blogId);
 	public List<Blog> getBlogs(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
+	public List<Blog> getBlogs(String username);
 	public void verifyBlog(Long id, boolean verify);
 }

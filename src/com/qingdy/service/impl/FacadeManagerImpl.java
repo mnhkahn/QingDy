@@ -10,6 +10,7 @@ import com.qingdy.common.Constant;
 import com.qingdy.dao.AnswerDao;
 import com.qingdy.dao.BlogDao;
 import com.qingdy.dao.EvaluateDao;
+import com.qingdy.dao.FavouriteDao;
 import com.qingdy.dao.LoanDao;
 import com.qingdy.dao.MallDao;
 import com.qingdy.dao.MessageDao;
@@ -25,6 +26,7 @@ import com.qingdy.dao.UserDetailDao;
 import com.qingdy.dao.VisitDao;
 import com.qingdy.model.Answer;
 import com.qingdy.model.Evaluate;
+import com.qingdy.model.Favourite;
 import com.qingdy.model.Loan;
 import com.qingdy.model.Mall;
 import com.qingdy.model.Message;
@@ -80,6 +82,8 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	private TimelineDao timelineDao;
 	@Resource(name = "visitDao")
 	private VisitDao visitDao;
+	@Resource(name = "favouriteDao")
+	private FavouriteDao favouriteDao;
 	
 	public void setAnswerDao(AnswerDao answerDao) {
 		this.answerDao = answerDao;
@@ -139,6 +143,10 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	
 	public void setVisitDao(VisitDao visitDao) {
 		this.visitDao = visitDao;
+	}
+	
+	public void setFavouriteDao(FavouriteDao favouriteDao) {
+		this.favouriteDao = favouriteDao;
 	}
 	
 	
@@ -220,6 +228,11 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * Blog(non-Javadoc)
 	 * @see com.qingdy.service.FacadeManager#getBlog(java.lang.Long)
 	 */
+	@Override
+	public List<Blog> getBlogsByUser(String username) {
+		return blogDao.getBlogs(username);
+	}
+	
 	@Override
 	public List<Blog> getBlogs(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
 		return blogDao.getBlogs(size, page, field, value, operator, sidx, sord, verify);
@@ -382,8 +395,7 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 
 	@Override
 	public List<Answer> getAnswers(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return answerDao.getAnswer(username);
 	}
 
 	@Override
@@ -416,7 +428,13 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 */
 	@Override
 	public List<Score> getSpecialists(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
-		return specialistDao.getSpecialists(size, page, field, value, operator, sidx, sord, verify);
+		List<Score> specialists = specialistDao.getSpecialists(size, page, field, value, operator, sidx, sord, verify);
+		for (int i = 0; i < specialists.size(); i++) {
+			System.out.println(specialists.get(i).getPoster().getUsername());
+			System.out.println(mallDao.getMall(specialists.get(i).getPoster().getUsername()));
+			specialists.get(i).setId(mallDao.getMall(specialists.get(i).getPoster().getUsername()).getId());
+		}
+		return specialists;
 	}
 
 	/*
@@ -618,6 +636,37 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	@Override
 	public void visitMall(Visit visit) {
 		visitDao.addVisit(visit);
+	}
+	
+	
+	/*
+	 * Favourite(non-Javadoc)
+	 * @see com.qingdy.service.FacadeManager#addFavourite(com.qingdy.model.Favourite)
+	 */
+
+	@Override
+	public void addFavourite(Favourite favourite) {
+		favouriteDao.addFavourite(favourite);
+	}
+
+	@Override
+	public void deleteFavourite(Long id) {
+		favouriteDao.deleteFavourite(id);
+	}
+
+	@Override
+	public List<Favourite> getFavourites(String username) {
+		return favouriteDao.getFavourites(username);
+	}
+
+	@Override
+	public Integer getFavouriteCount(Integer type, Long oid) {
+		return favouriteDao.getFavouriteCount(type, oid);
+	}
+
+	@Override
+	public boolean isFavourite(Integer type, Long oid, String username) {
+		return favouriteDao.isFavourite(type, oid, username);
 	}
 
 

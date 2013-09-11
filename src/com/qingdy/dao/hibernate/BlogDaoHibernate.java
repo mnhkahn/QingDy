@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.qingdy.common.cRestrictions;
 import com.qingdy.dao.BlogDao;
 import com.qingdy.model.Blog;
+import com.qingdy.model.Mall;
+import com.qingdy.model.UserDetail;
 
 @Service("blogDao")
 public class BlogDaoHibernate extends BaseDaoHibernate implements BlogDao {
@@ -50,6 +52,12 @@ public class BlogDaoHibernate extends BaseDaoHibernate implements BlogDao {
 			blog.setVerify(0);
 		}
 		saveBlog(blog);
+	}
+
+	@Override
+	public List<Blog> getBlogs(String username) {
+		UserDetail poster = getHibernateTemplate().get(UserDetail.class, username);
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Blog.class).add(Restrictions.eq("poster", poster)));
 	}
 
 }

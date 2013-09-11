@@ -12,6 +12,7 @@ import com.qingdy.dao.AnswerDao;
 import com.qingdy.model.Answer;
 import com.qingdy.model.Blog;
 import com.qingdy.model.Question;
+import com.qingdy.model.UserDetail;
 
 @Service("answerDao")
 public class AnswerDaoHibernate extends BaseDaoHibernate implements AnswerDao {
@@ -43,7 +44,8 @@ public class AnswerDaoHibernate extends BaseDaoHibernate implements AnswerDao {
 
 	@Override
 	public List<Answer> getAnswer(String username) {
-		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Answer.class).add(Restrictions.eq("poster", username)));
+		UserDetail user = getHibernateTemplate().get(UserDetail.class, username);
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Answer.class).add(Restrictions.eq("poster", user)));
 	}
 
 	@Override

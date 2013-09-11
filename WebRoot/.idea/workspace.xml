@@ -8,8 +8,8 @@
     <file path="$PROJECT_DIR$/WEB-INF/web.xml" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1373158197979" ignored="false" />
     <file path="/blog.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375603996427" ignored="false" />
     <file path="/adminMenu.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1373200930538" ignored="false" />
-    <file path="/base.css" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378203307596" ignored="false" />
-    <file path="/lender.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378197016412" ignored="false" />
+    <file path="/base.css" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378874604473" ignored="false" />
+    <file path="/lender.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378904379955" ignored="false" />
     <file path="/cTab.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1373292905388" ignored="false" />
     <file path="/a.dummy" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378273043869" ignored="false" />
     <file path="/mymall.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375108785037" ignored="false" />
@@ -25,30 +25,30 @@
     <file path="/*.regexp" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374155539974" ignored="false" />
     <file path="/demo1.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374223120196" ignored="false" />
     <file path="/chosen.css" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374322940897" ignored="false" />
-    <file path="/index.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378197804930" ignored="false" />
-    <file path="/productGrid.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375342615167" ignored="false" />
+    <file path="/index.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378868943490" ignored="false" />
+    <file path="/productGrid.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378865694263" ignored="false" />
     <file path="/specialistGrid.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378128957417" ignored="false" />
-    <file path="/mallGrid.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375344088919" ignored="false" />
+    <file path="/mallGrid.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378868889881" ignored="false" />
     <file path="/bankFlex.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374498973005" ignored="false" />
-    <file path="/supply.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377417777680" ignored="false" />
+    <file path="/supply.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378876971958" ignored="false" />
     <file path="/supplyFilter.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375597550099" ignored="false" />
-    <file path="/specialist.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378131325906" ignored="false" />
-    <file path="/mall.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377418129060" ignored="false" />
+    <file path="/specialist.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378877090040" ignored="false" />
+    <file path="/mall.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378877010574" ignored="false" />
     <file path="/cVSlide.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375337639130" ignored="false" />
     <file path="/supplyTemplate.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374670995619" ignored="false" />
     <file path="/supplyWaterfall.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374674423936" ignored="false" />
     <file path="/postQuestion.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374675090249" ignored="false" />
     <file path="/mallWaterfall.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374676808113" ignored="false" />
     <file path="/loanWaterfall.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375364502348" ignored="false" />
-    <file path="/demand.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377435063180" ignored="false" />
-    <file path="/cNews.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377414139903" ignored="false" />
+    <file path="/demand.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378877166451" ignored="false" />
+    <file path="/cNews.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378795922331" ignored="false" />
     <file path="/news.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374821610992" ignored="false" />
-    <file path="/news.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377435400687" ignored="false" />
+    <file path="/news.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378877956264" ignored="false" />
     <file path="/cVisitors.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378296538335" ignored="false" />
     <file path="/cTop.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377398552329" ignored="false" />
-    <file path="/m.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378294319453" ignored="false" />
+    <file path="/m.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378876313563" ignored="false" />
     <file path="/advisory.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377524267989" ignored="false" />
-    <file path="/base.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378273272610" ignored="false" />
+    <file path="/base.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378905052921" ignored="false" />
     <file path="/questionWaterfall.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375098688207" ignored="false" />
     <file path="/cMenuFloat.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375104235977" ignored="false" />
     <file path="/questionMenu.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375102952136" ignored="false" />
@@ -58,12 +58,12 @@
     <file path="/timeline.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375259484831" ignored="false" />
     <file path="/cTimeline.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378267487072" ignored="false" />
     <file path="/product.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375275409435" ignored="false" />
-    <file path="/productDetail.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375364058446" ignored="false" />
+    <file path="/productDetail.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378875149214" ignored="false" />
     <file path="/transactionDetail.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375340061954" ignored="false" />
     <file path="/blogDetail.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375278564078" ignored="false" />
-    <file path="/transactionDetail.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375340043331" ignored="false" />
+    <file path="/transactionDetail.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378875304013" ignored="false" />
     <file path="/blogDetail.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375279938158" ignored="false" />
-    <file path="/p.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375323901133" ignored="false" />
+    <file path="/p.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378905024596" ignored="false" />
     <file path="/p.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375323830461" ignored="false" />
     <file path="/a.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375325854617" ignored="false" />
     <file path="/q.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375324281792" ignored="false" />
@@ -71,24 +71,24 @@
     <file path="/q.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377525608127" ignored="false" />
     <file path="/answerBlock.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377525343210" ignored="false" />
     <file path="/productGrid.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375341690556" ignored="false" />
-    <file path="/cForum.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378263995332" ignored="false" />
+    <file path="/cForum.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378781379410" ignored="false" />
     <file path="/count.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375337381108" ignored="false" />
     <file path="/demandGrid.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375343180924" ignored="false" />
-    <file path="/demandGrid.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375343452875" ignored="false" />
+    <file path="/demandGrid.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378866389550" ignored="false" />
     <file path="/specialistGrid.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375343784379" ignored="false" />
     <file path="/mallGrid.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375343986452" ignored="false" />
     <file path="/s.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375362937823" ignored="false" />
     <file path="/s.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375363089331" ignored="false" />
     <file path="/productDetail.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375364084788" ignored="false" />
     <file path="/d.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375406477881" ignored="false" />
-    <file path="/d.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375409937331" ignored="false" />
+    <file path="/d.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378866874004" ignored="false" />
     <file path="/contact.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375409707895" ignored="false" />
     <file path="/cArea.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375581915270" ignored="false" />
     <file path="/cSelect.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375584802761" ignored="false" />
     <file path="/mallFilter.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375598870911" ignored="false" />
     <file path="/specialistFilter.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375599000518" ignored="false" />
     <file path="/bootstrap.css" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375601296188" ignored="false" />
-    <file path="/contactSetting.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377497975151" ignored="false" />
+    <file path="/contactSetting.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378883592592" ignored="false" />
     <file path="/cQuestion.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377523276743" ignored="false" />
     <file path="$PROJECT_DIR$/WEB-INF/classes/com/qingdy/model/UserDetail.hbm.xml" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377833258575" ignored="false" />
     <file path="$PROJECT_DIR$/WEB-INF/classes/com/qingdy/model/Score.hbm.xml" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378113429966" ignored="false" />
@@ -99,6 +99,14 @@
     <file path="$PROJECT_DIR$/WEB-INF/classes/com/qingdy/model/query.xml" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378260205369" ignored="false" />
     <file path="/cSearch.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378273314887" ignored="false" />
     <file path="$PROJECT_DIR$/WEB-INF/classes/com/qingdy/model/Visit.hbm.xml" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378296376977" ignored="false" />
+    <file path="/util.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378904228438" ignored="false" />
+    <file path="/p1.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378864042547" ignored="false" />
+    <file path="/bulletin.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378869359109" ignored="false" />
+    <file path="/changePWD.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378884265074" ignored="false" />
+    <file path="/cTemplate.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378902726163" ignored="false" />
+    <file path="/myAnswers.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378890107690" ignored="false" />
+    <file path="/myQuestions.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378890765119" ignored="false" />
+    <file path="/myFavourites.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378903813621" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,22 +126,80 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="m.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/m.html">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="98" column="83" selection-start="4101" selection-end="4101" vertical-scroll-proportion="-4.717949">
+            <state line="314" column="51" selection-start="13047" selection-end="13047" vertical-scroll-proportion="-0.6785714">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cVisitors.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/js/cVisitors.js">
+      <file leaf-file-name="admin.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="79" selection-start="1856" selection-end="1856" vertical-scroll-proportion="0.7189189">
+            <state line="33" column="15" selection-start="1753" selection-end="1759" vertical-scroll-proportion="-1.2435898">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="myFavourites.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/templates/myFavourites.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="116" selection-start="834" selection-end="834" vertical-scroll-proportion="-11.535714">
               <folding>
-                <marker date="1378296540204" expanded="true" signature="1602:1626" placeholder="..." />
+                <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#2;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#1;n#p#2;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/base.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="331" column="52" selection-start="8328" selection-end="8328" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="p.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/p.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="42" column="79" selection-start="2072" selection-end="2072" vertical-scroll-proportion="-12.714286">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="p.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/templates/p.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="91" selection-start="660" selection-end="660" vertical-scroll-proportion="0.3696498">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="util.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/util.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="44" column="29" selection-start="1548" selection-end="1548" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cTemplate.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/cTemplate.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="32" selection-start="617" selection-end="617" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -148,29 +214,29 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/js/templates/answerBlock.html" />
-        <option value="$PROJECT_DIR$/css/grid-accordion.css" />
-        <option value="$PROJECT_DIR$/js/templates/specialistGrid.html" />
-        <option value="$PROJECT_DIR$/specialist.html" />
+        <option value="$PROJECT_DIR$/news.html" />
+        <option value="$PROJECT_DIR$/data/otherMenu.json" />
+        <option value="$PROJECT_DIR$/js/templates/contactSetting.html" />
+        <option value="$PROJECT_DIR$/data/changePWD.html" />
+        <option value="$PROJECT_DIR$/js/templates/changePWD.html" />
+        <option value="$PROJECT_DIR$/advisory.html" />
+        <option value="$PROJECT_DIR$/js/templates/myAnswers.html" />
+        <option value="$PROJECT_DIR$/js/templates/myQuestions.html" />
+        <option value="$PROJECT_DIR$/js/templates/myFavourite.html" />
+        <option value="$PROJECT_DIR$/js/cTemplate.js" />
+        <option value="$PROJECT_DIR$/js/templates/myFavourites.html" />
+        <option value="$PROJECT_DIR$/js/util.js" />
         <option value="$PROJECT_DIR$/lender.html" />
-        <option value="$PROJECT_DIR$/js/cMessage.js" />
-        <option value="$PROJECT_DIR$/css/base.css" />
-        <option value="$PROJECT_DIR$/css/cStyle.css" />
-        <option value="$PROJECT_DIR$/js/templates/message.html" />
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/js/cForum.js" />
-        <option value="$PROJECT_DIR$/js/cTimeline.js" />
+        <option value="$PROJECT_DIR$/p.html" />
         <option value="$PROJECT_DIR$/js/base.js" />
-        <option value="$PROJECT_DIR$/js/cSearch.js" />
-        <option value="$PROJECT_DIR$/m.html" />
-        <option value="$PROJECT_DIR$/js/cVisitors.js" />
+        <option value="$PROJECT_DIR$/js/templates/p.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1376" />
+    <option name="width" value="1382" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -256,7 +322,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -273,8 +343,18 @@
               <option name="myItemId" value="data" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
+              <option name="myItemId" value="WebRoot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebRoot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -287,6 +367,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="FullScreen" value="false" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
   </component>
@@ -299,6 +380,7 @@
       <recent name="$PROJECT_DIR$/js" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Bryce\Documents\GitHub\QingDy\WebRoot\js\templates" />
       <recent name="C:\Users\Bryce\Documents\GitHub\QingDy\WebRoot\data" />
       <recent name="C:\Users\Bryce\Documents\GitHub\QingDy\WebRoot\data\tests" />
       <recent name="$PROJECT_DIR$/data" />
@@ -333,14 +415,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298969" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981302" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23859386" sideWeight="0.6701031" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23827252" sideWeight="0.6701031" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -349,6 +430,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298969" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -417,117 +499,125 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/css/cStyle.css">
+    <entry file="file://$PROJECT_DIR$/js/cQuestion.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="41" selection-start="462" selection-end="462" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="18" column="26" selection-start="731" selection-end="731" vertical-scroll-proportion="0.52583027" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/base.css">
+    <entry file="file://$PROJECT_DIR$/js/cTimeline.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="660" column="29" selection-start="11328" selection-end="11328" vertical-scroll-proportion="0.0">
+        <state line="11" column="58" selection-start="323" selection-end="323" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/cMessage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="733" selection-end="733" vertical-scroll-proportion="0.0">
+        <state line="26" column="41" selection-start="748" selection-end="774" vertical-scroll-proportion="0.5891892">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/templates/myAnswers.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="66" selection-start="104" selection-end="104" vertical-scroll-proportion="-0.6785714">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/templates/message.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="54" selection-start="177" selection-end="177" vertical-scroll-proportion="-2.7142856">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/cTemplate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="32" selection-start="617" selection-end="617" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/advisory.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="48" selection-start="2231" selection-end="2741" vertical-scroll-proportion="0.92607003">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="15" selection-start="1753" selection-end="1759" vertical-scroll-proportion="-1.2435898">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/templates/myFavourites.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="116" selection-start="834" selection-end="834" vertical-scroll-proportion="-11.535714">
+          <folding>
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#2;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#p#2;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/templates/myQuestions.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="31" selection-start="305" selection-end="305" vertical-scroll-proportion="-3.392857">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lender.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="723" column="95" selection-start="49102" selection-end="49102" vertical-scroll-proportion="0.18103448">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="87" selection-start="1648" selection-end="1648" vertical-scroll-proportion="0.0">
+        <state line="314" column="51" selection-start="13047" selection-end="13047" vertical-scroll-proportion="-0.6785714">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/tests/count.json">
+    <entry file="file://$PROJECT_DIR$/p.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="21" selection-start="597" selection-end="597" vertical-scroll-proportion="-17.642857">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/cForum.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="69" selection-start="2641" selection-end="2641" vertical-scroll-proportion="-4.72">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/d.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="28.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/product.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="52" selection-start="586" selection-end="586" vertical-scroll-proportion="0.20990099">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/p1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="52" selection-start="708" selection-end="708" vertical-scroll-proportion="5.428571">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/cTimeline.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="32" selection-start="2723" selection-end="2723" vertical-scroll-proportion="0.40792078">
+        <state line="42" column="79" selection-start="2072" selection-end="2072" vertical-scroll-proportion="-12.714286">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/base.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="21" selection-start="3446" selection-end="3446" vertical-scroll-proportion="0.0">
+        <state line="331" column="52" selection-start="8328" selection-end="8328" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/cSearch.js">
+    <entry file="file://$PROJECT_DIR$/js/util.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="20" selection-start="1242" selection-end="1242" vertical-scroll-proportion="-1.14">
+        <state line="44" column="29" selection-start="1548" selection-end="1548" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/tests/timeline.json">
+    <entry file="file://$PROJECT_DIR$/js/templates/p.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="10" column="91" selection-start="660" selection-end="660" vertical-scroll-proportion="0.3696498">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/tests/transactionDetail.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/m.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="83" selection-start="4101" selection-end="4101" vertical-scroll-proportion="-4.717949">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/cVisitors.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="79" selection-start="1856" selection-end="1856" vertical-scroll-proportion="0.7189189">
-          <folding>
-            <marker date="1378296540204" expanded="true" signature="1602:1626" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>

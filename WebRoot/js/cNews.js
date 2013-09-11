@@ -1,5 +1,5 @@
 (function($) {
-    $.fn.cNews = function(name, url) {
+    $.fn.cNews = function(type, url) {
         var container = this;
         console.debug(container);
 
@@ -13,22 +13,22 @@
                 console.debug(response);
             },
             success: function(data){
-                _showNews(name, container, data);
+                _showNews(type, container, data);
             }
         })
     };
 
-    var _showNews = function(name, container, json) {
+    var _showNews = function(type, container, json) {
         var newsTitle = $('<div></div>');
         newsTitle.addClass("newsTitle");
-        newsTitle.html(name);
+        newsTitle.html(getName(type));
         container.append(newsTitle);
 
         var ul = $('<ul></ul>');
         ul.css("list-style", "none");
         for (var i = 0; i < json.length; i++) {
             var li = $('<li></li>');
-            li.attr('href', json[i].link);
+            li.attr('href', getLink(type, json[i].id));
             li.addClass('hover');
 
             if (i != json.length)
@@ -52,12 +52,12 @@
 
                 var img = $('<div></div>');
                 img.addClass('newsImg');
-//                img.html('<img style="width: 90px; height: 73px" src="' + json[i].img + '" alt="' + json[i].title + '">');
+                img.html('<img style="width: 90px; height: 73px" src="' + getFrontCover(json[i].content) + '" alt="' + json[i].title + '">');
                 li.append(img);
 
                 var content = $('<div></div>');
                 content.addClass('newsContent');
-                content.html(json[i].content);
+                content.html(getBrief(json[i].content));
                 li.append(content);
             }
             else {

@@ -10,6 +10,14 @@ li.hover:hover {
     cursor: pointer;
 }
 
+div {
+    /* 按比例缩放 */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 html,body{
     font: 100%/120% "lft-etica","Helvetica Neue",Helvetica,Arial,sans-serif;
     margin:  0px;
@@ -1089,10 +1097,10 @@ table#filterTable td.dashedLine {
     border-bottom: 1px dashed #e6e6e6;
 }
 .VSlideTime {
-    padding-left: 10px;
+    padding-left: 7px;
     margin-top: 12px;
     height:16px;
-    width:54px;
+/*    width:54px; */
     background:url("../images/exp_new_icon.png") no-repeat 0 0;
     _background:url("../images/exp_new_icon96.png") no-repeat 0 0;
     color:#fff;
@@ -1279,7 +1287,7 @@ body {
 }
 
 #infoIntroduce {
-    width: 692px;
+    width: 680px;
     height: 30px;
     float: left;
     margin-left: 20px;

@@ -78,7 +78,7 @@ function init() {
                 var markup='';
                 for (var i = 0; i < response.length; i++)
                 {
-                    markup += '<a target="_blank" href="' + response[i].product + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
+                    markup += '<a target="_blank" href="' + getLink(PRODUCT, response[i].mall.id) + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
                         '<div class="p_left"><img width="48" height="48" alt="' + response[i].poster.lastname + '经理" src="' + response[i].poster.avatar + '">' +
                         '<p>' + response[i].poster.lastname + '经理</p>' +
                         '</div>' +

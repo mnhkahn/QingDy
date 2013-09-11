@@ -19,13 +19,13 @@
 function init() {
 	commonInit();
 
-    $('#newsContainer1').cNews("小额贷款", "/rest/metadata/news?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc");
-    $('#newsContainer2').cNews("无抵押贷款", '/rest/metadata/news?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc');
-    $('#newsContainer3').cNews("消费贷款", '/rest/metadata/news?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc');
-    $('#newsContainer4').cNews("求学贷款", '/rest/metadata/news?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc');
-    $('#newsContainer5').cNews("银行贷款", '/rest/metadata/news?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc');
-    $('#newsContainer6').cNews("房产贷款", '/rest/metadata/news?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc');
-    $('#newsContainer7').cNews("创业贷款", '/rest/metadata/news?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc');
+    $('#newsContainer1').cNews(NEWS1, "/rest/metadata/news?rows=8&page=1&searchField=classes&searchString=小额贷款&searchOper=cn&sidx=postDate&sord=asc");
+    $('#newsContainer2').cNews(NEWS2, "/rest/metadata/news?rows=8&page=1&searchField=classes&searchString=无抵押贷款&searchOper=cn&sidx=postDate&sord=asc");
+    $('#newsContainer3').cNews(NEWS3, "/rest/metadata/news?rows=8&page=1&searchField=classes&searchString=消费贷款&searchOper=cn&sidx=postDate&sord=asc");
+    $('#newsContainer4').cNews(NEWS4, "/rest/metadata/news?rows=8&page=1&searchField=classes&searchString=求学贷款&searchOper=cn&sidx=postDate&sord=asc");
+    $('#newsContainer5').cNews(NEWS5, "/rest/metadata/news?rows=8&page=1&searchField=classes&searchString=银行贷款&searchOper=cn&sidx=postDate&sord=asc");
+    $('#newsContainer6').cNews(NEWS6, "/rest/metadata/news?rows=8&page=1&searchField=classes&searchString=房产贷款&searchOper=cn&sidx=postDate&sord=asc");
+    $('#newsContainer7').cNews(NEWS7, "/rest/metadata/news?rows=8&page=1&searchField=classes&searchString=创业贷款&searchOper=cn&sidx=postDate&sord=asc");
 }
 </script>
 
@@ -38,22 +38,22 @@ function init() {
     </div>
 	<div id="mainContainer2" class="mainContainer2">
 		<div id='newsContainer' class="newsContainer">
-            <div id="newsContainer1" style="float: left;width: 330px;">
+            <div id="newsContainer1" style="float: left;width: 330px;height:244px;">
             </div>
-            <div id="newsContainer2" style="float: left;width: 330px; border-left: 1px solid rgb(221,221,221); border-right: 1px solid rgb(221,221,221);">
+            <div id="newsContainer2" style="float: left;width: 330px; border-left: 1px solid rgb(221,221,221); border-right: 1px solid rgb(221,221,221);height:244px">
             </div>
-            <div id="newsContainer3" style="float: left;width: 330px;">
+            <div id="newsContainer3" style="float: left;width: 330px;height:244px;">
             </div>
     	</div>
     	<div id='mainContainerNews' class='mainContainerNews'>
 			<div id="mainContainerCenterLeft" style="width: 662px;margin-left: 0px" class="mainContainerCenterLeft newsHeight">
-                <div id="newsContainer4" style="float: left;width: 330px;">
+                <div id="newsContainer4" style="float: left;width: 330px;height:244px;">
                 </div>
-                <div id="newsContainer5" style="float: left;width: 330px; border-left: 1px solid rgb(221,221,221); border-right: 1px solid rgb(221,221,221);">
+                <div id="newsContainer5" style="float: left;width: 330px; border-left: 1px solid rgb(221,221,221); border-right: 1px solid rgb(221,221,221);height:244px;">
                 </div>
-                <div id="newsContainer6" style="float: left;width: 330px; margin-top: 10px">
+                <div id="newsContainer6" style="float: left;width: 330px; margin-top: 10px;height:244px;">
                 </div>
-                <div id="newsContainer7" style="float: left;width: 330px; margin-top: 10px; border-left: 1px solid rgb(221,221,221); border-right: 1px solid rgb(221,221,221);">
+                <div id="newsContainer7" style="float: left;width: 330px; margin-top: 10px; border-left: 1px solid rgb(221,221,221); border-right: 1px solid rgb(221,221,221);height:244px;">
                 </div>
 			</div>
 			<div id="newsSideContainerRight" class="newsSideContainerRight newsHeight">

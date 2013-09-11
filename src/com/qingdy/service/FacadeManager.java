@@ -5,6 +5,7 @@ import java.util.List;
 import com.qingdy.model.Answer;
 import com.qingdy.model.Blog;
 import com.qingdy.model.Evaluate;
+import com.qingdy.model.Favourite;
 import com.qingdy.model.Loan;
 import com.qingdy.model.Mall;
 import com.qingdy.model.Message;
@@ -59,6 +60,8 @@ public interface FacadeManager {
 	public List<Blog> getBlogs(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public Blog getBlog(Long id);
+	
+	public List<Blog> getBlogsByUser(String username);
 	
 	public void saveBlog(Blog blog);
 	
@@ -227,4 +230,18 @@ public interface FacadeManager {
 	public List<Visit> getMallVisits(Long id, int size, int page);
 	
 	public void visitMall(Visit visit);
+	
+	
+	/*
+	 * Favourite
+	 */
+	public void addFavourite(Favourite favourite);
+	
+	public void deleteFavourite(Long id);
+	
+	public List<Favourite> getFavourites(String username);
+	
+	public Integer getFavouriteCount(Integer type, Long oid);
+	
+	public boolean isFavourite(Integer type, Long oid, String username);
 }

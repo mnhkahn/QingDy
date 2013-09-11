@@ -1,5 +1,12 @@
 package com.qingdy.common;
 
+import com.qingdy.model.Blog;
+import com.qingdy.model.Loan;
+import com.qingdy.model.Mall;
+import com.qingdy.model.Product;
+import com.qingdy.model.Question;
+import com.sun.istack.FinalArrayList;
+
 public class Constant {
 	
 	public static final Integer DEFAULT_SIZE = 20;
@@ -25,4 +32,25 @@ public class Constant {
 	public static final Integer TRANSACTION = 8;
 	public static final Integer NEWS = 9;
 	public static final Integer USER = 10;
+	
+	public static Class getClass(Integer type) {
+		Class cla = null;
+
+		if (type.equals(MALL)) {
+			cla = Mall.class;
+		}
+		else if (type.equals(LOAN)) {
+			cla = Loan.class;
+		}
+		else if (type.equals(PRODUCT)) {
+			cla = Product.class;
+		}
+		else if (type.equals(QUESTION)) {
+			cla = Question.class;
+		}
+		else if (type.equals(BLOG)) {
+			cla = Blog.class;
+		}
+		return cla;
+	}
 }

@@ -74,7 +74,7 @@ function init() {
                     var markup='';
                     for (var i = 0; i < response.length; i++)
                     {
-                        markup += '<a target="_blank" href="' + response[i].mall + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
+                        markup += '<a target="_blank" href="' + getLink(MALL, response[i].id) + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
                                 '<div class="p_left"><img width="80" height="80" alt="' + response[i].poster.lastname + '经理" src="' + response[i].poster.avatar + '">' +
                                 '</div>' +
                                 '<div class="p_right" style="width: 690px">' +
