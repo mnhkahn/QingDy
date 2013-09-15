@@ -733,10 +733,11 @@ public class Resources {
 		return Response.ok(loan).build();
 	}
 	
-	@Path("/loan")
+	@Path("/loan/username/{username}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getLoans(@QueryParam("username") String username) {
+	public Response getLoans(@PathParam("username") String username) {
+		System.out.println("&&&&" + username);
 		List<Loan> loans = facadeManager.getLoans(username);
 		return Response.ok(loans).build();
 	}

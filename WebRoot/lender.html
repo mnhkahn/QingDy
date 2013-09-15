@@ -357,7 +357,7 @@
                                                 type: 'POST',
                                                 dataType: "json",
                                                 contentType: "application/json; charset=utf-8",
-                                                data: '{"pName": "' + pname.val() + '", "max": ' + max.val() + ',"min": '+ min.val() + '"rateType": "", "rate": , "startTime": "", "endTime": "", "clientLocation": "' + provinceSel.val() + citySel.val() + '", "clients": "' + clientsSel.val() + '", "repayMethod": "' + repaymethodSel.val() + '", "pType": "' + typeSel.val() + '", "usesofloan": "' + usesofloanSel.val() + '", "content": "' + content1.val() + '", "processes": "' + content2.val() + '", "application": "' + content3.val() + '", "faq": "' + content4.val() + '"}',
+                                                data: '{"pName": "' + pname.val() + '", "max": ' + max.val() + ',"min": '+ min.val() + ',"rateType": "reate", "rate": 1, "startTime": "", "endTime": "", "clientLocation": "' + provinceSel.val() + citySel.val() + '", "clients": "' + clientsSel.val() + '", "repayMethod": "' + repaymethodSel.val() + '", "pType": "' + typeSel.val() + '", "usesofloan": "' + usesofloanSel.val() + '", "content": "' + content1.val() + '", "processes": "' + content2.val() + '", "application": "' + content3.val() + '", "faq": "' + content4.val() + '"}',
                                                 success: function (response) {
                                                     $.jBox.info('修改成功');
                                                 },
@@ -373,37 +373,7 @@
                                 },
                                 // "产品管理"
                                 function() {
-                                    var list = $("<table></table>");
-                                    list.attr("id", "List");
-                                    var pager = $("<div></div>");
-                                    pager.attr("id", "Pager");
-                                    $('#contentWrapper').append(list);
-                                    $('#contentWrapper').append(pager);
-                                    jQuery("#List").jqGrid({
-                                        url: '/rest/metadata/product/username/' + username,
-                                        datatype: "json",
-                                        autowidth: true,
-                                        colNames: ['id', '姓名', '状态', '发布时间', '操作'],
-                                        colModel: [
-                                            {name: 'id', index: 'id', width: 55, frozen: true},
-                                            {name: 'cName', index: 'cName', width: 500, frozen: true},
-                                            {name: 'verify', index: 'verify', width: 80, align: "center"},
-                                            {name: 'postDate', index: 'postDate', width: 150, align: "center"},
-                                            {name: 'act', index: 'act', width: 80}
-                                        ],
-                                        rowList: [10, 20, 30],
-                                        pager: '#Pager',
-                                        sortname: 'id',
-                                        viewrecords: true,
-                                        sortorder: "desc",
-                                        caption: "产品管理",
-                                        gridview: true,
-                                        gridComplete: function () {
-
-                                        }
-                                    });
-                                    jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
-                                    $('.ui-jqgrid-bdiv').height(height);
+                                    $('#contentWrapper').cTemplate("/rest/metadata/product/username/" + username, "/js/templates/myProducts.html");
                                 },
                                 // "合作银行"
                                 function() {
@@ -490,39 +460,7 @@
                                 },  */
                                 // "成功案例"
                                 function() {
-                                    var list = $("<table></table>");
-                                    list.attr("id", "List");
-                                    var pager = $("<div></div>");
-                                    pager.attr("id", "Pager");
-                                    $('#contentWrapper').append(list);
-                                    $('#contentWrapper').append(pager);
-                                    jQuery("#List").jqGrid({
-//                                        url: '/rest/metadata/malls/verify',
-                                        datatype: "json",
-                                        autowidth: true,
-                                        colNames: ['id', '标题', '金额', '描述', '发布日期', '状态', '操作'],
-                                        colModel: [
-                                            {name: 'id', index: 'id', width: 55, frozen: true},
-                                            {name: 'name', index: 'name', width: 150, frozen: true},
-                                            {name: 'money', index: 'money', width: 100, align: "center"},
-                                            {name: 'introduce', index: 'introduce', width: 500, align: "left"},
-                                            {name: 'postdate', index: 'postdate', width: 100, align: "center"},
-                                            {name: 'state', index: 'state', width: 100, align: "center"},
-                                            {name: 'act', index: 'act', width:80}
-                                        ],
-                                        rowList: [10, 20, 30],
-                                        pager: '#Pager',
-                                        sortname: 'mid',
-                                        viewrecords: true,
-                                        sortorder: "desc",
-                                        caption: "店铺认证",
-                                        gridview: true,
-                                        gridComplete: function () {
-
-                                        }
-                                    });
-                                    jQuery("#List").jqGrid('navGrid', '#Pager');
-                                    $('.ui-jqgrid-bdiv').height(height);
+                                    $('#contentWrapper').cTemplate("/rest/metadata/transaction/username/" + username, "/js/templates/myTransactions.html");
                                 },
                                 //  "添加成功案例"
                                 function() {
@@ -613,10 +551,6 @@
                         var answerMenu = cMenu.create('menuWrapper', 'data/answerMenu.json', nav,
                                 function () {
                                     $('#contentWrapper').empty();
-                                },
-                                // 资讯首页
-                                function() {
-
                                 },
                                 // 我的回答
                                 function() {
@@ -769,7 +703,7 @@
         <div id="menuContent" class="menuContent">
             <div id="menuWrapper" class="menuWrapper"></div>
             <div id="contentWrapperThin" class="contentWrapperThin">
-                <div id="contentWrapper" style="height:100%"></div>
+                <div id="contentWrapper" style="height:100%; overflow-x: hidden"></div>
             </div>
         </div>
     </div>

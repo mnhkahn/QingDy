@@ -487,8 +487,7 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	
 	@Override
 	public List<Loan> getLoans(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return loanDao.getLoans(username);
 	}
 
 	@Override

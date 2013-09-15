@@ -20,7 +20,7 @@
                 console.debug(response);
             },
             success: function(data){
-                if (arguments.length > 2)
+                if (arguments.length > 2 && adapter)
                     adapter(data);
 
                 _show(container, data, templateURL);

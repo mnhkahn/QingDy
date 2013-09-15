@@ -11,6 +11,7 @@ import com.qingdy.common.cRestrictions;
 import com.qingdy.dao.LoanDao;
 import com.qingdy.model.Blog;
 import com.qingdy.model.Loan;
+import com.qingdy.model.UserDetail;
 
 @Service("loanDao")
 public class LoanDaoHibernate extends BaseDaoHibernate implements LoanDao {
@@ -22,7 +23,8 @@ public class LoanDaoHibernate extends BaseDaoHibernate implements LoanDao {
 
 	@Override
 	public List<Loan> getLoans(String username) {
-		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Loan.class).add(Restrictions.ge("poster", username)));
+		UserDetail user = getHibernateTemplate().get(UserDetail.class, username);
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Loan.class).add(Restrictions.ge("poster", user)));
 	}
 
 	@Override
