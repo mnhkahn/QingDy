@@ -274,7 +274,7 @@ function getTitle(type) {
     }
 }
 
-var DEFAULT_FRONT_COVER = "http://localhost:8080/avatar/avatar.png";
+var DEFAULT_FRONT_COVER = "/avatar/avatar.png";
 
 function getObject(type, id) {
     var baseURL = "/rest/metadata/";

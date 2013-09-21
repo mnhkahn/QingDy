@@ -15,7 +15,9 @@ public class Visit {
 	private UserDetail user;
 	@JsonProperty("date")
 	private Date date;
-	
+	@JsonProperty("ip")
+	private String ip;
+
 	public Visit() {
 		
 	}
@@ -62,5 +64,13 @@ public class Visit {
 	}
 	
 	
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
 
 }

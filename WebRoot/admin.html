@@ -11,6 +11,8 @@
 <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
 <link rel="stylesheet" href="css/jquery.checkbox.css" />
 <link rel="stylesheet" href="css/chosen.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/cStyle.css" />
 
 <!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
 <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
@@ -27,6 +29,9 @@
 <script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/cSearch.js"></script>
 <script type="text/javascript" src="js/chosen.jquery.js"></script>
+<script type="text/javascript" src="js/cTab.js"></script>
+<script type="text/javascript" src="js/jquery.tmpl.js"></script>
+<script type="text/javascript" src="js/cTemplate.js"></script>
 
 <link rel="Shortcut Icon" href="favicon.ico">
 <script type="text/javascript">
@@ -121,321 +126,272 @@ function init() {
     var args = new Object();
     args = GetUrlParms();
     var nav = args['nav'];
+    var tab = args['tab'];
 
     var height = $('#contentWrapper').height() - 75;
 
-    var adminMenu = cMenu.create('menuWrapper', 'data/adminMenu.json', nav,
-            function () {
+    var adminTab = cTab.create('tabWrapper', 'data/adminTab.json', tab,
+            function() {
                 reload();
             },
-            function () {
-                jQuery("#List").jqGrid({
-                    url: '/rest/metadata/malls/verify',
-                    datatype: "json",
-                    autowidth: true,
-                    colNames: ['id', '姓名', '公告', '介绍', '借贷经历', '公司类型', '公司名称', '公司电话', '邮政编码', '网站', '电子邮件', '地址', '传真', '客户地区', '借贷用途', '特长', '借贷类型', '提交时间', '状态', '操作'],
-                    colModel: [
-                        {name: 'id', index: 'id', width: 55, frozen: true},
-                        {name: 'name', index: 'name', width: 90, frozen: true},
-                        {name: 'announcement', index: 'announcement', width: 200},
-                        {name: 'introduce', index: 'introduce', width: 500, align: "center"},
-                        {name: 'lendedyears', index: 'lendedyears', width: 80, align: "center"},
-                        {name: 'ctype', index: 'ctype', width: 150, sortable: false},
-                        {name: 'cname', index: 'cname', width: 150, sortable: false},
-                        {name: 'cphonenumber', index: 'cphonenumber', width: 150, sortable: false},
-                        {name: 'cpostcode', index: 'cpostcode', width: 150, sortable: false},
-                        {name: 'csite', index: 'csite', width: 150, sortable: false},
-                        {name: 'cemail', index: 'cemail', width: 150, sortable: false},
-                        {name: 'caddress', index: 'caddress', width: 150, sortable: false},
-                        {name: 'cfax', index: 'cfax', width: 150, sortable: false},
-                        {name: 'clientlocation', index: 'clientlocation', width: 150, sortable: false},
-                        {name: 'usesofloan', index: 'usesofloan', width: 150, sortable: false},
-                        {name: 'speciality', index: 'speciality', width: 150, sortable: false},
-                        {name: 'lendtype', index: 'lendtype', width: 150, sortable: false},
-                        {name: 'time', index: 'time', width: 200},
-                        {name: 'verify', index: 'verify', width: 50, sortable: false},
-                        {name: 'act', index: 'act', width: 150}
-                    ],
-                    rowNum: Math.floor(height / 23),
-                    rowList: [10, 20, 30],
-                    pager: '#Pager',
-                    sortname: 'mid',
-                    viewrecords: true,
-                    sortorder: "desc",
-                    caption: "店铺认证",
-                    gridview: true,
-                    gridComplete: function () {
-                        var ids = jQuery("#List").jqGrid('getDataIDs');
-                        var data = jQuery("#List").jqGrid('getRowData');
-                        for (var i = 0; i < ids.length; i++) {
-                            // add action
-                            var cl = ids[i];
-
-                            // change status
-                            var btnVerify = $('<input></input>');
-                            if (data[i].verify == 1) {
-                                jQuery("#List").jqGrid('setRowData', ids[i], {verify: "<div class='normalStatus' style='height:20px;width:20px;'></div>"});
-                                btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('mall', " + ids[i] + ", 0)\"  checked/>";
-                            }
-                            else {
-                                jQuery("#List").jqGrid('setRowData', ids[i], {verify: "<div class='criticalStatus' style='height:20px;width:20px;'></div>"});
-                                btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('mall', " + ids[i] + ", 1)\" />";
-                            }
-                            jQuery("#List").jqGrid('setRowData', ids[i], {act: btnVerify});
-                        }
-                        $('input[type=checkbox]').checkbox();
-                    }
-                });
-                jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
-                $('.ui-jqgrid-bdiv').height(height);
-            },
-            function () {
-                jQuery("#List").jqGrid({
-                    url: '/rest/metadata/products/verify',
-                    datatype: "json",
-                    autowidth: true,
-                    colNames: ['id', '产品名称', '最大额度', '最小额度', '借贷类型', '利率', '放贷期限', '用户地区', '还款方式', '特长', '产品类型', '贷款用途', '介绍', '处理流程', '申请方法', '常见问题', '姓名', '公司名称', '公司类型', '提交时间', '状态', '操作'],
-                    colModel: [
-                        {name: 'id', index: 'id', width: 55, frozen: true},
-                        {name: 'name', index: 'name', width: 90, frozen: true},
-                        {name: 'max', index: 'max', width: 50},
-                        {name: 'min', index: 'min', width: 50, align: "center"},
-                        {name: 'ratetype', index: 'ratetype', width: 80, align: "center"},
-                        {name: 'rate', index: 'rate', width: 150, sortable: false},
-                        {name: 'deadline', index: 'deadline', width: 150, sortable: false},
-                        {name: 'clientlocation', index: 'clientlocation', width: 150, sortable: false},
-                        {name: 'repaymethodcol', index: 'repaymethodcol', width: 150, sortable: false},
-                        {name: 'speciality', index: 'speciality', width: 150, sortable: false},
-                        {name: 'ptype', index: 'ptype', width: 150, sortable: false},
-                        {name: 'usesofloan', index: 'usesofloan', width: 150, sortable: false},
-                        {name: 'introduce', index: 'introduce', width: 150, sortable: false},
-                        {name: 'processes', index: 'processes', width: 150, sortable: false},
-                        {name: 'application', index: 'application', width: 150, sortable: false},
-                        {name: 'faq', index: 'faq', width: 150, sortable: false},
-                        {name: 'ownername', index: 'ownername', width: 150, sortable: false},
-                        {name: 'cname', index: 'cname', width: 200},
-                        {name: 'ctype', index: 'ctype', width: 150, sortable: false},
-                        {name: 'time', index: 'time', width: 200},
-                        {name: 'verify', index: 'verify', width: 50, sortable: false},
-                        {name: 'act', index: 'act', width: 100}
-                    ],
-                    rowNum: Math.floor(height / 23),
-                    rowList: [10, 20, 30],
-                    pager: '#Pager',
-                    sortname: 'pid',
-                    viewrecords: true,
-                    sortorder: "desc",
-                    caption: "产品认证",
-                    gridview: true,
-                    gridComplete: function () {
-                        var ids = jQuery("#List").jqGrid('getDataIDs');
-                        var data = jQuery("#List").jqGrid('getRowData');
-                        for (var i = 0; i < ids.length; i++) {
-                            // add action
-                            var cl = ids[i];
-
-                            // change status
-                            var btnVerify = $('<input></input>');
-                            if (data[i].verify == 1) {
-                                jQuery("#List").jqGrid('setRowData', ids[i], {verify: "<div class='normalStatus' style='height:20px;width:20px;'></div>"});
-                                btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('product'," + data[i].id + ",0)\"  checked/>";
-                            }
-                            else {
-                                jQuery("#List").jqGrid('setRowData', ids[i], {verify: "<div class='criticalStatus' style='height:20px;width:20px;'></div>"});
-                                btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('product'," + data[i].id + ",1)\" />";
-                            }
-                            jQuery("#List").jqGrid('setRowData', ids[i], {act: btnVerify});
-                            $('input[type=checkbox]').checkbox();;
-                        }
-                    }
-                });
-                jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
-                $('.ui-jqgrid-bdiv').height(height);
-            },
-            function () {
-                jQuery("#List").jqGrid({
-                    url: '/rest/metadata/loans/verify',
-                    datatype: "json",
-                    autowidth: true,
-                    colNames: ['id', '标题', '介绍', '金额', '借款期限', '是否有抵押物', '抵押物', '借贷类型', '地区', '贷款用途', '姓名', '提交时间', '状态', '操作'],
-                    colModel: [
-                        {name: 'id', index: 'id', width: 55, frozen: true},
-                        {name: 'title', index: 'title', width: 90, frozen: true},
-                        {name: 'introduce', index: 'introduce', width: 200},
-                        {name: 'amount', index: 'amount', width: 500, align: "center"},
-                        {name: 'deadline', index: 'deadline', width: 80, align: "center"},
-                        {name: 'haspawn', index: 'haspawn', width: 150, sortable: false},
-                        {name: 'pawn', index: 'pawn', width: 150, sortable: false},
-                        {name: 'lendtype', index: 'lendtype', width: 150, sortable: false},
-                        {name: 'joinname', index: 'joinname', width: 150, sortable: false},
-                        {name: 'usesofloan', index: 'usesofloan', width: 150, sortable: false},
-                        {name: 'ownername', index: 'ownername', width: 150, sortable: false},
-                        {name: 'time', index: 'time', width: 200},
-                        {name: 'verify', index: 'verify', width: 50, sortable: false},
-                        {name: 'act', index: 'act', width: 100}
-                    ],
-                    rowNum: Math.floor(height / 23),
-                    rowList: [10, 20, 30],
-                    pager: '#Pager',
-                    sortname: 'lid',
-                    viewrecords: true,
-                    sortorder: "desc",
-                    caption: "需求认证",
-                    gridview: true,
-                    gridComplete: function () {
-                        var ids = jQuery("#List").jqGrid('getDataIDs');
-                        var data = jQuery("#List").jqGrid('getRowData');
-                        for (var i = 0; i < ids.length; i++) {
-                            // add action
-                            var cl = ids[i];
-
-                            // change status
-                            var btnVerify = $('<input></input>');
-                            if (data[i].verify == 1) {
-                                jQuery("#List").jqGrid('setRowData', ids[i], {verify: "<div class='normalStatus' style='height:20px;width:20px;'></div>"});
-                                btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('loan'," + data[i].id + ",0)\"  checked/>";
-                            }
-                            else {
-                                jQuery("#List").jqGrid('setRowData', ids[i], {verify: "<div class='criticalStatus' style='height:20px;width:20px;'></div>"});
-                                btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('loan'," + data[i].id + ",1)\" />";
-                            }
-                            jQuery("#List").jqGrid('setRowData', ids[i], {act: btnVerify});
-                            $('input[type=checkbox]').checkbox();;
-                        }
-                    }
-                });
-                jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
-                $('.ui-jqgrid-bdiv').height(height);
-            },
             function() {
-                jQuery("#List").jqGrid({
-                    url:'/rest/metadata/transactions/verify',
-                    datatype: "json",
-                    autowidth: true,
-                    colNames:['id','标题','贷款者姓名','借贷者姓名','评价','封面','提交时间','状态','操作'],
-                    colModel:[
-                        {name:'id',index:'id', width:55,frozen : true},
-                        {name:'title',index:'title', width:90,frozen : true},
-                        {name:'loanername',index:'loanername', width:50},
-                        {name:'lendername',index:'lendername', width:50, align:"center"},
-                        {name:'comments',index:'comments', width:500, align:"center"},
-                        {name:'frontcover',index:'frontcover', width:150, sortable:false},
-                        {name:'time',index:'time',width:200},
-                        {name:'verify',index:'verify', width:50, sortable:false},
-                        {name:'act',index:'act',width:100}
-                    ],
-                    rowNum: Math.floor(height / 23),
-                    rowList:[10,20,30],
-                    pager: '#Pager',
-                    sortname: 'tid',
-                    viewrecords: true,
-                    sortorder: "desc",
-                    caption:"交易认证",
-                    gridview: true,
-                    gridComplete: function(){
-                        var ids = jQuery("#List").jqGrid('getDataIDs');
-                        var data =  jQuery("#List").jqGrid('getRowData');
-                        for(var i=0;i < ids.length;i++){
-                            // add action
-                            var cl = ids[i];
+                var adminMenu = cMenu.create('menuWrapper', 'data/adminMenu.json', nav,
+                        function () {
+                            reload();
+                        },
+                        // 机构审核
+                        function () {
+                            jQuery("#List").jqGrid({
+                                url: '/rest/metadata/mall/manage?rows=10&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc',
+                                datatype: "json",
+                                autowidth: true,
+                                colNames: ['id', '名称', '公告', '介绍', '借贷经历', '类型','电话', '网站', '地址', '地区', '用途', '特长', '借贷类型',  '状态', '操作'],
+                                colModel: [
+                                    {name: 'id', index: 'id', width: 55, frozen: true},
+                                    {name: 'cName', index: 'cName', width: 90, frozen: true},
+                                    {name: 'announcement', index: 'announcement', width: 200},
+                                    {name: 'content', index: 'content', width: 500, align: "center"},
+                                    {name: 'experience', index: 'experience', width: 80, align: "center"},
+                                    {name: 'cType', index: 'cType', width: 150, sortable: false},
+                                    {name: 'cPhoneNumber', index: 'cPhoneNumber', width: 150, sortable: false},
+                                    {name: 'site', index: 'site', width: 150, sortable: false},
+                                    {name: 'address', index: 'address', width: 150, sortable: false},
+                                    {name: 'clientLocation', index: 'clientLocation', width: 150, sortable: false},
+                                    {name: 'usesofloan', index: 'usesofloan', width: 150, sortable: false},
+                                    {name: 'speciality', index: 'speciality', width: 150, sortable: false},
+                                    {name: 'lendType', index: 'lendType', width: 150, sortable: false},
+                                    {name: 'verify', index: 'verify', width: 50, sortable: false},
+                                    {name: 'act', index: 'act', width: 150}
+                                ],
+                                rowNum: Math.floor(height / 23),
+                                rowList: [10, 20, 30],
+                                pager: '#Pager',
+                                sortname: 'postDate',
+                                viewrecords: true,
+                                sortorder: "asc",
+                                caption: "店铺认证",
+                                jsonReader : { repeatitems: false },
+                                gridview: true,
+                                gridComplete: function () {
+                                    var ids = jQuery("#List").jqGrid('getDataIDs');
+                                    var data = jQuery("#List").jqGrid('getRowData');
+                                    for (var i = 0; i < ids.length; i++) {
+                                        // add action
+                                        var cl = ids[i];
 
-                            // change status
-                            var btnVerify = $('<input></input>');
-                            if (data[i].verify == 1) {
-                                jQuery("#List").jqGrid('setRowData',ids[i],{verify:"<div class='normalStatus' style='height:20px;width:20px;'></div>"});
-                                btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('transaction'," + data[i].id + ",0)\"  checked/>";
-                            }
-                            else {
-                                jQuery("#List").jqGrid('setRowData',ids[i],{verify:"<div class='criticalStatus' style='height:20px;width:20px;'></div>"});
-                                btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('transaction'," + data[i].id + ",1)\" />";
-                            }
-                            jQuery("#List").jqGrid('setRowData',ids[i],{act:btnVerify});
-                            $('input[type=checkbox]').checkbox();
-                        }
-                    },
-                });
-                jQuery("#List").jqGrid('navGrid','#Pager',{add:false,edit:false,del:false});
-                $('.ui-jqgrid-bdiv').height(height);
-            },
-            showCreateNews,
-            function () {
-                jQuery("#List").jqGrid({
-                    url: '/rest/metadata/news/manage',
-                    datatype: "json",
-                    autowidth: true,
-                    colNames: ['id', '标题', '发布者姓名', '发布时间', '分类'],
-                    colModel: [
-                        {name: 'id', index: 'id', width: 55, frozen: true},
-                        {name: 'title', index: 'title', width: 500, frozen: true},
-                        {name: 'name', index: 'name', width: 50, align: "center"},
-                        {name: 'date', index: 'date', width: 50, align: "center"},
-                        {name: 'category', index: 'category', width: 50, align: "center"},
-                    ],
-                    rowNum: Math.floor(height / 23),
-                    rowList: [10, 20, 30],
-                    pager: '#Pager',
-                    sortname: 'nid',
-                    viewrecords: true,
-                    sortorder: "desc",
-                    caption: "新闻管理",
-                    gridview: true,
-                    height: 150,
-                    gridComplete: function () {
-
-                    }
-                });
-
-                jQuery("#List").jqGrid('navGrid', '#Pager',
-                        {
-                            addfunc: function(){
-                                $('#navItem4').click();
-                            },
-                            editfunc: function() {
-                                var id = $("#List").jqGrid('getGridParam','selrow');
-                                reload();
-                                showCreateNews();
-                                $.ajax({
-                                    type: "GET",
-                                    url: '/rest/metadata/news/' + id,
-                                    contentType: "application/json",
-                                    dataType: "json",
-                                    success: function (response) {
-                                        $('#categorySel').val(response.classes);
-                                        $('#title').val(response.title);
-                                        $('#content').val(response.text);
-                                    },
-                                    error: function (response) {
-
+                                        // change status
+                                        var btnVerify = $('<input></input>');
+                                        if (data[i].verify == 1) {
+                                            jQuery("#List").jqGrid('setRowData', ids[i], {verify: "<div class='normalStatus' style='height:20px;width:20px;'></div>"});
+                                            btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('mall', " + ids[i] + ", 0)\"  checked/>";
+                                        }
+                                        else {
+                                            jQuery("#List").jqGrid('setRowData', ids[i], {verify: "<div class='criticalStatus' style='height:20px;width:20px;'></div>"});
+                                            btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('mall', " + ids[i] + ", 1)\" />";
+                                        }
+                                        jQuery("#List").jqGrid('setRowData', ids[i], {act: btnVerify});
                                     }
-                                });
-                            },
-                            delfunc: function() {
-                                var id = $("#List").jqGrid('getGridParam','selrow');
-                                var submit = function (v, h, f) {
-                                    if (v == 'ok') {
-                                        $.ajax({
-                                            type: "DELETE",
-                                            url: '/rest/metadata/news/' + id,
-                                            contentType: "application/json",
-                                            dataType: "json",
-                                            success: function (response) {
-                                                $('#List').trigger('reloadGrid');
-                                                $.jBox.info('删除成功');
-                                            },
-                                            error: function (response) {
-                                                $('#List').trigger('reloadGrid');
-                                                $.jBox.info('删除失败');
-                                            }
-                                        });
+                                    $('input[type=checkbox]').checkbox();
+                                }
+                            });
+                            jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
+                            $('.ui-jqgrid-bdiv').height(height);
+                        },
+
+                        // 贷款审核
+                        function () {
+                            jQuery("#List").jqGrid({
+                                url: '/rest/metadata/product/manage?rows=10&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc',
+                                datatype: "json",
+                                autowidth: true,
+                                colNames: ['id', '产品名称', '最大额度', '最小额度', '类型', '开始时间', '结束时间', '用户地区', '还款方式', '贷款用途', '介绍', '处理流程', '申请方法', '常见问题', '姓名', '状态', '操作'],
+                                colModel: [
+                                    {name: 'id', index: 'id', width: 55, frozen: true},
+                                    {name: 'pName', index: 'name', width: 90, frozen: true},
+                                    {name: 'max', index: 'max', width: 50},
+                                    {name: 'min', index: 'min', width: 50, align: "center"},
+                                    {name: 'pType', index: 'pType', width: 80, align: "center"},
+                                    {name: 'startTime', index: 'startTime', width: 150, sortable: false},
+                                    {name: 'endTime', index: 'endTime', width: 150, sortable: false},
+                                    {name: 'clientLocation', index: 'clientLocation', width: 150, sortable: false},
+                                    {name: 'repaymentMethod', index: 'repaymentMethod', width: 150, sortable: false},
+                                    {name: 'usesofloan', index: 'usesofloan', width: 150, sortable: false},
+                                    {name: 'content', index: 'content', width: 150, sortable: false},
+                                    {name: 'processes', index: 'processes', width: 150, sortable: false},
+                                    {name: 'application', index: 'application', width: 150, sortable: false},
+                                    {name: 'faq', index: 'faq', width: 150, sortable: false},
+                                    {name: 'poster.username', index: 'ownername', width: 150, sortable: false},
+                                    {name: 'verify', index: 'verify', width: 50, sortable: false},
+                                    {name: 'act', index: 'act', width: 100}
+                                ],
+                                rowNum: Math.floor(height / 23),
+                                rowList: [10, 20, 30],
+                                pager: '#Pager',
+                                sortname: 'pid',
+                                viewrecords: true,
+                                sortorder: "desc",
+                                caption: "产品认证",
+                                gridview: true,
+                                jsonReader : { repeatitems: false },
+                                gridComplete: function () {
+                                    var ids = jQuery("#List").jqGrid('getDataIDs');
+                                    var data = jQuery("#List").jqGrid('getRowData');
+                                    for (var i = 0; i < ids.length; i++) {
+                                        // add action
+                                        var cl = ids[i];
+
+                                        // change status
+                                        var btnVerify = $('<input></input>');
+                                        if (data[i].verify == 1) {
+                                            jQuery("#List").jqGrid('setRowData', ids[i], {verify: "<div class='normalStatus' style='height:20px;width:20px;'></div>"});
+                                            btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('product'," + data[i].id + ",0)\"  checked/>";
+                                        }
+                                        else {
+                                            jQuery("#List").jqGrid('setRowData', ids[i], {verify: "<div class='criticalStatus' style='height:20px;width:20px;'></div>"});
+                                            btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('product'," + data[i].id + ",1)\" />";
+                                        }
+                                        jQuery("#List").jqGrid('setRowData', ids[i], {act: btnVerify});
+                                        $('input[type=checkbox]').checkbox();;
                                     }
-                                    else if (v == 'cancel')
-                                        return true; //close
-                                };
-                                $.jBox.confirm('确定删除吗？', "确认", submit);
-                            }
+                                }
+                            });
+                            jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
+                            $('.ui-jqgrid-bdiv').height(height);
+                        },
+
+                        // 需求审核
+                        function () {
+                            jQuery("#List").jqGrid({
+                                url: '/rest/metadata/loan/manage?rows=10&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc',
+                                datatype: "json",
+                                autowidth: true,
+                                colNames: ['id', '产品名称', '借贷类型', '开始时间', '结束时间', '用户地区', '金额', '贷款用途', '介绍','姓名', '状态', '操作'],
+                                colModel: [
+                                    {name: 'id', index: 'id', width: 55, frozen: true},
+                                    {name: 'title', index: 'title', width: 90, frozen: true},
+                                    {name: 'lendType', index: 'lendType', width: 80, align: "center"},
+                                    {name: 'startTime', index: 'startTime', width: 150, sortable: false},
+                                    {name: 'endTime', index: 'endTime', width: 150, sortable: false},
+                                    {name: 'location', index: 'location', width: 150, sortable: false},
+                                    {name: 'amount', index: 'amount', width: 150, sortable: false},
+                                    {name: 'usesofloan', index: 'usesofloan', width: 150, sortable: false},
+                                    {name: 'content', index: 'content', width: 150, sortable: false},
+                                    {name: 'poster.username', index: 'username', width: 150, sortable: false},
+                                    {name: 'verify', index: 'verify', width: 50, sortable: false},
+                                    {name: 'act', index: 'act', width: 100}
+                                ],
+                                rowNum: Math.floor(height / 23),
+                                rowList: [10, 20, 30],
+                                pager: '#Pager',
+                                sortname: 'lid',
+                                viewrecords: true,
+                                sortorder: "desc",
+                                caption: "需求认证",
+                                gridview: true,
+                                jsonReader : { repeatitems: false },
+                                gridComplete: function () {
+                                    var ids = jQuery("#List").jqGrid('getDataIDs');
+                                    var data = jQuery("#List").jqGrid('getRowData');
+                                    for (var i = 0; i < ids.length; i++) {
+                                        // add action
+                                        var cl = ids[i];
+
+                                        // change status
+                                        var btnVerify = $('<input></input>');
+                                        if (data[i].verify == 1) {
+                                            jQuery("#List").jqGrid('setRowData', ids[i], {verify: "<div class='normalStatus' style='height:20px;width:20px;'></div>"});
+                                            btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('loan'," + data[i].id + ",0)\"  checked/>";
+                                        }
+                                        else {
+                                            jQuery("#List").jqGrid('setRowData', ids[i], {verify: "<div class='criticalStatus' style='height:20px;width:20px;'></div>"});
+                                            btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('loan'," + data[i].id + ",1)\" />";
+                                        }
+                                        jQuery("#List").jqGrid('setRowData', ids[i], {act: btnVerify});
+                                        $('input[type=checkbox]').checkbox();;
+                                    }
+                                }
+                            });
+                            jQuery("#List").jqGrid('navGrid', '#Pager', {add: false, edit: false, del: false});
+                            $('.ui-jqgrid-bdiv').height(height);
+                        },
+
+                        // 交易审核
+                        function() {
+                            jQuery("#List").jqGrid({
+                                url: '/rest/metadata/transaction/manage?rows=10&page=1&searchField=title&searchString=&searchOper=cn&sidx=postDate&sord=asc',
+                                datatype: "json",
+                                autowidth: true,
+                                colNames:['id','标题','贷款者姓名','借贷者姓名','评价','状态','操作'],
+                                colModel:[
+                                    {name:'id',index:'id', width:55,frozen : true},
+                                    {name:'title',index:'title', width:90,frozen : true},
+                                    {name:'loaner.username',index:'loanername', width:50},
+                                    {name:'lender.username',index:'lendername', width:50, align:"center"},
+                                    {name:'comments',index:'comments', width:500, align:"center"},
+                                    {name:'verify',index:'verify', width:50, sortable:false},
+                                    {name:'act',index:'act',width:100}
+                                ],
+                                rowNum: Math.floor(height / 23),
+                                rowList:[10,20,30],
+                                pager: '#Pager',
+                                sortname: 'tid',
+                                viewrecords: true,
+                                sortorder: "desc",
+                                caption:"交易认证",
+                                gridview: true,
+                                jsonReader : { repeatitems: false },
+                                gridComplete: function(){
+                                    var ids = jQuery("#List").jqGrid('getDataIDs');
+                                    var data =  jQuery("#List").jqGrid('getRowData');
+                                    for(var i=0;i < ids.length;i++){
+                                        // add action
+                                        var cl = ids[i];
+
+                                        // change status
+                                        var btnVerify = $('<input></input>');
+                                        if (data[i].verify == 1) {
+                                            jQuery("#List").jqGrid('setRowData',ids[i],{verify:"<div class='normalStatus' style='height:20px;width:20px;'></div>"});
+                                            btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('transaction'," + data[i].id + ",0)\"  checked/>";
+                                        }
+                                        else {
+                                            jQuery("#List").jqGrid('setRowData',ids[i],{verify:"<div class='criticalStatus' style='height:20px;width:20px;'></div>"});
+                                            btnVerify = "<input id='btnVerify" + ids[i] + "' name='checkbox.1.1' type='checkbox' onclick=\"verify('transaction'," + data[i].id + ",1)\" />";
+                                        }
+                                        jQuery("#List").jqGrid('setRowData',ids[i],{act:btnVerify});
+                                        $('input[type=checkbox]').checkbox();
+                                    }
+                                },
+                            });
+                            jQuery("#List").jqGrid('navGrid','#Pager',{add:false,edit:false,del:false});
+                            $('.ui-jqgrid-bdiv').height(height);
+                        },
+                        // 新建新闻
+                        showCreateNews,
+                        // 新闻管理
+                        function () {
+                            $('#List').cTemplate("/rest/metadata/news?rows=10&page=1&searchField=title&searchString=&searchOper=cn&sidx=postDate&sord=asc&_search=false&nd=1379775842832&rows=24&page=1&sidx=pid&sord=desc", "/js/templates/myNews.html");
                         }
                 );
-                $('.ui-jqgrid-bdiv').height(height);
+            },
+            function() {
+                var webShowMenu = cMenu.create('menuWrapper', 'data/webShow.json', nav,
+                        function() {
+
+                        },
+                        function() {
+
+                        }
+                )
+            },
+            function() {
+                var MessageMenu = cMenu.create('menuWrapper', 'data/webShow.json', nav,
+                        function() {
+
+                        },
+                        function() {
+
+                        }
+                )
             }
     );
 }
@@ -444,16 +400,21 @@ function init() {
 </head>
 
 <body onload='init()'>
-<div id="searchboxContainer" class="searchboxContainer">
-</div>
-<div id="mainContainerWide" class="mainContainerWide">
-    <div id="menuWrapper" class="menuWrapper"></div>
-    <div id="contentWrapper" class="contentWrapper">
-        <table id="List"></table>
-        <div id="Pager"></div>
+<div id="mainContainerWrapper" style="height:700px; margin-top: 60px;">
+    <div id="mainContainer" class="mainContainerWide2">
+        <div id="tabWrapper" class="tabWrapper"></div>
+        <div id="menuContent" class="menuContent">
+            <div id="menuWrapper" class="menuWrapper"></div>
+            <div id="contentWrapperThin" class="contentWrapperThin">
+                <div id="contentWrapper" style="height:100%; overflow-x: hidden">
+                    <table id="List"></table>
+                    <div id="Pager"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<div id="footContainer" class="footContainerAbs">
+<div id="footContainer" class="footContainer">
 </div>
 </body>
 </html>

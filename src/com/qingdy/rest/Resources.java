@@ -1,10 +1,16 @@
 package com.qingdy.rest;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HEAD;
@@ -14,6 +20,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -37,6 +44,7 @@ import com.qingdy.model.User;
 import com.qingdy.model.UserDetail;
 import com.qingdy.model.Visit;
 import com.qingdy.model.domain.Forums;
+import com.qingdy.model.domain.Grid;
 import com.qingdy.model.domain.UserTop;
 import com.qingdy.service.FacadeManager;
 
@@ -46,6 +54,14 @@ public class Resources {
 	
 	@Resource(name = "facadeManager")
 	private FacadeManager facadeManager;
+	
+	public String getIP(HttpServletRequest request) {
+		String ipAddress = request.getHeader("X-FORWARDED-FOR");
+		if (ipAddress == null) {
+			ipAddress = request.getRemoteAddr();
+		}
+		return ipAddress;
+	}
 	
 	/*
 	 * User
@@ -308,7 +324,13 @@ public class Resources {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllMalls(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
 		List<Mall> malls = facadeManager.getMalls(size,  page, field, value, operator, sidx, sord, false);
-		return Response.ok(malls).build();
+		Grid grid = new Grid();
+		grid.setPage(page);
+		grid.setRecords(malls.size());
+		grid.setTotal(malls.size());
+		grid.setRows(malls);
+		
+		return Response.ok(grid).build();
 	}
 	
 	
@@ -380,7 +402,12 @@ public class Resources {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllProducts(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
 		List<Product> products = facadeManager.getProducts(size,  page, field, value, operator, sidx, sord, false);
-		return Response.ok(products).build();
+		Grid grid = new Grid();
+		grid.setPage(page);
+		grid.setRecords(products.size());
+		grid.setTotal(products.size());
+		grid.setRows(products);
+		return Response.ok(grid).build();
 	}
 	
 	
@@ -649,7 +676,12 @@ public class Resources {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllTransactions(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
 		List<Transaction> transactions = facadeManager.getTransactions(size,  page, field, value, operator, sidx, sord, false);
-		return Response.ok(transactions).build();
+		Grid grid = new Grid();
+		grid.setPage(page);
+		grid.setRecords(transactions.size());
+		grid.setTotal(transactions.size());
+		grid.setRows(transactions);
+		return Response.ok(grid).build();
 	}
 	
 	@Path("/transaction/{id}")
@@ -722,7 +754,12 @@ public class Resources {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllLoans(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
 		List<Loan> loans = facadeManager.getLoans(size,  page, field, value, operator, sidx, sord, false);
-		return Response.ok(loans).build();
+		Grid grid = new Grid();
+		grid.setPage(page);
+		grid.setRecords(loans.size());
+		grid.setTotal(loans.size());
+		grid.setRows(loans);
+		return Response.ok(grid).build();
 	}
 	
 	@Path("/loan/{id}")
@@ -844,6 +881,12 @@ public class Resources {
 	/*
 	 * Visit
 	 */
+	@Path("visit/ip")
+	@HEAD
+	public Response getIp(@Context HttpServletRequest request) {
+		return Response.noContent().header("ip", getIP(request)).build();
+	}
+	
 	@Path("/visit/{id}/mall/")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -855,7 +898,9 @@ public class Resources {
 	@Path("/visit/mall/")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response visitMall(Visit visit) {
+	public Response visitMall(Visit visit, @Context HttpServletRequest request) {
+		visit.setIp(getIP(request));
+        
 		visit.setDate(new Date());
 		facadeManager.visitMall(visit);
 		return Response.noContent().build();
@@ -901,4 +946,16 @@ public class Resources {
 		boolean isFavourite = facadeManager.isFavourite(type, oid, username);
 		return Response.noContent().header("is", isFavourite).build();
 	}
+	
+	/*
+	 * Upload
+	 */
+	@POST
+	@Path("upload")
+	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
+	@Produces(MediaType.TEXT_PLAIN)
+	public void upload(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
+		facadeManager.upload(request, response);
+	}
+	
 }

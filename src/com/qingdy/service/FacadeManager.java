@@ -2,6 +2,9 @@ package com.qingdy.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.qingdy.model.Answer;
 import com.qingdy.model.Blog;
 import com.qingdy.model.Evaluate;
@@ -244,4 +247,9 @@ public interface FacadeManager {
 	public Integer getFavouriteCount(Integer type, Long oid);
 	
 	public boolean isFavourite(Integer type, Long oid, String username);
+	
+	/* 
+	 * Upload
+	 */
+	public void upload(HttpServletRequest request, HttpServletResponse response);
 }

@@ -44,3 +44,9 @@ function timeFormat(time, type) {
 function refresh() {
     window.location.reload();
 }
+
+function getIP() {
+    $.getJSON("http://jsonip.appspot.com?callback=?",function(ipadd){
+        alert( "Your IPAddress is : " + ipadd.ip);
+    });
+}

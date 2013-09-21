@@ -9,6 +9,7 @@
 <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
 <link rel="stylesheet" href="css/jquery.checkbox.css" />
 <link rel="stylesheet" href="css/chosen.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css" />
 <link rel="stylesheet" href="css/cStyle.css" />
 
 <!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
@@ -375,73 +376,6 @@
                                 function() {
                                     $('#contentWrapper').cTemplate("/rest/metadata/product/username/" + username, "/js/templates/myProducts.html");
                                 },
-                                // "合作银行"
-                                function() {
-                                    var list = $("<table></table>");
-                                    list.attr("id", "List");
-                                    var pager = $("<div></div>");
-                                    pager.attr("id", "Pager");
-                                    $('#contentWrapper').append(list);
-                                    $('#contentWrapper').append(pager);
-                                    jQuery("#List").jqGrid({
-//                                        url: '/rest/metadata/malls/verify',
-                                        datatype: "json",
-                                        autowidth: true,
-                                        colNames: ['id', 'Logo', '银行名称', '业务'],
-                                        colModel: [
-                                            {name: 'id', index: 'id', width: 55, frozen: true},
-                                            {name: 'logo', index: 'logo', width: 500, frozen: true},
-                                            {name: 'name', index: 'name', width: 80, align: "center"},
-                                            {name: 'business', index: 'business', width: 150, align: "center"},
-                                        ],
-                                        rowList: [10, 20, 30],
-                                        pager: '#Pager',
-                                        sortname: 'mid',
-                                        viewrecords: true,
-                                        sortorder: "desc",
-                                        caption: "店铺认证",
-                                        gridview: true,
-                                        gridComplete: function () {
-
-                                        }
-                                    });
-                                    jQuery("#List").jqGrid('navGrid', '#Pager', {edit: false});
-                                    $('.ui-jqgrid-bdiv').height(height);
-                                },
-                                // "友情链接"
-                                function() {
-                                    var list = $("<table></table>");
-                                    list.attr("id", "List");
-                                    var pager = $("<div></div>");
-                                    pager.attr("id", "Pager");
-                                    $('#contentWrapper').append(list);
-                                    $('#contentWrapper').append(pager);
-                                    jQuery("#List").jqGrid({
-//                                        url: '/rest/metadata/malls/verify',
-                                        datatype: "json",
-                                        autowidth: true,
-                                        colNames: ['id', '网站名', '网站地址', '网站描述', '操作'],
-                                        colModel: [
-                                            {name: 'id', index: 'id', width: 55, frozen: true},
-                                            {name: 'name', index: 'name', width: 150, frozen: true},
-                                            {name: 'site', index: 'site', width: 200, align: "center"},
-                                            {name: 'introduce', index: 'introduce', width: 500, align: "center"},
-                                            {name: 'act', index: 'act', width:80}
-                                        ],
-                                        rowList: [10, 20, 30],
-                                        pager: '#Pager',
-                                        sortname: 'mid',
-                                        viewrecords: true,
-                                        sortorder: "desc",
-                                        caption: "店铺认证",
-                                        gridview: true,
-                                        gridComplete: function () {
-
-                                        }
-                                    });
-                                    jQuery("#List").jqGrid('navGrid', '#Pager');
-                                    $('.ui-jqgrid-bdiv').height(height);
-                                },
                                 //  "店铺公告"
 /*                                function() {
                                     $('#contentWrapper').load('/js/templates/announcement.html', function () {
@@ -511,37 +445,7 @@
                                 },
                                 //  "博客管理"
                                 function() {
-                                    var list = $("<table></table>");
-                                    list.attr("id", "List");
-                                    var pager = $("<div></div>");
-                                    pager.attr("id", "Pager");
-                                    $('#contentWrapper').append(list);
-                                    $('#contentWrapper').append(pager);
-                                    jQuery("#List").jqGrid({
-//                                        url: '/rest/metadata/malls/verify',
-                                        datatype: "json",
-                                        autowidth: true,
-                                        colNames: ['id', '日志名称', '访问量', '发布日期', '操作'],
-                                        colModel: [
-                                            {name: 'id', index: 'id', width: 55, frozen: true},
-                                            {name: 'name', index: 'name', width: 500, frozen: true},
-                                            {name: 'visit', index: 'visit', width: 100, align: "center"},
-                                            {name: 'postdate', index: 'postdate', width: 100, align: "center"},
-                                            {name: 'act', index: 'act', width:80}
-                                        ],
-                                        rowList: [10, 20, 30],
-                                        pager: '#Pager',
-                                        sortname: 'mid',
-                                        viewrecords: true,
-                                        sortorder: "desc",
-                                        caption: "店铺认证",
-                                        gridview: true,
-                                        gridComplete: function () {
-
-                                        }
-                                    });
-                                    jQuery("#List").jqGrid('navGrid', '#Pager');
-                                    $('.ui-jqgrid-bdiv').height(height);
+                                    $('#contentWrapper').cTemplate("/rest/metadata/blog/username/" + username, "/js/templates/myBlogs.html");
                                 },
                                 // "添加博客"
                                 showCreateBlog

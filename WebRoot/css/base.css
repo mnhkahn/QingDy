@@ -1162,8 +1162,8 @@ body, h1, div, dl, dt, dd, ul, li, img, span, p, h1, h2, h3, h4, h5, h6, form {
     overflow: hidden;
 }
 body {
-    font-family: Arial,Verdana,宋体;
-    font-size: 12px;
+    font-family: Arial,Verdana,宋体 !important;
+    font-size: 12px !important;
     color: #000000;
 }
 .p_right span.p2 {

@@ -30,11 +30,17 @@
         <tr>
             <td width="100px;">产品利率*</td>
             <td>
-                <select id='typeSel' style="font-weight: bold;width: 100px;"></select>
+                <select id='typeSel' style="font-weight: bold;width: 100px;">
+                    <option value="面议">面议</option>
+                    <option value="月利率">月利率</option>
+                    <option value="年利率">年利率</option>
+                </select>
             </td>
             <td width="100px;">放贷期限*</td>
             <td width="250px">
-                <select id='deadlineSel' style="font-weight: bold;width: 100px;"></select>
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-calendar"></i></span><input type="text" id="datepicker" style="width: 200px" name="reservation" id="reservation" value="03/18/2013 - 03/23/2013" />
+                </div>
             </td>
         </tr>
         <tr>
@@ -70,7 +76,13 @@
             <td width="100px;">产品种类*</td>
             <td colspan=3>
                 <select id='producttypeSel' class="chosen" style="font-weight: bold;width: 200px;">
-
+                    <option value="房产/固定资产抵押">房产/固定资产抵押</option>
+                    <option value="汽车抵押">汽车抵押</option>
+                    <option value="贵重物品">贵重物品</option>
+                    <option value="物资抵押">物资抵押</option>
+                    <option value="财产权利">财产权利</option>
+                    <option value="器械设备">器械设备</option>
+                    <option value="贸易单据">贸易单据</option>
                 </select>
             </td>
         </tr>

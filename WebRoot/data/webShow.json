@@ -1,0 +1,12 @@
+{
+    "menus": [
+        {
+            "header": "展示管理",
+            "name": [
+                "广告位",
+                "首页Slide"
+            ]
+        }
+    ],
+    "selected": 1
+}
