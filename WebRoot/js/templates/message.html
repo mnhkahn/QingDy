@@ -1,7 +1,7 @@
-<div class="message" >
+<div class="message">
     <div class="messageBox">
         <div class="messageFace">
-            <img src="${sender.avatar}" style="width: 50px; height: 50px" />
+            <img src="${sender.avatar}" style="width: 50px; height: 50px"/>
         </div>
         <div class="messageBody">
             <div class="message_arrow">
@@ -9,15 +9,47 @@
                 <span class="S_bg1_c">◆</span>
             </div>
             <p class="detail">
-                <a title="${sender.lastname}${sender.firstname}"href="#">${sender.lastname}${sender.firstname}</a>
+                <a title="${sender.lastname}${sender.firstname}" href="#">${sender.lastname}${sender.firstname}</a>
                 <span style="margin-left: 10px;">标题：<b>${title}</b></span>
-                <p>内容：<b>${message}</b></p>
+
+            <p>内容：<b>${message}</b></p>
             </p>
             <p class="action" style="margin-top: 10px;">
                 <span>${postDate}</span>
-                <span style="display: block; float: right;"><a href="javascript:void(0);">回复</a></span>
+                <span style="display: block; float: right;"><a
+                        href="javascript:reply('${sender.username}');">回复</a></span>
             </p>
         </div>
         <div style="clear:both;"></div>
     </div>
 </div>
+<script type="text/javascript">
+    var reply = function (receiver) {
+        if ($("#Dialog")) {
+            $("#Dialog").remove();
+        }
+        var dialog = $('<div id="Dialog"></div>');
+        dialog.load('/js/templates/messageStation1.html', function () {
+            dialog.dialog({
+                width:'auto',
+                modal: true,
+                title: "站内消息",
+                show: 'fade',
+                hide: 'fade'
+            });
+            var receiverInput = $("#tipInput");
+            receiverInput.val(receiver);
+            $("#submit").on("click", function () {
+
+                var title = $("#title");
+                var content = $("#content");
+                sendMessage(username, receiver, title.val(), content.val(),
+                    function() {
+                        dialog.dialog( "destroy" );
+                    }
+                );
+            });
+        });
+
+    }
+</script>

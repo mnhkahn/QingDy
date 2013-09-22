@@ -38,6 +38,8 @@ function init() {
     var id = args['id'];
     var tab = args['tab']
 
+    visit(MALL, id);
+
     var mall;
     $.ajax({
         url: "/rest/metadata/mall/" + id,
@@ -103,6 +105,7 @@ function init() {
 
                 sideContainer.load('/js/templates/bulletin.html', function () {
                     $("#bulletin").html(mall.announcement);
+                    contact(sideContainer, mall.poster.username);
                     sideContainer.append(visitorsContainer);
                 });
 
@@ -115,7 +118,8 @@ function init() {
                 $('#mallMain').append(clear);
 
                 timeline.cTimeline("/rest/metadata/timeline/" + username + "/recent"/*"/data/tests/timeline.json"*/);
-                visitorsContainer.cVisitors("/rest/metadata/visit/" + id + "/mall/");    // fack
+
+                visitorsContainer.cVisitors("/rest/metadata/visit/" + id + "/mall/");
             },
             // product detail
             function() {
@@ -208,6 +212,12 @@ function init() {
 	</div>
     <div id="footContainer" class="footContainer">
     </div>
+    <!-- JiaThis Button BEGIN -->
+    <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?uid=1368719936583355" charset="utf-8"></script>
+    <!-- JiaThis Button END -->
+    <!-- UJian Button BEGIN -->
+    <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>
+    <!-- UJian Button END -->
 </body>
 </html>
 

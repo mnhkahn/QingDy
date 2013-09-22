@@ -31,3 +31,20 @@
          console.debug(json);
     };
 })(jQuery);
+
+var sendMessage = function(sender, receiver, title, content, success, error) {
+    $.ajax({
+        url: '/rest/metadata/message/',
+        type: 'POST',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: '{"sender":{"username":"' + sender + '"}, "receiver":{"username":"' + receiver + '"}, "title": "' + title + '", "message":"' + content + '"}',
+        success: function (response) {
+            success();
+            $.jBox.info('发送成功');
+        },
+        error: function(response) {
+            $.jBox.info('发送失败' + response);
+        }
+    })
+}

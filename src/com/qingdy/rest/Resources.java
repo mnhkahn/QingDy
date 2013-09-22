@@ -898,7 +898,8 @@ public class Resources {
 	@Path("/visit/mall/")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response visitMall(Visit visit, @Context HttpServletRequest request) {
+	public Response visitMall(Visit visit, @PathParam("id") Long id, @Context HttpServletRequest request) {
+		visit.setId(id);
 		visit.setIp(getIP(request));
         
 		visit.setDate(new Date());

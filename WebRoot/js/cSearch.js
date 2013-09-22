@@ -11,7 +11,7 @@
         selectType.addClass("selectType");
         selectType.append(new Option("贷款产品",PRODUCT));
         selectType.append(new Option("贷款需求",LOAN));
-        selectType.append(new Option("专家顾问",USER));
+        selectType.append(new Option("专家顾问",SPECIALIST));
         selectType.append(new Option("贷款机构",MALL));
         selectType.append(new Option("贷款问答",QUESTION));
 

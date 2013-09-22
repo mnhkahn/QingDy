@@ -42,9 +42,14 @@ function commonInit() {
 	});
 
     $("#searchboxContainer").cSearch();
-	
-	showFoot();
-	
+
+    $("#footContainer").load("/js/templates/foot.html", function() {
+
+    })
+//	showFoot();
+
+    // Social
+    <!-- JiaThis Button BEGIN -->
 }
 
 function autoScroll() {
@@ -85,6 +90,7 @@ function showFoot() {
 	cell.className = "foot" + 3;
 	cell.id = "foot" + 3;
 	cell.colSpan = "10";
+
 	cell.appendChild(document.createTextNode('蜀ICP备09001352号 客服：028-62560576'));
 	row.appendChild(cell);
 	footTable.appendChild(row);
@@ -94,7 +100,10 @@ function showFoot() {
 	cell.className = "foot" + 4;
 	cell.id = "foot" + 4;
 	cell.colSpan = "10";
+
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 	cell.appendChild(document.createTextNode('青帝网 版权所有'));
+
 	row.appendChild(cell);
 	footTable.appendChild(row);
 
@@ -245,6 +254,53 @@ function getName(type) {
     }
 }
 
+function getProperty(object, type) {
+    var property = new Object;
+    switch (type) {
+        case SPECIALIST:
+            property.title = object.lastname + object.firstname;
+            property.link = getLink(SPECIALIST, object.id);
+            property.content = object.introduce;
+            break;
+        case BLOG:
+            return "贷款资讯";
+            break;
+        case EVALUATE:
+            return "";
+            break;
+        case LOAN:
+            property.title = object.title;
+            property.link = getLink(LOAN, object.id);
+            property.content = object.content;
+            break;
+        case MALL:
+            property.title = object.cName;
+            property.link = getLink(MALL, object.id);
+            property.content = object.content;
+            break;
+        case NEWS:
+            return "重要新闻";
+            break;
+        case PRODUCT:
+            property.title = object.pName;
+            property.link = getLink(PRODUCT, object.id);
+            property.content = object.content;
+            break;
+        case QUESTION:
+            property.title = object.title;
+            property.link = getLink(QUESTION, object.id);
+            property.content = object.content;
+            break;
+        case TRANSACTION:
+            return "m.html?tab=2&id=" + id;
+            break;
+        default:
+            property.title = object.name;
+            break;
+    }
+    return property;
+}
+
 function getTitle(type) {
     switch (type) {
         case ANSWER:
@@ -336,4 +392,44 @@ function getFavouriteCount(type, id) {
         }
     });
     return count;
+}
+
+function visit(type, id) {
+    var url = "/rest/metadata/visit/mall/";
+    var json = '{"oid":' + id + ',"type":' + type + ', "user":{"username":"' + username + '"}}';
+    switch (type) {
+        case MALL:
+
+            break;
+    }
+    $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: json,
+        success: function (data, textStatus, jqXHR) {
+
+        },
+        error: function(response) {
+            console.warn(response);
+        }
+    });
+}
+
+function contact(container, username) {
+    $.get("js/templates/contact.html", function(template) {
+        $.template("contactTmpl", template);
+        $.ajax({
+            url: "/rest/metadata/userdetail/" + username,//"data/tests/contact.json",
+            type: "GET",
+            dataType: "json",
+            success: function(response) {
+                $.tmpl("contactTmpl", response).appendTo(container);
+            },
+            error: function(response) {
+                console.warn(response);
+            }
+        });
+    });
 }

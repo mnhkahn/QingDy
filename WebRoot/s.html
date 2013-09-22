@@ -18,20 +18,57 @@
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script type="text/javascript" src="js/cSearch.js"></script>
     <script type="text/javascript" src="js/jquery.tmpl.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
     <link rel = "Shortcut Icon" href="favicon.ico">
 
     <script type="text/javascript">
         function init() {
             commonInit();
 
+            var args = new Object();
+            args = GetUrlParms();
+
+            var type = args['type'];
+            var keyword = args['keyword'];
+            var page = args['page'];
+            var size = args['size'];
+
+            var url = "/rest/metadata/";
+            switch (parseInt(type)) {
+                case PRODUCT:
+                    url += "product";
+                    break;
+                case LOAN:
+                    url += "loan";
+                    break;
+                case SPECIALIST:
+                    url += "specialist";
+                    break;
+                case MALL:
+                    url += "mall";
+                    break;
+                case QUESTION:
+                    url += "question";
+                    break;
+            }
+            url += "?rows=" + size;
+            url += "&page=" + page;
+            url += "&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc";
+
+            console.debug(url);
             $.get("js/templates/s.html", function(template) {
                 $.template("sTmpl", template);
                 $.ajax({
-                    url: "data/tests/s.json",
+                    url: url,//"data/tests/s.json",
                     type: "GET",
                     dataType: "json",
                     success: function(response) {
-                        $.tmpl("sTmpl", response).appendTo("#mainContainerCenterLeft");
+                        var s = new Array();
+                        for (var i = 0; i < response.length; i++) {
+                            var temp = getProperty(response[i], PRODUCT);
+                            s[i] = temp;
+                        }
+                        $.tmpl("sTmpl", s).appendTo("#mainContainerCenterLeft");
                     },
                     error: function(response) {
                         console.warn(response);
