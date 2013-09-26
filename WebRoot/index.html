@@ -24,13 +24,15 @@
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/cSearch.js" ></script>
     <script type="text/javascript" src="js/cForum.js"></script>
+<script type="text/javascript" src="js/cTemplate.js"></script>
 <script type="text/javascript" src="js/jquery.tmpl.js"></script>
 
+<!--
 <script src=" http://s22.cnzz.com/z_stat.php?id=1000077791&amp;show=pic2" type="text/javascript"></script>
 <script src="http://c.cnzz.com/cnzz_core_v3.php?web_id=1000077791&amp;show=pic2&amp;l=none" charset="utf-8" type="text/javascript"></script>
 
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000077791'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1000077791%26show%3Dpic2' type='text/javascript'%3E%3C/script%3E"));</script>
-
+-->
 <script type="text/javascript">
 function init() {
 
@@ -60,355 +62,38 @@ function init() {
 	});
 
     // create product grid
-    $.get("/js/templates/productGrid.html", function(template) {
-        $.template("productGridTmpl", template);
-        $.ajax({
-            url: "/rest/metadata/product?rows=10&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc",//"data/productGrid.json",
-            type: "GET",
-            dataType: "json",
-            success: function(response) {
-                for (var i = 0; i < response.length; i++) {
-                    response[i].link = getLink(PRODUCT, response[i].id);
+    $("#productUl").cTemplate("/rest/metadata/product?rows=4&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc", "/js/templates/grid4.html",
+            function(data) {
+                for (var i = 0; i < data.length; i++) {
+                    data[i].link = getLink(PRODUCT, data[i].id);
                 }
-                $.tmpl("productGridTmpl", response).appendTo("#productUl");
-                $("#productUl").gridAccordion({
-                    width: 660,
-                    height: 300,
-                    columns: 8,
-                    distance: 2,
-                    alignType: 'centerCenter',
-                    panelProperties: {
-                        0 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        1 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        2 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        3 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        4 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        5 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        6 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        7 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        }
-                    }
-                });
-            },
-            error: function(response) {
-                console.warn(response);
             }
-        });
-    });
+    );
+
 	// create demand grid
-    $.get("/js/templates/demandGrid.html", function(template) {
-        $.template("demandGridTmpl", template);
-        $.ajax({
-            url: "/rest/metadata/loan?rows=10&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc",//"data/demandGrid.json",
-            type: "GET",
-            dataType: "json",
-            success: function(response) {
-                for (var i = 0; i < response.length; i++) {
-                    response[i].link = getLink(LOAN, response[i].id);
+    $("#demandUl").cTemplate("/rest/metadata/loan?rows=6&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc", "/js/templates/grid6.html",
+            function(data) {
+                for (var i = 0; i < data.length; i++) {
+                    data[i].link = getLink(LOAN, data[i].id);
                 }
-                $.tmpl("demandGridTmpl", response).appendTo("#demandUl");
-                $("#demandUl").gridAccordion({
-                    width: 660,
-                    height: 300,
-                    columns: 4,
-                    rows: 3,
-                    distance: 2,
-                    alignType: 'centerCenter',
-                    panelProperties: {
-                        0 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        1 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        2 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        3 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        4 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        5 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        6 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        7 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        8 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        9 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        10 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        11 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        }
-                    }
-                });
-            },
-            error: function(response) {
-                console.warn(response);
             }
-        });
-    });
+    );
 	// create specialist grid
-    $.get("/js/templates/specialistGrid.html", function(template) {
-        $.template("specialistGridTmpl", template);
-        $.ajax({
-            url: "/rest/metadata/specialist?rows=8&page=1",//"data/specialistGrid.json",
-            type: "GET",
-            dataType: "json",
-            success: function(response) {
-                for (var i = 0; i < response.length; i++) {
-                    response[i].link = getLink(SPECIALIST, response[i].id);
+    $("#specialistUl").cTemplate("/rest/metadata/specialist?rows=8&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc", "/js/templates/grid8.html",
+            function(data) {
+                for (var i = 0; i < data.length; i++) {
+                    data[i].link = getLink(SPECIALIST, data[i].id);
                 }
-                $.tmpl("specialistGridTmpl", response).appendTo("#specialistUl");
-                $("#specialistUl").gridAccordion({
-                    width: 660,
-                    height: 300,
-                    columns: 8,
-                    distance: 2,
-                    alignType: 'centerCenter',
-                    panelProperties: {
-                        0 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 180,
-                            captionLeft: 100
-                        },
-                        1 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 180,
-                            captionLeft: 100
-                        },
-                        2 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 180,
-                            captionLeft: 100
-                        },
-                        3 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 180,
-                            captionLeft: 100
-                        },
-                        4 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 180,
-                            captionLeft: 100
-                        },
-                        5 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 180,
-                            captionLeft: 100
-                        },
-                        6 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 180,
-                            captionLeft: 100
-                        },
-                        7 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 180,
-                            captionLeft: 100
-                        }
-                    }
-                });
-            },
-            error: function(response) {
-                console.warn(response);
             }
-        });
-    });
+    );
     // create mall grid
-    $.get("/js/templates/mallGrid.html", function(template) {
-        $.template("mallGridTmpl", template);
-        $.ajax({
-            url: "/rest/metadata/mall?rows=10&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc",//"data/mallGrid.json",
-            type: "GET",
-            dataType: "json",
-            success: function(response) {
-                for (var i = 0; i < response.length; i++) {
-                    response[i].link = getLink(MALL, response[i].id);
+    $("#mallUl").cTemplate("/rest/metadata/mall?rows=6&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc", "/js/templates/grid6.html",
+            function(data) {
+                for (var i = 0; i < data.length; i++) {
+                    data[i].link = getLink(MALL, data[i].id);
                 }
-                $.tmpl("mallGridTmpl", response).appendTo("#mallUl");
-                $("#mallUl").gridAccordion({
-                    width: 660,
-                    height: 300,
-                    columns: 4,
-                    rows: 3,
-                    distance: 2,
-                    alignType: 'centerCenter',
-                    panelProperties: {
-                        0 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        1 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        2 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        3 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        4 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        5 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        6 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        7 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        8 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        9 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        10 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        },
-                        11 : {
-                            captionWidth: 173,
-                            captionHeight: 78,
-                            captionTop: 160,
-                            captionLeft: 120
-                        }
-                    }
-                });
-            },
-            error: function(response) {
-                console.warn(response);
             }
-        });
-    });
+    );
 
     // create bank container
     $('#bankContainer').load('/data/bankFlex.html', function () {

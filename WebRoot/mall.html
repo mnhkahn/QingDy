@@ -7,9 +7,10 @@
 <link href="css/base.css" rel="stylesheet" type="text/css" />
 <link href="css/flexisel.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="css/chosen.css" />
-
+    <link rel="stylesheet" href="css/select2Buttons.css" type="text/css" />
 
 <script type="text/javascript" src='js/jquery-1.7.2.js'></script>
+<script type="text/javascript" src="js/jQuery.select2Buttons.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src='js/cTop.js'></script>
@@ -17,6 +18,7 @@
 <script type="text/javascript" src="js/jquery.esn.autobrowse.js"></script>
 <script type="text/javascript" src="js/jstorage.js"></script>
 <script type="text/javascript" src="js/chosen.jquery.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
 
 <link rel = "Shortcut Icon" href="favicon.ico">
 <script type="text/javascript">
@@ -47,57 +49,84 @@ function init() {
         });
     });
 
-    $('#filter').load('/js/templates/mallFilter.html', function () {
-        var provinceSel = $("#provinceSel");
-        provinceSel.data("placeholder", "请选择").chosen();
+    var count = 0;
 
-        var citySel = $("#citySel");
-        citySel.data("placeholder", "请选择").chosen();
+
+    $('#filter').load('/js/templates/mallFilter.html', function () {
+        var args = new Object();
+        args = GetUrlParms();
+
+        var type = args['type'];
+
+        var i = getFilter(type, $("select[name='simple-select'] option"));
+        $("#filterSel").select2Buttons();
+
+        count = getFilterCount("type", type, MALL);
+        var cType;
+        $("#filterSel").change(function() {
+            cType = "";
+            if ($(this).val() != "不限") {
+                cType = $(this).val();
+            }
+            setURLFilter(args['type'], cType);
+
+            $(".page .items").empty();
+            // default size & page
+            var size = 10;
+            var page = 1;
+            $(".page .items").autobrowse(
+                    {
+                        url: function (offset)
+                        {
+                            if (offset >= count) {
+                                return "/";
+                            }
+                            else {
+                                console.debug(count, offset)
+
+                                if (offset < size && offset > 0)
+                                    size = offset;
+                                if (offset > 0)
+                                    page = offset / size + 1;
+                                return "/rest/metadata/mall?rows=" + size + "&page=" + parseInt(page, 10) + "&searchField=cType&searchString=" + cType + "&searchOper=cn&sidx=postDate&sord=asc";//"/data/tests/mallWaterfall.json";
+                            }
+                        },
+                        template: function (response)
+                        {
+                            var markup='';
+                            for (var i = 0; i < response.length; i++)
+                            {
+                                markup += '<a target="_blank" href="' + getLink(MALL, response[i].id) + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
+                                        '<div class="p_left"><img width="80" height="80" alt="' + response[i].poster.lastname + '经理" src="' + response[i].poster.avatar + '">' +
+                                        '</div>' +
+                                        '<div class="p_right" style="width: 690px">' +
+                                        '<h5>' + response[i].poster.lastname + response[i].poster.firstname + '</h5>' +
+                                        '<div class="clear_both"></div>' +
+                                        '<span class="p1">' + response[i].clientLocation + '</span>' +
+                                        '<span class="p2" style="width: 400px;">贷款用途：' + response[i].usesofloan + '</span>' +
+                                        '<span style="width: 40px">电话：</span>' +
+                                        '<span class="p4">' + response[i].cPhoneNumber + '</span>' +
+                                        '<div class="clear_both"></div>' +
+                                        '<p>' + response[i].content + '.</p>' +
+                                        '</div></div></a>';
+                            };
+
+                            return markup;
+                        },
+                        itemsReturned: function (response) { return response.length; },
+                        offset: 0,
+//            max: 100,
+                        loader: '<div class="loader"></div>',
+                        useCache: true,
+                        expiration: 1
+                    }
+            );
+        });
+
+        $(".select-buttons li:eq(" + i + ") a").click();
+
     });
 
-    // default size & page
-    var size = 10;
-    var page = 1;
-    $(".page .items").autobrowse(
-            {
-                url: function (offset)
-                {
-                    if (offset < size && offset > 0)
-                        size = offset;
-                    if (offset > 0)
-                        page = offset / size + 1;
-                    return "/rest/metadata/mall?rows=" + size + "&page=" + page + "&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc";//"/data/tests/mallWaterfall.json";
-                },
-                template: function (response)
-                {
-                    var markup='';
-                    for (var i = 0; i < response.length; i++)
-                    {
-                        markup += '<a target="_blank" href="' + getLink(MALL, response[i].id) + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
-                                '<div class="p_left"><img width="80" height="80" alt="' + response[i].poster.lastname + '经理" src="' + response[i].poster.avatar + '">' +
-                                '</div>' +
-                                '<div class="p_right" style="width: 690px">' +
-                                '<h5>' + response[i].poster.lastname + response[i].poster.firstname + '</h5>' +
-                                '<div class="clear_both"></div>' +
-                                '<span class="p1">' + response[i].clientLocation + '</span>' +
-                                '<span class="p2" style="width: 400px;">贷款用途：' + response[i].usesofloan + '</span>' +
-                                '<span style="width: 40px">电话：</span>' +
-                                '<span class="p4">' + response[i].cPhoneNumber + '</span>' +
-                                '<div class="clear_both"></div>' +
-                                '<p>' + response[i].content + '.</p>' +
-                                '</div></div></a>';
-                    };
-
-                    return markup;
-                },
-                itemsReturned: function (response) { return response.length; },
-                offset: 0,
-//            max: 100,
-                loader: '<div class="loader"></div>',
-                useCache: true,
-                expiration: 1
-            }
-    );
 }
 </script>
 

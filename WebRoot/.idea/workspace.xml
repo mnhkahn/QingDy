@@ -33,7 +33,7 @@
     <file path="/supply.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378876971958" ignored="false" />
     <file path="/supplyFilter.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375597550099" ignored="false" />
     <file path="/specialist.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378877090040" ignored="false" />
-    <file path="/mall.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378877010574" ignored="false" />
+    <file path="/mall.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1380123063556" ignored="false" />
     <file path="/cVSlide.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375337639130" ignored="false" />
     <file path="/supplyTemplate.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374670995619" ignored="false" />
     <file path="/supplyWaterfall.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374674423936" ignored="false" />
@@ -48,7 +48,7 @@
     <file path="/cTop.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377398552329" ignored="false" />
     <file path="/m.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379846474200" ignored="false" />
     <file path="/advisory.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377524267989" ignored="false" />
-    <file path="/base.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379870455363" ignored="false" />
+    <file path="/base.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1380123848824" ignored="false" />
     <file path="/questionWaterfall.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375098688207" ignored="false" />
     <file path="/cMenuFloat.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375104235977" ignored="false" />
     <file path="/questionMenu.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375102952136" ignored="false" />
@@ -132,50 +132,39 @@
     <favorites_list name="WebRoot" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="base.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/base.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="8" selection-start="1413" selection-end="1413" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="foot.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/templates/foot.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="8" selection-start="1276" selection-end="1276" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="342" selection-start="2145" selection-end="2145" vertical-scroll-proportion="0.03696498">
-              <folding>
-                <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#3;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#0;n#div#3;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#4;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#0;n#div#5;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#6;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#0;n#div#7;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.41812867">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="base.js" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/js/base.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="507" column="20" selection-start="12963" selection-end="12963" vertical-scroll-proportion="0.8181818">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="mall.html" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/mall.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="70" column="12" selection-start="2554" selection-end="2554" vertical-scroll-proportion="0.50187266">
+                  <folding>
+                    <marker date="1380123530834" expanded="true" signature="3944:4044" placeholder="..." />
+                    <marker date="1380123530834" expanded="true" signature="4347:4359" placeholder="..." />
+                    <marker date="1380123530834" expanded="true" signature="4728:4741" placeholder="..." />
+                    <marker date="1380123530834" expanded="true" signature="4843:4854" placeholder="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -189,7 +178,6 @@
         <option value="$PROJECT_DIR$/d.html" />
         <option value="$PROJECT_DIR$/demand.html" />
         <option value="$PROJECT_DIR$/m.html" />
-        <option value="$PROJECT_DIR$/mall.html" />
         <option value="$PROJECT_DIR$/news.html" />
         <option value="$PROJECT_DIR$/p.html" />
         <option value="$PROJECT_DIR$/p1.html" />
@@ -198,17 +186,18 @@
         <option value="$PROJECT_DIR$/q.html" />
         <option value="$PROJECT_DIR$/specialist.html" />
         <option value="$PROJECT_DIR$/supply.html" />
-        <option value="$PROJECT_DIR$/js/base.js" />
         <option value="$PROJECT_DIR$/js/templates/foot.html" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/mall.html" />
+        <option value="$PROJECT_DIR$/js/base.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="x" value="-1" />
+    <option name="y" value="27" />
+    <option name="width" value="1682" />
+    <option name="height" value="1024" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -353,8 +342,8 @@
     <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -400,13 +389,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
-    <editor active="false" />
+    <frame x="-1" y="27" width="1682" height="1024" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981302" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17349218" sideWeight="0.6701031" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17291415" sideWeight="0.6701031" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -499,11 +488,6 @@
         <state line="219" column="29" selection-start="8892" selection-end="8892" vertical-scroll-proportion="-16.107143" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mall.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="136" column="29" selection-start="5691" selection-end="5691" vertical-scroll-proportion="0.92607003" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/news.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="74" column="29" selection-start="4461" selection-end="4461" vertical-scroll-proportion="0.8832685" />
@@ -549,13 +533,6 @@
         <state line="135" column="29" selection-start="5749" selection-end="5749" vertical-scroll-proportion="0.8832685" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="8" selection-start="1413" selection-end="1413" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/templates/foot.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="8" selection-start="1276" selection-end="1276" vertical-scroll-proportion="0.0">
@@ -565,7 +542,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="342" selection-start="2145" selection-end="2145" vertical-scroll-proportion="0.03696498">
+        <state line="43" column="44" selection-start="2651" selection-end="2651" vertical-scroll-proportion="6.875">
           <folding>
             <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -582,6 +559,25 @@
             <element signature="n#style#0;n#div#6;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#ul#0;n#div#7;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mall.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="12" selection-start="2554" selection-end="2554" vertical-scroll-proportion="0.50187266">
+          <folding>
+            <marker date="1380123530834" expanded="true" signature="3944:4044" placeholder="..." />
+            <marker date="1380123530834" expanded="true" signature="4347:4359" placeholder="..." />
+            <marker date="1380123530834" expanded="true" signature="4728:4741" placeholder="..." />
+            <marker date="1380123530834" expanded="true" signature="4843:4854" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="507" column="20" selection-start="12963" selection-end="12963" vertical-scroll-proportion="0.8181818">
+          <folding />
         </state>
       </provider>
     </entry>

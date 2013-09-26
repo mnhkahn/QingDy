@@ -319,6 +319,14 @@ public class Resources {
 		return Response.ok(malls).build();
 	}
 	
+	@Path("/mall/count")
+	@HEAD
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getMallCount(@QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator) {
+		Long count = new Long(1);//facadeManager.getMallCount(field, value, operator, true);
+		return Response.noContent().header("count", count).build();
+	}
+	
 	@Path("/mall/manage")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

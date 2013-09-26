@@ -433,3 +433,80 @@ function contact(container, username) {
         });
     });
 }
+
+var reply = function (receiver) {
+    if ($("#Dialog")) {
+        $("#Dialog").remove();
+    }
+    var dialog = $('<div id="Dialog"></div>');
+    dialog.load('/js/templates/messageStation1.html', function () {
+        dialog.dialog({
+            width:'auto',
+            modal: true,
+            title: "站内消息",
+            show: 'fade',
+            hide: 'fade'
+        });
+        var receiverInput = $("#tipInput");
+        receiverInput.val(receiver);
+        $("#submit").on("click", function () {
+
+            var title = $("#title");
+            var content = $("#content");
+            sendMessage(username, receiver, title.val(), content.val(),
+                function() {
+                    dialog.dialog( "destroy" );
+                }
+            );
+        });
+    });
+
+}
+
+function getFilter(key, opts) {
+    var i = 0;
+    if (key) {
+        for (; i < opts.length; i++) {
+            if (opts[i].value == key) {
+
+                break;
+            }
+        }
+    }
+    return i;
+}
+
+function getFilterCount(field, value, type) {
+    var url = "/rest/metadata/";
+    switch (type) {
+        case MALL:
+            url += "mall";
+            break;
+    }
+    url += "/count?searchField=" + field + "&searchString=" + value;
+    console.debug(url);
+
+    var count = 0;
+    $.ajax({
+        url: url,
+        type: 'HEAD',
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        success: function (data, textStatus, jqXHR) {
+            count = parseInt(jqXHR.getResponseHeader("count"));
+        },
+        error: function(response) {
+            console.warn(response);
+        }
+    })
+    return count;
+}
+
+function setURLFilter(oldValue, value) {
+    var url = window.location.href;
+    if (oldValue && oldValue != "" && oldValue != value) {
+        url = url.replace(encodeURI(oldValue), encodeURI(value));
+        window.location.href = url;
+    }
+}
