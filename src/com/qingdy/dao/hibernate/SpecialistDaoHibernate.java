@@ -54,7 +54,12 @@ public class SpecialistDaoHibernate extends BaseDaoHibernate implements Speciali
 			String value, String operator, String sidx, String sord,
 			boolean verify) {
 		List<Score> scores = new ArrayList<>();
-		List<Object[]> lists = getHibernateTemplate().findByNamedQuery("querySpecialist");
+		
+		Object[] values = new Object[2];
+		values[0] = (page - 1) * size + 1;
+		values[1] = size;
+		List<Object[]> lists = getHibernateTemplate().findByNamedQuery("querySpecialist").subList((page - 1) * size, page * size);
+		
 		for (int i = 0; i < lists.size(); i++) {
 			Score score = new Score();
 			

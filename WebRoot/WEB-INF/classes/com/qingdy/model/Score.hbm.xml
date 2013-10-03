@@ -22,7 +22,7 @@
 	</query>
 	<query name="querySpecialist">
          <![CDATA[
-         	select s.poster, sum(s.score) as score from Score as s group by s.poster order by score desc
+         	select s.poster, sum(s.score) as score from Score as s group by s.poster order by score desc limit 1,8;
          ]]>
 	</query>
 </hibernate-mapping>
