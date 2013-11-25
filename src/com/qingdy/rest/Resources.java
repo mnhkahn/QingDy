@@ -2,10 +2,12 @@ package com.qingdy.rest;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +24,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.cyeam.util.ConvertUtil;
+import com.cyeam.util.FileUtil;
+import com.cyeam.util.JSONUtil;
+import com.cyeam.util.PropUtil;
 import com.qingdy.model.Answer;
 import com.qingdy.model.Blog;
 import com.qingdy.model.Evaluate;
@@ -965,6 +972,16 @@ public class Resources {
 	@Produces(MediaType.TEXT_PLAIN)
 	public void upload(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
 		facadeManager.upload(request, response);
+	}
+	
+	/*
+	 * json
+	 */
+	@POST
+	@Path("json")
+	public Response updateJson(@Context HttpServletRequest request) throws IOException {
+		FileUtil.Str2File(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.SLIDE_PATH), ConvertUtil.inputStream2String(request.getInputStream()));
+		return Response.noContent().build();
 	}
 	
 }

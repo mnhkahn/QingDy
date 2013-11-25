@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import com.cyeam.util.ConvertUtil;
+
 public class CharactorFilter implements Filter {
 
 	//字符编码
