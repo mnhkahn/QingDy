@@ -12,6 +12,24 @@ public class Specialist {
 	private UserDetail user;
 	@JsonProperty("scores")
 	private Long scores;
+	@JsonProperty("specialty")
+	private String classes;
+
+	public Long getScores() {
+		return scores;
+	}
+
+	public void setScores(Long scores) {
+		this.scores = scores;
+	}
+
+	public String getClasses() {
+		return classes;
+	}
+
+	public void setClasses(String classes) {
+		this.classes = classes;
+	}
 
 	public Specialist() {
 		
@@ -31,14 +49,6 @@ public class Specialist {
 
 	public void setUser(UserDetail user) {
 		this.user = user;
-	}
-
-	public Long getScore() {
-		return scores;
-	}
-
-	public void setScore(Long scores) {
-		this.scores = scores;
 	}
 	
 }

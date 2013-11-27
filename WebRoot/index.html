@@ -35,7 +35,19 @@
 -->
 <script type="text/javascript">
 function init() {
-
+	$.ajax({
+        url: '/rest/metadata/answer',
+        type: 'POST',
+        dataType: "json",
+        data: '{"poster": {"username": "lender"}, "answer": "title1", "question": {"id": 2}}',
+        contentType: "application/json; charset=utf-8",
+        success: function (response) {
+            $.jBox.info('添加成功');
+        },
+        error: function (response) {
+            $.jBox.info('添加失败' + response);
+        }
+    });
 	commonInit();
 
     $('#VSlideContainer').cForum(['mallCount', 'specialistCount', 'transactionCount'], "/rest/metadata/forum?rows=20"/*'/data/tests/count.json'*/);

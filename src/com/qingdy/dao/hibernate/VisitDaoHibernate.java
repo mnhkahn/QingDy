@@ -21,24 +21,28 @@ public class VisitDaoHibernate extends BaseDaoHibernate implements VisitDao {
 	}
 
 	@Override
-	public List<Visit> getVisits(String username) {
-		UserDetail user = getHibernateTemplate().get(UserDetail.class, username);
-		
-		return null;
-	}
-
-	@Override
 	public List<Visit> getVisits(int type, Long id, int size, int page) {
 		List<Visit> visits = null;
 		switch (type) {
 		case 5:
-			visits = getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Visit.class).add(Restrictions.eq("type", Constant.MALL)).add(Restrictions.eq("oid", id)).addOrder(Order.desc("date")));
+			visits = getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Visit.class).add(Restrictions.eq("type", Constant.MALL)).add(Restrictions.eq("oid", id)).addOrder(Order.desc("date")), size * (page - 1), size);
 			break;
 
 		default:
 			break;
 		}
 		return visits;
+	}
+
+	@Override
+	public int getVisits(int type, Long id) {
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Visit.class).add(Restrictions.eq("type", Constant.MALL)).add(Restrictions.eq("oid", id))).size();
+	}
+
+	@Override
+	public List<Visit> getUserVisits(String username, int size, int page) {
+		UserDetail user = getHibernateTemplate().get(UserDetail.class, username);
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Visit.class).add(Restrictions.eq("user", user)), size * (page - 1), size);
 	}
 
 }

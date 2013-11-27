@@ -21,12 +21,20 @@ public class FileUtil {
 		return builder.toString();
 	}
 	
-	public static void Str2File(String fileName, String content) throws IOException {
-		System.out.println(content);
-		FileOutputStream fos = new FileOutputStream(fileName); 
-        OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8"); 
-        osw.write(content); 
-        osw.flush(); 
+	public static void Str2File(String fileName, String content) {
+		System.out.println(fileName + "**********" + content);
+		FileOutputStream fos = null;
+        OutputStreamWriter osw = null;
+        try {
+        	fos = new FileOutputStream(fileName);
+        	osw = new OutputStreamWriter(fos, "UTF-8");
+			osw.write(content);
+			osw.flush(); 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+        
 //		FileOutputStream fos = new FileOutputStream("C:/Users/Bryce/Documents/GitHub/QingDy/WebRoot/data/" + fileName);
 //		DataOutputStream dos = new DataOutputStream(fos);
 //		dos.writeUTF(content);

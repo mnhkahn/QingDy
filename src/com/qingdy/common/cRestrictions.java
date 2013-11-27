@@ -5,6 +5,8 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
+import com.cyeam.util.StringUtil;
+
 public class cRestrictions {
 	
 	public static DetachedCriteria getRestrictions(Class clazz, String field, String value, String operator, String sidx, String sord, boolean verify) {
@@ -20,7 +22,27 @@ public class cRestrictions {
 		return criteria;
 	}
 	
-	public static SimpleExpression getRestrictions(String field, String value, String operator) {
+	public static DetachedCriteria getRestrictions(Class clazz, String field[], String value[], String operator[], String sidx, String sord, boolean verify) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
+		
+		for (int i = 0; i < field.length; i++) {
+			if (StringUtil.isDouble(value[i])) {
+				criteria.add(cRestrictions.getRestrictions(field[i], Float.parseFloat(value[i]), operator[i]));
+				continue;
+			}
+			criteria.add(cRestrictions.getRestrictions(field[i], value[i], operator[i]));
+		}
+		
+		// false for get all items and true for get verified items
+		if (verify) {
+			criteria.add(cRestrictions.getRestrictions(verify));
+		}
+		criteria.addOrder(cRestrictions.getRestrictions(sidx, sord));
+		
+		return criteria;
+	}
+	
+	public static SimpleExpression getRestrictions(String field, Object value, String operator) {
 		SimpleExpression simpleExpression = null;
 		switch (operator) {
 		case "eq":

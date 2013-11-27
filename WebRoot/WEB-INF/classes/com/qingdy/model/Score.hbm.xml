@@ -8,6 +8,8 @@
 			<generator class="increment">
 			</generator>
 		</id>
+		<many-to-one name="question" column="QUESTION" not-null="true" class="com.qingdy.model.Question" update="false">
+		</many-to-one>
         <many-to-one name="poster" class="com.qingdy.model.UserDetail" fetch="join" update="false">
             <column name="POSTER" />
         </many-to-one>
@@ -22,7 +24,12 @@
 	</query>
 	<query name="querySpecialist">
          <![CDATA[
-         	select s.poster, sum(s.score) as score from Score as s group by s.poster order by score desc limit 1,8;
+         	select s.poster, sum(s.score) as score from Score as s group by s.poster order by score desc limit 1,8
+         ]]>
+	</query>
+	<query name="querySpecialistWithFilters">
+         <![CDATA[
+         	select distinct s.poster, sum(s.score), s.question.classes as score from Score as s where s.poster.gender=? group by s.poster, s.question.classes order by score desc limit 1,8
          ]]>
 	</query>
 </hibernate-mapping>

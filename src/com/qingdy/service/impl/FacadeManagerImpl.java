@@ -16,6 +16,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Service;
 
+import com.cyeam.util.FileUtil;
+import com.cyeam.util.PropUtil;
 import com.qingdy.common.Constant;
 import com.qingdy.dao.AnswerDao;
 import com.qingdy.dao.BlogDao;
@@ -342,6 +344,13 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 		return productDao.getProducts(size, page, field, value, operator, sidx,
 				sord, verify);
 	}
+	
+	@Override
+	public List<Product> getProducts(int size, int page, String[] field,
+			String[] value, String[] operator, String sidx, String sord, boolean verify) {
+		// TODO Auto-generated method stub
+		return productDao.getProducts(size, page, field, value, operator, sidx, sord, verify);
+	}
 
 	@Override
 	public List<Product> getProducts(String username) {
@@ -452,6 +461,14 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	@Override
 	public void verifyAnswer(Long id, boolean verify) {
 		answerDao.verifyAnswer(id, verify);
+		
+		if (!verify) {
+			Score score = new Score();
+			score.setPoster(answerDao.getAnswer(id).getPoster());
+			score.setQuestion(answerDao.getAnswer(id).getQuestion());
+			score.setScore(-1);
+			scoreDao.addScore(score);
+		}
 	}
 
 	/*
@@ -473,6 +490,13 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 							.getId());
 		}
 		return specialists;
+	}
+	
+	@Override
+	public List<Specialist> getSpecialists(int size, int page, String[] field,
+			String[] value, String[] operator, String sidx, String sord, boolean verify) {
+		// TODO Auto-generated method stub
+		return specialistDao.getSpecialists(size, page, field, value, operator, sidx, sord, verify);
 	}
 
 	/*
@@ -512,6 +536,13 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 			String operator, String sidx, String sord, boolean verify) {
 		return loanDao.getLoans(size, page, field, value, operator, sidx, sord,
 				verify);
+	}
+	
+	@Override
+	public List<Loan> getLoans(int size, int page, String[] field,
+			String[] value, String[] operator, String sidx, String sord, boolean verify) {
+		// TODO Auto-generated method stub
+		return loanDao.getLoans(size, page, field, value, operator, sidx, sord, verify);
 	}
 
 	@Override
@@ -692,6 +723,18 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 		visitDao.addVisit(visit);
 	}
 
+	@Override
+	public int getMallVisits(Long id) {
+		// TODO Auto-generated method stub
+		return visitDao.getVisits(Constant.MALL, id);
+	}
+
+	@Override
+	public List<Visit> getUserVisits(String username, int size, int page) {
+		// TODO Auto-generated method stub
+		return visitDao.getUserVisits(username, size, page);
+	}
+	
 	/*
 	 * Favourite(non-Javadoc)
 	 * 
@@ -732,11 +775,11 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * , javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public void upload(HttpServletRequest request, HttpServletResponse response) {
+	public void upload(HttpServletRequest request, HttpServletResponse response, int type) {
 		if (ServletFileUpload.isMultipartContent(request)) {
 			FileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
-			List items;
+			List items = null;
 			try {
 				items = upload.parseRequest(request);
 				Iterator iterator = items.iterator();
@@ -745,7 +788,8 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 				if (!item.isFormField()) {
 					String fileName = item.getName();
 					Date date = new Date();
-					File uploadedFile = new File("" + date.getTime() + fileName);
+					
+					File uploadedFile = new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), type) + date.getTime() + fileName);
 					item.write(uploadedFile);
 
 					response.getWriter().write(
@@ -762,4 +806,15 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 		}
 
 	}
+
+	/*
+	 * Configuration(non-Javadoc)
+	 * @see com.qingdy.service.FacadeManager#updateJson(java.lang.String, java.lang.String)
+	 */
+	
+	@Override
+	public void updateConfigFile(String path, String content) {
+		FileUtil.Str2File(path, content);
+	}
+
 }

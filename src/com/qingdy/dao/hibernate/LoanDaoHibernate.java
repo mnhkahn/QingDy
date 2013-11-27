@@ -20,6 +20,14 @@ public class LoanDaoHibernate extends BaseDaoHibernate implements LoanDao {
 	public List<Loan> getLoans(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
 		return getHibernateTemplate().findByCriteria(cRestrictions.getRestrictions(Loan.class, field, value, operator, sidx, sord, verify), size * (page - 1), size);
 	}
+	
+	@Override
+	public List<Loan> getLoans(int size, int page, String[] field,
+			String[] value, String operator[], String sidx, String sord, boolean verify) {
+		// TODO Auto-generated method stub
+		return getHibernateTemplate().findByCriteria(cRestrictions.getRestrictions(Loan.class, field, value, operator, sidx, sord, verify), size * (page - 1), size);
+	}
+
 
 	@Override
 	public List<Loan> getLoans(String username) {
@@ -58,6 +66,5 @@ public class LoanDaoHibernate extends BaseDaoHibernate implements LoanDao {
 		Loan loan = getLoan(id);
 		getHibernateTemplate().delete(loan);
 	}
-
 
 }

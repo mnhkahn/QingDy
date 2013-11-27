@@ -10,5 +10,7 @@ public interface VisitDao extends DAO {
 	
 	public List<Visit> getVisits(int type, Long id, int size, int page);
 	
-	public List<Visit> getVisits(String username);
+	public int getVisits(int type, Long id);
+	
+	public List<Visit> getUserVisits(String username, int size, int page);
 }

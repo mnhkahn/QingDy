@@ -17,11 +17,29 @@
         <many-to-one name="user" class="com.qingdy.model.UserDetail" fetch="join">
             <column name="USER" />
         </many-to-one>
-        <property name="date" type="java.util.Date">
-            <column name="DATE" />
-        </property>
         <property name="ip" type="java.lang.String">
             <column name="IP" />
+        </property>
+        <property name="startDate" type="java.util.Date">
+            <column name="STARTDATE" />
+        </property>
+        <property name="endDate" type="java.util.Date">
+            <column name="ENDDATE" />
+        </property>
+        <property name="visitCity" type="java.lang.String">
+            <column name="VISITCITY" />
+        </property>
+        <property name="visitBrowerType" type="java.lang.Integer">
+            <column name="VISITBROWERTYPE" />
+        </property>
+        <property name="visitResolution" type="java.lang.Integer">
+            <column name="VISITRESOLUTION" />
+        </property>
+        <property name="visitOS" type="java.lang.Integer">
+            <column name="VISITOS" />
+        </property>
+        <property name="fromSource" type="java.lang.Integer">
+            <column name="FROMSOURCE" />
         </property>
     </class>
 </hibernate-mapping>

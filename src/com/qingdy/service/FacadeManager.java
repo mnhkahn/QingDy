@@ -5,6 +5,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cyeam.util.ConvertUtil;
+import com.cyeam.util.FileUtil;
+import com.cyeam.util.PropUtil;
 import com.qingdy.model.Answer;
 import com.qingdy.model.Blog;
 import com.qingdy.model.Evaluate;
@@ -101,6 +104,8 @@ public interface FacadeManager {
 	 */
 	public List<Product> getProducts(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
+	public List<Product> getProducts(int size, int page, String field[], String value[], String[] operator, String sidx, String sord, boolean verify);
+	
 	public Product getProduct(Long id);
 	
 	public List<Product> getProducts(String username);
@@ -149,6 +154,8 @@ public interface FacadeManager {
 	 * Specialist
 	 */
 	public List<Score> getSpecialists(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
+	
+	public List<Specialist> getSpecialists(int size, int page, String[] field, String[] value, String[] operator, String sidx, String sord, boolean verify);
 	/*
 	 * News
 	 */
@@ -164,6 +171,8 @@ public interface FacadeManager {
 	 * Loan
 	 */
 	public List<Loan> getLoans(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
+	
+	public List<Loan> getLoans(int size, int page, String[] field, String[] value, String[] operator, String sidx, String sord, boolean verify);
 	
 	public List<Loan> getLoans(String username);
 	
@@ -232,6 +241,10 @@ public interface FacadeManager {
 	 */
 	public List<Visit> getMallVisits(Long id, int size, int page);
 	
+	public int getMallVisits(Long id);
+	
+	public List<Visit> getUserVisits(String username, int size, int page);
+	
 	public void visitMall(Visit visit);
 	
 	
@@ -251,5 +264,11 @@ public interface FacadeManager {
 	/* 
 	 * Upload
 	 */
-	public void upload(HttpServletRequest request, HttpServletResponse response);
+	public void upload(HttpServletRequest request, HttpServletResponse response, int type);
+	
+	/*
+	 * Property
+	 */
+	public void updateConfigFile(String path, String content);
+
 }

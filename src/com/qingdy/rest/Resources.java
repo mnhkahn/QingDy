@@ -52,6 +52,7 @@ import com.qingdy.model.UserDetail;
 import com.qingdy.model.Visit;
 import com.qingdy.model.domain.Forums;
 import com.qingdy.model.domain.Grid;
+import com.qingdy.model.domain.Specialist;
 import com.qingdy.model.domain.UserTop;
 import com.qingdy.service.FacadeManager;
 
@@ -396,6 +397,14 @@ public class Resources {
 		return Response.ok(products).build();
 	}
 	
+	@Path("/product/nkeys")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVerifiedProducts(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String [] field, @QueryParam("searchString") String [] value, @QueryParam("searchOper") String [] operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Product> products = facadeManager.getProducts(size,  page, field, value, operator, sidx, sord, true);
+		return Response.ok(products).build();
+	}
+	
 	@Path("/product/username/{username}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -513,6 +522,8 @@ public class Resources {
 	 */
 	@Path("/answer")
 	@POST
+	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON}) 
+    @Produces(MediaType.APPLICATION_JSON) 
 	public Response addAnswer(Answer answer) {
 		answer.setPostDate(new Date());
 		facadeManager.saveAnswer(answer);
@@ -590,6 +601,14 @@ public class Resources {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSpecialists(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
 		List<Score> specialists = facadeManager.getSpecialists(size, page, field, value, operator, sidx, sord, true);
+		return Response.ok(specialists).build();
+	}
+	
+	@Path("/specialist/nkeys")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getSpecialists(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field[], @QueryParam("searchString") String value[], @QueryParam("searchOper") String [] operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Specialist> specialists = facadeManager.getSpecialists(size, page, field, value, operator, sidx, sord, true);
 		return Response.ok(specialists).build();
 	}
 	
@@ -764,6 +783,14 @@ public class Resources {
 		return Response.ok(loans).build();
 	}
 	
+	@Path("/loan/nkeys")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVerifiedLoans(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field[], @QueryParam("searchString") String value[], @QueryParam("searchOper") String [] operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Loan> loans = facadeManager.getLoans(size,  page, field, value, operator, sidx, sord, true);
+		return Response.ok(loans).build();
+	}
+	
 	@Path("/loan/manage")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -910,6 +937,22 @@ public class Resources {
 		return Response.ok(visits).build();
 	}
 	
+	@Path("/visit/{id}/mall/count/")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getMallVisits(@PathParam("id") Long id) {
+		int count = facadeManager.getMallVisits(id);
+		return Response.noContent().header("count", count).build();
+	}
+	
+	@Path("/visit/{username}/")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVisitsByUser(@PathParam("username") String username, @QueryParam("size") int size, @QueryParam("page") int page) {
+		List<Visit> visits = facadeManager.getUserVisits(username, size, page);
+		return Response.ok(visits).build();
+	}
+	
 	@Path("/visit/mall/")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -917,7 +960,7 @@ public class Resources {
 		visit.setId(id);
 		visit.setIp(getIP(request));
         
-		visit.setDate(new Date());
+		visit.setStartDate(new Date());
 		facadeManager.visitMall(visit);
 		return Response.noContent().build();
 	}
@@ -970,17 +1013,71 @@ public class Resources {
 	@Path("upload")
 	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
 	@Produces(MediaType.TEXT_PLAIN)
-	public void upload(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
-		facadeManager.upload(request, response);
+	public void uploadAvatar(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
+		facadeManager.upload(request, response, PropUtil.UPLOAD_AVATAR);
 	}
 	
+	@POST
+	@Path("upload")
+	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
+	@Produces(MediaType.TEXT_PLAIN)
+	public void uploadSkin(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
+		facadeManager.upload(request, response, PropUtil.UPLOAD_SKIN);
+	}
+	
+	@POST
+	@Path("upload")
+	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
+	@Produces(MediaType.TEXT_PLAIN)
+	public void uploadImage(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
+		facadeManager.upload(request, response, PropUtil.UPLOAD_IMAGES);
+	}
+	
+	@POST
+	@Path("upload")
+	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
+	@Produces(MediaType.TEXT_PLAIN)
+	public void uploadNews(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
+		facadeManager.upload(request, response, PropUtil.UPLOAD_NEWS);
+	}
+	
+	@POST
+	@Path("upload")
+	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
+	@Produces(MediaType.TEXT_PLAIN)
+	public void uploadFile(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
+		facadeManager.upload(request, response, PropUtil.UPLOAD_USER);
+	}
+	
+	
 	/*
-	 * json
+	 * Configuration
 	 */
 	@POST
-	@Path("json")
-	public Response updateJson(@Context HttpServletRequest request) throws IOException {
-		FileUtil.Str2File(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.SLIDE_PATH), ConvertUtil.inputStream2String(request.getInputStream()));
+	@Path("config/slide")
+	public Response updateSlideJson(@Context HttpServletRequest request) throws IOException {
+		facadeManager.updateConfigFile(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.SLIDE_PATH), ConvertUtil.inputStream2String(request.getInputStream()));
+		return Response.noContent().build();
+	}
+	
+	@POST
+	@Path("config/index")
+	public Response updateIndexHTML(@Context HttpServletRequest request) throws IOException {
+		facadeManager.updateConfigFile(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.CONFIG_INDEX), ConvertUtil.inputStream2String(request.getInputStream()));
+		return Response.noContent().build();
+	}
+	
+	@POST
+	@Path("config/news")
+	public Response updateNewsHTML(@Context HttpServletRequest request) throws IOException {
+		facadeManager.updateConfigFile(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.CONFIG_NEWS), ConvertUtil.inputStream2String(request.getInputStream()));
+		return Response.noContent().build();
+	}
+	
+	@POST
+	@Path("config/ad")
+	public Response updateAdHTML(@Context HttpServletRequest request) throws IOException {
+		facadeManager.updateConfigFile(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.CONFIG_AD), ConvertUtil.inputStream2String(request.getInputStream()));
 		return Response.noContent().build();
 	}
 	

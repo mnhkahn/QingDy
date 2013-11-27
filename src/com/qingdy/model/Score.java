@@ -8,6 +8,8 @@ public class Score extends BaseObject {
 
 	@JsonProperty("id")
 	private Long id;
+	@JsonProperty("question")
+	private Question question;
 	@JsonProperty("poster")
 	private UserDetail poster;
 	@JsonProperty("score")
@@ -45,6 +47,16 @@ public class Score extends BaseObject {
 	public void setScore(Integer score) {
 		this.score = score;
 	}
+	
+	public Question getQuestion() {
+		return question;
+	}
+	
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+	
 
 	@Override
 	public String toString() {
