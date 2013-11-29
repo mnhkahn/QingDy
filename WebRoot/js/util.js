@@ -45,8 +45,23 @@ function refresh() {
     window.location.reload();
 }
 
-function getIP() {
-    $.getJSON("http://jsonip.appspot.com?callback=?",function(ipadd){
-        alert( "Your IPAddress is : " + ipadd.ip);
+var client;
+function getClientInfo(o) {
+    client = o;
+    $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js', function () {
+        client.country = remote_ip_info.country;
+        client.city = remote_ip_info.city;
+        client.isp = remote_ip_info.isp;
     });
+    client.startDate = new Date();
+    window.onbeforeunload = function () {
+        client.endDate = new Date();
+    }
+    client.brower = platform.name + "_" + platform.version;
+    client.resolution = screen.width + "*" + screen.height;
+
+    if(platform.os.family.indexOf("Win") > -1) {
+        client.os = "Win" + platform.os.version + "_" + platform.os.architecture + "bit";
+    }
+    client.fromSource = document.referrer;
 }

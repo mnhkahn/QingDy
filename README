@@ -1,0 +1,17 @@
+# 强制同步
+git reset --hard HEAD
+git clean -f
+git pull
+# 提交
+git add -A
+git status
+git commit -a""
+git push origin master
+
+########################################
+create user 'qingdy'@'localhost' identified by '';
+mysqldump -u root -p QingDy > 1.sql
+mysql -u root -p QingDy < 1.sql
+
+########################################
+unzip -d [DIRECTRY]
