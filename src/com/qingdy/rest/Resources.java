@@ -3,11 +3,14 @@ package com.qingdy.rest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.TimeZone;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -923,26 +926,35 @@ public class Resources {
 	/*
 	 * Visit
 	 */
-	@Path("visit/ip")
+/*	@Path("visit/ip")
 	@HEAD
 	public Response getIp(@Context HttpServletRequest request) {
 		return Response.noContent().header("ip", getIP(request)).build();
 	}
-	
-	@Path("/visit/{id}/mall/")
+*/	
+	@Path("/visit/{id}/{type}/")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getMallVisits(@PathParam("id") Long id, @QueryParam("size") int size, @QueryParam("page") int page) {
-		List<Visit> visits = facadeManager.getMallVisits(id, size, page);
+	public Response getVisits(@PathParam("id") Long id, @PathParam("type") int type, @QueryParam("size") int size, @QueryParam("page") int page) {
+		List<Visit> visits = facadeManager.getVisits(id, type, size, page);
 		return Response.ok(visits).build();
 	}
 	
-	@Path("/visit/{id}/mall/count/")
+	@Path("/visit/{id}/{type}/count/")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getMallVisits(@PathParam("id") Long id) {
-		int count = facadeManager.getMallVisits(id);
+	public Response getVisits(@PathParam("id") Long id, @PathParam("type") int type) {
+		int count = facadeManager.getVisits(id, type);
 		return Response.noContent().header("count", count).build();
+	}
+	
+	@Path("/visit/")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response visit(Visit visit, @Context HttpServletRequest request) {
+		System.out.println(visit.getStartDate().getTimezoneOffset() + "*******" + visit.getStartDate());
+		facadeManager.visit(visit);
+		return Response.noContent().build();
 	}
 	
 	@Path("/visit/{username}/")
@@ -951,18 +963,6 @@ public class Resources {
 	public Response getVisitsByUser(@PathParam("username") String username, @QueryParam("size") int size, @QueryParam("page") int page) {
 		List<Visit> visits = facadeManager.getUserVisits(username, size, page);
 		return Response.ok(visits).build();
-	}
-	
-	@Path("/visit/mall/")
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response visitMall(Visit visit, @PathParam("id") Long id, @Context HttpServletRequest request) {
-		visit.setId(id);
-		visit.setIp(getIP(request));
-        
-		visit.setStartDate(new Date());
-		facadeManager.visitMall(visit);
-		return Response.noContent().build();
 	}
 	
 	

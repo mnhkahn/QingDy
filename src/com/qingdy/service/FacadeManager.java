@@ -239,13 +239,13 @@ public interface FacadeManager {
 	/*
 	 * Visit
 	 */
-	public List<Visit> getMallVisits(Long id, int size, int page);
+	public List<Visit> getVisits(Long id, int type, int size, int page);
 	
-	public int getMallVisits(Long id);
+	public int getVisits(Long id, int type);
 	
 	public List<Visit> getUserVisits(String username, int size, int page);
 	
-	public void visitMall(Visit visit);
+	public void visit(Visit visit);
 	
 	
 	/*

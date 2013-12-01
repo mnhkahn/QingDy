@@ -714,19 +714,19 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * int)
 	 */
 	@Override
-	public List<Visit> getMallVisits(Long id, int size, int page) {
-		return visitDao.getVisits(Constant.MALL, id, size, page);
+	public List<Visit> getVisits(Long id, int type, int size, int page) {
+		return visitDao.getVisits(type, id, size, page);
 	}
 
 	@Override
-	public void visitMall(Visit visit) {
+	public void visit(Visit visit) {
 		visitDao.addVisit(visit);
 	}
 
 	@Override
-	public int getMallVisits(Long id) {
+	public int getVisits(Long id, int type) {
 		// TODO Auto-generated method stub
-		return visitDao.getVisits(Constant.MALL, id);
+		return visitDao.getVisits(type, id);
 	}
 
 	@Override

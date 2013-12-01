@@ -3,6 +3,9 @@ package com.qingdy.model;
 import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+
+import com.qingdy.provider.CustomJsonDateDeserializer;
 
 public class Visit {
 	@JsonProperty("id")
@@ -19,16 +22,26 @@ public class Visit {
 	private Date startDate;
 	@JsonProperty("endDate")
 	private Date endDate;
-	@JsonProperty("visitCity")
-	private String visitCity;
-	@JsonProperty("visitBrowerType")
-	private Integer visitBrowerType;
-	@JsonProperty("visitResolution")
-	private String visitResolution;
-	@JsonProperty("visitOS")
-	private String visitOS;
+	@JsonProperty("city")
+	private String city;
+	@JsonProperty("browser")
+	private String browser;
+	@JsonProperty("resolution")
+	private String resolution;
+	@JsonProperty("os")
+	private String os;
 	@JsonProperty("fromSource")
 	private String fromSource;
+	@JsonProperty("isp")
+	private String isp;
+
+	public String getIsp() {
+		return isp;
+	}
+
+	public void setIsp(String isp) {
+		this.isp = isp;
+	}
 
 	public String getFromSource() {
 		return fromSource;
@@ -79,6 +92,7 @@ public class Visit {
 		return startDate;
 	}
 
+	@JsonDeserialize(using = CustomJsonDateDeserializer.class)
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
@@ -88,40 +102,41 @@ public class Visit {
 		return endDate;
 	}
 
+	@JsonDeserialize(using = CustomJsonDateDeserializer.class)
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
-	public String getVisitCity() {
-		return visitCity;
+	public String getCity() {
+		return city;
 	}
 
-	public void setVisitCity(String visitCity) {
-		this.visitCity = visitCity;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	public Integer getVisitBrowerType() {
-		return visitBrowerType;
+	public String getBrowser() {
+		return browser;
 	}
 
-	public void setVisitBrowerType(Integer visitBrowerType) {
-		this.visitBrowerType = visitBrowerType;
+	public void setBrower(String browser) {
+		this.browser = browser;
 	}
 
-	public String getVisitResolution() {
-		return visitResolution;
+	public String getResolution() {
+		return resolution;
 	}
 
-	public void setVisitResolution(String visitResolution) {
-		this.visitResolution = visitResolution;
+	public void setResolution(String resolution) {
+		this.resolution = resolution;
 	}
 
-	public String getVisitOS() {
-		return visitOS;
+	public String getOs() {
+		return os;
 	}
 
-	public void setVisitOS(String visitOS) {
-		this.visitOS = visitOS;
+	public void setOs(String os) {
+		this.os = os;
 	}
 
 	public String getIp() {

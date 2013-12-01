@@ -101,7 +101,7 @@ function showFoot() {
 	cell.id = "foot" + 4;
 	cell.colSpan = "10";
 
-    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+//    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 	cell.appendChild(document.createTextNode('青帝网 版权所有'));
 
 	row.appendChild(cell);
@@ -330,6 +330,25 @@ function getTitle(type) {
     }
 }
 
+function getTyte() {
+    var url = window.location.href;
+    if (url.indexOf("m.html?tab=1") > -1) {
+        return PRODUCT;
+    }
+    else if (url.indexOf("m.html") > -1) {
+        return MALL;
+    }
+    else if (url.indexOf("d.html") > -1) {
+        return LOAN;
+    }
+    else if (url.indexOf("p.html") > -1) {
+        return BLOG
+    }
+    else if (url.indexOf("p1.html") > -1) {
+        return NEWS;
+    }
+}
+
 var DEFAULT_FRONT_COVER = "/avatar/avatar.png";
 
 function getObject(type, id) {
@@ -395,24 +414,20 @@ function getFavouriteCount(type, id) {
 }
 
 function visit(type, id) {
-    var url = "/rest/metadata/visit/mall/";
-    var json = '{"oid":' + id + ',"type":' + type + ', "user":{"username":"' + username + '"}}';
-    switch (type) {
-        case MALL:
-
-            break;
-    }
+    var url = "/rest/metadata/visit/";
+    var json = '{"oid":' + id + ',"type":' + type + ', "user":{"username":"' + username + '"},"ip":"' + client.host +'","startDate":"' + client.startDate + '", "endDate": "' + client.endDate + '","city":"' + client.city + '","browser":"' + client.brower + '","resolution":"' + client.resolution + '","os":"' + client.os + '","fromSource":"' + client.fromSource + '","isp":"' + client.isp + '"}';
     $.ajax({
         url: url,
         type: 'POST',
+        async: false,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         data: json,
         success: function (data, textStatus, jqXHR) {
-
+            console.debug(data);
         },
         error: function(response) {
-            console.warn(response);
+            console.debug(response);
         }
     });
 }

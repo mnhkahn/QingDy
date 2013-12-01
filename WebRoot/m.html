@@ -1,223 +1,225 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
 
-<link href="css/base.css" rel="stylesheet" type="text/css" />
-<link href="css/profile.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <link href="css/profile.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <!--[if lt IE 9]>
-    <link rel="stylesheet" type="text/css" href="css/styleIE.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleIE.css"/>
     <![endif]-->
 
-<script type="text/javascript" src='js/jquery-1.9.1.js'></script>
+    <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
+    <script type="text/javascript" src="js/platform.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script src="https://smart-ip.net/geoip-json?callback=getClientInfo"></script>
+
     <script type="text/javascript" src="js/cSearch.js"></script>
     <script type="text/javascript" src="js/chosen.jquery.min.js"></script>
     <script type="text/javascript" src="js/modernizr.custom.11333.js"></script>
     <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
     <script type="text/javascript" src="js/cTimeline.js"></script>
     <script type="text/javascript" src="js/jquery.tmpl.js"></script>
-<script type="text/javascript" src="js/base.js"></script>
-<script type="text/javascript" src="js/cTop.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript" src="js/profile.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <script type="text/javascript" src="js/cTop.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/profile.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript" src="js/cTab.js"></script>
     <script type="text/javascript" src="js/cVisitors.js"></script>
 
 
-<link rel = "Shortcut Icon" href="favicon.ico">
-<script type="text/javascript">
-function init() {
-	commonInit();
+    <link rel="Shortcut Icon" href="favicon.ico">
+    <script type="text/javascript">
+        function init() {
+            commonInit();
 
-    var args = new Object();
-    args = GetUrlParms();
+            var args = new Object();
+            args = GetUrlParms();
 
-    var id = args['id'];
-    var tab = args['tab']
+            var id = args['id'];
+            var tab = args['tab']
 
-    visit(MALL, id);
-
-    var mall;
-    $.ajax({
-        url: "/rest/metadata/mall/" + id,
-        type: "GET",
-        dataType: "json",
-        success: function(response) {
-            mall = response;
-            /* user info */
+            var mall;
             $.ajax({
-                url: "/rest/metadata/userdetail/" + mall.poster.username,//"/data/tests/userDetail.json",
+                url: "/rest/metadata/mall/" + id,
                 type: "GET",
                 dataType: "json",
-                success: function(response) {
-                    console.debug(response);
-                    // avatar
-                    var avatar = $("<img></img>");
-                    avatar.attr("src", response.avatar);
+                success: function (response) {
+                    mall = response;
+                    /* user info */
+                    $.ajax({
+                        url: "/rest/metadata/userdetail/" + mall.poster.username,//"/data/tests/userDetail.json",
+                        type: "GET",
+                        dataType: "json",
+                        success: function (response) {
+                            console.debug(response);
+                            // avatar
+                            var avatar = $("<img></img>");
+                            avatar.attr("src", response.avatar);
 //            $("#head").append(avatar);
-                    $("#head").css("background-image", "url(" + response.avatar + ")");
-                    // gender
-                    var gender = $("<img></img>");
-                    var genderImg = response.gender === 0 ? "/images/female.png" : "/images/male.png";
-                    gender.attr("src", genderImg);
-                    $("#infoGender").append(gender);
+                            $("#head").css("background-image", "url(" + response.avatar + ")");
+                            // gender
+                            var gender = $("<img></img>");
+                            var genderImg = response.gender === 0 ? "/images/female.png" : "/images/male.png";
+                            gender.attr("src", genderImg);
+                            $("#infoGender").append(gender);
 
-                    $("#infoName").html(response.lastname + response.firstname);
-                    $("#infoIntroduce").html(response.introduce);
-                    $("#infoLocation").html(response.location);
+                            $("#infoName").html(response.lastname + response.firstname);
+                            $("#infoIntroduce").html(response.introduce);
+                            $("#infoLocation").html(response.location);
 
-                    document.title = mall.cName;
+                            document.title = mall.cName;
 
-                    // skin
-                    $('#backgroundContainer').css("background-image", "url(" + /*response.skin*/"/skin/background.png" + ")");
+                            var loanerTab = cTab.create('mallNav', 'data/mymallTab.json', tab,
+                                    function () {
+                                        $('#mallMain').empty();
+                                    },
+                                    function () {
+                                        var sideContainer = $('<div></div>');
+                                        sideContainer.attr("id", "sideContainer");
+                                        sideContainer.addClass("sideContainer");
+
+                                        var visitorsContainer = $('<div></div>');
+                                        visitorsContainer.attr('id', 'visitorsContainer');
+                                        visitorsContainer.css("margin", "auto");
+                                        visitorsContainer.css("width", "99%");
+                                        visitorsContainer.css("height", 400);
+                                        visitorsContainer.css("border-bottom", "1px solid #d9d9d9");
+
+                                        var clear = $('<div></div>');
+                                        clear.css("clear", "both");
+
+                                        sideContainer.load('/js/templates/bulletin.html', function () {
+                                            $("#bulletin").html(mall.announcement);
+                                            contact(sideContainer, mall.poster.username);
+                                            sideContainer.append(visitorsContainer);
+                                        });
+
+                                        var timeline = $("<div></div>");
+                                        timeline.addClass("mainContainerCenterLeft");
+                                        timeline.attr("id", "timeline");
+
+                                        $('#mallMain').append(timeline);
+                                        $('#mallMain').append(sideContainer);
+                                        $('#mallMain').append(clear);
+
+                                        timeline.cTimeline("/rest/metadata/timeline/" + username + "/recent"/*"/data/tests/timeline.json"*/);
+
+                                        visitorsContainer.cVisitors("/rest/metadata/visit/" + id + "/" + MALL + "/");
+                                    },
+                                    // product detail
+                                    function () {
+                                        $.get("js/templates/productDetail.html", function (template) {
+                                            $.template("productDetailTmpl", template);
+                                            $.ajax({
+                                                url: "/rest/metadata/product/username/" + mall.poster.username,//"data/tests/productDetail.json",
+                                                type: "GET",
+                                                dataType: "json",
+                                                success: function (response) {
+                                                    $.tmpl("productDetailTmpl", response).appendTo("#mallMain");
+                                                    autoScroll();
+                                                },
+                                                error: function (response) {
+                                                    console.warn(response);
+                                                }
+                                            })
+                                        })
+                                    },
+                                    // transaction detail
+                                    function () {
+                                        $.get("js/templates/transactionDetail.html", function (template) {
+                                            $.template("transactionDetailTmpl", template);
+                                            $.ajax({
+                                                url: "/rest/metadata/transaction/username/" + mall.poster.username,//"data/tests/transactionDetail.json",
+                                                type: "GET",
+                                                dataType: "json",
+                                                success: function (response) {
+                                                    $.tmpl("transactionDetailTmpl", response).appendTo("#mallMain");
+                                                    autoScroll();
+                                                },
+                                                error: function (response) {
+                                                    console.warn(response);
+                                                }
+                                            })
+                                        })
+                                    },
+                                    // blog detail
+                                    function () {
+                                        $.get("js/templates/blogDetail.html", function (template) {
+                                            $.template("blogDetailTmpl", template);
+                                            $.ajax({
+                                                url: "/rest/metadata/blog/username/" + mall.poster.username,//"data/tests/blogDetail.json",
+                                                type: "GET",
+                                                dataType: "json",
+                                                success: function (response) {
+                                                    $.tmpl("blogDetailTmpl", response).appendTo("#mallMain");
+                                                    autoScroll();
+                                                },
+                                                error: function (response) {
+                                                    console.warn(response);
+                                                }
+                                            })
+                                        })
+                                    }
+                            )
+                            // skin
+                            $('#backgroundContainer').css("background-image", "url(" + /*response.skin*/"/skin/background.png" + ")");
+                        },
+                        error: function (response) {
+                            console.warn(response);
+                        }
+                    });
                 },
-                error: function(response) {
-                    console.warn(response);
+                error: function (response) {
                 }
             });
-        },
-        error: function(response) {
         }
-    });
-
-;
-    var loanerTab = cTab.create('mallNav', 'data/mymallTab.json', tab,
-            function() {
-                  $('#mallMain').empty();
-            },
-            function() {
-                var sideContainer = $('<div></div>');
-                sideContainer.attr("id", "sideContainer");
-                sideContainer.addClass("sideContainer");
-
-                var visitorsContainer = $('<div></div>');
-                visitorsContainer.attr('id', 'visitorsContainer');
-                visitorsContainer.css("margin", "auto");
-                visitorsContainer.css("width", "99%");
-                visitorsContainer.css("height", 400);
-                visitorsContainer.css("border-bottom", "1px solid #d9d9d9");
-
-                var clear = $('<div></div>');
-                clear.css("clear", "both");
-
-                sideContainer.load('/js/templates/bulletin.html', function () {
-                    $("#bulletin").html(mall.announcement);
-                    contact(sideContainer, mall.poster.username);
-                    sideContainer.append(visitorsContainer);
-                });
-
-                var timeline = $("<div></div>");
-                timeline.addClass("mainContainerCenterLeft");
-                timeline.attr("id", "timeline");
-
-                $('#mallMain').append(timeline);
-                $('#mallMain').append(sideContainer);
-                $('#mallMain').append(clear);
-
-                timeline.cTimeline("/rest/metadata/timeline/" + username + "/recent"/*"/data/tests/timeline.json"*/);
-
-                visitorsContainer.cVisitors("/rest/metadata/visit/" + id + "/mall/");
-            },
-            // product detail
-            function() {
-                $.get("js/templates/productDetail.html", function(template){
-                    $.template("productDetailTmpl", template);
-                    $.ajax({
-                        url: "/rest/metadata/product/username/" + mall.poster.username,//"data/tests/productDetail.json",
-                        type: "GET",
-                        dataType: "json",
-                        success: function(response) {
-                            $.tmpl("productDetailTmpl", response).appendTo("#mallMain");
-                            autoScroll();
-                        },
-                        error: function(response) {
-                            console.warn(response);
-                        }
-                    })
-                })
-            },
-            // transaction detail
-            function() {
-                $.get("js/templates/transactionDetail.html", function(template){
-                    $.template("transactionDetailTmpl", template);
-                    $.ajax({
-                        url: "/rest/metadata/transaction/username/" + mall.poster.username,//"data/tests/transactionDetail.json",
-                        type: "GET",
-                        dataType: "json",
-                        success: function(response) {
-                            $.tmpl("transactionDetailTmpl", response).appendTo("#mallMain");
-                            autoScroll();
-                        },
-                        error: function(response) {
-                            console.warn(response);
-                        }
-                    })
-                })
-            },
-            // blog detail
-            function() {
-                $.get("js/templates/blogDetail.html", function(template){
-                    $.template("blogDetailTmpl", template);
-                    $.ajax({
-                        url: "/rest/metadata/blog/username/" + mall.poster.username,//"data/tests/blogDetail.json",
-                        type: "GET",
-                        dataType: "json",
-                        success: function(response) {
-                            $.tmpl("blogDetailTmpl", response).appendTo("#mallMain");
-                            autoScroll();
-                        },
-                        error: function(response) {
-                            console.warn(response);
-                        }
-                    })
-                })
-            }
-    )
-}
-</script>
+    </script>
 
 </head>
 
 <body onload='init()'>
-	<div id="site-header-container" class="site-header-container page-container">
+<div id="site-header-container" class="site-header-container page-container">
+</div>
+<div id="mallMainContainer" class="mallMainContainer">
+    <div id="backgroundContainer" class="backgroundContainer">
     </div>
-	<div id="mallMainContainer" class="mallMainContainer">
-		<div id="backgroundContainer" class="backgroundContainer">
-		</div>
-		<div id="profileContainer" class="profileContainer">
-			<div id="wrapperProfile" class="wrapperProfile">
-				<div id="info" class="info">
-                    <div id="infoName">
-                    </div>
-                    <div id="infoIntroduce" class="ellipsis">
-                    </div>
-                    <div id="infoGender" class="borderRight">
-                    </div>
-                    <div id="infoLocation">
-                    </div>
-				</div>
-				<div id="head" class="head" >
-				</div>
-			</div>
-		</div>
-		<div id="mallNav" class="mallNav">
-		</div>
-		<div id="mallMain" class="mallMain">
-            <div id="timeline" class="timeline">
+    <div id="profileContainer" class="profileContainer">
+        <div id="wrapperProfile" class="wrapperProfile">
+            <div id="info" class="info">
+                <div id="infoName">
+                </div>
+                <div id="infoIntroduce" class="ellipsis">
+                </div>
+                <div id="infoGender" class="borderRight">
+                </div>
+                <div id="infoLocation">
+                </div>
             </div>
-		</div>
-	</div>
-    <div id="footContainer" class="footContainer">
+            <div id="head" class="head">
+            </div>
+        </div>
     </div>
-    <!-- JiaThis Button BEGIN -->
-    <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?uid=1368719936583355" charset="utf-8"></script>
-    <!-- JiaThis Button END -->
-    <!-- UJian Button BEGIN -->
-    <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>
-    <!-- UJian Button END -->
+    <div id="mallNav" class="mallNav">
+    </div>
+    <div id="mallMain" class="mallMain">
+        <div id="timeline" class="timeline">
+        </div>
+    </div>
+</div>
+<div id="footContainer" class="footContainer">
+</div>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?uid=1368719936583355"
+        charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UJian Button BEGIN -->
+<!--<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>-->
+<!-- UJian Button END -->
 </body>
 </html>
 

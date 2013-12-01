@@ -53,9 +53,12 @@ function getClientInfo(o) {
         client.city = remote_ip_info.city;
         client.isp = remote_ip_info.isp;
     });
-    client.startDate = new Date();
+    client.startDate = toJavaDate(new Date());
     window.onbeforeunload = function () {
-        client.endDate = new Date();
+        client.endDate = toJavaDate(new Date());
+        var args = GetUrlParms();
+        var id = args['id'];
+        visit(getTyte(), Number(id));
     }
     client.brower = platform.name + "_" + platform.version;
     client.resolution = screen.width + "*" + screen.height;
@@ -64,4 +67,15 @@ function getClientInfo(o) {
         client.os = "Win" + platform.os.version + "_" + platform.os.architecture + "bit";
     }
     client.fromSource = document.referrer;
+}
+
+function toJavaDate(d) {
+    // "2011-04-08T09:00:00"
+    var localTime = d.getTime();
+    var localOffset = d.getTimezoneOffset() * 60000; //获得当地时间偏移的毫秒数
+    var utc = localTime + localOffset; //取GMT时间
+    var offset = 8; //北京为东8区
+    var beijing = utc + (3600000*offset);
+    var date = new Date(beijing);
+    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "T" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 }

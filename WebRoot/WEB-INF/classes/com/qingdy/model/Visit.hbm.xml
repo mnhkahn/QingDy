@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2013-9-4 19:43:27 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2013-12-1 14:19:02 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.qingdy.model.Visit" table="VISIT">
-        <id name="id" column="ID" unsaved-value="null">
-			<generator class="increment">
-			</generator>
-		</id>
+        <id name="id" type="java.lang.Long">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
         <property name="oid" type="java.lang.Long">
             <column name="OID" />
         </property>
@@ -26,20 +26,23 @@
         <property name="endDate" type="java.util.Date">
             <column name="ENDDATE" />
         </property>
-        <property name="visitCity" type="java.lang.String">
-            <column name="VISITCITY" />
+        <property name="city" type="java.lang.String">
+            <column name="CITY" />
         </property>
-        <property name="visitBrowerType" type="java.lang.Integer">
-            <column name="VISITBROWERTYPE" />
+        <property name="browser" type="java.lang.String" access="field">
+            <column name="BROWSER" />
         </property>
-        <property name="visitResolution" type="java.lang.Integer">
-            <column name="VISITRESOLUTION" />
+        <property name="resolution" type="java.lang.String">
+            <column name="RESOLUTION" />
         </property>
-        <property name="visitOS" type="java.lang.Integer">
-            <column name="VISITOS" />
+        <property name="os" type="java.lang.String">
+            <column name="OS" />
         </property>
-        <property name="fromSource" type="java.lang.Integer">
+        <property name="fromSource" type="java.lang.String">
             <column name="FROMSOURCE" />
+        </property>
+        <property name="isp" type="java.lang.String">
+            <column name="ISP" />
         </property>
     </class>
 </hibernate-mapping>

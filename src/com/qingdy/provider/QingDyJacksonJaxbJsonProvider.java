@@ -1,5 +1,6 @@
 package com.qingdy.provider;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -11,6 +12,7 @@ public class QingDyJacksonJaxbJsonProvider extends JacksonJaxbJsonProvider {
 	public QingDyJacksonJaxbJsonProvider() {
 		super();
 		ObjectMapper objectMapper = new ObjectMapper();
+		
 		objectMapper.getSerializationConfig().setDateFormat(sdf);
 		this.setMapper(objectMapper);
 	}

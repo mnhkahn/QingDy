@@ -22,21 +22,13 @@ public class VisitDaoHibernate extends BaseDaoHibernate implements VisitDao {
 
 	@Override
 	public List<Visit> getVisits(int type, Long id, int size, int page) {
-		List<Visit> visits = null;
-		switch (type) {
-		case 5:
-			visits = getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Visit.class).add(Restrictions.eq("type", Constant.MALL)).add(Restrictions.eq("oid", id)).addOrder(Order.desc("date")), size * (page - 1), size);
-			break;
-
-		default:
-			break;
-		}
+		List<Visit> visits = getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Visit.class).add(Restrictions.eq("type", type)).add(Restrictions.eq("oid", id)).addOrder(Order.desc("startDate")), size * (page - 1), size);
 		return visits;
 	}
 
 	@Override
 	public int getVisits(int type, Long id) {
-		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Visit.class).add(Restrictions.eq("type", Constant.MALL)).add(Restrictions.eq("oid", id))).size();
+		return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Visit.class).add(Restrictions.eq("type", type)).add(Restrictions.eq("oid", id))).size();
 	}
 
 	@Override
