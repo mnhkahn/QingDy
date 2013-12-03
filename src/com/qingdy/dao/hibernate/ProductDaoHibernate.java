@@ -1,5 +1,6 @@
 package com.qingdy.dao.hibernate;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -7,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
+import com.cyeam.util.StringUtil;
 import com.qingdy.common.cRestrictions;
 import com.qingdy.dao.ProductDao;
 import com.qingdy.model.Blog;
@@ -31,7 +33,6 @@ public class ProductDaoHibernate extends BaseDaoHibernate implements ProductDao 
 	@Override
 	public List<Product> getProducts(int size, int page, String[] field,
 			String[] value, String operator[], String sidx, String sord, boolean verify) {
-		// TODO Auto-generated method stub
 		return getHibernateTemplate().findByCriteria(cRestrictions.getRestrictions(Product.class, field, value, operator, sidx, sord, verify), size * (page - 1), size);
 	}
 

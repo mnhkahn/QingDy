@@ -4,7 +4,7 @@
 	"width":1000,
 	"height":45,
 	"items":[
-		{"title":"首页","link":"index.html"},
+		{"title":"首页","link":"/"},
 		{"title":"贷款供应","link":"supply.html"},
 		{"title":"贷款机构","link":"mall.html"},
 		{"title":"贷款顾问","link":"specialist.html"},

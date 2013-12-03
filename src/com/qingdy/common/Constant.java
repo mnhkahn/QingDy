@@ -33,6 +33,8 @@ public class Constant {
 	public static final Integer NEWS = 9;
 	public static final Integer USER = 10;
 	
+	public static final String DATE_FORMAT = "yyyy-MM-dd";
+	
 	public static Class getClass(Integer type) {
 		Class cla = null;
 

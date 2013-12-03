@@ -149,7 +149,7 @@ function init() {
                                 });
                                 date.val(moment().format('YYYY-MM-DD') + ' ~ ' + moment().add('days', 60).format('YYYY-MM-DD'));
 
-                                $.cArea("北京海淀");
+                                $.cArea(DEFAULT_AREA);
 
                                 $("#submit").on("click", function() {
                                     var area = $("#provinceSel").val() + $('#citySel').val();

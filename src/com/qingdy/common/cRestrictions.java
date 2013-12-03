@@ -1,10 +1,15 @@
 package com.qingdy.common;
 
+import javassist.expr.Instanceof;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
+import sun.security.jca.GetInstance.Instance;
+
+import com.cyeam.util.ConvertUtil;
 import com.cyeam.util.StringUtil;
 
 public class cRestrictions {
@@ -24,13 +29,25 @@ public class cRestrictions {
 	
 	public static DetachedCriteria getRestrictions(Class clazz, String field[], String value[], String operator[], String sidx, String sord, boolean verify) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
-		
+		System.out.println("*********************" + field.length + value.length + operator.length);
 		for (int i = 0; i < field.length; i++) {
-			if (StringUtil.isDouble(value[i])) {
-				criteria.add(cRestrictions.getRestrictions(field[i], Float.parseFloat(value[i]), operator[i]));
+			if (value[i].equals("")) {
 				continue;
 			}
-			criteria.add(cRestrictions.getRestrictions(field[i], value[i], operator[i]));
+			if (StringUtil.isNumeric(value[i])) {
+				criteria.add(cRestrictions.getRestrictions(field[i], Integer.parseInt(value[i]), operator[i]));
+			}
+			else if (StringUtil.isDouble(value[i])) {
+				System.out.println(value[i]);
+				criteria.add(cRestrictions.getRestrictions(field[i], Float.parseFloat(value[i]), operator[i]));
+			}
+			else if (StringUtil.isDate(value[i], Constant.DATE_FORMAT)) {
+				System.out.println(ConvertUtil.str2Date(value[i], Constant.DATE_FORMAT));
+				criteria.add(cRestrictions.getRestrictions(field[i], ConvertUtil.str2Date(value[i], Constant.DATE_FORMAT), operator[i]));
+			}
+			else {
+				criteria.add(cRestrictions.getRestrictions(field[i], value[i], operator[i]));
+			}
 		}
 		
 		// false for get all items and true for get verified items

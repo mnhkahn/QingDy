@@ -475,18 +475,18 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * Specialist
 	 */
 	@Override
-	public List<Score> getSpecialists(int size, int page, String field,
+	public List<Specialist> getSpecialists(int size, int page, String field,
 			String value, String operator, String sidx, String sord,
 			boolean verify) {
-		List<Score> specialists = specialistDao.getSpecialists(size, page,
+		List<Specialist> specialists = specialistDao.getSpecialists(size, page,
 				field, value, operator, sidx, sord, verify);
 		for (int i = 0; i < specialists.size(); i++) {
-			System.out.println(specialists.get(i).getPoster().getUsername());
-			System.out.println(mallDao.getMall(specialists.get(i).getPoster()
+			System.out.println(specialists.get(i).getUser().getUsername());
+			System.out.println(mallDao.getMall(specialists.get(i).getUser()
 					.getUsername()));
 			specialists.get(i).setId(
 					mallDao.getMall(
-							specialists.get(i).getPoster().getUsername())
+							specialists.get(i).getUser().getUsername())
 							.getId());
 		}
 		return specialists;

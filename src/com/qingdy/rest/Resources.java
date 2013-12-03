@@ -400,6 +400,7 @@ public class Resources {
 		return Response.ok(products).build();
 	}
 	
+	// http://localhost:8080/rest/metadata/product/nkeys?rows=10&page=1&searchField=location&searchString=2010-01-01&searchOper=bw&searchField=startTime&searchString=2010-01-01&searchOper=bw&searchField=endTime&searchString=2014-01-01&searchOper=ew&sidx=postDate&sord=asc
 	@Path("/product/nkeys")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -603,7 +604,7 @@ public class Resources {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSpecialists(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Score> specialists = facadeManager.getSpecialists(size, page, field, value, operator, sidx, sord, true);
+		List<Specialist> specialists = facadeManager.getSpecialists(size, page, field, value, operator, sidx, sord, true);
 		return Response.ok(specialists).build();
 	}
 	
@@ -786,6 +787,7 @@ public class Resources {
 		return Response.ok(loans).build();
 	}
 	
+	// http://localhost:8080/rest/metadata/loan/nkeys?rows=10&page=1&searchField=location&searchString=北京海淀&searchOper=eq&searchField=hasPawn&searchString=1&searchOper=eq&searchField=location&searchString=北京海淀&searchOper=eq&searchField=usesofloan&searchString=短期周转贷款&searchOper=cn&searchField=startTime&searchString=2010-01-01&searchOper=bw&searchField=endTime&searchString=2014-01-01&searchOper=ew&sidx=postDate&sord=asc
 	@Path("/loan/nkeys")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

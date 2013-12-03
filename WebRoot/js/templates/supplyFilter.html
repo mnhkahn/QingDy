@@ -15,16 +15,14 @@
             </select>
             <select id="citySel" name="citySel" class="chosen" style="width: 100px;" >
             </select>
+            <input id="searchLocation" type="button" />
         </td>
     </tr>
     <tr>
-        <td class="filterTitle dashedLine" width="100px;">贷款种类：</td>
+        <td class="filterTitle dashedLine" width="100px;">放贷额度：</td>
         <td class="dashedLine" width="650px;">
-            <select name="simple-select" id="pawnSel">
-                <option>不限</option>
-                <option>抵押贷款</option>
-                <option>无抵押信用贷款</option>
-            </select>
+            <input id='min' class='input' style="width:50px; float:left" value="0" /><div style="width:10px; float:left"> ~ </div> <input id='max' class='input' style="width:50px; float:left" value="10"/>
+            <input id="searchAmount" type="button" />
         </td>
     </tr>
     <tr>
@@ -44,7 +42,7 @@
     <tr>
         <td class="filterTitle" width="100px;">贷款用途：</td>
         <td width="650px;">
-            <select name="simple-select">
+            <select name="simple-select" id="ueseofloanSel">
                 <option>不限</option>
                 <option>消费贷款</option>
                 <option>短期周转贷款</option>

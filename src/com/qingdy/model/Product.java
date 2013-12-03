@@ -26,7 +26,7 @@ public class Product extends BaseObject{
 	@JsonProperty("startTime")
 	private Date startTime;
 	@JsonProperty("endTime")
-	private Date endTIme;
+	private Date endTime;
 	@JsonProperty("clientLocation")
 	private String clientLocation;
 	@JsonProperty("client")
@@ -162,14 +162,14 @@ public class Product extends BaseObject{
 
 
 
-	public Date getEndTIme() {
-		return endTIme;
+	public Date getEndTime() {
+		return endTime;
 	}
 
 
 
-	public void setEndTIme(Date endTIme) {
-		this.endTIme = endTIme;
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 
 

@@ -32,7 +32,7 @@
         <property name="startTime" type="java.util.Date">
             <column name="STARTTIME" />
         </property>
-        <property name="endTIme" type="java.util.Date">
+        <property name="endTime" type="java.util.Date">
             <column name="ENDTIME" />
         </property>
         <property name="clientLocation" type="java.lang.String">

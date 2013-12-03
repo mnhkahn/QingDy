@@ -1,8 +1,13 @@
 package com.qingdy.dao.hibernate;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Service;
 
 import com.qingdy.common.cRestrictions;
@@ -16,29 +21,30 @@ public class SpecialistDaoHibernate extends BaseDaoHibernate implements Speciali
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Score> getSpecialists(int size, int page, String field,
+	public List<Specialist> getSpecialists(int size, int page, String field,
 			String value, String operator, String sidx, String sord,
 			boolean verify) {
-		List<Score> scores = new ArrayList<>();
+		List<Specialist> specialists = new ArrayList<>();
 		
-		Object[] values = new Object[2];
-		values[0] = (page - 1) * size + 1;
-		values[1] = size;
-		List<Object[]> lists = getHibernateTemplate().findByNamedQuery("querySpecialist").subList((page - 1) * size, page * size);
-		
+		List<Object[]> lists = getHibernateTemplate().findByNamedQuery("querySpecialist", "%" + value + "%");
+		if (lists.size() > page * size) {
+			lists = lists.subList((page - 1) * size, page * size);
+		}
 		for (int i = 0; i < lists.size(); i++) {
-			Score score = new Score();
+			Specialist specialist = new Specialist();
 			
 			UserDetail poster = (UserDetail)lists.get(i)[0];
 
-			score.setPoster(poster);
+			specialist.setUser(poster);
 			
-			Integer s = new Integer(lists.get(i)[1].toString());
-			score.setScore(s);
+			Long s = new Long(lists.get(i)[1].toString());
+			specialist.setScores(s);
 			
-			scores.add(score);
+			specialist.setClasses(lists.get(i)[2].toString());
+			
+			specialists.add(specialist);
 		}
-		return scores;
+		return specialists;
 	}
 
 	@Override
@@ -46,12 +52,15 @@ public class SpecialistDaoHibernate extends BaseDaoHibernate implements Speciali
 			String[] value, String operator[], String sidx, String sord, boolean verify) {
 		
 		List<Specialist> specialists = new ArrayList<>();
+		System.out.println(field.length + value.length + operator.length + "*******************");
 		
 		Object[] values = new Object[2];
-		values[0] = Integer.parseInt(value[0]);
-//		values[1] = size;
-		List<Object[]> lists = getHibernateTemplate().findByNamedQuery("querySpecialistWithFilters", Integer.parseInt(value[0]));
-		
+		values[0] = value[0];
+		values[1] = "%" + value[1] + "%";
+		List<Object[]> lists = getHibernateTemplate().findByNamedQuery("querySpecialistWithFilters", values);
+		if (lists.size() > page * size) {
+			lists = lists.subList((page - 1) * size, page * size);
+		}
 		for (int i = 0; i < lists.size(); i++) {
 			Specialist specialist = new Specialist();
 			

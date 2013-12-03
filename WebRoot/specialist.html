@@ -1,15 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>贷款专家</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>贷款专家</title>
 
-    <link href="css/base.css" rel="stylesheet" type="text/css" />
-    <link href="css/flexisel.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="css/chosen.css" />
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <link href="css/flexisel.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/chosen.css"/>
 
 
-    <script type="text/javascript" src='js/jquery-1.7.2.js'></script>
+    <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
     <script type="text/javascript" src="js/base.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src='js/cTop.js'></script>
@@ -17,122 +18,126 @@
     <script type="text/javascript" src="js/jquery.esn.autobrowse.js"></script>
     <script type="text/javascript" src="js/jstorage.js"></script>
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
-    <script type="text/javascript" src="js/cSearch.js" ></script>
+    <script type="text/javascript" src="js/cSearch.js"></script>
 
-<link rel = "Shortcut Icon" href="favicon.ico">
-<script type="text/javascript">
-function init() {
-	commonInit();
+    <link rel="Shortcut Icon" href="favicon.ico">
+    <script type="text/javascript">
+        function init() {
+            commonInit();
 
-    $('#hot').load('/data/bankFlex.html', function () {
-        $("#bankUl").flexisel({
-            visibleItems: 5,
-            animationSpeed: 1000,
-            autoPlay: true,
-            autoPlaySpeed: 3000,
-            pauseOnHover: true,
-            enableResponsiveBreakpoints: true,
-            responsiveBreakpoints: {
-                portrait: {
-                    changePoint:480,
-                    visibleItems: 1
-                },
-                landscape: {
-                    changePoint:640,
-                    visibleItems: 2
-                },
-                tablet: {
-                    changePoint:768,
-                    visibleItems: 3
-                }
-            }
-        });
-    });
+            $('#hot').load('/data/bankFlex.html', function () {
+                $("#bankUl").flexisel({
+                    visibleItems: 5,
+                    animationSpeed: 1000,
+                    autoPlay: true,
+                    autoPlaySpeed: 3000,
+                    pauseOnHover: true,
+                    enableResponsiveBreakpoints: true,
+                    responsiveBreakpoints: {
+                        portrait: {
+                            changePoint: 480,
+                            visibleItems: 1
+                        },
+                        landscape: {
+                            changePoint: 640,
+                            visibleItems: 2
+                        },
+                        tablet: {
+                            changePoint: 768,
+                            visibleItems: 3
+                        }
+                    }
+                });
+            });
 
-    $('#filter').load('/js/templates/specialistFilter.html', function () {
-        var provinceSel = $("#provinceSel");
-        provinceSel.data("placeholder", "请选择").chosen();
-
-        var citySel = $("#citySel");
-        citySel.data("placeholder", "请选择").chosen();
-    });
-
-    // default size & page
-    var size = 10;
-    var page = 1;
-    $(".page .items").autobrowse(
-            {
-                url: function (offset)
-                {
-                    if (offset < size && offset > 0)
-                        size = offset;
-                    if (offset > 0)
-                        page = offset / size + 1;
-                    return "/rest/metadata/specialist?rows=" + size + "&page=" + page + "&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc";//"/data/tests/specialistWaterfall.json";
-                },
-                template: function (response)
-                {
-                    var markup='';
-                    for (var i = 0; i < response.length; i++)
+            $('#filter').load('/js/templates/specialistFilter.html', function () {
+                $("#specialistSel").change(function () {
+                    search();
+                });
+                search();
+            });
+        }
+        function search() {
+            $(".page .items").empty();
+            // default size & page
+            var size = 10;
+            var page = 1;
+            $(".page .items").autobrowse(
                     {
-                        markup += '<a target="_blank" href="' + getLink(SPECIALIST, response[i].id) + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
-                                '<div class="p_left"><img width="80" height="80" alt="' + response[i].poster.lastname + '经理" src="' + response[i].poster.avatar + '">' +
-                                '</div>' +
-                                '<div class="p_right" style="width: 690px">' +
-                                '<h5>' + response[i].poster.lastname + '经理</h5>' +
-                                '<div class="clear_both"></div>' +
-                                '<span class="p1">' + response[i].poster.location + '</span>' +
-                                //'<span class="p2" style="width: 400px;">贷款用途：' + response[i].usesofloan + '</span>' +
-                                '<span style="width: 40px">电话：</span>' +
-                                '<span class="p4">' + response[i].poster.tel + '</span>' +
-                                '<div class="clear_both"></div>' +
-                                '<p>' + response[i].poster.introduce + '.</p>' +
-                                '</div></div></a>';
-                    };
+                        url: function (offset) {
+                            var spe = "";
+                            if ($("#specialistSel").val() != "不限") {
+                                spe = $("#specialistSel").val();
+                            }
+                            console.debug("/rest/metadata/specialist?rows=" + size + "&page=" + page + "&searchField=specialist&searchString=" + spe + "&searchOper=cn&sidx=postDate&sord=asc");
+                            return "/rest/metadata/specialist?rows=" + size + "&page=" + page + "&searchField=specialist&searchString=" + spe + "&searchOper=cn&sidx=postDate&sord=asc";
 
-                    return markup;
-                },
-                itemsReturned: function (response) { return response.length; },
-                offset: 0,
-//            max: 100,
-                loader: '<div class="loader"></div>',
-                useCache: true,
-                expiration: 1
-            }
-    );
-}
-</script>
+                            // http://localhost:8080/rest/metadata/specialist?rows=10&page=1&searchField=gender&searchString=1&searchOper=eq&searchField=specialist&searchString=青帝网帮助&searchOper=cn&sidx=postDate&sord=asc"
+                            //"/data/tests/specialistWaterfall.json";
+                        },
+                        template: function (response) {
+                            var markup = '';
+                            for (var i = 0; i < response.length; i++) {
+                                markup += '<a target="_blank" href="' + getLink(SPECIALIST, response[i].id) + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
+                                        '<div class="p_left"><img width="80" height="80" alt="' + response[i].user.lastname + '经理" src="' + response[i].user.avatar + '">' +
+                                        '</div>' +
+                                        '<div class="p_right" style="width: 690px">' +
+                                        '<h5>' + response[i].user.lastname + '经理</h5>' +
+                                        '<div class="clear_both"></div>' +
+                                        '<span class="p1">' + response[i].user.location + '</span>' +
+                                    //'<span class="p2" style="width: 400px;">贷款用途：' + response[i].usesofloan + '</span>' +
+                                        '<span style="width: 40px">电话：</span>' +
+                                        '<span class="p4">' + response[i].user.tel + '</span>' +
+                                        '<div class="clear_both"></div>' +
+                                        '<p>' + response[i].user.introduce + '.</p>' +
+                                        '</div></div></a>';
+                            }
+                            return markup;
+                        },
+                        itemsReturned: function (response) {
+                            return response.length;
+                        },
+                        offset: 0,
+                        loader: '<div class="loader"></div>',
+                        useCache: true,
+                        expiration: 1
+                    }
+
+            );
+        }
+    </script>
 
 </head>
 
 <body onload='init()'>
-	<div id="site-header-container" class="site-header-container page-container">
-    </div>
-    <div id="searchboxContainer" class="searchboxContainer">
-    </div>
-    <div id="mainContainer2" class="mainContainer2">
-        <div id="mainContainerCenterLeft" class="mainContainerCenterLeft">
-            <div id="hot" class="hot">
+<div id="site-header-container" class="site-header-container page-container">
+</div>
+<div id="searchboxContainer" class="searchboxContainer">
+</div>
+<div id="mainContainer2" class="mainContainer2">
+    <div id="mainContainerCenterLeft" class="mainContainerCenterLeft">
+        <div id="hot" class="hot">
 
-            </div>
-            <div id="filter" style="193px" class="filter container">
-            </div>
-            <div id="waterfall" class="waterfall">
-                <div class='page'>
-                    <div class='items' ></div>
-                </div>
+        </div>
+        <div id="filter" style="height: 193px" class="filter container">
+        </div>
+        <div id="waterfall" class="waterfall">
+            <div class='page'>
+                <div class='items'></div>
             </div>
         </div>
-        <div id="recommendContainerRight" class="recommendContainerRight"></div>
-        <div style="clear:both;"></div>
     </div>
-	<div id="footContainer" class="footContainer">
-    </div>
-    <!-- JiaThis Button BEGIN -->
-    <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?uid=1368719936583355" charset="utf-8"></script>
-    <!-- JiaThis Button END -->
-    <!-- UJian Button BEGIN -->
-    <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>
-    <!-- UJian Button END -->
+    <div id="recommendContainerRight" class="recommendContainerRight"></div>
+    <div style="clear:both;"></div>
+</div>
+<div id="footContainer" class="footContainer">
+</div>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?uid=1368719936583355"
+        charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UJian Button BEGIN -->
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>
+<!-- UJian Button END -->
 </body>
 </html>

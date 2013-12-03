@@ -141,6 +141,9 @@ var NEWS7 = 107;
 var DEFAULT_SIZE = 20;
 var DEFAULT_PAGE = 1;
 
+var DEFAULT_AREA = "广东广州";
+var DEFAULT_SEL = "不限";
+
 function getLink(type, id) {
     switch (type) {
         case ANSWER:
@@ -498,7 +501,10 @@ function getFilterCount(field, value, type) {
             url += "mall";
             break;
     }
-    url += "/count?searchField=" + field + "&searchString=" + value;
+    url += "/count";
+    if (value != DEFAULT_SEL) {
+        url += "?searchField=" + field + "&searchString=" + value;
+    }
     console.debug(url);
 
     var count = 0;

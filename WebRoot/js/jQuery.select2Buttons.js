@@ -33,7 +33,7 @@ jQuery.fn.select2Buttons = function(options) {
                 }
 
                 // Mark current selection as "picked"
-                if((!options || !options.noDefault) && select.attr("selectedIndex") == selectIndex){
+                if((!options || !options.noDefault) && select.get(0).selectedIndex == selectIndex){
                     liHtml.children('a, span').addClass('picked');
                 }
                 ulHtml.append(liHtml);
