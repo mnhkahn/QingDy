@@ -1,19 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 <link href="css/base.css" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="css/ui.jqgrid.css" type="text/css"></link>
 <link href="css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
 <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
-<link rel="stylesheet" href="css/jquery.checkbox.css" />
-<link rel="stylesheet" href="css/chosen.css" />
-<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css" />
-<link rel="stylesheet" href="css/cStyle.css" />
+<link rel="stylesheet" href="css/jquery.checkbox.css"/>
+<link rel="stylesheet" href="css/chosen.css"/>
+<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css"/>
+<link rel="stylesheet" href="css/cStyle.css"/>
 
-<!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
-<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src='js/jquery-1.9.1.js'></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.2.custom.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
@@ -32,571 +32,570 @@
 <script type="text/javascript" src="js/chosen.jquery.js"></script>
 <script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/cTab.js"></script>
-<script type="text/javascript" src="js/cSearch.js" ></script>
+<script type="text/javascript" src="js/cSearch.js"></script>
 <script type="text/javascript" src="js/cMessage.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript" src="js/jquery.tmpl.js"></script>
 <script type="text/javascript" src="js/cTemplate.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
 
-    <script type="text/javascript">
-        function showCreateBlog() {
-            $('#contentWrapper').load('/js/templates/blog.html', function () {
-                console.debug('Load was performed.');
-                $('#submit').bind('click', function () {
-                    var uid = 45;
-                    var title = $('#title').val();
-                    var category = $('#categorySel').val();
-                    var content = $('#content').val();
-                    console.debug(uid, title, category, content);
-                    var json = '{"title": "' + title + '", "content":"' + content + '", "poster": {"username":"' + username + '"}, "category":"' + category + '"}';
-                    $.ajax({
-                        url: '/rest/metadata/blog',
-                        type: 'POST',
-                        dataType: "json",
-                        data: json,
-                        contentType: "application/json; charset=utf-8",
-                        success: function (response) {
-                            $.jBox.info('添加成功');
-                        },
-                        error: function (response) {
-                            $.jBox.info('添加失败' + response);
-                        }
-                    });
-                });
-                var categorySel =  $('#categorySel')
-                categorySel.data("placeholder", "请选择").chosen();
-                var content = $('#content');
-                content.xheditor({
-                    upImgUrl: "/rest/metadata/upload/blogs",
-                    upImgExt: "jpg,jpeg,gif,png",
-                    html5Upload : false,
-                    onUpload: function () {
-                    }
-                });
+<script type="text/javascript">
+google.load("visualization", "1", {packages: ["corechart"]});
+
+function showCreateBlog() {
+    $('#contentWrapper').load('/js/templates/blog.html', function () {
+        console.debug('Load was performed.');
+        $('#submit').bind('click', function () {
+            var uid = 45;
+            var title = $('#title').val();
+            var category = $('#categorySel').val();
+            var content = $('#content').val();
+            console.debug(uid, title, category, content);
+            var json = '{"title": "' + title + '", "content":"' + content + '", "poster": {"username":"' + username + '"}, "category":"' + category + '"}';
+            $.ajax({
+                url: '/rest/metadata/blog',
+                type: 'POST',
+                dataType: "json",
+                data: json,
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $.jBox.info('添加成功');
+                },
+                error: function (response) {
+                    $.jBox.info('添加失败' + response);
+                }
             });
-        }
+        });
+        var categorySel = $('#categorySel')
+        categorySel.data("placeholder", "请选择").chosen();
+        var content = $('#content');
+        content.xheditor({
+            upImgUrl: "/rest/metadata/upload/blogs",
+            upImgExt: "jpg,jpeg,gif,png",
+            html5Upload: false,
+            onUpload: function () {
+            }
+        });
+    });
+}
 
-        function init() {
-            commonInit();
+function init() {
+    commonInit();
+    var args = new Object();
+    args = GetUrlParms();
+    var nav = args['nav'];
+    var tab = args['tab'];
 
-            var args = new Object();
-            args = GetUrlParms();
-            var nav = args['nav'];
-            var tab = args['tab'];
+    var height = $('#contentWrapper').height() - 80;
 
-            var height = $('#contentWrapper').height() - 80;
+    var lenderTab = cTab.create('tabWrapper', 'data/lenderTab.json', tab,
+            function () {
+                $('#menuWrapper').empty();
+                $('#contentWrapper').empty();
+            },
+            function () {
+                var mallMenu = cMenu.create('menuWrapper', 'data/lenderMenu.json', nav,
+                        function () {
+                            $('#contentWrapper').empty();
+                        },
+                        // "我的旺铺"
+                        function () {
+                            $('#contentWrapper').load('/js/templates/mymall.html', function () {
+                                console.debug(google);
+                                var data = google.visualization.arrayToDataTable([
+                                    ['Year', 'Sales', 'Expenses'],
+                                    ['2004',  1000,      400],
+                                    ['2005',  1170,      460],
+                                    ['2006',  660,       1120],
+                                    ['2007',  1030,      540]
+                                ]);
 
-            var lenderTab = cTab.create('tabWrapper', 'data/lenderTab.json', tab,
-                    function() {
-                        $('#menuWrapper').empty();
-                        $('#contentWrapper').empty();
-                    },
-                    function() {
-                        var mallMenu = cMenu.create('menuWrapper', 'data/lenderMenu.json', nav,
-                                function () {
-                                    $('#contentWrapper').empty();
-                                },
-                                // "我的旺铺"
-                                function() {
-                                    $('#contentWrapper').load('/js/templates/mymall.html', function () {
-                                        console.debug(google);
-                                        function drawChart() {
-                                            var data = google.visualization.arrayToDataTable([
-                                                ['Year', 'Sales', 'Expenses'],
-                                                ['2004',  1000,      400],
-                                                ['2005',  1170,      460],
-                                                ['2006',  660,       1120],
-                                                ['2007',  1030,      540]
-                                            ]);
+                                var options = {
+                                    title: 'Company Performance'
+                                };
 
-                                            var options = {
-                                                title: 'Company Performance',
-                                                hAxis: {title: 'Year',  titleTextStyle: {color: 'red'}}
-                                            };
-
-                                            var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-                                            chart.draw(data, options);
-                                        }
-                                    });
-                                },
-                                // "旺铺资料"
-                                function() {
-                                    $('#contentWrapper').load('/js/templates/mallsetting.html', function () {
-                                        var id;
-                                        var content = $('#content');
-                                        content.xheditor({
-                                            tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
-                                            upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
-                                            upImgExt: "jpg,jpeg,gif,png",
-                                            html5Upload : false,
-                                            onUpload: function () {
-                                            }
-                                        });
-                                        var announcement = $('#announcement');
-                                        announcement.xheditor({
-                                            tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
-                                            upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
-                                            upImgExt: "jpg,jpeg,gif,png",
-                                            html5Upload : false,
-                                            onUpload: function () {
-                                            }
-                                        });
-                                        $.formValidator.initConfig({formID:"mallsettingForm",theme:"css/ArrowSolidBox",debug:true,submitOnce:true,
-                                            onError:function(msg,obj,errorlist){
-                                                $("#errorlist").empty();
-                                                $.map(errorlist,function(msg){
-                                                    $("#errorlist").append("<li>" + msg + "</li>")
-                                                });
-                                                alert(msg);
-                                            },
-                                            submitAfterAjaxPrompt : '有数据正在异步验证，请稍等...',
-                                            onShowClass : "",
-                                            onFocusClass : "",
-                                            onCorrectClass : ""
-                                        });
-                                        var cname = $("#name");
-                                        cname.formValidator({onShow:"请尽量填写你所在公司的完整名称。",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
-                                        var tel =  $("#tel");
-                                        tel.formValidator({onShow:"手机或固话，固话请加上区号",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
-                                        var position = $("#position")
-                                        position.formValidator({onShow:"请尽量填写你所在公司的部门或职位。",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
-                                        var site = $("#site");
-                                        site.formValidator({onShow:"请注意网址必须以http://或https://开头。"});
-
-                                        var lendedyearsSel = $("#lendyearSel");
-                                        lendedyearsSel.chosen();
-                                        var typeSel = $("#typeSel");
-                                        typeSel.chosen();
-
-                                        var email = $("#email");
-                                        var address = $("#address");
-                                        var fax = $("#fax");
-                                        var postcode = $("#postcode");
-                                        // initialize data
-                                        $.ajax({
-                                            url: "/rest/metadata/mall/username/" + username,
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                id = response.id;
-                                                content.val(response.content);
-                                                announcement.val(response.announcement);
-                                                lendedyearsSel.val(response.experience);
-                                                typeSel.val(response.cType);
-                                                cname.val(response.cName);
-                                                tel.val(response.cPhoneNumber);
-                                                position.val(response.position);
-                                                site.val(response.site);
-                                                email.val(response.email);
-                                                address.val(response.address);
-                                                fax.val(response.fax);
-                                                postcode.val(response.postCode);
-
-                                                console.warn(response);
-                                            },
-                                            error: function(response) {
-                                                console.warn(response);
-                                            }
-                                        });
-                                        $("#submit").on("click", function () {
-                                            $.ajax({
-                                                url: '/rest/metadata/mall/' + id,
-                                                type: 'PUT',
-                                                dataType: "json",
-                                                contentType: "application/json; charset=utf-8",
-                                                data: '{"content": "' + content.val() + '", "announcement": "' + announcement.val() + '","experience": "' + lendedyearsSel.val() + '", "cType": "' + typeSel.val() + '","cName": "' + cname.val() + '", "cPhoneNumber": "' + tel.val() + '", "position": "' + position.val() + '", "site": "' + site.val() + '", "email": "' + email.val() + '", "address": "' + address.val() + '", "fax": "' + fax.val() + '", "postCode": "' + postcode.val() + '"} }',
-                                                success: function (response) {
-                                                    $.jBox.info('修改成功');
-                                                },
-                                                error: function(response) {
-                                                    $.jBox.info('修改失败' + response);
-                                                }
-                                            })
-                                        });
-                                        $("#preview").on("click", function () {
-                                            alert("preview")
-                                        });
-
-                                    });
-
-                                },
-                                // "业务设置
-                                function() {
-                                    $('#contentWrapper').load('/js/templates/businesssetting.html', function () {
-                                        var id;
-                                        var provinceSel = $("#provinceSel");
-                                        var citySel = $("#citySel");
-                                        var usesofloanSel = $("#usesofloanSel");
-                                        usesofloanSel.data("placeholder", "请选择").chosen();
-                                        var specialitySel = $("#specialitySel");
-                                        specialitySel.data("placeholder", "请选择").chosen();
-                                        var clientsSel = $("#clientsSel");
-                                        clientsSel.data("placeholder", "请选择").chosen();
-                                        var lendtypeSel = $("#lendtypeSel");
-                                        lendtypeSel.data("placeholder", "请选择").chosen();
-                                        $.ajax({
-                                            url: "/rest/metadata/mall/username/" + username,
-                                            type: "GET",
-                                            dateType: "json",
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                id = response.id;
-                                                $.cArea(response.clientLocation);
-                                                provinceSel.data("placeholder", "请选择").chosen();
-                                                citySel.data("placeholder", "请选择").chosen();
-                                                usesofloanSel.val(response.announcement);
-                                                specialitySel.val(response.experience);
-                                                clientsSel.val(response.cType);
-                                                lendtypeSel.val(response.cName);
-                                            },
-                                            error: function(response) {
-                                                console.warn(response);
-                                            }
-                                        });
-                                        $("#submit").on("click", function () {
-                                            $.ajax({
-                                                url: '/rest/metadata/mall/' + id,
-                                                type: 'PUT',
-                                                dataType: "json",
-                                                contentType: "application/json; charset=utf-8",
-                                                data: '{"clientLocation": "' + provinceSel.val() + citySel.val() + '", "usesofloan": "' + usesofloanSel.val() + '", "speciality": "' + specialitySel.val() + '", "clients": "' + clientsSel.val() + '", "lendType": "' + lendtypeSel.val() + '"}',
-                                                success: function (response) {
-                                                    $.jBox.info('修改成功');
-                                                },
-                                                error: function(response) {
-                                                    $.jBox.info('修改失败' + response);
-                                                }
-                                            })
-                                        });
-                                    })
-                                },
-                                // 添加产品
-                                function() {
-                                    $('#contentWrapper').load('/js/templates/product.html', function () {
-                                        var pname = $("#pname");
-                                        var min = $("#min");
-                                        var max = $("#max");
-                                        var content1 =  $('#content1');
-                                        content1.xheditor({
-                                            tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
-                                            upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
-                                            upImgExt: "jpg,jpeg,gif,png",
-                                            html5Upload : false,
-                                            onUpload: function () {
-                                            }
-                                        });
-                                        var content2 =  $('#content2');
-                                        content2.xheditor({
-                                            tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
-                                            upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
-                                            upImgExt: "jpg,jpeg,gif,png",
-                                            html5Upload : false,
-                                            onUpload: function () {
-                                            }
-                                        });
-                                        var content3 =  $('#content3');
-                                        content3.xheditor({
-                                            tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
-                                            upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
-                                            upImgExt: "jpg,jpeg,gif,png",
-                                            html5Upload : false,
-                                            onUpload: function () {
-                                            }
-                                        });
-                                        var content4 =  $('#content4');
-                                        content4.xheditor({
-                                            tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
-                                            upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
-                                            upImgExt: "jpg,jpeg,gif,png",
-                                            html5Upload : false,
-                                            onUpload: function () {
-                                            }
-                                        });
-                                        $.formValidator.initConfig({formID:"productForm",theme:"css/ArrowSolidBox",debug:true,submitOnce:true,
-                                            onError:function(msg,obj,errorlist){
-                                                $("#errorlist").empty();
-                                                $.map(errorlist,function(msg){
-                                                    $("#errorlist").append("<li>" + msg + "</li>")
-                                                });
-                                                alert(msg);
-                                            },
-                                            submitAfterAjaxPrompt : '有数据正在异步验证，请稍等...',
-                                            onShowClass : "",
-                                            onFocusClass : "",
-                                            onCorrectClass : ""
-                                        });
-                                        $("#min").formValidator({onShow:"万元/单笔，若未满一万填写小数，如0.8，最多只能一位小数。",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
-
-                                        var typeSel = $("#typeSel");
-                                        typeSel.data("placeholder", "请选择").chosen();
-
-                                        var deadlineSel = $("#deadlineSel");
-                                        deadlineSel.data("placeholder", "请选择").chosen();
-
-                                        $.cArea("福建福州");
-                                        var provinceSel = $("#provinceSel");
-                                        provinceSel.data("placeholder", "请选择").chosen();
-
-                                        var citySel = $("#citySel");
-                                        citySel.data("placeholder", "请选择").chosen();
-                                        var clientsSel = $("#clientsSel");
-                                        clientsSel.data("placeholder", "请选择").chosen();
-
-                                        var repaymethodSel = $("#repaymethodSel");
-                                        repaymethodSel.data("placeholder", "请选择").chosen();
-
-                                        var producttypeSel = $("#producttypeSel");
-                                        producttypeSel.data("placeholder", "请选择").chosen();
-
-                                        var usesofloanSel = $("#usesofloanSel");
-                                        usesofloanSel.data("placeholder", "请选择").chosen();
-
-                                        $("#submit").on("click", function () {
-                                            $.ajax({
-                                                url: '/rest/metadata/product',
-                                                type: 'POST',
-                                                dataType: "json",
-                                                contentType: "application/json; charset=utf-8",
-                                                data: '{"pName": "' + pname.val() + '", "max": ' + max.val() + ',"min": '+ min.val() + ',"rateType": "reate", "rate": 1, "startTime": "", "endTime": "", "clientLocation": "' + provinceSel.val() + citySel.val() + '", "clients": "' + clientsSel.val() + '", "repayMethod": "' + repaymethodSel.val() + '", "pType": "' + typeSel.val() + '", "usesofloan": "' + usesofloanSel.val() + '", "content": "' + content1.val() + '", "processes": "' + content2.val() + '", "application": "' + content3.val() + '", "faq": "' + content4.val() + '"}',
-                                                success: function (response) {
-                                                    $.jBox.info('修改成功');
-                                                },
-                                                error: function(response) {
-                                                    $.jBox.info('修改失败' + response);
-                                                }
-                                            })
-                                        });
-                                        $("#preview").on("click", function () {
-                                            alert("preview")
-                                        });
-                                    })
-                                },
-                                // "产品管理"
-                                function() {
-                                    $('#contentWrapper').cTemplate("/rest/metadata/product/username/" + username, "/js/templates/myProducts.html");
-                                },
-                                //  "店铺公告"
-/*                                function() {
-                                    $('#contentWrapper').load('/js/templates/announcement.html', function () {
-                                        $('#content').xheditor({
-                                            tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
-                                            upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
-                                            upImgExt: "jpg,jpeg,gif,png",
-                                            html5Upload : false,
-                                            onUpload: function () {
-                                            }
-                                        });
-                                        $("#submit").on("click", function () {
-                                            alert("announcement")
-                                        });
-                                    })
-                                },  */
-                                // "成功案例"
-                                function() {
-                                    $('#contentWrapper').cTemplate("/rest/metadata/transaction/username/" + username, "/js/templates/myTransactions.html");
-                                },
-                                //  "添加成功案例"
-                                function() {
-                                    $('#contentWrapper').load('/js/templates/transaction.html', function () {
-                                        var title = $("#title");
-                                        var content = $('#content');
-                                        content.xheditor({
-                                            tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
-                                            upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
-                                            upImgExt: "jpg,jpeg,gif,png",
-                                            html5Upload : false,
-                                            onUpload: function () {
-                                            }
-                                        });
-                                        $.formValidator.initConfig({formID:"transactionForm",theme:"css/ArrowSolidBox",debug:true,submitOnce:true,
-                                            onError:function(msg,obj,errorlist){
-                                                $("#errorlist").empty();
-                                                $.map(errorlist,function(msg){
-                                                    $("#errorlist").append("<li>" + msg + "</li>")
-                                                });
-                                                alert(msg);
-                                            },
-                                            submitAfterAjaxPrompt : '有数据正在异步验证，请稍等...',
-                                            onShowClass : "",
-                                            onFocusClass : "",
-                                            onCorrectClass : ""
-                                        });
-                                        var amount = $("#amount");
-                                        amount.formValidator({onShow:"单位：万",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
-                                        $("#submit").on("click", function () {
-                                            var title = $("#title");
-                                            var loaner = $("#loaner");
-                                            $.ajax({
-                                                url: '/rest/metadata/transaction',
-                                                type: 'POST',
-                                                dataType: "json",
-                                                contentType: "application/json; charset=utf-8",
-                                                data: '{"loaner": {"username": "' + loaner.val() + '"}, "lender": {"username": "' + username + '"},"title": "'+ title.val() + '", "comments": "' + content.val() + '"}',
-                                                success: function (response) {
-                                                    $.jBox.info('添加成功');
-                                                },
-                                                error: function(response) {
-                                                    $.jBox.info('添加失败' + response);
-                                                }
-                                            })
-                                        });
-                                    })
-                                },
-                                //  "博客管理"
-                                function() {
-                                    $('#contentWrapper').cTemplate("/rest/metadata/blog/username/" + username, "/js/templates/myBlogs.html");
-                                },
-                                // "添加博客"
-                                showCreateBlog
-                        );
-                    },
-                    function() {
-                        var answerMenu = cMenu.create('menuWrapper', 'data/answerMenu.json', nav,
-                                function () {
-                                    $('#contentWrapper').empty();
-                                },
-                                // 我的回答
-                                function() {
-                                    $('#contentWrapper').cTemplate("/rest/metadata/answer?username=" + username, "/js/templates/myAnswers.html");
-
-                                },
-                                //我的提问
-                                function() {
-                                    $('#contentWrapper').cTemplate("/rest/metadata/question/username/" + username, "/js/templates/myQuestions.html");
-                                }
-                        );
-                    },
-                    function() {
-                        var otherMenu = cMenu.create('menuWrapper', 'data/otherMenu.json', nav,
-                                function () {
-                                    $('#contentWrapper').empty();
-                                },
-                                // 个人信息
-                                function() {
-                                    $('#contentWrapper').load('/js/templates/contactSetting.html', function () {
-                                        var avatar = $("#avatar");
-                                        var username = $("#username");
-                                        var groupid = $("#groupid");
-                                        var gender = $("#gender");
-                                        var location = $("#location");
-                                        var firstname = $("#firstname");
-                                        var lastname = $("#lastname");
-                                        var tel = $("#tel");
-                                        var qq = $("#qq");
-                                        var site = $("#site");
-                                        var email = $("#email");
-                                        var introduce = $("#introduce");
-
-                                        var oldPWD = $("#oldPWD");
-                                        var newPWD = $("#newPWD");
-                                        var newPWD2 = $("#newPWD2");
-                                        $.ajax({
-                                            url: '/rest/metadata/userdetail/' + "lender",
-                                            type: 'GET',
-                                            dataType: "json",
-                                            contentType: "application/json; charset=utf-8",
-                                            success: function (response) {
-                                                avatar.attr("src", response.avatar);
-                                                username.html(response.username);
-                                                groupid.html(response.groupId == 1 ? "借贷者" : "放贷者");
-                                                gender.html(response.gender == 1 ? "男" : "女");
-                                                location.html(response.location);
-                                                lastname.val(response.lastname);
-                                                firstname.val(response.firstname);
-                                                tel.val(response.tel);
-                                                qq.val(response.qq);
-                                                email.val(response.email);
-                                                site.val(response.site);
-                                                introduce.val(response.introduce);
-                                            },
-                                            error: function(response) {
-                                                console.warn(response);
-                                            }
-                                        });
-                                        $("#submit").bind('click', function () {
-                                            $.ajax({
-                                                url: '/rest/metadata/userdetail/' + "lender",
-                                                type: 'PUT',
-                                                dataType: "json",
-                                                contentType: "application/json; charset=utf-8",
-                                                data: '{"avatar": "' + avatar.attr("src") + '", "firstname": "' + firstname.val() + '","lastname": "' + lastname.val() + '", "tel": "' + tel.val() + '","qq": "' + qq.val() + '", "site": "' + site.val() + '", "email": "' + email.val() + '", "introduce": "' + introduce.val() + '"} }',
-                                                success: function (response) {
-                                                    $.jBox.info('修改成功');
-                                                },
-                                                error: function(response) {
-                                                    $.jBox.info('修改失败' + response);
-                                                }
-                                            })
-                                        });
-                                    })
-                                },
-                                // 修改密码
-                                function() {
-                                    $('#contentWrapper').load('/js/templates/changePWD.html', function () {
-                                        var oldPWD = $("#oldPWD");
-                                        var newPWD = $("#newPWD");
-                                        var newPWD2 = $("#newPWD2");
-                                        $("#submit").bind('click', function () {
-                                            $.ajax({
-                                                url: '/rest/metadata/user/' + "lender",
-                                                type: 'PUT',
-                                                dataType: "json",
-                                                contentType: "application/json; charset=utf-8",
-                                                data: '{"oldPWD": "' + oldPWD.val() + '", "newPWD": "' + newPWD.val() + '"}',
-                                                success: function (response) {
-                                                    $.jBox.info('密码修改成功');
-                                                },
-                                                error: function(response) {
-                                                    $.jBox.info('密码修改失败' + response);
-                                                }
-                                            })
-                                        });
-                                    })
-                                },
-                                // 收藏管理
-                                function() {
-                                    $('#contentWrapper').cTemplate("/rest/metadata/favourite/username/" + username, "/js/templates/myFavourites.html",
-                                        function(data) {
-                                            for (var i = 0; i < data.length; i++) {
-                                                data[i].obj = getObject(data[i].type, data[i].oid);
-                                            }
-                                        }
-                                    );
-
-                                    var fid;
-                                    var submit = function (v, h, f) {
-                                        if (v == 'ok') {
-                                            $.ajax({
-                                                type: "DELETE",
-                                                url: "/rest/metadata//favourite/" + fid,
-                                                success: function (response) {
-                                                    refresh();
-                                                },
-                                                error: function (response) {
-                                                    console.debug(id + 'negative error');
-                                                }
-                                            });
-                                        }
-                                        else if (v == 'cancel')
-                                            return true; //close
-                                    };
-                                    delFavourite = function(id) {
-                                        fid = id;
-                                        $.jBox.confirm("确定取消收藏吗?", "确认", submit);
+                                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                                chart.draw(data, options);
+                            });
+                        },
+                        // "旺铺资料"
+                        function () {
+                            $('#contentWrapper').load('/js/templates/mallsetting.html', function () {
+                                var id;
+                                var content = $('#content');
+                                content.xheditor({
+                                    tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+                                    upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+                                    upImgExt: "jpg,jpeg,gif,png",
+                                    html5Upload: false,
+                                    onUpload: function () {
                                     }
-                                },
-                                // 消息中心
-                                function() {
-                                    $("#contentWrapper").cMessage("/rest/metadata/message/" + username + "/receive");
-                                }
-                        );
-                    }
-            );
+                                });
+                                var announcement = $('#announcement');
+                                announcement.xheditor({
+                                    tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+                                    upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+                                    upImgExt: "jpg,jpeg,gif,png",
+                                    html5Upload: false,
+                                    onUpload: function () {
+                                    }
+                                });
+                                $.formValidator.initConfig({formID: "mallsettingForm", theme: "css/ArrowSolidBox", debug: true, submitOnce: true,
+                                    onError: function (msg, obj, errorlist) {
+                                        $("#errorlist").empty();
+                                        $.map(errorlist, function (msg) {
+                                            $("#errorlist").append("<li>" + msg + "</li>")
+                                        });
+                                        alert(msg);
+                                    },
+                                    submitAfterAjaxPrompt: '有数据正在异步验证，请稍等...',
+                                    onShowClass: "",
+                                    onFocusClass: "",
+                                    onCorrectClass: ""
+                                });
+                                var cname = $("#name");
+                                cname.formValidator({onShow: "请尽量填写你所在公司的完整名称。", onFocus: "至少1个长度", onCorrect: "合法"}).inputValidator({min: 1, empty: {leftEmpty: false, rightEmpty: false, emptyError: "密码两边不能有空符号"}, onError: "输入错误"});
+                                var tel = $("#tel");
+                                tel.formValidator({onShow: "手机或固话，固话请加上区号", onFocus: "至少1个长度", onCorrect: "合法"}).inputValidator({min: 1, empty: {leftEmpty: false, rightEmpty: false, emptyError: "密码两边不能有空符号"}, onError: "输入错误"});
+                                var position = $("#position")
+                                position.formValidator({onShow: "请尽量填写你所在公司的部门或职位。", onFocus: "至少1个长度", onCorrect: "合法"}).inputValidator({min: 1, empty: {leftEmpty: false, rightEmpty: false, emptyError: "密码两边不能有空符号"}, onError: "输入错误"});
+                                var site = $("#site");
+                                site.formValidator({onShow: "请注意网址必须以http://或https://开头。"});
 
-        }
-    </script>
+                                var lendedyearsSel = $("#lendyearSel");
+                                lendedyearsSel.chosen();
+                                var typeSel = $("#typeSel");
+                                typeSel.chosen();
+
+                                var email = $("#email");
+                                var address = $("#address");
+                                var fax = $("#fax");
+                                var postcode = $("#postcode");
+                                // initialize data
+                                $.ajax({
+                                    url: "/rest/metadata/mall/username/" + username,
+                                    type: "GET",
+                                    dateType: "json",
+                                    contentType: "application/json",
+                                    success: function (response) {
+                                        id = response.id;
+                                        content.val(response.content);
+                                        announcement.val(response.announcement);
+                                        lendedyearsSel.val(response.experience);
+                                        typeSel.val(response.cType);
+                                        cname.val(response.cName);
+                                        tel.val(response.cPhoneNumber);
+                                        position.val(response.position);
+                                        site.val(response.site);
+                                        email.val(response.email);
+                                        address.val(response.address);
+                                        fax.val(response.fax);
+                                        postcode.val(response.postCode);
+
+                                        console.warn(response);
+                                    },
+                                    error: function (response) {
+                                        console.warn(response);
+                                    }
+                                });
+                                $("#submit").on("click", function () {
+                                    $.ajax({
+                                        url: '/rest/metadata/mall/' + id,
+                                        type: 'PUT',
+                                        dataType: "json",
+                                        contentType: "application/json; charset=utf-8",
+                                        data: '{"content": "' + content.val() + '", "announcement": "' + announcement.val() + '","experience": "' + lendedyearsSel.val() + '", "cType": "' + typeSel.val() + '","cName": "' + cname.val() + '", "cPhoneNumber": "' + tel.val() + '", "position": "' + position.val() + '", "site": "' + site.val() + '", "email": "' + email.val() + '", "address": "' + address.val() + '", "fax": "' + fax.val() + '", "postCode": "' + postcode.val() + '"} }',
+                                        success: function (response) {
+                                            $.jBox.info('修改成功');
+                                        },
+                                        error: function (response) {
+                                            $.jBox.info('修改失败' + response);
+                                        }
+                                    })
+                                });
+                                $("#preview").on("click", function () {
+                                    alert("preview")
+                                });
+
+                            });
+
+                        },
+                        // "业务设置
+                        function () {
+                            $('#contentWrapper').load('/js/templates/businesssetting.html', function () {
+                                var id;
+                                var provinceSel = $("#provinceSel");
+                                var citySel = $("#citySel");
+                                var usesofloanSel = $("#usesofloanSel");
+                                usesofloanSel.data("placeholder", "请选择").chosen();
+                                var specialitySel = $("#specialitySel");
+                                specialitySel.data("placeholder", "请选择").chosen();
+                                var clientsSel = $("#clientsSel");
+                                clientsSel.data("placeholder", "请选择").chosen();
+                                var lendtypeSel = $("#lendtypeSel");
+                                lendtypeSel.data("placeholder", "请选择").chosen();
+                                $.ajax({
+                                    url: "/rest/metadata/mall/username/" + username,
+                                    type: "GET",
+                                    dateType: "json",
+                                    contentType: "application/json",
+                                    success: function (response) {
+                                        id = response.id;
+                                        $.cArea(response.clientLocation);
+                                        provinceSel.data("placeholder", "请选择").chosen();
+                                        citySel.data("placeholder", "请选择").chosen();
+                                        usesofloanSel.val(response.announcement);
+                                        specialitySel.val(response.experience);
+                                        clientsSel.val(response.cType);
+                                        lendtypeSel.val(response.cName);
+                                    },
+                                    error: function (response) {
+                                        console.warn(response);
+                                    }
+                                });
+                                $("#submit").on("click", function () {
+                                    $.ajax({
+                                        url: '/rest/metadata/mall/' + id,
+                                        type: 'PUT',
+                                        dataType: "json",
+                                        contentType: "application/json; charset=utf-8",
+                                        data: '{"clientLocation": "' + provinceSel.val() + citySel.val() + '", "usesofloan": "' + usesofloanSel.val() + '", "speciality": "' + specialitySel.val() + '", "clients": "' + clientsSel.val() + '", "lendType": "' + lendtypeSel.val() + '"}',
+                                        success: function (response) {
+                                            $.jBox.info('修改成功');
+                                        },
+                                        error: function (response) {
+                                            $.jBox.info('修改失败' + response);
+                                        }
+                                    })
+                                });
+                            })
+                        },
+                        // 添加产品
+                        function () {
+                            $('#contentWrapper').load('/js/templates/product.html', function () {
+                                var pname = $("#pname");
+                                var min = $("#min");
+                                var max = $("#max");
+                                var content1 = $('#content1');
+                                content1.xheditor({
+                                    tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+                                    upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+                                    upImgExt: "jpg,jpeg,gif,png",
+                                    html5Upload: false,
+                                    onUpload: function () {
+                                    }
+                                });
+                                var content2 = $('#content2');
+                                content2.xheditor({
+                                    tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+                                    upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+                                    upImgExt: "jpg,jpeg,gif,png",
+                                    html5Upload: false,
+                                    onUpload: function () {
+                                    }
+                                });
+                                var content3 = $('#content3');
+                                content3.xheditor({
+                                    tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+                                    upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+                                    upImgExt: "jpg,jpeg,gif,png",
+                                    html5Upload: false,
+                                    onUpload: function () {
+                                    }
+                                });
+                                var content4 = $('#content4');
+                                content4.xheditor({
+                                    tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+                                    upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+                                    upImgExt: "jpg,jpeg,gif,png",
+                                    html5Upload: false,
+                                    onUpload: function () {
+                                    }
+                                });
+                                $.formValidator.initConfig({formID: "productForm", theme: "css/ArrowSolidBox", debug: true, submitOnce: true,
+                                    onError: function (msg, obj, errorlist) {
+                                        $("#errorlist").empty();
+                                        $.map(errorlist, function (msg) {
+                                            $("#errorlist").append("<li>" + msg + "</li>")
+                                        });
+                                        alert(msg);
+                                    },
+                                    submitAfterAjaxPrompt: '有数据正在异步验证，请稍等...',
+                                    onShowClass: "",
+                                    onFocusClass: "",
+                                    onCorrectClass: ""
+                                });
+                                $("#min").formValidator({onShow: "万元/单笔，若未满一万填写小数，如0.8，最多只能一位小数。", onFocus: "至少1个长度", onCorrect: "合法"}).inputValidator({min: 1, empty: {leftEmpty: false, rightEmpty: false, emptyError: "密码两边不能有空符号"}, onError: "输入错误"});
+
+                                var typeSel = $("#typeSel");
+                                typeSel.data("placeholder", "请选择").chosen();
+
+                                var deadlineSel = $("#deadlineSel");
+                                deadlineSel.data("placeholder", "请选择").chosen();
+
+                                $.cArea("福建福州");
+                                var provinceSel = $("#provinceSel");
+                                provinceSel.data("placeholder", "请选择").chosen();
+
+                                var citySel = $("#citySel");
+                                citySel.data("placeholder", "请选择").chosen();
+                                var clientsSel = $("#clientsSel");
+                                clientsSel.data("placeholder", "请选择").chosen();
+
+                                var repaymethodSel = $("#repaymethodSel");
+                                repaymethodSel.data("placeholder", "请选择").chosen();
+
+                                var producttypeSel = $("#producttypeSel");
+                                producttypeSel.data("placeholder", "请选择").chosen();
+
+                                var usesofloanSel = $("#usesofloanSel");
+                                usesofloanSel.data("placeholder", "请选择").chosen();
+
+                                $("#submit").on("click", function () {
+                                    $.ajax({
+                                        url: '/rest/metadata/product',
+                                        type: 'POST',
+                                        dataType: "json",
+                                        contentType: "application/json; charset=utf-8",
+                                        data: '{"pName": "' + pname.val() + '", "max": ' + max.val() + ',"min": ' + min.val() + ',"rateType": "reate", "rate": 1, "startTime": "", "endTime": "", "clientLocation": "' + provinceSel.val() + citySel.val() + '", "clients": "' + clientsSel.val() + '", "repayMethod": "' + repaymethodSel.val() + '", "pType": "' + typeSel.val() + '", "usesofloan": "' + usesofloanSel.val() + '", "content": "' + content1.val() + '", "processes": "' + content2.val() + '", "application": "' + content3.val() + '", "faq": "' + content4.val() + '"}',
+                                        success: function (response) {
+                                            $.jBox.info('修改成功');
+                                        },
+                                        error: function (response) {
+                                            $.jBox.info('修改失败' + response);
+                                        }
+                                    })
+                                });
+                                $("#preview").on("click", function () {
+                                    alert("preview")
+                                });
+                            })
+                        },
+                        // "产品管理"
+                        function () {
+                            $('#contentWrapper').cTemplate("/rest/metadata/product/username/" + username, "/js/templates/myProducts.html");
+                        },
+                        //  "店铺公告"
+                        /*                                function() {
+                         $('#contentWrapper').load('/js/templates/announcement.html', function () {
+                         $('#content').xheditor({
+                         tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+                         upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+                         upImgExt: "jpg,jpeg,gif,png",
+                         html5Upload : false,
+                         onUpload: function () {
+                         }
+                         });
+                         $("#submit").on("click", function () {
+                         alert("announcement")
+                         });
+                         })
+                         },  */
+                        // "成功案例"
+                        function () {
+                            $('#contentWrapper').cTemplate("/rest/metadata/transaction/username/" + username, "/js/templates/myTransactions.html");
+                        },
+                        //  "添加成功案例"
+                        function () {
+                            $('#contentWrapper').load('/js/templates/transaction.html', function () {
+                                var title = $("#title");
+                                var content = $('#content');
+                                content.xheditor({
+                                    tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+                                    upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+                                    upImgExt: "jpg,jpeg,gif,png",
+                                    html5Upload: false,
+                                    onUpload: function () {
+                                    }
+                                });
+                                $.formValidator.initConfig({formID: "transactionForm", theme: "css/ArrowSolidBox", debug: true, submitOnce: true,
+                                    onError: function (msg, obj, errorlist) {
+                                        $("#errorlist").empty();
+                                        $.map(errorlist, function (msg) {
+                                            $("#errorlist").append("<li>" + msg + "</li>")
+                                        });
+                                        alert(msg);
+                                    },
+                                    submitAfterAjaxPrompt: '有数据正在异步验证，请稍等...',
+                                    onShowClass: "",
+                                    onFocusClass: "",
+                                    onCorrectClass: ""
+                                });
+                                var amount = $("#amount");
+                                amount.formValidator({onShow: "单位：万", onFocus: "至少1个长度", onCorrect: "合法"}).inputValidator({min: 1, empty: {leftEmpty: false, rightEmpty: false, emptyError: "密码两边不能有空符号"}, onError: "输入错误"});
+                                $("#submit").on("click", function () {
+                                    var title = $("#title");
+                                    var loaner = $("#loaner");
+                                    $.ajax({
+                                        url: '/rest/metadata/transaction',
+                                        type: 'POST',
+                                        dataType: "json",
+                                        contentType: "application/json; charset=utf-8",
+                                        data: '{"loaner": {"username": "' + loaner.val() + '"}, "lender": {"username": "' + username + '"},"title": "' + title.val() + '", "comments": "' + content.val() + '"}',
+                                        success: function (response) {
+                                            $.jBox.info('添加成功');
+                                        },
+                                        error: function (response) {
+                                            $.jBox.info('添加失败' + response);
+                                        }
+                                    })
+                                });
+                            })
+                        },
+                        //  "博客管理"
+                        function () {
+                            $('#contentWrapper').cTemplate("/rest/metadata/blog/username/" + username, "/js/templates/myBlogs.html");
+                        },
+                        // "添加博客"
+                        showCreateBlog
+                );
+            },
+            function () {
+                var answerMenu = cMenu.create('menuWrapper', 'data/answerMenu.json', nav,
+                        function () {
+                            $('#contentWrapper').empty();
+                        },
+                        // 我的回答
+                        function () {
+                            $('#contentWrapper').cTemplate("/rest/metadata/answer?username=" + username, "/js/templates/myAnswers.html");
+
+                        },
+                        //我的提问
+                        function () {
+                            $('#contentWrapper').cTemplate("/rest/metadata/question/username/" + username, "/js/templates/myQuestions.html");
+                        }
+                );
+            },
+            function () {
+                var otherMenu = cMenu.create('menuWrapper', 'data/otherMenu.json', nav,
+                        function () {
+                            $('#contentWrapper').empty();
+                        },
+                        // 个人信息
+                        function () {
+                            $('#contentWrapper').load('/js/templates/contactSetting.html', function () {
+                                var avatar = $("#avatar");
+                                var username = $("#username");
+                                var groupid = $("#groupid");
+                                var gender = $("#gender");
+                                var location = $("#location");
+                                var firstname = $("#firstname");
+                                var lastname = $("#lastname");
+                                var tel = $("#tel");
+                                var qq = $("#qq");
+                                var site = $("#site");
+                                var email = $("#email");
+                                var introduce = $("#introduce");
+
+                                var oldPWD = $("#oldPWD");
+                                var newPWD = $("#newPWD");
+                                var newPWD2 = $("#newPWD2");
+                                $.ajax({
+                                    url: '/rest/metadata/userdetail/' + "lender",
+                                    type: 'GET',
+                                    dataType: "json",
+                                    contentType: "application/json; charset=utf-8",
+                                    success: function (response) {
+                                        avatar.attr("src", response.avatar);
+                                        username.html(response.username);
+                                        groupid.html(response.groupId == 1 ? "借贷者" : "放贷者");
+                                        gender.html(response.gender == 1 ? "男" : "女");
+                                        location.html(response.location);
+                                        lastname.val(response.lastname);
+                                        firstname.val(response.firstname);
+                                        tel.val(response.tel);
+                                        qq.val(response.qq);
+                                        email.val(response.email);
+                                        site.val(response.site);
+                                        introduce.val(response.introduce);
+                                    },
+                                    error: function (response) {
+                                        console.warn(response);
+                                    }
+                                });
+                                $("#submit").bind('click', function () {
+                                    $.ajax({
+                                        url: '/rest/metadata/userdetail/' + "lender",
+                                        type: 'PUT',
+                                        dataType: "json",
+                                        contentType: "application/json; charset=utf-8",
+                                        data: '{"avatar": "' + avatar.attr("src") + '", "firstname": "' + firstname.val() + '","lastname": "' + lastname.val() + '", "tel": "' + tel.val() + '","qq": "' + qq.val() + '", "site": "' + site.val() + '", "email": "' + email.val() + '", "introduce": "' + introduce.val() + '"} }',
+                                        success: function (response) {
+                                            $.jBox.info('修改成功');
+                                        },
+                                        error: function (response) {
+                                            $.jBox.info('修改失败' + response);
+                                        }
+                                    })
+                                });
+                            })
+                        },
+                        // 修改密码
+                        function () {
+                            $('#contentWrapper').load('/js/templates/changePWD.html', function () {
+                                var oldPWD = $("#oldPWD");
+                                var newPWD = $("#newPWD");
+                                var newPWD2 = $("#newPWD2");
+                                $("#submit").bind('click', function () {
+                                    $.ajax({
+                                        url: '/rest/metadata/user/' + "lender",
+                                        type: 'PUT',
+                                        dataType: "json",
+                                        contentType: "application/json; charset=utf-8",
+                                        data: '{"oldPWD": "' + oldPWD.val() + '", "newPWD": "' + newPWD.val() + '"}',
+                                        success: function (response) {
+                                            $.jBox.info('密码修改成功');
+                                        },
+                                        error: function (response) {
+                                            $.jBox.info('密码修改失败' + response);
+                                        }
+                                    })
+                                });
+                            })
+                        },
+                        // 收藏管理
+                        function () {
+                            $('#contentWrapper').cTemplate("/rest/metadata/favourite/username/" + username, "/js/templates/myFavourites.html",
+                                    function (data) {
+                                        for (var i = 0; i < data.length; i++) {
+                                            data[i].obj = getObject(data[i].type, data[i].oid);
+                                        }
+                                    }
+                            );
+
+                            var fid;
+                            var submit = function (v, h, f) {
+                                if (v == 'ok') {
+                                    $.ajax({
+                                        type: "DELETE",
+                                        url: "/rest/metadata//favourite/" + fid,
+                                        success: function (response) {
+                                            refresh();
+                                        },
+                                        error: function (response) {
+                                            console.debug(id + 'negative error');
+                                        }
+                                    });
+                                }
+                                else if (v == 'cancel')
+                                    return true; //close
+                            };
+                            delFavourite = function (id) {
+                                fid = id;
+                                $.jBox.confirm("确定取消收藏吗?", "确认", submit);
+                            }
+                        },
+                        // 消息中心
+                        function () {
+                            $("#contentWrapper").cMessage("/rest/metadata/message/" + username + "/receive");
+                        }
+                );
+            }
+    );
+
+}
+</script>
 
 <link rel="Shortcut Icon" href="favicon.ico">
 <title>欢迎来到青帝网</title>
