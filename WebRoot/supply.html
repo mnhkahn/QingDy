@@ -8,6 +8,7 @@
     <link href="css/base.css" rel="stylesheet" type="text/css"/>
     <link href="css/flexisel.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="css/chosen.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css" />
 
     <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
     <script type="text/javascript" src="js/base.js"></script>
@@ -52,12 +53,6 @@
 
             $('#filter').load('/js/templates/supplyFilter.html', function () {
                 $.cArea(DEFAULT_AREA);
-                var provinceSel = $("#provinceSel");
-                provinceSel.data("placeholder", "请选择").chosen();
-
-                var citySel = $("#citySel");
-                citySel.data("placeholder", "请选择").chosen();
-
                 count = 10;//getFilterCount("type", type, MALL);
 
                 $("#clientSel").change(function () {
@@ -146,11 +141,12 @@
 <div id="mainContainer2" class="mainContainer2">
     <div id="mainContainerCenterLeft" class="mainContainerCenterLeft">
         <div id="hot" class="hot">
-
         </div>
-        <div id="filter" style="height: 280px" class="filter container">
+        <div id="filter" style="width: 786px;height: 160px; border: 1px solid rgb(221,221,221);border-radius: 5px;" class="filter container">
         </div>
+        <h6><small>找到约 <span id="searchCount"></span> 条结果</small></h6>
         <div id="waterfall" class="waterfall">
+
             <div class='page'>
                 <div class='items'></div>
             </div>

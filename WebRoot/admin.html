@@ -138,22 +138,32 @@ function init() {
             },
             // 首页
             function() {
-                var data = google.visualization.arrayToDataTable([
-                    ['Province',   'Population', 'Area'],
-                    ['Beijing',      2761477,    1285.31],
-                    ['Shanxi',     1324110,    181.76],
-                    ['Guangdong',    959574,     117.27],
-                    ['Fujian',     907563,     130.17]
-                ]);
+                var webShowMenu = cMenu.create('menuWrapper', 'data/info.json', nav,
+                        function () {
+                            reload();
+                        },
+                        // 概述
+                        function () {
+                            $('#List').load('/js/templates/outline.html', function () {
+                                var data = google.visualization.arrayToDataTable([
+                                    ['Province',   'Population', 'Area'],
+                                    ['Beijing',      2761477,    1285.31],
+                                    ['Shanxi',     1324110,    181.76],
+                                    ['Guangdong',    959574,     117.27],
+                                    ['Fujian',     907563,     130.17]
+                                ]);
 
-                var options = {
-                    region: 'CN',
-                    displayMode: 'markers',
-                    colorAxis: {colors: ['green', 'blue']}
-                };
+                                var options = {
+                                    region: 'CN',
+                                    displayMode: 'markers',
+                                    colorAxis: {colors: ['green', 'blue']}
+                                };
 
-                var chart = new google.visualization.GeoChart(document.getElementById('menuContent'));
-                chart.draw(data, options);
+                                var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
+                                chart.draw(data, options);
+                            });
+                        }
+                );
             },
             // 网站管理
             function () {

@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css"/>
 <link rel="stylesheet" href="css/cStyle.css"/>
 
-<script type="text/javascript" src='js/jquery-1.9.1.js'></script>
+<script type="text/javascript" src='js/jquery-1.7.2.js'></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.2.custom.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
@@ -270,6 +270,12 @@ function init() {
                                     })
                                 });
                             })
+                        },
+                        // 展示管理
+                        function () {
+                            $('#contentWrapper').load('/js/templates/mallShowcase.html', function () {
+
+                            });
                         },
                         // 添加产品
                         function () {

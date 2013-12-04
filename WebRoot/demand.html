@@ -8,7 +8,7 @@
     <link href="css/base.css" rel="stylesheet" type="text/css"/>
     <link href="css/flexisel.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="css/chosen.css"/>
-    <link rel="stylesheet" href="css/daterangepicker-bs2.css" />
+    <link rel="stylesheet" href="css/datepicker.css" />
     <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css" />
 
     <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
@@ -21,8 +21,8 @@
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script type="text/javascript" src="js/cSearch.js"></script>
     <script type="text/javascript" src="js/cArea.js"></script>
-    <script type="text/javascript" src="js/daterangepicker.js"></script>
-    <script type="text/javascript" src="js/moment.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="js/locales/bootstrap-datepicker.zh-CN.js"></script>
 
     <link rel="Shortcut Icon" href="favicon.ico">
     <script type="text/javascript">
@@ -56,28 +56,20 @@
 
             $('#filter').load('/js/templates/loanFilter.html', function () {
                 $.cArea(DEFAULT_AREA);
-                var provinceSel = $("#provinceSel");
-                provinceSel.data("placeholder", "请选择").chosen();
-
-                var citySel = $("#citySel");
-                citySel.data("placeholder", "请选择").chosen();
-
                 var date = $("#datepicker");
-                date.daterangepicker({
-                    startDate: moment(),
-                    endDate: moment().add('years', 3),
-                    separator: ' - ',
-                    format: 'YYYY-MM-DD'
-                }, function() {
-                            search();
-                        }
-                );
+                date.datepicker({
+                    format: 'yyyy-mm-dd',
+                    language: 'zh-CN'
+                });
                 $("#pawnSel").change(function () {
                     search();
                 });
                 $("#ueseofloanSel").change(function () {
                     search();
                 });
+                $("#searchDate").click(function() {
+                    search();
+                })
                 $("#searchLocation").click(function () {
                     search();
                 });
@@ -93,9 +85,8 @@
                     {
                         url: function (offset) {
                             var location = $("#provinceSel").val() + $('#citySel').val(), hasPawn = 0, startTime, endTime, usesofloan = "";
-                            var data = $("#datepicker").val().split(" - ");
-                            startTime = data[0];
-                            endTime = data[1];
+                            startTime = $("#startTime").val();
+                            endTime = $("#endTime").val();
                             if ($("#ueseofloanSel").val() != "不限") {
                                 usesofloan = $("#ueseofloanSel").val();
                             }
@@ -160,8 +151,9 @@
         <div id="hot" class="hot">
 
         </div>
-        <div id="filter" class="filter container">
+        <div id="filter" style="width: 786px; height: 282px; border: 1px solid rgb(221,221,221);border-radius: 5px;" class="filter container">
         </div>
+        <h6><small>找到约 <span id="searchCount"></span> 条结果</small></h6>
         <div id="waterfall" class="waterfall">
             <div class='page'>
                 <div class='items'></div>
@@ -178,7 +170,7 @@
         charset="utf-8"></script>
 <!-- JiaThis Button END -->
 <!-- UJian Button BEGIN -->
-<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>
+<!--<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>-->
 <!-- UJian Button END -->
 </body>
 </html>

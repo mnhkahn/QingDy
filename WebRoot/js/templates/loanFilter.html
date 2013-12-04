@@ -1,79 +1,77 @@
 <script type="text/javascript" src="js/jQuery.select2Buttons.js"></script>
 <link rel="stylesheet" href="css/select2Buttons.css" type="text/css" />
-<style type="text/css">
-    .filterTitle {
-        text-align: right;
-        font-weight: bold;
-        line-height: 25px;
-    }
-</style>
-<table id="filterTable" style="width: 99%; height: 99%; margin: auto">
-    <tr>
-        <td class="filterTitle dashedLine" width="100px;">地区：</td>
-        <td class="dashedLine" width="650px;">
-            <select id="provinceSel" name="provinceSel" class="chosen" style="width: 100px;">
+<div class="row active">
+    <div class="col-md-2"><h4>地区：</h4></div>
+    <div class="col-md-8" style="margin-top: 3px;">
+        <div class="col-xs-1" style="width: 115px;padding-left: 0px;">
+            <select id="provinceSel" name="provinceSel" class="form-control">
             </select>
-            <select id="citySel" name="citySel" class="chosen" style="width: 100px;" >
+        </div>
+        <div class="col-xs-1"  style="width: 130px;">
+            <select id="citySel" name="citySel" class="form-control">
             </select>
-            <input id="searchLocation" type="button" />
-        </td>
-    </tr>
-    <tr>
-        <td class="filterTitle dashedLine" width="100px;">贷款种类：</td>
-        <td class="dashedLine" width="650px;">
-            <select name="simple-select" id="pawnSel">
-                <option>不限</option>
-                <option>抵押贷款</option>
-                <option>无抵押信用贷款</option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td class="filterTitle dashedLine" width="100px;">借贷期限：</td>
-        <td class="dashedLine" width="650px;">
-            <div class="input-prepend">
-                <span class="add-on"><i class="icon-calendar"></i></span><input type="text" id="datepicker" style="width: 200px" name="reservation" id="reservation" value="2013-12-03 - 2016-12-03" />
+        </div>
+        <div class="col-xs-1" style="width: 100px;">
+            <button id="searchLocation" type="button" class="btn btn-info">确定</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2"><h4>贷款种类：</h4></div>
+    <div class="col-md-8" style="margin-top: 3px;">
+        <select name="simple-select" id="pawnSel">
+            <option>不限</option>
+            <option>抵押贷款</option>
+            <option>无抵押信用贷款</option>
+        </select>
+    </div>
+</div>
+<div class="row active">
+    <div class="col-md-2"><h4>借贷期限：</h4></div>
+    <div class="col-md-8" style="margin-top: 3px;">
+        <div class="glyphicon glyphicon-calendar" style="float: left; font-size: 24px;margin-top: 3px;margin-left: 2px;"></div>
+        <div class="input-daterange" id="datepicker">
+            <div class="col-xs-1" style="width: 150px;">
+                <input class="form-control" name="start" id="startTime" value="2013-12-03"/>
             </div>
-<!--            <select name="simple-select" id="clientSel">
-                <option>不限</option>
-                <option>随借随还</option>
-                <option>1～6个月</option>
-                <option>6个月～1年</option>
-                <option>1年～3年</option>
-                <option>3年～10年</option>
-                <option>10年以上</option>
-            </select>-->
-        </td>
-    </tr>
-    <tr>
-        <td class="filterTitle" width="100px;">贷款用途：</td>
-        <td width="650px;">
-            <select name="simple-select" id="ueseofloanSel">
-                <option>不限</option>
-                <option>消费贷款</option>
-                <option>短期周转贷款</option>
-                <option>个体户经营贷款</option>
-                <option>装修贷款</option>
-                <option>创业贷款</option>
-                <option>旅游贷款</option>
-                <option>一手房按揭贷款</option>
-                <option>公积金贷款</option>
-                <option>二手房按揭贷款</option>
-                <option>新车按揭贷款</option>
-                <option>购二手车</option>
-                <option>经营性流动资金贷款</option>
-                <option>固定资产贷款</option>
-                <option>设备融资租赁</option>
-                <option>贸易融资</option>
-                <option>票据贴现</option>
-                <option>个体户经营贷款</option>
-                <option>项目贷款</option>
-                <option>创业贷款</option>
-                <option>旅游贷款</option>
-            </select>
-        </td>
-    </tr>
-</table>
+            <h5 style="float: left;">&harr;</h5>
+            <div class="col-xs-1" style="width: 150px;">
+                <input class="form-control" name="end" id="endTime" value="2020-04-07" />
+            </div>
+        </div>
+        <div class="col-xs-1" style="width: 100px;">
+            <button id="searchDate" type="button" class="btn btn-info">确定</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2"><h4>贷款用途：</h4></div>
+    <div class="col-md-10" style="margin-top: 3px;">
+        <select name="simple-select" id="ueseofloanSel" class="form-control">
+            <option>不限</option>
+            <option>消费贷款</option>
+            <option>短期周转贷款</option>
+            <option>个体户经营贷款</option>
+            <option>装修贷款</option>
+            <option>创业贷款</option>
+            <option>旅游贷款</option>
+            <option>一手房按揭贷款</option>
+            <option>公积金贷款</option>
+            <option>二手房按揭贷款</option>
+            <option>新车按揭贷款</option>
+            <option>购二手车</option>
+            <option>经营性流动资金贷款</option>
+            <option>固定资产贷款</option>
+            <option>设备融资租赁</option>
+            <option>贸易融资</option>
+            <option>票据贴现</option>
+            <option>个体户经营贷款</option>
+            <option>项目贷款</option>
+            <option>创业贷款</option>
+            <option>旅游贷款</option>
+        </select>
+    </div>
+</div>
 <script>
     $('select[name=simple-select]').select2Buttons();
 </script>

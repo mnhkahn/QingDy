@@ -735,7 +735,7 @@ a, a:link, a:active, a:hover, a:visited {
 }
 
 /* news */
-.container {
+.qingdyContainer {
 	background-color: #fff;
 	border-radius: 5px;
 	border: 1px solid rgb(221,221,221);
