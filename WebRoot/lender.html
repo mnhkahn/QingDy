@@ -6,7 +6,6 @@
 
 <link href="css/base.css" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="css/ui.jqgrid.css" type="text/css"></link>
-<link href="css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
 <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
 <link rel="stylesheet" href="css/jquery.checkbox.css"/>
 <link rel="stylesheet" href="css/chosen.css"/>
@@ -608,14 +607,15 @@ function init() {
 </head>
 
 <body onload='init()'>
-<div id="mainContainerWrapper" style="height:700px; margin-top: 60px;">
+<div id="mainContainerWrapper" style="margin-top: 60px;">
     <div id="mainContainer" class="mainContainerWide2">
         <div id="tabWrapper" class="tabWrapper"></div>
-        <div id="menuContent" class="menuContent">
+        <div id="menuContent" >
             <div id="menuWrapper" class="menuWrapper"></div>
             <div id="contentWrapperThin" class="contentWrapperThin">
                 <div id="contentWrapper" style="height:100%; overflow-x: hidden"></div>
             </div>
+            <div style="clear: both"></div>
         </div>
     </div>
 </div>

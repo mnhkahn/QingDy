@@ -631,15 +631,12 @@ a, a:link, a:active, a:hover, a:visited {
 
 .menuWrapper {
 	width: 210px;
-	height: 100%;
-
 	background-color: #fff;
 
 	display: block;
 	float: left;
 
     overflow: auto;
-	position: relative;
 }
 
 .contentWrapper {
@@ -653,22 +650,15 @@ a, a:link, a:active, a:hover, a:visited {
 
     background-color: #fff;
     display: block;
-    float: left;
 
 }
 
 .contentWrapperThin {
-    float: left;
-
-    position: absolute;
-    left: 210px;
-    right: 5px;
-    top: 5px;
-    bottom: 5px;
-
+    float: right;
+    width: 785px;
+    position: initial;
     background-color: #fafafa;
     display: block;
-    float: left;
 
     padding-left: 10px;
 }
@@ -945,8 +935,8 @@ span.answer-num {
     padding-left: 30px;
 }
 
-#navWrapper {
-    position: absolute;
+.navWrapper {
+    position: initial;
 	left: 5px;
 	right: 5px;
 	top: 5px;

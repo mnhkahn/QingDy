@@ -24,6 +24,7 @@
     <link rel="Shortcut Icon" href="favicon.ico">
 
     <script type="text/javascript">
+        var count = 0;
         function init() {
             commonInit();
             $('#hot').load('/data/bankFlex.html', function () {
@@ -53,7 +54,6 @@
 
             $('#filter').load('/js/templates/supplyFilter.html', function () {
                 $.cArea(DEFAULT_AREA);
-                count = 10;//getFilterCount("type", type, MALL);
 
                 $("#clientSel").change(function () {
                     search();
@@ -82,6 +82,7 @@
             $(".page .items").autobrowse(
                     {
                         url: function (offset) {
+                            console.debug("offset" + offset);
                             var client = "", usesofloan = "", min = 0, max = 10, location = $("#provinceSel").val() + $('#citySel').val();
                             if ($("#clientSel").val() != "不限") {
                                 client = $("#clientSel").val();
@@ -97,7 +98,8 @@
                                 url: "/rest/metadata/product/nkeys/count?&searchField=clientLocation&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=client&searchString=" + client + "&searchOper=cn&searchField=min&searchString=" + min + "&searchOper=bw&searchField=max&searchString=" + max + "&searchOper=ew",
                                 type: 'HEAD',
                                 success: function(res, status, xhr) {
-                                    $("#searchCount").html(xhr.getResponseHeader("count"));
+                                    count = xhr.getResponseHeader("count")
+                                    $("#searchCount").html(count);
                                 },
                                 error: function(response) {
                                     console.error(response);
@@ -130,9 +132,11 @@
                             return markup;
                         },
                         itemsReturned: function (response) {
+                            console.debug("response" + response.length);
                             return response.length;
                         },
                         offset: 0,
+                        max: count,
                         loader: '<div class="loader"></div>',
                         useCache: true,
                         expiration: 1
