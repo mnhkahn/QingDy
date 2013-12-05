@@ -17,11 +17,6 @@
             <column name="SCORE" />
         </property>
     </class>
-    <query name="querySpecialistCount">
-        <![CDATA[
-			select distinct poster from Score
-        ]]>
-	</query>
 	<query name="querySpecialist">
          <![CDATA[
          	select s.poster, sum(s.score) as score, group_concat(s.question.classes) from Score as s where s.question.classes like ? group by s.poster
@@ -30,6 +25,11 @@
 	<query name="querySpecialistWithFilters">
          <![CDATA[
          	select s.poster, sum(s.score) as score, group_concat(s.question.classes) from Score as s where s.poster.gender=? and s.question.classes like ? group by s.poster
+         ]]>
+	</query>
+	<query name="querySpecialistCount">
+         <![CDATA[
+         	select s.poster, sum(s.score) as score, group_concat(s.question.classes) from Score as s group by s.poster
          ]]>
 	</query>
 </hibernate-mapping>

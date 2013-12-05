@@ -306,6 +306,13 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 		return mallDao.getMalls(size, page, field, value, operator, sidx, sord,
 				verify);
 	}
+	
+	@Override
+	public Integer getMallCount(String[] field, String[] value,
+			String[] operator, boolean verify) {
+		// TODO Auto-generated method stub
+		return mallDao.getMallsCount(field, value, operator, verify);
+	}
 
 	@Override
 	public Mall getMall(Long id) {
@@ -350,6 +357,14 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 			String[] value, String[] operator, String sidx, String sord, boolean verify) {
 		// TODO Auto-generated method stub
 		return productDao.getProducts(size, page, field, value, operator, sidx, sord, verify);
+	}
+	
+
+	@Override
+	public Integer getProductsCount(String[] field, String[] value,
+			String[] operator, boolean verify) {
+		// TODO Auto-generated method stub
+		return productDao.getProductsCount(field, value, operator, verify);
 	}
 
 	@Override
@@ -499,6 +514,19 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 		return specialistDao.getSpecialists(size, page, field, value, operator, sidx, sord, verify);
 	}
 
+	@Override
+	public Integer getSpecialistsCount(String[] field, String[] value,
+			String[] operator, boolean verify) {
+		// TODO Auto-generated method stub
+		return specialistDao.getSpecialistsCount(field, value, operator, verify);
+	}
+	
+	@Override
+	public Integer getSpecialistsCount(String field, String value, String operator, boolean verify) {
+		return specialistDao.getSpecialistsCount(field, value, operator, verify);
+	}
+
+
 	/*
 	 * News(non-Javadoc)
 	 * 
@@ -543,6 +571,13 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 			String[] value, String[] operator, String sidx, String sord, boolean verify) {
 		// TODO Auto-generated method stub
 		return loanDao.getLoans(size, page, field, value, operator, sidx, sord, verify);
+	}
+
+	@Override
+	public Integer getLoansCount(String[] field, String[] value,
+			String[] operator, boolean verify) {
+		// TODO Auto-generated method stub
+		return loanDao.getLoansCount(field, value, operator, verify);
 	}
 
 	@Override

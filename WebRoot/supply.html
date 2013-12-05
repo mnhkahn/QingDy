@@ -93,18 +93,28 @@
                                 min = $("#min").val();
                                 max = $("#max").val();
                             }
+                            $.ajax({
+                                url: "/rest/metadata/product/nkeys/count?&searchField=clientLocation&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=client&searchString=" + client + "&searchOper=cn&searchField=min&searchString=" + min + "&searchOper=bw&searchField=max&searchString=" + max + "&searchOper=ew",
+                                type: 'HEAD',
+                                success: function(res, status, xhr) {
+                                    $("#searchCount").html(xhr.getResponseHeader("count"));
+                                },
+                                error: function(response) {
+                                    console.error(response);
+                                }
+                            });
                             console.debug("/rest/metadata/product/nkeys?rows=" + 10 + "&page=" + 1 + "&searchField=clientLocation&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=client&searchString=" + client + "&searchOper=cn&searchField=min&searchString=" + min + "&searchOper=bw&searchField=max&searchString=" + max + "&searchOper=ew&sidx=postDate&sord=asc");
                             return "/rest/metadata/product/nkeys?rows=" + 10 + "&page=" + 1 + "&searchField=clientLocation&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=client&searchString=" + client + "&searchOper=cn&searchField=min&searchString=" + min + "&searchOper=bw&searchField=max&searchString=" + max + "&searchOper=ew&sidx=postDate&sord=asc";//"/data/tests/supplyWaterfall.json";
                         },
                         template: function (response) {
                             var markup = '';
                             for (var i = 0; i < response.length; i++) {
-                                markup += '<a target="_blank" href="' + getLink(PRODUCT, response[i].mall.id) + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
+                                markup += '<a target="_blank" href="' + getLink(PRODUCT, response[i].mall.id) + '"><div class="hover" style="width:786px;height:98px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
                                         '<div class="p_left"><img width="48" height="48" alt="' + response[i].poster.lastname + '经理" src="' + response[i].poster.avatar + '">' +
                                         '<p>' + response[i].poster.lastname + '经理</p>' +
                                         '</div>' +
-                                        '<div class="p_right">' +
-                                        '<h5>' + response[i].pName + '</h5>' +
+                                        '<div class="p_right" style="box-sizing: content-box;">' +
+                                        '<h5 style="margin-top: 0px;">' + response[i].pName + '</h5>' +
                                         '<div class="clear_both"></div>' +
                                         '<span class="p1">' + response[i].clientLocation + '</span>' +
                                         '<span class="p2">贷款用途：' + response[i].usesofloan + '</span>' +

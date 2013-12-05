@@ -11,4 +11,8 @@ public interface SpecialistDao extends DAO {
 	public List<Specialist> getSpecialists(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public List<Specialist> getSpecialists(int size, int page, String field[], String value[], String operator[], String sidx, String sord, boolean verify);
+	
+	public Integer getSpecialistsCount(String field[], String value[], String operator[], boolean verify);
+	
+	public Integer getSpecialistsCount(String field, String value, String operator, boolean verify);
 }

@@ -12,6 +12,8 @@ public interface ProductDao {
 	
 	public List<Product> getProducts(int size, int page, String field[], String value[], String operator[], String sidx, String sord, boolean verify);
 	
+	public Integer getProductsCount(String field[], String value[], String operator[], boolean verify);
+	
 	public Product getProduct(Long id);
 	
 	public List<Product> getProduct(String username);

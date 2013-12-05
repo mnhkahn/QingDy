@@ -330,11 +330,11 @@ public class Resources {
 		return Response.ok(malls).build();
 	}
 	
-	@Path("/mall/count")
+	@Path("/mall/nkeys/count")
 	@HEAD
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getMallCount(@QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator) {
-		Long count = new Long(1);//facadeManager.getMallCount(field, value, operator, true);
+	public Response getMallCount(@QueryParam("searchField") String [] field, @QueryParam("searchString") String [] value, @QueryParam("searchOper") String [] operator) {
+		Integer count = facadeManager.getMallCount(field, value, operator, true);
 		return Response.noContent().header("count", count).build();
 	}
 	
@@ -407,6 +407,14 @@ public class Resources {
 	public Response getVerifiedProducts(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String [] field, @QueryParam("searchString") String [] value, @QueryParam("searchOper") String [] operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
 		List<Product> products = facadeManager.getProducts(size,  page, field, value, operator, sidx, sord, true);
 		return Response.ok(products).build();
+	}
+	
+	@Path("/product/nkeys/count")
+	@HEAD
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVerifiedProductsCount(@QueryParam("searchField") String [] field, @QueryParam("searchString") String [] value, @QueryParam("searchOper") String [] operator) {
+		Integer count = facadeManager.getProductsCount(field, value, operator, true);
+		return Response.noContent().header("count", count).build();
 	}
 	
 	@Path("/product/username/{username}")
@@ -616,6 +624,23 @@ public class Resources {
 		return Response.ok(specialists).build();
 	}
 	
+	@Path("/specialist/count")
+	@HEAD
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getSpecialistsCount(@QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator) {
+		Integer count = facadeManager.getSpecialistsCount(field, value, operator, true);
+		System.out.println(count);
+		return Response.noContent().header("count", count).build();
+	}
+	
+	@Path("/specialist/nkeys/count")
+	@HEAD
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getSpecialistsCount(@QueryParam("searchField") String field[], @QueryParam("searchString") String value[], @QueryParam("searchOper") String [] operator) {
+		Integer count = facadeManager.getSpecialistsCount(field, value, operator, true);
+		return Response.noContent().header("count", count).build();
+	}
+	
 	
 	/*
 	 * News
@@ -794,6 +819,14 @@ public class Resources {
 	public Response getVerifiedLoans(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field[], @QueryParam("searchString") String value[], @QueryParam("searchOper") String [] operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
 		List<Loan> loans = facadeManager.getLoans(size,  page, field, value, operator, sidx, sord, true);
 		return Response.ok(loans).build();
+	}
+	
+	@Path("/loan/nkeys/count")
+	@HEAD
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVerifiedLoansCount(@QueryParam("searchField") String field[], @QueryParam("searchString") String value[], @QueryParam("searchOper") String [] operator) {
+		Integer count = facadeManager.getLoansCount(field, value, operator, true);
+		return Response.noContent().header("count", count).build();
 	}
 	
 	@Path("/loan/manage")

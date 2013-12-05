@@ -59,6 +59,37 @@ public class cRestrictions {
 		return criteria;
 	}
 	
+	public static DetachedCriteria getRestrictions(Class clazz, String field[], String value[], String operator[], boolean verify) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
+		System.out.println("*********************" + field.length + value.length + operator.length);
+		for (int i = 0; i < field.length; i++) {
+			if (value[i].equals("")) {
+				continue;
+			}
+			if (StringUtil.isNumeric(value[i])) {
+				criteria.add(cRestrictions.getRestrictions(field[i], Integer.parseInt(value[i]), operator[i]));
+			}
+			else if (StringUtil.isDouble(value[i])) {
+				System.out.println(value[i]);
+				criteria.add(cRestrictions.getRestrictions(field[i], Float.parseFloat(value[i]), operator[i]));
+			}
+			else if (StringUtil.isDate(value[i], Constant.DATE_FORMAT)) {
+				System.out.println(ConvertUtil.str2Date(value[i], Constant.DATE_FORMAT));
+				criteria.add(cRestrictions.getRestrictions(field[i], ConvertUtil.str2Date(value[i], Constant.DATE_FORMAT), operator[i]));
+			}
+			else {
+				criteria.add(cRestrictions.getRestrictions(field[i], value[i], operator[i]));
+			}
+		}
+		
+		// false for get all items and true for get verified items
+		if (verify) {
+			criteria.add(cRestrictions.getRestrictions(verify));
+		}
+		
+		return criteria;
+	}
+	
 	public static SimpleExpression getRestrictions(String field, Object value, String operator) {
 		SimpleExpression simpleExpression = null;
 		switch (operator) {

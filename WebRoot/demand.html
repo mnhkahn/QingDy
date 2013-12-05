@@ -101,6 +101,16 @@
                                 return "/rest/metadata/loan/nkeys?rows=" + size + "&page=" + page + "&searchField=location&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=startTime&searchString=" + startTime + "&searchOper=bw&searchField=endTime&searchString=" + endTime + "&searchOper=ew&searchField=hasPawn&searchString=" + hasPawn + "&searchOper=eq&sidx=postDate&sord=asc";//"/data/tests/loanWaterfall.json";
                             }
                             else {
+                                $.ajax({
+                                    url: "/rest/metadata/loan/nkeys/count?searchField=location&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=startTime&searchString=" + startTime + "&searchOper=bw&searchField=endTime&searchString=" + endTime + "&searchOper=ew",
+                                    type: 'HEAD',
+                                    success: function(res, status, xhr) {
+                                        $("#searchCount").html(xhr.getResponseHeader("count"));
+                                    },
+                                    error: function(response) {
+                                        console.error(response);
+                                    }
+                                });
                                 console.debug("/rest/metadata/loan/nkeys?rows=" + size + "&page=" + page + "&searchField=location&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=startTime&searchString=" + startTime + "&searchOper=bw&searchField=endTime&searchString=" + endTime + "&searchOper=ew&sidx=postDate&sord=asc");
                                 return "/rest/metadata/loan/nkeys?rows=" + size + "&page=" + page + "&searchField=location&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=startTime&searchString=" + startTime + "&searchOper=bw&searchField=endTime&searchString=" + endTime + "&searchOper=ew&sidx=postDate&sord=asc";//"/data/tests/loanWaterfall.json";
                             }
@@ -108,12 +118,12 @@
                         template: function (response) {
                             var markup = '';
                             for (var i = 0; i < response.length; i++) {
-                                markup += '<a target="_blank" href="' + getLink(LOAN, response[i].id) + '"><div class="hover" style="width:786px;height:78px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
+                                markup += '<a target="_blank" href="' + getLink(LOAN, response[i].id) + '"><div class="hover" style="width:786px;height:98px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
                                         '<div class="p_left"><img width="48" height="48" alt="' + response[i].poster.lastname + (response[i].poster.gender ? '先生' : '女士') + '" src="' + response[i].poster.avatar + '">' +
                                         '<p>' + response[i].poster.lastname + (response[i].poster.gender ? '先生' : '女士') + '</p>' +
                                         '</div>' +
-                                        '<div class="p_right">' +
-                                        '<h5>' + response[i].title + '</h5>' +
+                                        '<div class="p_right" style="box-sizing: content-box">' +
+                                        '<h5 style="margin-top: 0px">' + response[i].title + '</h5>' +
                                         '<div class="clear_both"></div>' +
                                         '<span class="p1">' + response[i].location + '</span>' +
                                         '<span class="p2">贷款用途：' + response[i].usesofloan + '</span>' +

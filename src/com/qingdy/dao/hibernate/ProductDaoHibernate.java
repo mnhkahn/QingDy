@@ -37,6 +37,13 @@ public class ProductDaoHibernate extends BaseDaoHibernate implements ProductDao 
 	}
 
 	@Override
+	public Integer getProductsCount(String[] field, String[] value,
+			String[] operator, boolean verify) {
+		// TODO Auto-generated method stub
+		return getHibernateTemplate().findByCriteria(cRestrictions.getRestrictions(Product.class, field, value, operator, verify)).size();
+	}
+
+	@Override
 	public Product getProduct(Long id) {
 		Product product = getHibernateTemplate().get(Product.class, id);
 		if (product == null) {
@@ -68,5 +75,4 @@ public class ProductDaoHibernate extends BaseDaoHibernate implements ProductDao 
 		Product product = getProduct(id);
 		getHibernateTemplate().delete(product);
 	}
-
 }

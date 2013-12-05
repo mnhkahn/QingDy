@@ -20,6 +20,14 @@ public class MallDaoHibernate extends BaseDaoHibernate implements MallDao {
 	public List<Mall> getMalls(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify) {
 		return getHibernateTemplate().findByCriteria(cRestrictions.getRestrictions(Mall.class, field, value, operator, sidx, sord, verify), size * (page - 1), size);
 	}
+	
+
+	@Override
+	public Integer getMallsCount(String[] field, String[] value,
+			String[] operator, boolean verify) {
+		// TODO Auto-generated method stub
+		return getHibernateTemplate().findByCriteria(cRestrictions.getRestrictions(Mall.class, field, value, operator, verify)).size();
+	}
 
 	@Override
 	public Mall getMall(Long id) {

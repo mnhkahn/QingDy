@@ -89,6 +89,8 @@ public interface FacadeManager {
 	 */
 	public List<Mall> getMalls(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
+	public Integer getMallCount(String[] field, String[] value, String[] operator, boolean verify);
+	
 	public Mall getMall(Long id);
 	
 	public Mall getMall(String username);
@@ -105,6 +107,8 @@ public interface FacadeManager {
 	public List<Product> getProducts(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public List<Product> getProducts(int size, int page, String field[], String value[], String[] operator, String sidx, String sord, boolean verify);
+	
+	public Integer getProductsCount(String field[], String value[], String[] operator, boolean verify);
 	
 	public Product getProduct(Long id);
 	
@@ -156,6 +160,10 @@ public interface FacadeManager {
 	public List<Specialist> getSpecialists(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public List<Specialist> getSpecialists(int size, int page, String[] field, String[] value, String[] operator, String sidx, String sord, boolean verify);
+	
+	public Integer getSpecialistsCount(String[] field, String[] value, String[] operator, boolean verify);
+	
+	public Integer getSpecialistsCount(String field, String value, String operator, boolean verify);
 	/*
 	 * News
 	 */
@@ -173,6 +181,8 @@ public interface FacadeManager {
 	public List<Loan> getLoans(int size, int page, String field, String value, String operator, String sidx, String sord, boolean verify);
 	
 	public List<Loan> getLoans(int size, int page, String[] field, String[] value, String[] operator, String sidx, String sord, boolean verify);
+	
+	public Integer getLoansCount(String[] field, String[] value, String[] operator, boolean verify);
 	
 	public List<Loan> getLoans(String username);
 	

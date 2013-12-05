@@ -78,4 +78,26 @@ public class SpecialistDaoHibernate extends BaseDaoHibernate implements Speciali
 		return specialists;
 	}
 
+	@Override
+	public Integer getSpecialistsCount(String[] field, String[] value,
+			String[] operator, boolean verify) {
+		if (value.length == 0) {
+			return getHibernateTemplate().findByNamedQuery("querySpecialistCount").size();
+		}
+		else {
+			return getHibernateTemplate().findByNamedQuery("querySpecialist", "%" + value[0] + "%").size();
+		}
+	}
+
+	@Override
+	public Integer getSpecialistsCount(String field, String value,
+			String operator, boolean verify) {
+		if (value.equals("")) {
+			return getHibernateTemplate().findByNamedQuery("querySpecialistCount").size();
+		}
+		else {
+			return getHibernateTemplate().findByNamedQuery("querySpecialist", "%" + value + "%").size();
+		}
+	}
+
 }

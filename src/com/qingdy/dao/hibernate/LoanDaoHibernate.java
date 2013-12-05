@@ -28,6 +28,13 @@ public class LoanDaoHibernate extends BaseDaoHibernate implements LoanDao {
 		return getHibernateTemplate().findByCriteria(cRestrictions.getRestrictions(Loan.class, field, value, operator, sidx, sord, verify), size * (page - 1), size);
 	}
 
+	@Override
+	public Integer getLoansCount(String[] field, String[] value,
+			String[] operator, boolean verify) {
+		// TODO Auto-generated method stub
+		return getHibernateTemplate().findByCriteria(cRestrictions.getRestrictions(Loan.class, field, value, operator, verify)).size();
+	}
+
 
 	@Override
 	public List<Loan> getLoans(String username) {
