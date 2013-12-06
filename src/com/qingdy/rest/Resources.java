@@ -62,10 +62,10 @@ import com.qingdy.service.FacadeManager;
 @Path("/metadata")
 public class Resources {
 	private Log log = LogFactory.getLog(getClass());
-	
+
 	@Resource(name = "facadeManager")
 	private FacadeManager facadeManager;
-	
+
 	public String getIP(HttpServletRequest request) {
 		String ipAddress = request.getHeader("X-FORWARDED-FOR");
 		if (ipAddress == null) {
@@ -73,7 +73,7 @@ public class Resources {
 		}
 		return ipAddress;
 	}
-	
+
 	/*
 	 * User
 	 */
@@ -83,22 +83,24 @@ public class Resources {
 		facadeManager.saveUser(user);
 		return Response.status(Response.Status.CREATED).build();
 	}
-	
+
 	@Path("/user/login")
 	@POST
 	public Response login(User user) {
 		return null;
 	}
-	
+
 	@Path("/user/{username}/exists")
 	@HEAD
 	public Response isUserExists(@PathParam("username") String username) {
-		return Response.noContent().header("exist", facadeManager.isUserExists(username)).build();
+		return Response.noContent()
+				.header("exist", facadeManager.isUserExists(username)).build();
 	}
-	
+
 	@Path("/user/{username}")
 	@PUT
-	public Response updateUser(@PathParam("username") String username, HashMap<String, String> params) {
+	public Response updateUser(@PathParam("username") String username,
+			HashMap<String, String> params) {
 		User user = facadeManager.getUser(username);
 		if (user.getPassword().equals(params.get("oldPWD"))) {
 			user.setPassword(params.get("newPWD"));
@@ -107,42 +109,44 @@ public class Resources {
 
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/user/{username}")
 	@DELETE
 	public Response deleteUser(@PathParam("username") String username) {
 		facadeManager.removeUser(username);
 		return Response.noContent().build();
 	}
-	
+
 	/*
 	 * UserDetail
 	 */
 	// complete user detail
 	@Path("/userdetail/{username}")
 	@POST
-	public Response addUserDetail(@PathParam("username") String username, UserDetail userDetail) {
+	public Response addUserDetail(@PathParam("username") String username,
+			UserDetail userDetail) {
 		userDetail.setUsername(username);
 		userDetail.setRegdate(new Date());
 		facadeManager.saveUserDetail(userDetail);
 		return Response.status(Response.Status.CREATED).build();
 	}
-	
+
 	@Path("/userdetail/{username}")
 	@PUT
-	public Response updateUserDetail(@PathParam("username") String username, UserDetail userDetail) {
+	public Response updateUserDetail(@PathParam("username") String username,
+			UserDetail userDetail) {
 		userDetail.setUsername(username);
 		facadeManager.updateUserDetail(userDetail);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/userdetail/{username}")
 	@PUT
 	public Response updateUserAvatar(UserDetail userDetail) {
 		facadeManager.updateUserDetail(userDetail);
 		return Response.status(Response.Status.CREATED).build();
 	}
-	
+
 	// get users detail
 	@Path("/userdetail")
 	@GET
@@ -151,7 +155,7 @@ public class Resources {
 		List<UserDetail> list = facadeManager.getUsersDetail();
 		return Response.ok(list).build();
 	}
-		
+
 	// get user detail
 	@Path("/userdetail/{username}")
 	@GET
@@ -160,7 +164,7 @@ public class Resources {
 		UserDetail userDetail = facadeManager.getUserDetail(username);
 		return Response.ok(userDetail).build();
 	}
-	
+
 	// get contact
 	@Path("/userdetail/{username}/contact")
 	@GET
@@ -168,19 +172,19 @@ public class Resources {
 	public Response getUserContact(@PathParam("username") String username) {
 		return Response.ok(facadeManager.getUserDetail(username)).build();
 	}
-	
+
 	/*
 	 * Blog
 	 */
 	@Path("/blog")
 	@POST
-//	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	// @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response addBlog(Blog blog) {
 		blog.setPostDate(new Date());
 		facadeManager.saveBlog(blog);
 		return Response.status(Response.Status.CREATED).build();
 	}
-	
+
 	@Path("/blog/{id}")
 	@PUT
 	public Response updateBlog(@PathParam("id") Long id, Blog blog) {
@@ -190,14 +194,14 @@ public class Resources {
 		facadeManager.saveBlog(blog);
 		return null;
 	}
-	
+
 	@Path("/blog/{id}")
 	@DELETE
 	public Response deleteBlog(@PathParam("id") Long id) {
 		facadeManager.removeBlog(id);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/blog/{id}/activate")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -205,7 +209,7 @@ public class Resources {
 		facadeManager.verifyBlog(id, true);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/blog/{id}/deactivate")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -213,7 +217,7 @@ public class Resources {
 		facadeManager.verifyBlog(id, false);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/blog/{id}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -221,23 +225,35 @@ public class Resources {
 		Blog blog = facadeManager.getBlog(id);
 		return Response.ok(blog).build();
 	}
-	
+
 	@Path("/blog")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVerifiedBlog(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Blog> blogs = facadeManager.getBlogs(size,  page, field, value, operator, sidx, sord, true);
+	public Response getVerifiedBlog(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Blog> blogs = facadeManager.getBlogs(size, page, field, value,
+				operator, sidx, sord, true);
 		return Response.ok(blogs).build();
 	}
-	
+
 	@Path("/blog/manage")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllBlogs(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Blog> blogs = facadeManager.getBlogs(size,  page, field, value, operator, sidx, sord, false);
+	public Response getAllBlogs(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Blog> blogs = facadeManager.getBlogs(size, page, field, value,
+				operator, sidx, sord, false);
 		return Response.ok(blogs).build();
 	}
-	
+
 	@Path("/blog/username/{username}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -245,8 +261,7 @@ public class Resources {
 		List<Blog> blogs = facadeManager.getBlogsByUser(username);
 		return Response.ok(blogs).build();
 	}
-	
-	
+
 	/*
 	 * Evaluate
 	 */
@@ -257,7 +272,7 @@ public class Resources {
 		facadeManager.saveEvaluate(evaluate);
 		return Response.status(Response.Status.CREATED).build();
 	}
-	
+
 	@Path("/evaluate/{id}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -265,7 +280,7 @@ public class Resources {
 		Evaluate evaluate = facadeManager.getEvaluate(id);
 		return Response.ok(evaluate).build();
 	}
-	
+
 	/*
 	 * Mall
 	 */
@@ -276,7 +291,7 @@ public class Resources {
 		facadeManager.saveMall(mall);
 		return Response.status(Response.Status.CREATED).build();
 	}
-	
+
 	@Path("/mall/{id}")
 	@PUT
 	public Response updateMall(Mall mall, @PathParam("id") Long id) {
@@ -284,28 +299,28 @@ public class Resources {
 		facadeManager.saveMall(mall);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/mall/{id}")
 	@DELETE
 	public Response removeMall(@PathParam("id") Long id) {
 		facadeManager.removeMall(id);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/mall/{id}/activate")
 	@POST
 	public Response activateMall(@PathParam("id") Long id) {
 		facadeManager.verifyMall(id, true);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/mall/{id}/deactivate")
 	@POST
 	public Response deactivateMall(@PathParam("id") Long id) {
 		facadeManager.verifyMall(id, false);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/mall/{id}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -313,7 +328,7 @@ public class Resources {
 		Mall mall = facadeManager.getMall(id);
 		return Response.ok(mall).build();
 	}
-	
+
 	@Path("/mall/username/{username}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -321,38 +336,52 @@ public class Resources {
 		Mall mall = facadeManager.getMall(username);
 		return Response.ok(mall).build();
 	}
-	
+
 	@Path("/mall")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVerifiedMalls(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Mall> malls = facadeManager.getMalls(size,  page, field, value, operator, sidx, sord, true);
+	public Response getVerifiedMalls(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Mall> malls = facadeManager.getMalls(size, page, field, value,
+				operator, sidx, sord, true);
 		return Response.ok(malls).build();
 	}
-	
+
 	@Path("/mall/nkeys/count")
 	@HEAD
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getMallCount(@QueryParam("searchField") String [] field, @QueryParam("searchString") String [] value, @QueryParam("searchOper") String [] operator) {
-		Integer count = facadeManager.getMallCount(field, value, operator, true);
+	public Response getMallCount(@QueryParam("searchField") String[] field,
+			@QueryParam("searchString") String[] value,
+			@QueryParam("searchOper") String[] operator) {
+		Integer count = facadeManager
+				.getMallCount(field, value, operator, true);
 		return Response.noContent().header("count", count).build();
 	}
-	
+
 	@Path("/mall/manage")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllMalls(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Mall> malls = facadeManager.getMalls(size,  page, field, value, operator, sidx, sord, false);
+	public Response getAllMalls(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Mall> malls = facadeManager.getMalls(size, page, field, value,
+				operator, sidx, sord, false);
 		Grid grid = new Grid();
 		grid.setPage(page);
 		grid.setRecords(malls.size());
 		grid.setTotal(malls.size());
 		grid.setRows(malls);
-		
+
 		return Response.ok(grid).build();
 	}
-	
-	
+
 	/*
 	 * Product
 	 */
@@ -362,7 +391,7 @@ public class Resources {
 		facadeManager.saveProduct(product);
 		return Response.status(Response.Status.CREATED).build();
 	}
-	
+
 	@Path("/product/{id}")
 	@PUT
 	public Response updateProduct(Product product, @PathParam("id") Long id) {
@@ -370,53 +399,69 @@ public class Resources {
 		facadeManager.saveProduct(product);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/product/{id}")
 	@DELETE
 	public Response removeProduct(@PathParam("id") Long id) {
 		facadeManager.removeProduct(id);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/product/{id}/activate")
 	@POST
 	public Response activateProduct(@PathParam("id") Long id) {
 		facadeManager.verifyProduct(id, true);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/product/{id}/deactivate")
 	@POST
 	public Response deactivateProduct(@PathParam("id") Long id) {
 		facadeManager.verifyProduct(id, false);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/product")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVerifiedProducts(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Product> products = facadeManager.getProducts(size,  page, field, value, operator, sidx, sord, true);
+	public Response getVerifiedProducts(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Product> products = facadeManager.getProducts(size, page, field,
+				value, operator, sidx, sord, true);
 		return Response.ok(products).build();
 	}
-	
+
 	// http://localhost:8080/rest/metadata/product/nkeys?rows=10&page=1&searchField=location&searchString=2010-01-01&searchOper=bw&searchField=startTime&searchString=2010-01-01&searchOper=bw&searchField=endTime&searchString=2014-01-01&searchOper=ew&sidx=postDate&sord=asc
 	@Path("/product/nkeys")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVerifiedProducts(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String [] field, @QueryParam("searchString") String [] value, @QueryParam("searchOper") String [] operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Product> products = facadeManager.getProducts(size,  page, field, value, operator, sidx, sord, true);
+	public Response getVerifiedProducts(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String[] field,
+			@QueryParam("searchString") String[] value,
+			@QueryParam("searchOper") String[] operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Product> products = facadeManager.getProducts(size, page, field,
+				value, operator, sidx, sord, true);
 		return Response.ok(products).build();
 	}
-	
+
 	@Path("/product/nkeys/count")
 	@HEAD
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVerifiedProductsCount(@QueryParam("searchField") String [] field, @QueryParam("searchString") String [] value, @QueryParam("searchOper") String [] operator) {
-		Integer count = facadeManager.getProductsCount(field, value, operator, true);
+	public Response getVerifiedProductsCount(
+			@QueryParam("searchField") String[] field,
+			@QueryParam("searchString") String[] value,
+			@QueryParam("searchOper") String[] operator) {
+		Integer count = facadeManager.getProductsCount(field, value, operator,
+				true);
 		return Response.noContent().header("count", count).build();
 	}
-	
+
 	@Path("/product/username/{username}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -424,7 +469,7 @@ public class Resources {
 		List<Product> products = facadeManager.getProducts(username);
 		return Response.ok(products).build();
 	}
-	
+
 	@Path("/product/{id}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -432,12 +477,18 @@ public class Resources {
 		Product product = facadeManager.getProduct(id);
 		return Response.ok(product).build();
 	}
-	
+
 	@Path("/product/manage")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllProducts(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Product> products = facadeManager.getProducts(size,  page, field, value, operator, sidx, sord, false);
+	public Response getAllProducts(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Product> products = facadeManager.getProducts(size, page, field,
+				value, operator, sidx, sord, false);
 		Grid grid = new Grid();
 		grid.setPage(page);
 		grid.setRecords(products.size());
@@ -445,9 +496,7 @@ public class Resources {
 		grid.setRows(products);
 		return Response.ok(grid).build();
 	}
-	
-	
-	
+
 	/*
 	 * Question
 	 */
@@ -459,7 +508,7 @@ public class Resources {
 		facadeManager.saveQuestion(question);
 		return Response.status(Response.Status.CREATED).build();
 	}
-	
+
 	@Path("/question/{id}")
 	@PUT
 	public Response updateQuestion(Question question, @PathParam("id") Long id) {
@@ -467,43 +516,50 @@ public class Resources {
 		facadeManager.saveQuestion(question);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/question/{id}")
 	@DELETE
 	public Response removeQuestion(@PathParam("id") Long id) {
 		facadeManager.removeQuestion(id);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/question/{id}/activate")
 	@POST
 	public Response activateQuestion(@PathParam("id") Long id) {
 		facadeManager.verifyQuestion(id, true);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/question/{id}/deactivate")
 	@POST
 	public Response deactivateQuestion(@PathParam("id") Long id) {
 		facadeManager.verifyQuestion(id, false);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/question/{id}/best/{answerId}")
 	@POST
-	public Response bestAnswer(@PathParam("id") Long id, @PathParam("answerId") Long answerId) {
+	public Response bestAnswer(@PathParam("id") Long id,
+			@PathParam("answerId") Long answerId) {
 		facadeManager.bestAnswer(id, answerId);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/question")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVerifiedQuestions(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Question> questions = facadeManager.getQuestions(size,  page, field, value, operator, sidx, sord, true);
+	public Response getVerifiedQuestions(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Question> questions = facadeManager.getQuestions(size, page,
+				field, value, operator, sidx, sord, true);
 		return Response.ok(questions).build();
 	}
-	
+
 	@Path("/question/{id}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -511,7 +567,7 @@ public class Resources {
 		Question question = facadeManager.getQuestion(id);
 		return Response.ok(question).build();
 	}
-	
+
 	@Path("/question/username/{username}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -519,29 +575,34 @@ public class Resources {
 		List<Question> questions = facadeManager.getQuestion(username);
 		return Response.ok(questions).build();
 	}
-	
+
 	@Path("/question/manage")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllQuestions(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Question> questions = facadeManager.getQuestions(size,  page, field, value, operator, sidx, sord, false);
+	public Response getAllQuestions(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Question> questions = facadeManager.getQuestions(size, page,
+				field, value, operator, sidx, sord, false);
 		return Response.ok(questions).build();
 	}
-	
-	
+
 	/*
 	 * Answer
 	 */
 	@Path("/answer")
 	@POST
-	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON}) 
-    @Produces(MediaType.APPLICATION_JSON) 
+	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response addAnswer(Answer answer) {
 		answer.setPostDate(new Date());
 		facadeManager.saveAnswer(answer);
 		return Response.status(Response.Status.CREATED).build();
 	}
-	
+
 	@Path("/answer/{id}")
 	@PUT
 	public Response updateAnswer(@PathParam("id") Long id, Answer answer) {
@@ -549,28 +610,28 @@ public class Resources {
 		facadeManager.saveAnswer(answer);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/answer/{id}")
 	@DELETE
 	public Response removeAnswer(@PathParam("id") Long id) {
 		facadeManager.removeAnswer(id);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/answer/{id}/activate")
 	@POST
 	public Response activateAnswer(@PathParam("id") Long id) {
 		facadeManager.verifyAnswer(id, true);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/answer/{id}/deactivate")
 	@POST
 	public Response deactivateAnswer(@PathParam("id") Long id) {
 		facadeManager.verifyAnswer(id, false);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/answer/{qid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -578,7 +639,7 @@ public class Resources {
 		List<Answer> answers = facadeManager.getAnswers(qid);
 		return Response.ok(answers).build();
 	}
-	
+
 	@Path("/answer")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -587,61 +648,87 @@ public class Resources {
 		List<Answer> answers = facadeManager.getAnswers(username);
 		return Response.ok(answers).build();
 	}
-	
+
 	@Path("/answer/manage")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllAnswers(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Answer> answers = facadeManager.getAnswers(size, page, field, value, operator, sidx, sord, false);
+	public Response getAllAnswers(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Answer> answers = facadeManager.getAnswers(size, page, field,
+				value, operator, sidx, sord, false);
 		return Response.ok(answers).build();
 	}
-	
-/*	@Path("/answer/{id}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAnswer(@PathParam("id") Long id) {
-		Answer answer = facadeManager.getAnswer(id);
-		return Response.ok(answer).build();
-	}
-*/	
-	
+
+	/*
+	 * @Path("/answer/{id}")
+	 * 
+	 * @GET
+	 * 
+	 * @Produces(MediaType.APPLICATION_JSON) public Response
+	 * getAnswer(@PathParam("id") Long id) { Answer answer =
+	 * facadeManager.getAnswer(id); return Response.ok(answer).build(); }
+	 */
+
 	/*
 	 * Specialist
 	 */
 	@Path("/specialist")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getSpecialists(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Specialist> specialists = facadeManager.getSpecialists(size, page, field, value, operator, sidx, sord, true);
+	public Response getSpecialists(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Specialist> specialists = facadeManager.getSpecialists(size, page,
+				field, value, operator, sidx, sord, true);
 		return Response.ok(specialists).build();
 	}
-	
+
 	@Path("/specialist/nkeys")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getSpecialists(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field[], @QueryParam("searchString") String value[], @QueryParam("searchOper") String [] operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Specialist> specialists = facadeManager.getSpecialists(size, page, field, value, operator, sidx, sord, true);
+	public Response getSpecialists(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field[],
+			@QueryParam("searchString") String value[],
+			@QueryParam("searchOper") String[] operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Specialist> specialists = facadeManager.getSpecialists(size, page,
+				field, value, operator, sidx, sord, true);
 		return Response.ok(specialists).build();
 	}
-	
+
 	@Path("/specialist/count")
 	@HEAD
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getSpecialistsCount(@QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator) {
-		Integer count = facadeManager.getSpecialistsCount(field, value, operator, true);
+	public Response getSpecialistsCount(
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator) {
+		Integer count = facadeManager.getSpecialistsCount(field, value,
+				operator, true);
 		System.out.println(count);
 		return Response.noContent().header("count", count).build();
 	}
-	
+
 	@Path("/specialist/nkeys/count")
 	@HEAD
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getSpecialistsCount(@QueryParam("searchField") String field[], @QueryParam("searchString") String value[], @QueryParam("searchOper") String [] operator) {
-		Integer count = facadeManager.getSpecialistsCount(field, value, operator, true);
+	public Response getSpecialistsCount(
+			@QueryParam("searchField") String field[],
+			@QueryParam("searchString") String value[],
+			@QueryParam("searchOper") String[] operator) {
+		Integer count = facadeManager.getSpecialistsCount(field, value,
+				operator, true);
 		return Response.noContent().header("count", count).build();
 	}
-	
-	
+
 	/*
 	 * News
 	 */
@@ -652,7 +739,7 @@ public class Resources {
 		facadeManager.saveNews(news);
 		return Response.status(Response.Status.CREATED).build();
 	}
-	
+
 	@Path("/news/{id}")
 	@PUT
 	public Response updateNews(News news, @PathParam("id") Long id) {
@@ -660,22 +747,28 @@ public class Resources {
 		facadeManager.saveNews(news);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/news/{id}")
 	@DELETE
 	public Response removeNews(@PathParam("id") Long id) {
 		facadeManager.removeNews(id);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/news")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVerifiedNews(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<News> newses = facadeManager.getNews(size, page, field, value, operator, sidx, sord, false);
+	public Response getVerifiedNews(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<News> newses = facadeManager.getNews(size, page, field, value,
+				operator, sidx, sord, false);
 		return Response.ok(newses).build();
 	}
-	
+
 	@Path("/news/{id}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -684,7 +777,6 @@ public class Resources {
 		return Response.ok(news).build();
 	}
 
-	
 	/*
 	 * Transaction
 	 */
@@ -695,50 +787,64 @@ public class Resources {
 		facadeManager.saveTransaction(transaction);
 		return Response.status(Response.Status.CREATED).build();
 	}
-	
+
 	@Path("/transaction/{id}")
 	@PUT
-	public Response updateTransaction(Transaction transaction, @PathParam("id") Long id) {
+	public Response updateTransaction(Transaction transaction,
+			@PathParam("id") Long id) {
 		transaction.setId(id);
 		facadeManager.saveTransaction(transaction);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/transaction/{id}")
 	@DELETE
-	public Response removeTransaction(Transaction transaction, @PathParam("id") Long id) {
+	public Response removeTransaction(Transaction transaction,
+			@PathParam("id") Long id) {
 		facadeManager.removeTransaction(id);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/transaction/{id}/activate")
 	@POST
 	public Response activateTransaction(@PathParam("id") Long id) {
 		facadeManager.verifyTransaction(id, true);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/transaction/{id}/deactivate")
 	@POST
 	public Response deactivateTransaction(@PathParam("id") Long id) {
 		facadeManager.verifyTransaction(id, false);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/transaction")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVerifiedTransactions(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+	public Response getVerifiedTransactions(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
 		System.out.println("*****************8");
-		List<Transaction> transactions = facadeManager.getTransactions(size,  page, field, value, operator, sidx, sord, true);
+		List<Transaction> transactions = facadeManager.getTransactions(size,
+				page, field, value, operator, sidx, sord, true);
 		return Response.ok(transactions).build();
 	}
-	
+
 	@Path("/transaction/manage")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllTransactions(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Transaction> transactions = facadeManager.getTransactions(size,  page, field, value, operator, sidx, sord, false);
+	public Response getAllTransactions(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Transaction> transactions = facadeManager.getTransactions(size,
+				page, field, value, operator, sidx, sord, false);
 		Grid grid = new Grid();
 		grid.setPage(page);
 		grid.setRecords(transactions.size());
@@ -746,7 +852,7 @@ public class Resources {
 		grid.setRows(transactions);
 		return Response.ok(grid).build();
 	}
-	
+
 	@Path("/transaction/{id}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -754,16 +860,17 @@ public class Resources {
 		Transaction transaction = facadeManager.getTransaction(id);
 		return Response.ok(transaction).build();
 	}
-	
+
 	@Path("/transaction/username/{username}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getTransactions(@PathParam("username") String username) {
 		System.out.println("fuck the whole universe");
-		List<Transaction> transactions = facadeManager.getTransactions(username);
+		List<Transaction> transactions = facadeManager
+				.getTransactions(username);
 		return Response.ok(transactions).build();
 	}
-	
+
 	/*
 	 * Loan
 	 */
@@ -774,7 +881,7 @@ public class Resources {
 		facadeManager.saveLoan(loan);
 		return Response.status(Response.Status.CREATED).build();
 	}
-	
+
 	@Path("/loan/{id}")
 	@PUT
 	public Response updateLoan(Loan loan, @PathParam("id") Long id) {
@@ -782,58 +889,80 @@ public class Resources {
 		facadeManager.saveLoan(loan);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/loan/{id}")
 	@DELETE
 	public Response removeLoan(Loan loan, @PathParam("id") Long id) {
 		facadeManager.removeLoan(id);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/loan/{id}/activate")
 	@POST
 	public Response activateLoan(@PathParam("id") Long id) {
 		facadeManager.verifyLoan(id, true);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/loan/{id}/deactivate")
 	@POST
 	public Response deactivateLoan(@PathParam("id") Long id) {
 		facadeManager.verifyLoan(id, false);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/loan")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVerifiedLoans(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Loan> loans = facadeManager.getLoans(size,  page, field, value, operator, sidx, sord, true);
+	public Response getVerifiedLoans(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Loan> loans = facadeManager.getLoans(size, page, field, value,
+				operator, sidx, sord, true);
 		return Response.ok(loans).build();
 	}
-	
+
 	// http://localhost:8080/rest/metadata/loan/nkeys?rows=10&page=1&searchField=location&searchString=北京海淀&searchOper=eq&searchField=hasPawn&searchString=1&searchOper=eq&searchField=location&searchString=北京海淀&searchOper=eq&searchField=usesofloan&searchString=短期周转贷款&searchOper=cn&searchField=startTime&searchString=2010-01-01&searchOper=bw&searchField=endTime&searchString=2014-01-01&searchOper=ew&sidx=postDate&sord=asc
 	@Path("/loan/nkeys")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVerifiedLoans(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field[], @QueryParam("searchString") String value[], @QueryParam("searchOper") String [] operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Loan> loans = facadeManager.getLoans(size,  page, field, value, operator, sidx, sord, true);
+	public Response getVerifiedLoans(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field[],
+			@QueryParam("searchString") String value[],
+			@QueryParam("searchOper") String[] operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Loan> loans = facadeManager.getLoans(size, page, field, value,
+				operator, sidx, sord, true);
 		return Response.ok(loans).build();
 	}
-	
+
 	@Path("/loan/nkeys/count")
 	@HEAD
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVerifiedLoansCount(@QueryParam("searchField") String field[], @QueryParam("searchString") String value[], @QueryParam("searchOper") String [] operator) {
-		Integer count = facadeManager.getLoansCount(field, value, operator, true);
+	public Response getVerifiedLoansCount(
+			@QueryParam("searchField") String field[],
+			@QueryParam("searchString") String value[],
+			@QueryParam("searchOper") String[] operator) {
+		Integer count = facadeManager.getLoansCount(field, value, operator,
+				true);
 		return Response.noContent().header("count", count).build();
 	}
-	
+
 	@Path("/loan/manage")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllLoans(@QueryParam("rows") int size, @QueryParam("page") int page, @QueryParam("searchField") String field, @QueryParam("searchString") String value, @QueryParam("searchOper") String operator, @QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
-		List<Loan> loans = facadeManager.getLoans(size,  page, field, value, operator, sidx, sord, false);
+	public Response getAllLoans(@QueryParam("rows") int size,
+			@QueryParam("page") int page,
+			@QueryParam("searchField") String field,
+			@QueryParam("searchString") String value,
+			@QueryParam("searchOper") String operator,
+			@QueryParam("sidx") String sidx, @QueryParam("sord") String sord) {
+		List<Loan> loans = facadeManager.getLoans(size, page, field, value,
+				operator, sidx, sord, false);
 		Grid grid = new Grid();
 		grid.setPage(page);
 		grid.setRecords(loans.size());
@@ -841,7 +970,7 @@ public class Resources {
 		grid.setRows(loans);
 		return Response.ok(grid).build();
 	}
-	
+
 	@Path("/loan/{id}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -849,7 +978,7 @@ public class Resources {
 		Loan loan = facadeManager.getLoan(id);
 		return Response.ok(loan).build();
 	}
-	
+
 	@Path("/loan/username/{username}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -858,8 +987,7 @@ public class Resources {
 		List<Loan> loans = facadeManager.getLoans(username);
 		return Response.ok(loans).build();
 	}
-	
-	
+
 	/*
 	 * UserTop
 	 */
@@ -870,7 +998,7 @@ public class Resources {
 		UserTop userTop = facadeManager.getUserTop(username);
 		return Response.ok(userTop).build();
 	}
-	
+
 	/*
 	 * Forum
 	 */
@@ -881,7 +1009,7 @@ public class Resources {
 		Forums forums = facadeManager.getForums();
 		return Response.ok(forums).build();
 	}
-	
+
 	/*
 	 * Message
 	 */
@@ -892,21 +1020,21 @@ public class Resources {
 		facadeManager.addMessage(message);
 		return Response.status(Response.Status.CREATED).build();
 	}
-	
+
 	@Path("/message/{id}")
 	@POST
 	public Response readMessage(@PathParam("id") Long id) {
 		facadeManager.readMessage(id);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/message/{id}")
 	@DELETE
 	public Response removeMessage(@PathParam("id") Long id) {
 		facadeManager.removeMessage(id);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/message/{username}/send")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -914,7 +1042,7 @@ public class Resources {
 		List<Message> messages = facadeManager.getSendMessages(username);
 		return Response.ok(messages).build();
 	}
-	
+
 	@Path("/message/{username}/receive")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -922,85 +1050,107 @@ public class Resources {
 		List<Message> messages = facadeManager.getReceiveMessages(username);
 		return Response.ok(messages).build();
 	}
-	
+
 	@Path("/message/{username}/unread")
 	@HEAD
 	public Response getUnreadCount(@PathParam("username") String username) {
-		return Response.ok().header("unread", facadeManager.getUnreadCount(username)).build();
+		return Response.ok()
+				.header("unread", facadeManager.getUnreadCount(username))
+				.build();
 	}
-	
+
 	/*
 	 * Timeline
 	 */
 	@Path("/timeline")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getTimeline(@QueryParam("rows") int size, @QueryParam("page") int page) {
+	public Response getTimeline(@QueryParam("rows") int size,
+			@QueryParam("page") int page) {
 		List<Timeline> timelines = facadeManager.getTimelines(size, page);
 		return Response.ok(timelines).build();
 	}
-	
+
 	@Path("/timeline/{username}/recent")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getTimelineByUser(@QueryParam("rows") int size, @QueryParam("page") int page, @PathParam("username") String username) {
-		List<Timeline> timelines = facadeManager.getTimelinesByUser(username, size, page);
+	public Response getTimelineByUser(@QueryParam("rows") int size,
+			@QueryParam("page") int page, @PathParam("username") String username) {
+		List<Timeline> timelines = facadeManager.getTimelinesByUser(username,
+				size, page);
 		return Response.ok(timelines).build();
 	}
-	
+
 	/*
 	 * Search
 	 */
 	@Path("/s")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response search(@QueryParam("type") int type, @QueryParam("keyword") String keyword, @QueryParam("page") int page, @QueryParam("size") int size) {
+	public Response search(@QueryParam("type") int type,
+			@QueryParam("keyword") String keyword,
+			@QueryParam("page") int page, @QueryParam("size") int size) {
 		return Response.ok().build();
 	}
-	
+
 	/*
 	 * Visit
 	 */
-/*	@Path("visit/ip")
-	@HEAD
-	public Response getIp(@Context HttpServletRequest request) {
-		return Response.noContent().header("ip", getIP(request)).build();
-	}
-*/	
+	/*
+	 * @Path("visit/ip")
+	 * 
+	 * @HEAD public Response getIp(@Context HttpServletRequest request) { return
+	 * Response.noContent().header("ip", getIP(request)).build(); }
+	 */
 	@Path("/visit/{id}/{type}/")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVisits(@PathParam("id") Long id, @PathParam("type") int type, @QueryParam("size") int size, @QueryParam("page") int page) {
+	public Response getVisits(@PathParam("id") Long id,
+			@PathParam("type") int type, @QueryParam("size") int size,
+			@QueryParam("page") int page) {
 		List<Visit> visits = facadeManager.getVisits(id, type, size, page);
 		return Response.ok(visits).build();
 	}
-	
+
 	@Path("/visit/{id}/{type}/count/")
-	@GET
+	@HEAD
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVisits(@PathParam("id") Long id, @PathParam("type") int type) {
+	public Response getVisits(@PathParam("id") Long id,
+			@PathParam("type") int type) {
 		int count = facadeManager.getVisits(id, type);
 		return Response.noContent().header("count", count).build();
 	}
 	
+	@Path("/visit/{id}/{type}/date/count/")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVisits(@PathParam("id") Long id,
+			@PathParam("type") int type,
+			@QueryParam("startTime") String startTime,
+			@QueryParam("endTime") String endTime) {
+		
+		return Response.ok().build();
+	}
+
 	@Path("/visit/")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response visit(Visit visit, @Context HttpServletRequest request) {
-		System.out.println(visit.getStartDate().getTimezoneOffset() + "*******" + visit.getStartDate());
+		System.out.println(visit.getStartDate().getTimezoneOffset() + "*******"
+				+ visit.getStartDate());
 		facadeManager.visit(visit);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/visit/{username}/")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVisitsByUser(@PathParam("username") String username, @QueryParam("size") int size, @QueryParam("page") int page) {
+	public Response getVisitsByUser(@PathParam("username") String username,
+			@QueryParam("size") int size, @QueryParam("page") int page) {
 		List<Visit> visits = facadeManager.getUserVisits(username, size, page);
 		return Response.ok(visits).build();
 	}
-	
-	
+
 	/*
 	 * Favourite
 	 */
@@ -1011,14 +1161,14 @@ public class Resources {
 		facadeManager.addFavourite(favourite);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/favourite/{id}")
 	@DELETE
 	public Response deleteFavourite(@PathParam("id") Long id) {
 		facadeManager.deleteFavourite(id);
 		return Response.noContent().build();
 	}
-	
+
 	@Path("/favourite/username/{username}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1026,94 +1176,112 @@ public class Resources {
 		List<Favourite> favourites = facadeManager.getFavourites(username);
 		return Response.ok(favourites).build();
 	}
-	
+
 	@Path("/favourite/type/{type}/id/{id}")
 	@HEAD
-	public Response getFavouriteCount(@PathParam("type") Integer type, @PathParam("id") Long oid) {
+	public Response getFavouriteCount(@PathParam("type") Integer type,
+			@PathParam("id") Long oid) {
 		int id = facadeManager.getFavouriteCount(type, oid);
 		return Response.noContent().header("count", id).build();
 	}
-	
+
 	@Path("/favourite/type/{type}/id/{id}/username/{username}")
 	@HEAD
-	public Response isFavourite(@PathParam("type") Integer type, @PathParam("id") Long oid, @PathParam("username") String username) {
+	public Response isFavourite(@PathParam("type") Integer type,
+			@PathParam("id") Long oid, @PathParam("username") String username) {
 		boolean isFavourite = facadeManager.isFavourite(type, oid, username);
 		return Response.noContent().header("is", isFavourite).build();
 	}
-	
+
 	/*
 	 * Upload
 	 */
 	@POST
-	@Path("upload")
-	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
+	@Path("upload/avatar/{username}")
+	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON })
 	@Produces(MediaType.TEXT_PLAIN)
-	public void uploadAvatar(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
-		facadeManager.upload(request, response, PropUtil.UPLOAD_AVATAR);
+	public void uploadAvatar(@Context HttpServletRequest request,
+			@Context HttpServletResponse response, @PathParam("username") String username) throws IOException {
+		facadeManager.upload(request, response, PropUtil.UPLOAD_AVATAR, username);
 	}
-	
+
 	@POST
-	@Path("upload")
-	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
+	@Path("upload/skin/{username}")
+	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON })
 	@Produces(MediaType.TEXT_PLAIN)
-	public void uploadSkin(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
-		facadeManager.upload(request, response, PropUtil.UPLOAD_SKIN);
+	public void uploadSkin(@Context HttpServletRequest request,
+			@Context HttpServletResponse response, @PathParam("username") String username) throws IOException {
+		facadeManager.upload(request, response, PropUtil.UPLOAD_SKIN, username);
 	}
-	
+
 	@POST
-	@Path("upload")
-	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
+	@Path("upload/image/{username}")
+	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON })
 	@Produces(MediaType.TEXT_PLAIN)
-	public void uploadImage(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
-		facadeManager.upload(request, response, PropUtil.UPLOAD_IMAGES);
+	public void uploadImage(@Context HttpServletRequest request,
+			@Context HttpServletResponse response, @PathParam("username") String username) throws IOException {
+		facadeManager.upload(request, response, PropUtil.UPLOAD_IMAGES, username);
 	}
-	
+
 	@POST
-	@Path("upload")
-	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
+	@Path("upload/news")
+	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON })
 	@Produces(MediaType.TEXT_PLAIN)
-	public void uploadNews(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
-		facadeManager.upload(request, response, PropUtil.UPLOAD_NEWS);
+	public void uploadNews(@Context HttpServletRequest request,
+			@Context HttpServletResponse response, @PathParam("username") String username) throws IOException {
+		facadeManager.upload(request, response, PropUtil.UPLOAD_NEWS, username);
 	}
-	
+
 	@POST
-	@Path("upload")
-	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
+	@Path("upload/file/{username}")
+	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON })
 	@Produces(MediaType.TEXT_PLAIN)
-	public void uploadFile(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
-		facadeManager.upload(request, response, PropUtil.UPLOAD_USER);
+	public void uploadFile(@Context HttpServletRequest request,
+			@Context HttpServletResponse response, @PathParam("username") String username) throws IOException {
+		facadeManager.upload(request, response, PropUtil.UPLOAD_USER, username);
 	}
-	
-	
+
 	/*
 	 * Configuration
 	 */
 	@POST
 	@Path("config/slide")
-	public Response updateSlideJson(@Context HttpServletRequest request) throws IOException {
-		facadeManager.updateConfigFile(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.SLIDE_PATH), ConvertUtil.inputStream2String(request.getInputStream()));
+	public Response updateSlideJson(@Context HttpServletRequest request)
+			throws IOException {
+		facadeManager.updateConfigFile(PropUtil.getProps(request
+				.getServletContext().getRealPath("/"), PropUtil.SLIDE_PATH),
+				ConvertUtil.inputStream2String(request.getInputStream()));
 		return Response.noContent().build();
 	}
-	
+
 	@POST
 	@Path("config/index")
-	public Response updateIndexHTML(@Context HttpServletRequest request) throws IOException {
-		facadeManager.updateConfigFile(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.CONFIG_INDEX), ConvertUtil.inputStream2String(request.getInputStream()));
+	public Response updateIndexHTML(@Context HttpServletRequest request)
+			throws IOException {
+		facadeManager.updateConfigFile(PropUtil.getProps(request
+				.getServletContext().getRealPath("/"), PropUtil.CONFIG_INDEX),
+				ConvertUtil.inputStream2String(request.getInputStream()));
 		return Response.noContent().build();
 	}
-	
+
 	@POST
 	@Path("config/news")
-	public Response updateNewsHTML(@Context HttpServletRequest request) throws IOException {
-		facadeManager.updateConfigFile(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.CONFIG_NEWS), ConvertUtil.inputStream2String(request.getInputStream()));
+	public Response updateNewsHTML(@Context HttpServletRequest request)
+			throws IOException {
+		facadeManager.updateConfigFile(PropUtil.getProps(request
+				.getServletContext().getRealPath("/"), PropUtil.CONFIG_NEWS),
+				ConvertUtil.inputStream2String(request.getInputStream()));
 		return Response.noContent().build();
 	}
-	
+
 	@POST
 	@Path("config/ad")
-	public Response updateAdHTML(@Context HttpServletRequest request) throws IOException {
-		facadeManager.updateConfigFile(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.CONFIG_AD), ConvertUtil.inputStream2String(request.getInputStream()));
+	public Response updateAdHTML(@Context HttpServletRequest request)
+			throws IOException {
+		facadeManager.updateConfigFile(PropUtil.getProps(request
+				.getServletContext().getRealPath("/"), PropUtil.CONFIG_AD),
+				ConvertUtil.inputStream2String(request.getInputStream()));
 		return Response.noContent().build();
 	}
-	
+
 }

@@ -34,26 +34,45 @@
             var size = args['size'];
 
             var url = "/rest/metadata/";
+            var urlCount = "/rest/metadata/";
             switch (parseInt(type)) {
                 case PRODUCT:
                     url += "product";
+                    urlCount += "product/nkeys/count";
                     break;
                 case LOAN:
                     url += "loan";
+                    urlCount += "loan/nkeys/count";
                     break;
                 case SPECIALIST:
                     url += "specialist";
+                    urlCount += "specialist/nkeys/count";
                     break;
                 case MALL:
                     url += "mall";
+                    urlCount += "mall/nkeys/count";
                     break;
                 case QUESTION:
                     url += "question";
+                    urlCount += "question/nkeys/count";
                     break;
             }
             url += "?rows=" + size;
             url += "&page=" + page;
-            url += "&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc";
+            url += "&searchField=content&searchString=" + keyword + "&searchOper=cn&sidx=postDate&sord=asc";
+            urlCount += "?searchField=content&searchString=" + keyword + "&searchOper=cn";
+
+            $.ajax({
+                url: urlCount,
+                type: 'HEAD',
+                success: function(res, status, xhr) {
+                    count = xhr.getResponseHeader("count")
+                    $("#searchCount").html(count);
+                },
+                error: function(response) {
+                    console.error(response);
+                }
+            });
 
             console.debug(url);
             $.get("js/templates/s.html", function(template) {

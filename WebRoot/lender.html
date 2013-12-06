@@ -33,10 +33,10 @@
 <script type="text/javascript" src="js/cTab.js"></script>
 <script type="text/javascript" src="js/cSearch.js"></script>
 <script type="text/javascript" src="js/cMessage.js"></script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript" src="js/jquery.tmpl.js"></script>
 <script type="text/javascript" src="js/cTemplate.js"></script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="js/jquery.imgareaselect.min.js"></script>
+<script type="text/javascript" src="https://www.google.com.hk/jsapi"></script>
 
 
 <script type="text/javascript">
@@ -101,17 +101,47 @@ function init() {
                         // "我的旺铺"
                         function () {
                             $('#contentWrapper').load('/js/templates/mymall.html', function () {
-                                console.debug(google);
+                                $.ajax({
+                                    url: "/rest/metadata/product/username/" + username,
+                                    type: 'GET',
+                                    dataType: "json",
+                                    success: function(response) {
+                                        for (var i = 0; i < response.length; i++) {
+                                            $("#productBody").append("<tr><td>" + (i + 1) + "</td><td>" + response[i].pName + "</td><td id='" + getTypeStr(PRODUCT) + "_" + response[i].id + "'></td></tr>");
+                                            getVisits(PRODUCT, response[i].id);
+                                        }
+                                    },
+                                    error: function(response) {
+                                        console.warn(response);
+                                    }
+                                });
+                                $.ajax({
+                                    url: "/rest/metadata/blog/username/" + username,
+                                    type: 'GET',
+                                    dataType: "json",
+                                    success: function(response) {
+                                        for (var i = 0; i < response.length; i++) {
+                                            $("#blogBody").append("<tr><td>" + (i + 1) + "</td><td>" + response[i].title + "</td><td id='" + getTypeStr(BLOG) + "_" + response[i].id + "'></td></tr>");
+                                            getVisits(BLOG, response[i].id);
+                                        }
+                                        console.debug(response);
+                                    },
+                                    error: function(response) {
+                                        console.warn(response);
+                                    }
+                                });
+
+
                                 var data = google.visualization.arrayToDataTable([
-                                    ['Year', 'Sales', 'Expenses'],
-                                    ['2004',  1000,      400],
-                                    ['2005',  1170,      460],
-                                    ['2006',  660,       1120],
-                                    ['2007',  1030,      540]
+                                    ['Day', '店铺', '产品', '文章'],
+                                    ['2004-01-01',  1000,      400, 1],
+                                    ['2005-01-01',  1170,      460, 2],
+                                    ['2006-01-01',  660,       1120, 3],
+                                    ['2007-01-01',  1030,      540, 4]
                                 ]);
 
                                 var options = {
-                                    title: 'Company Performance'
+//                                    title: '我的人气'
                                 };
 
                                 var chart = new google.visualization.LineChart(document.getElementById('chart_div'));

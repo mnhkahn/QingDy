@@ -841,6 +841,38 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 		}
 
 	}
+	
+	@Override
+	public void upload(HttpServletRequest request, HttpServletResponse response, int type, String fileName) {
+		if (ServletFileUpload.isMultipartContent(request)) {
+			FileItemFactory factory = new DiskFileItemFactory();
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			List items = null;
+			try {
+				items = upload.parseRequest(request);
+				Iterator iterator = items.iterator();
+
+				FileItem item = (FileItem) iterator.next();
+				if (!item.isFormField()) {
+					Date date = new Date();
+					
+					File uploadedFile = new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), type) + fileName + item.getName().substring(item.getName().indexOf(".")));
+					item.write(uploadedFile);
+
+					response.getWriter().write(
+							"{\"err\":\"" + "" + "\",\"msg\":\"" + "/news/"
+									+ date.getTime() + fileName + "\"}");
+				}
+			} catch (FileUploadException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
 
 	/*
 	 * Configuration(non-Javadoc)

@@ -1,9 +1,10 @@
 <div id='Wrapper' style="width:770px;">
-    <div id='Header' class="newsTitle">
-        配置我的店铺
-    </div>
+    <h3>配置我的店铺</h3>
     <div class="form-group">
-        <input type="file" id="exampleInputFile">
-        <p class="help-block">Example block-level help text here.</p>
+        <form action="/rest/metadata/upload/skin/lender" enctype="multipart/form-data" method="post">
+            <p class="help-block">支持.png，.jpg，.gif。请上传100×300的图片</p>
+            <input name="image" size="30" type="file" class="btn btn-default" style="display: block; float: left;">
+            <input name="upload" type="submit" value="上传" class="btn btn-info" style="display: block; float: left; margin-left: 10px">
+        </form>
     </div>
 </div>

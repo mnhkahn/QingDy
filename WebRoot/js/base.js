@@ -47,9 +47,6 @@ function commonInit() {
 
     })
 //	showFoot();
-
-    // Social
-    <!-- JiaThis Button BEGIN -->
 }
 
 function autoScroll() {
@@ -548,4 +545,64 @@ function drawChart() {
 
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
     chart.draw(data, options);
+}
+
+function getTypeStr(type) {
+    switch (type) {
+        case ANSWER:
+            return "";
+            break;
+        case BLOG:
+            return "blog";
+            break;
+        case EVALUATE:
+            return "";
+            break;
+        case LOAN:
+            return "loan";
+            break;
+        case MALL:
+            return "mall";
+            break;
+        case NEWS:
+            return "news";
+            break;
+        case PRODUCT:
+            return "product";
+            break;
+        case QUESTION:
+            return "q.html?id=" + id;
+            break;
+        case TRANSACTION:
+            return "m.html?tab=2&id=" + id;
+            break;
+        case SPECIALIST:
+            return "m.html?tab=0&id=" + id;
+            break;
+        case NEWS1:
+        case NEWS2:
+        case NEWS3:
+        case NEWS4:
+        case NEWS5:
+        case NEWS6:
+        case NEWS7:
+            return "p1.html?id=" + id;
+            break;
+    }
+}
+
+function getVisits(type, id) {
+    var url = "/rest/metadata/visit/" + id + "/" + type + "/count";
+    $.ajax({
+        url: url,
+        type: "HEAD",
+        success: function(response, status, xhr) {
+            var count = xhr.getResponseHeader("count");
+            console.debug(count);
+            $("#" + getTypeStr(type) + "_" + id).html(count);
+        },
+        error: function(response) {
+            console.warn(response);
+        }
+    });
 }
