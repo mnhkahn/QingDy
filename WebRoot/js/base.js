@@ -606,3 +606,21 @@ function getVisits(type, id) {
         }
     });
 }
+
+function getVisitsByDate(type, id, start, end) {
+    // http://localhost:8080/rest/metadata/visit/2/2/count/date?start=2010-10-01&end=2014-12-31
+    var url = "/rest/metadata/visit/" + id + "/" + type + "/count/date?start=" + start + "&end=" + end;
+    var value;
+    $.ajax({
+        url: url,
+        type: "GET",
+        async: false,
+        success: function(response) {
+            value = response;
+        },
+        error: function(response) {
+            console.warn(response);
+        }
+    });
+    return value;
+}

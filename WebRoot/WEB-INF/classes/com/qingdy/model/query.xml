@@ -84,5 +84,10 @@
 			select t.id, t.lender as user, t.postDate as time, 8 as type from Transaction as t where t.lender=?
         ]]>
 	</query>
+	<query name="queryVisitByDate">
+	 	<![CDATA[
+			select count(*), startDate from Visit as v where v.oid=? and v.type=? and v.startDate>=? and v.endDate<=? group by dayofweek(startDate) order by startDate asc
+        ]]>
+	</query>
 	
 </hibernate-mapping>

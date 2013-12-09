@@ -1,5 +1,6 @@
 package com.qingdy.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,7 @@ import com.qingdy.model.domain.Forums;
 import com.qingdy.model.domain.Item;
 import com.qingdy.model.domain.Specialist;
 import com.qingdy.model.domain.UserTop;
+import com.qingdy.model.domain.VisitDate;
 
 public interface FacadeManager {
 	/*
@@ -252,6 +254,8 @@ public interface FacadeManager {
 	public List<Visit> getVisits(Long id, int type, int size, int page);
 	
 	public int getVisits(Long id, int type);
+	
+	public List<VisitDate> getVisits(Long id, int type, Date startTime, Date endTime);
 	
 	public List<Visit> getUserVisits(String username, int size, int page);
 	

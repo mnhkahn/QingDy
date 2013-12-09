@@ -56,6 +56,7 @@ import com.qingdy.model.domain.Forums;
 import com.qingdy.model.domain.Item;
 import com.qingdy.model.domain.Specialist;
 import com.qingdy.model.domain.UserTop;
+import com.qingdy.model.domain.VisitDate;
 import com.qingdy.service.BaseManager;
 import com.qingdy.service.FacadeManager;
 
@@ -768,6 +769,12 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	public List<Visit> getUserVisits(String username, int size, int page) {
 		// TODO Auto-generated method stub
 		return visitDao.getUserVisits(username, size, page);
+	}
+
+	@Override
+	public List<VisitDate> getVisits(Long id, int type, Date startTime,
+			Date endTime) {
+		return visitDao.getVisits(type, id, startTime, endTime);
 	}
 	
 	/*

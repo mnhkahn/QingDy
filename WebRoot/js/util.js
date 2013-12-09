@@ -79,3 +79,25 @@ function toJavaDate(d) {
     var date = new Date(beijing);
     return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "T" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 }
+
+function toJavaDay(d) {
+    // "2011-04-08"
+    var localTime = d.getTime();
+    var localOffset = d.getTimezoneOffset() * 60000; //获得当地时间偏移的毫秒数
+    var utc = localTime + localOffset; //取GMT时间
+    var offset = 8; //北京为东8区
+    var beijing = utc + (3600000*offset);
+    var date = new Date(beijing);
+    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+}
+
+function toJavaMD(d) {
+    // "2011-04-08"
+    var localTime = d.getTime();
+    var localOffset = d.getTimezoneOffset() * 60000; //获得当地时间偏移的毫秒数
+    var utc = localTime + localOffset; //取GMT时间
+    var offset = 8; //北京为东8区
+    var beijing = utc + (3600000*offset);
+    var date = new Date(beijing);
+    return (date.getMonth() + 1) + "-" + date.getDate();
+}

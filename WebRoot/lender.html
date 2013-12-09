@@ -36,12 +36,10 @@
 <script type="text/javascript" src="js/jquery.tmpl.js"></script>
 <script type="text/javascript" src="js/cTemplate.js"></script>
 <script type="text/javascript" src="js/jquery.imgareaselect.min.js"></script>
-<script type="text/javascript" src="https://www.google.com.hk/jsapi"></script>
+<script type="text/javascript" src="js/Chart.min.js"></script>
 
 
 <script type="text/javascript">
-google.load("visualization", "1", {packages: ["corechart"]});
-
 function showCreateBlog() {
     $('#contentWrapper').load('/js/templates/blog.html', function () {
         console.debug('Load was performed.');
@@ -78,7 +76,7 @@ function showCreateBlog() {
         });
     });
 }
-
+var mallId = 0;
 function init() {
     commonInit();
     var args = new Object();
@@ -130,22 +128,67 @@ function init() {
                                         console.warn(response);
                                     }
                                 });
+                                $.ajax({
+                                    url: "/rest/metadata/mall/username/" + username,
+                                    type: 'GET',
+                                    dataType: "json",
+                                    success: function(response) {
+                                        mallId = response.id;
+                                        console.debug(response);
+                                        var start = new Date();
+                                        start.setDate(1);
+                                        var mallVisits = eval(getVisitsByDate(MALL, mallId, toJavaDay(start), toJavaDay(new Date())));
+                                        console.debug(mallVisits);
 
+                                        var days = new Array();
+                                        var date = new Date();
+                                        var n = date.getDate();
+                                        for (var i = 1; i <= n; i++) {
+                                            date.setDate(i);
+                                            days[i - 1] = toJavaMD(date);
+                                        }
+                                        var counts = new Array();
+                                        var j = 0;
+                                        for (var i = 1; i <= n && j < mallVisits.length; i++) {
+                                            date.setDate(i);
+                                            if (mallVisits[j].date > toJavaDay(date)) {
+                                                counts[i - 1] = 0;
+                                            }
+                                            else if (mallVisits[j].date == toJavaDay(date)) {
+                                                counts[i - 1] = mallVisits[j++].count;
+                                            }
+                                            else {
+                                                j++;
+                                            }
+                                        }
+                                        i--;
+                                        for (; i < n; i++) {
+                                            counts[i] = 0;
+                                        }
+                                        console.debug(days);
+                                        console.debug(counts);
+                                        var lineChartData = {
+                                            labels : days,
+                                            datasets : [
+                                                {
+                                                    fillColor : "rgba(151,187,205,0.5)",
+                                                    strokeColor : "rgba(151,187,205,1)",
+                                                    pointColor : "rgba(151,187,205,1)",
+                                                    pointStrokeColor : "#fff",
+                                                    data : counts,
+                                                    scaleLabel: "fuck"
+                                                }
+                                            ]
 
-                                var data = google.visualization.arrayToDataTable([
-                                    ['Day', '店铺', '产品', '文章'],
-                                    ['2004-01-01',  1000,      400, 1],
-                                    ['2005-01-01',  1170,      460, 2],
-                                    ['2006-01-01',  660,       1120, 3],
-                                    ['2007-01-01',  1030,      540, 4]
-                                ]);
+                                        }
 
-                                var options = {
-//                                    title: '我的人气'
-                                };
+                                        var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
 
-                                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-                                chart.draw(data, options);
+                                    },
+                                    error: function(response) {
+                                        console.warn(response);
+                                    }
+                                });
                             });
                         },
                         // "旺铺资料"

@@ -37,6 +37,7 @@ import com.cyeam.util.ConvertUtil;
 import com.cyeam.util.FileUtil;
 import com.cyeam.util.JSONUtil;
 import com.cyeam.util.PropUtil;
+import com.qingdy.common.Constant;
 import com.qingdy.model.Answer;
 import com.qingdy.model.Blog;
 import com.qingdy.model.Evaluate;
@@ -57,6 +58,7 @@ import com.qingdy.model.domain.Forums;
 import com.qingdy.model.domain.Grid;
 import com.qingdy.model.domain.Specialist;
 import com.qingdy.model.domain.UserTop;
+import com.qingdy.model.domain.VisitDate;
 import com.qingdy.service.FacadeManager;
 
 @Path("/metadata")
@@ -1121,15 +1123,12 @@ public class Resources {
 		return Response.noContent().header("count", count).build();
 	}
 	
-	@Path("/visit/{id}/{type}/date/count/")
+	@Path("/visit/{id}/{type}/count/date/")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVisits(@PathParam("id") Long id,
-			@PathParam("type") int type,
-			@QueryParam("startTime") String startTime,
-			@QueryParam("endTime") String endTime) {
-		
-		return Response.ok().build();
+	public Response getVisitsByDate(@PathParam("id") Long id, @PathParam("type") int type, @QueryParam("start") String startTime, @QueryParam("end") String endTime) {
+		List <VisitDate> visitDates = facadeManager.getVisits(id, type, ConvertUtil.str2Date(startTime, Constant.DATE_FORMAT), ConvertUtil.str2Date(endTime, Constant.DATE_FORMAT));
+		return Response.ok(visitDates).build();
 	}
 
 	@Path("/visit/")
