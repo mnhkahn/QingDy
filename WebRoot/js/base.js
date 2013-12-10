@@ -258,9 +258,9 @@ function getProperty(object, type) {
     var property = new Object;
     switch (type) {
         case SPECIALIST:
-            property.title = object.lastname + object.firstname;
-            property.link = getLink(SPECIALIST, object.id);
-            property.content = object.introduce;
+            property.title = object.user.lastname + object.user.firstname + "(积分：" + object.scores + ")";
+            property.link = getLink(SPECIALIST, object.user.id);
+            property.content = "擅长领域：" + object.specialty;
             break;
         case BLOG:
             return "贷款资讯";
