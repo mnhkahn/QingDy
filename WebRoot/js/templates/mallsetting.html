@@ -2,13 +2,12 @@
 <div id='Wrapper' style="width:750px; height:100%">
     <div class="hd" style="width:750px; height:32px">
         <div class="newsTitle" id="newsTitle" style="margin-top: 10px">店铺资料设置</div>
-        <div id="actionWrapper" style="width:160px;height: 59px;float: right">
-            <input id='preview' class='largeBtn' style="float:left" type='button' value='预览店铺'/>
-            <input id='submit' class='largeBtn' style="float:right" type='button' value='提交'/>
+        <div id="actionWrapper" style="float: right">
+            <button id='submit' type="button" class="btn btn-default">提交</button>
         </div>
     </div>
 
-    <table border="0" style="width:100%;height:80%">
+    <table border="0" style="width:100%;height:80%; margin-top: 10px; margin-bottom: 10px">
         <tr>
             <p class="hs-description" style="color: #666;padding: 5px 0 0 5px;line-height: 22px;">请填写完整的店铺资料，带‘*’为必填，否则不能进行任何操作。</p>
         </tr>
@@ -29,7 +28,7 @@
         <tr>
             <td width="100px;">融资经验*</td>
             <td colspan=2 >
-                <select id='lendyearSel' style="font-weight: bold;width: 100px;">
+                <select id='lendyearSel' class="form-control" style="width: 100px;">
                     <option value="5个月">5个月</option>
                     <option value="1年">1年</option>
                     <option value="1年以上">1年以上</option>
@@ -39,7 +38,7 @@
         <tr>
             <td width="100px;">公司类型*</td>
             <td colspan=2 >
-                <select id='typeSel' style="font-weight: bold;width: 200px;">
+                <select id='typeSel' class="form-control" style="width: 200px;">
                     <option value="有限责任公司">有限责任公司</option>
                     <option value="上市公司">上市公司</option>
                 </select>
@@ -47,47 +46,63 @@
         </tr>
         <tr>
             <td width="100px;">公司名称*</td>
-            <td width="250px"><input id='name' class='input' /></td>
+            <td width="250px">
+				<input id='name' class="form-control" />
+			</td>
             <td width="400px">
                 <span class="input-gray" id="nameTip"></span>
             </td>
         </tr>
         <tr>
             <td width="100px;">公司电话*</td>
-            <td width="250px"><input id="tel" class='input' /></td>
+            <td width="250px">
+				<input id="tel" class="form-control" />
+			</td>
             <td width="400px">
                 <span class="input-gray" id="telTip"></span>
             </td>
         </tr>
         <tr>
             <td width="100px;">部门/职位*</td>
-            <td width="250px"><input id='position' class='input' /></td>
+            <td width="250px">
+				<input id='position' class="form-control" />
+			</td>
             <td width="400px">
                 <span class="input-gray" id="positionTip"></span>
             </td>
         </tr>
         <tr>
             <td width="100px;">公司网址</td>
-            <td width="250px"><input id='site' class='input' /></td>
+            <td width="250px">
+				<input id='site' class="form-control" />
+			</td>
             <td width="400px">
                 <span class="input-gray" id="siteTip"></span>
             </td>
         </tr>
         <tr>
             <td width="100px;">公司Email</td>
-            <td><input id='email' class='input' /></td>
+            <td>
+				<input id='email' class="form-control" />
+			</td>
         </tr>
         <tr>
             <td width="100px;">公司地址</td>
-            <td><input id='address' class='input' /></td>
+            <td>
+				<input id='address' class="form-control" />
+			</td>
         </tr>
         <tr>
             <td width="100px;">公司传真</td>
-            <td><input id='fax' class='input' /></td>
+            <td>
+				<input id='fax' class="form-control" />
+			</td>
         </tr>
         <tr>
             <td width="100px;">邮编</td>
-            <td><input id='postcode' class='input' /></td>
+            <td>
+				<input id='postcode' class="form-control" />
+			</td>
         </tr>
     </table>
 </div>

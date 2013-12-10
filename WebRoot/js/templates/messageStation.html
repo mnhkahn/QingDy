@@ -1,45 +1,32 @@
-<div id='Wrapper' style="width:750px;">
-    <div class="hd" style="width:750px; height:32px">
-        <div class="newsTitle" id="newsTitle" style="margin-top: 10px">站内消息</div>
-        <div id="actionWrapper" style="width:100px;height: 59px;float: right">
-            <input id='submit' class='largeBtn' type='button' value='发送'/>
+<div class="row">
+    <div class="col-md-8"><h4>站内消息</h4></div>
+</div>
+<div class="row">
+    <p class="hs-description" style="color: #666;padding: 5px 0 0 5px;line-height: 22px;">如果发送对象为空，则要发送给所有人；如果输入发送对象，则只会发送给指定对象</p>
+</div>
+<div class="row">
+    <div class="col-md-2"><h4>对象：</h4></div>
+    <div class="col-md-9" style="margin-top: 3px;">
+        <input id="tipInput" class="form-control"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2"><h4>标题：</h4></div>
+    <div class="col-md-9" style="margin-top: 3px;">
+        <input id="title" class="form-control" placeholder="请在这里概述您的消息标题"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2"><h4>内容：</h4></div>
+    <div class="col-md-9" style="margin-top: 3px;">
+        <textarea id="content" name="content" rows="5" cols="100" style="width: 100%; height: 300px">
+        </textarea>
+    </div>
+</div>
+<div class="row" style="margin-bottom: 10px">
+    <div class="col-md-2" style="margin-top: 3px;float: right;">
+        <div class="col-xs-1" style="width: 130px;">
+            <button class="btn btn-info">发送</button>
         </div>
     </div>
-
-    <table border="0" style="width:100%">
-        <tr>
-            <p class="hs-description" style="color: #666;padding: 5px 0 0 5px;line-height: 22px;">如果发送对象为空，则要发送给所有人；如果输入发送对象，则只会发送给指定对象</p>
-        </tr>
-        <tr>
-            <td width="100px;">对象*</td>
-            <td width="100px">
-                <input id="tipInput" />
-            </td>
-            <td width="550px">
-
-            </td>
-        </tr>
-        <tr>
-            <td width="100px;">标题*</td>
-            <td width="100px">
-                <div class="title-area-outter">
-                    <textarea id="title" class="title-area" placeholder="请在这里概述您的消息标题" style="height: 20px;"></textarea>
-                </div>
-            </td>
-            <td width="550px">
-            </td>
-        </tr>
-        <tr>
-            <td width="100px;">内容*</td>
-            <td width="100px">
-                <textarea id="content" name="content" rows="3" cols="100" style="width: 100%; height: 60px">
-                </textarea>
-            </td>
-            <td width="550px">
-
-            </td>
-        </tr>
-
-
-    </table>
 </div>

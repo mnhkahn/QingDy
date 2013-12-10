@@ -36,7 +36,7 @@
 	width: 264px;
 	height: 100%;
 	float: left;
-	
+    box-sizing: content-box;
 	border: 1px solid rgb(221,221,221);
 	background-color: #fafcf7;;
 	
@@ -101,6 +101,7 @@
 	margin-top: 10px;
 	background: #fdfffe;
 	border: 1px solid #d2e1f1;
+    box-sizing: content-box;
 }
 
 /* bankContainer */

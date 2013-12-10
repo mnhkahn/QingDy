@@ -37,7 +37,8 @@
 <script type="text/javascript" src="js/cTemplate.js"></script>
 <script type="text/javascript" src="js/jquery.imgareaselect.min.js"></script>
 <script type="text/javascript" src="js/Chart.min.js"></script>
-
+    <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="js/locales/bootstrap-datepicker.zh-CN.js"></script>
 
 <script type="text/javascript">
 function showCreateBlog() {
@@ -65,7 +66,6 @@ function showCreateBlog() {
             });
         });
         var categorySel = $('#categorySel')
-        categorySel.data("placeholder", "请选择").chosen();
         var content = $('#content');
         content.xheditor({
             upImgUrl: "/rest/metadata/upload/blogs",
@@ -236,9 +236,7 @@ function init() {
                                 site.formValidator({onShow: "请注意网址必须以http://或https://开头。"});
 
                                 var lendedyearsSel = $("#lendyearSel");
-                                lendedyearsSel.chosen();
                                 var typeSel = $("#typeSel");
-                                typeSel.chosen();
 
                                 var email = $("#email");
                                 var address = $("#address");
@@ -315,8 +313,6 @@ function init() {
                                     success: function (response) {
                                         id = response.id;
                                         $.cArea(response.clientLocation);
-                                        provinceSel.data("placeholder", "请选择").chosen();
-                                        citySel.data("placeholder", "请选择").chosen();
                                         usesofloanSel.val(response.announcement);
                                         specialitySel.val(response.experience);
                                         clientsSel.val(response.cType);
@@ -353,8 +349,8 @@ function init() {
                         function () {
                             $('#contentWrapper').load('/js/templates/product.html', function () {
                                 var pname = $("#pname");
-                                var min = $("#min");
-                                var max = $("#max");
+                                var min = $("#minValue");
+                                var max = $("#maxValue");
                                 var content1 = $('#content1');
                                 content1.xheditor({
                                     tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
@@ -407,25 +403,24 @@ function init() {
                                 $("#min").formValidator({onShow: "万元/单笔，若未满一万填写小数，如0.8，最多只能一位小数。", onFocus: "至少1个长度", onCorrect: "合法"}).inputValidator({min: 1, empty: {leftEmpty: false, rightEmpty: false, emptyError: "密码两边不能有空符号"}, onError: "输入错误"});
 
                                 var typeSel = $("#typeSel");
-                                typeSel.data("placeholder", "请选择").chosen();
 
-                                var deadlineSel = $("#deadlineSel");
-                                deadlineSel.data("placeholder", "请选择").chosen();
+                                var date = $("#datepicker");
+								date.datepicker({
+									format: 'yyyy-mm-dd',
+									language: 'zh-CN'
+								});
 
-                                $.cArea("福建福州");
+                                $.cArea("广东广州");
                                 var provinceSel = $("#provinceSel");
-                                provinceSel.data("placeholder", "请选择").chosen();
 
                                 var citySel = $("#citySel");
-                                citySel.data("placeholder", "请选择").chosen();
+
                                 var clientsSel = $("#clientsSel");
-                                clientsSel.data("placeholder", "请选择").chosen();
+								clientsSel.data("placeholder", "请选择").chosen();
 
                                 var repaymethodSel = $("#repaymethodSel");
-                                repaymethodSel.data("placeholder", "请选择").chosen();
 
                                 var producttypeSel = $("#producttypeSel");
-                                producttypeSel.data("placeholder", "请选择").chosen();
 
                                 var usesofloanSel = $("#usesofloanSel");
                                 usesofloanSel.data("placeholder", "请选择").chosen();

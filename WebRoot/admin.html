@@ -144,22 +144,9 @@ function init() {
                         // 概述
                         function () {
                             $('#List').load('/js/templates/outline.html', function () {
-                                var data = google.visualization.arrayToDataTable([
-                                    ['Province',   'Population', 'Area'],
-                                    ['Beijing',      2761477,    1285.31],
-                                    ['Shanxi',     1324110,    181.76],
-                                    ['Guangdong',    959574,     117.27],
-                                    ['Fujian',     907563,     130.17]
-                                ]);
-
-                                var options = {
-                                    region: 'CN',
-                                    displayMode: 'markers',
-                                    colorAxis: {colors: ['green', 'blue']}
-                                };
-
-                                var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
-                                chart.draw(data, options);
+                                $("#mallCount").html(getCount(MALL));
+                                $("#productCount").html(getCount(PRODUCT));
+                                $("#loanCount").html(getCount(LOAN));
                             });
                         }
                 );
@@ -465,7 +452,7 @@ function init() {
         <div id="menuContent" >
             <div id="menuWrapper" class="menuWrapper"></div>
             <div id="contentWrapperThin" class="contentWrapperThin">
-                <table id="List"></table>
+                <table id="List" width="770px"></table>
                 <div id="Pager"></div></div>
             </div>
             <div style="clear: both"></div>

@@ -624,3 +624,23 @@ function getVisitsByDate(type, id, start, end) {
     });
     return value;
 }
+
+function getCount(type) {
+    var url = "/rest/metadata/" + getTypeStr(type) + "/nkeys/count";
+    console.debug(url);
+    var count = 0;
+    $.ajax({
+        url: url,
+        type: "HEAD",
+        async: false,
+        success: function(response, status, xhr) {
+            count = xhr.getResponseHeader("count");
+        },
+        error: function(response) {
+            count = 0
+            console.warn(response);
+        }
+    });
+    console.debug(count);
+    return count;
+}

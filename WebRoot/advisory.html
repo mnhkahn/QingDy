@@ -7,20 +7,21 @@
 <link href="css/base.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/chosen.css" />
     <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css"/>
 
-<script type="text/javascript" src='js/jquery-1.7.2.js'></script>
+	<script type="text/javascript" src='js/jquery-1.7.2.js'></script>
     <script type="text/javascript" src="js/jquery.jBox-2.3.min.js"></script>
     <script type="text/javascript" src="js/i18n/jquery.jBox-zh-CN.js"></script>
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script type="text/javascript" src="js/jstorage.js"></script>
     <script type="text/javascript" src="js/jquery.esn.autobrowse.js"></script>
-<script type="text/javascript" src="js/base.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript" src='js/cTop.js'></script>
+	<script type="text/javascript" src="js/base.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src='js/cTop.js'></script>
     <script type="text/javascript" src="js/cSearch.js" ></script>
     <script type="text/javascript" src="js/cMenuFloat.js"></script>
     <script type="text/javascript" src="js/cQuestion.js"></script>
-<link rel = "Shortcut Icon" href="favicon.ico">
+	<link rel = "Shortcut Icon" href="favicon.ico">
 
 <script type="text/javascript">
 function init() {
@@ -64,7 +65,6 @@ function init() {
             }
     );
     $.cQuestion("个人贷款创业贷款");
-    $('.chosen').chosen();
 
     $("#submit").bind("click", function() {
         var title = $("#title");
@@ -102,17 +102,25 @@ function init() {
                     <img src="images/question16.png" />
                     一句话描述您的疑问
                 </div>
-                <div class="title-area-outter">
-                    <textarea id="title" class="title-area" placeholder="请在这里概述您的问题" style="height: 20px;"></textarea>
+                <div class="title-area-outter" style="margin-left: 10px; width: 570px;">
+                    <input id="title" class="form-control" placeholder="请在这里概述您的问题">
                 </div>
-                <div class="title-area-outter" style="margin-top: 10px">
-                    <textarea id="content" class="title-area" placeholder="问题补充" style="height: 20px;"></textarea>
+                <div class="title-area-outter" style="margin-top: 10px; margin-left: 10px; width: 570px;">
+					<input id="content" class="form-control" placeholder="问题补充">
                 </div>
                 <div id="questionAction" style="margin-top: 10px; padding-left: 12px;padding-right: 12px">
-                    <select id="questionClasses" name="questionClasses" class="chosen" style="width: 100px">
-                    </select>
-                    <select id="questionSubClasses" name="questionSubClasses" class="chosen" style="width: 150px"></select>
-                    <button id="submit" class="largeBtn">提交问题</button>
+				<div class="row">
+					<div class="col-md-3">
+						<select id="questionClasses" name="questionClasses" class="form-control" style="width: 130px; float: left; margin-right: 10px;">
+						</select>
+					</div>
+					<div class="col-md-3">
+						<select id="questionSubClasses" name="questionSubClasses" class="form-control" style="width: 150px;"></select>
+					</div>
+					<div class="col-md-3" style="float: right;">
+						<button id="submit" class="btn infoBtn" style="float: right">提交问题</button>
+					</div>
+				</div>
                 </div>
             </div>
             <div id="waterfall" class="waterfall" style="border-top: 1px solid rgb(221,221,221);">
@@ -134,7 +142,7 @@ function init() {
     <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?uid=1368719936583355" charset="utf-8"></script>
     <!-- JiaThis Button END -->
     <!-- UJian Button BEGIN -->
-    <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>
+<!--    <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>-->
     <!-- UJian Button END -->
 </body>
 </html>

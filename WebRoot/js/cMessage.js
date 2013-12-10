@@ -21,7 +21,6 @@
         console.debug(container);
         var messageContainer = $('<div></div>');
         container.append(messageContainer);
-        messageContainer.addClass("messageContainer");
         messageContainer.attr("id", "messageContainer");
 
         $.get("/js/templates/message.html", function(template) {

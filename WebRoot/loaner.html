@@ -9,9 +9,10 @@
 <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
 <link rel="stylesheet" href="css/jquery.checkbox.css" />
 <link rel="stylesheet" href="css/chosen.css" />
-<link rel="stylesheet" href="css/daterangepicker-bs2.css" />
-<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css" />
+
+<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css"/>
 <link rel="stylesheet" href="css/cStyle.css" />
+
 <!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
 <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.2.custom.js"></script>
@@ -34,7 +35,8 @@
 <script type="text/javascript" src="js/cTab.js"></script>
 <script type="text/javascript" src="js/cSearch.js"></script>
 <script type="text/javascript" src="js/cArea.js"></script>
-<script type="text/javascript" src="js/daterangepicker.js"></script>
+<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="js/locales/bootstrap-datepicker.zh-CN.js"></script>
 <script type="text/javascript" src="js/moment.js"></script>
 <script type="text/javascript" src="js/jquery.tmpl.js"></script>
 <script type="text/javascript" src="js/cTemplate.js"></script>
@@ -130,6 +132,11 @@ function init() {
                                 });
                                 var amount = $("#amount");
                                 amount.formValidator({onShow:"万元/单笔，若未满一万填写小数，如0.8，最多只能一位小数。",onFocus:"至少1个长度",onCorrect:"合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"输入错误"});
+								var date = $("#datepicker");
+								date.datepicker({
+									format: 'yyyy-mm-dd',
+									language: 'zh-CN'
+								});
                                 var content = $('#content');
                                 content.xheditor({
                                     tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
@@ -140,23 +147,14 @@ function init() {
                                     }
                                 });
                                 $('input[type=checkbox]').checkbox();
-                                var date = $("#datepicker");
-                                date.daterangepicker({
-                                    startDate: moment(),
-                                    endDate: moment().add('days', 60),
-                                    separator: ' ~ ',
-                                    format: 'YYYY-MM-DD'
-                                });
-                                date.val(moment().format('YYYY-MM-DD') + ' ~ ' + moment().add('days', 60).format('YYYY-MM-DD'));
 
                                 $.cArea(DEFAULT_AREA);
 
                                 $("#submit").on("click", function() {
                                     var area = $("#provinceSel").val() + $('#citySel').val();
                                     var amount = $("#amount").val();
-                                    var date = $("#datepicker").val();
-                                    var start = date.substr(0, date.indexOf("~") - 1);
-                                    var end = date.substr(date.indexOf("~") + 2);
+                                    var start = $("#startTime").val();
+                                    var end = $("#endTime").val();
                                     var usesofloan = $("#usesofloanSel").val();
                                     var haspawn = $("#haspawn").val() == "on" ? 1 : 0;
                                     var pawn = $("#pawnSel").val();
@@ -338,7 +336,7 @@ function init() {
 </head>
 
 <body onload='init()'>
-<div id="mainContainerWrapper" style="height:700px; margin-top: 60px;">
+<!--<div id="mainContainerWrapper" style="height:700px; margin-top: 60px;">
     <div id="mainContainer" class="mainContainerWide2">
         <div id="tabWrapper" class="tabWrapper"></div>
         <div id="menuContent" class="menuContent">
@@ -346,6 +344,18 @@ function init() {
             <div id="contentWrapperThin" class="contentWrapperThin">
                 <div id="contentWrapper" style="height:100%; overflow-x: hidden;"></div>
             </div>
+        </div>
+    </div>
+</div>-->
+<div id="mainContainerWrapper" style="margin-top: 60px;">
+    <div id="mainContainer" class="mainContainerWide2">
+        <div id="tabWrapper" class="tabWrapper"></div>
+        <div id="menuContent" >
+            <div id="menuWrapper" class="menuWrapper"></div>
+            <div id="contentWrapperThin" class="contentWrapperThin">
+                <div id="contentWrapper" style="padding-bottom: 10px; box-sizing: content-box"></div>
+            </div>
+            <div style="clear: both"></div>
         </div>
     </div>
 </div>
