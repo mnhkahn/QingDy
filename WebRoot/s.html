@@ -7,6 +7,7 @@
     <link href="css/base.css" rel="stylesheet" type="text/css" />
     <link href="css/flexisel.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/chosen.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css" />
 
     <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
     <script type="text/javascript" src="js/base.js"></script>
@@ -22,9 +23,8 @@
     <link rel = "Shortcut Icon" href="favicon.ico">
 
     <script type="text/javascript">
+        var count = 0;
         function init() {
-            commonInit();
-
             var args = new Object();
             args = GetUrlParms();
 
@@ -32,6 +32,8 @@
             var keyword = args['keyword'];
             var page = args['page'];
             var size = args['size'];
+
+            commonInit(type, keyword);
 
             var url = "/rest/metadata/";
             var urlCount = "/rest/metadata/";
@@ -75,25 +77,38 @@
             });
 
             console.debug(url);
-            $.get("js/templates/s.html", function(template) {
-                $.template("sTmpl", template);
-                $.ajax({
-                    url: url,//"data/tests/s.json",
-                    type: "GET",
-                    dataType: "json",
-                    success: function(response) {
-                        var s = new Array();
-                        for (var i = 0; i < response.length; i++) {
-                            var temp = getProperty(response[i], PRODUCT);
-                            s[i] = temp;
-                        }
-                        $.tmpl("sTmpl", s).appendTo("#mainContainerCenterLeft");
-                    },
-                    error: function(response) {
-                        console.warn(response);
+            $("#mainContainerCenterLeft").autobrowse(
+                    {
+                        url: function (offset) {
+                            return url;
+                        },
+                        template: function (response) {
+                            var s = new Array();
+                            for (var i = 0; i < response.length; i++) {
+                                var temp = getProperty(response[i], Number(type));
+                                s[i] = temp;
+                            }
+
+                            var markup = '';
+                            for (var i = 0; i < response.length; i++) {
+                                markup += '<div class="hover" style="width:786px;height:100px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd"><div class="p_right">' +
+                                        '<a target="_blank" href="' + s[i].link + '" style="font-size:12px;"><h4>' + s[i].title + '</h4></a><div class="clear_both"></div>' +
+                                        '<span class="p1" style="color: #00802a;">' + s[i].link + '</span><div class="clear_both"></div>' +
+                                        '<p style="color: #444;font-size: small;font-family: arial,sans-serif;">' + s[i].content + '</p></div></div>';
+                            }
+                            return markup;
+                        },
+                        itemsReturned: function (response) {
+                            console.debug("response" + response.length);
+                            return response.length;
+                        },
+                        offset: 0,
+                        max: count,
+                        loader: '<div class="loader"></div>',
+                        useCache: true,
+                        expiration: 1
                     }
-                });
-            });
+            );
         }
     </script>
 
@@ -106,7 +121,7 @@
 </div>
 <div id="mainContainer2" class="mainContainer2">
     <div id="mainContainerCenterLeft" class="mainContainerCenterLeft">
-        <div>找到约 <span id="searchCount"></span> 条结果 （用时 <span id="searchTime"></span> 秒）</div>
+        <div>找到约 <span id="searchCount"></span> 条结果</div>
     </div>
     <div id="recommendContainerRight" class="recommendContainerRight"></div>
     <div style="clear:both;"></div>

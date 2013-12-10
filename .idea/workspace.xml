@@ -23,38 +23,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="admin.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/WebRoot/admin.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="146" column="30" selection-start="5415" selection-end="5415" vertical-scroll-proportion="0.46830985" vertical-offset="2375" max-vertical-offset="9215">
-              <folding>
-                <marker date="1386592103733" expanded="false" signature="9981:10004" placeholder="..." />
-                <marker date="1386592103733" expanded="false" signature="10428:10451" placeholder="..." />
-                <marker date="1386592103733" expanded="false" signature="14729:14752" placeholder="..." />
-                <marker date="1386592103733" expanded="false" signature="15181:15204" placeholder="..." />
-                <marker date="1386592103733" expanded="false" signature="18987:19010" placeholder="..." />
-                <marker date="1386592103733" expanded="false" signature="19436:19459" placeholder="..." />
-                <marker date="1386592103733" expanded="false" signature="22683:22706" placeholder="..." />
-                <marker date="1386592103733" expanded="false" signature="23139:23162" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="lender.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebRoot/lender.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="164" column="50" selection-start="8813" selection-end="8813" vertical-scroll-proportion="-28.642857" vertical-offset="2314" max-vertical-offset="13357">
+            <state line="83" column="26" selection-start="3912" selection-end="3990" vertical-scroll-proportion="-6.107143" vertical-offset="1406" max-vertical-offset="13357">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="outline.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/outline.html">
+      <file leaf-file-name="base.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebRoot/css/base.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="58" selection-start="1291" selection-end="1291" vertical-scroll-proportion="-24.428572" vertical-offset="0" max-vertical-offset="817">
+            <state line="1131" column="14" selection-start="20217" selection-end="20217" vertical-scroll-proportion="0.0" vertical-offset="21103" max-vertical-offset="25593">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="supplyFilter.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/supplyFilter.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="21" selection-start="543" selection-end="543" vertical-scroll-proportion="-8.142858" vertical-offset="0" max-vertical-offset="1520">
+              <folding>
+                <element signature="n#style#0;n#div#2;n#div#0;n#div#1;n#div#1;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -62,47 +55,57 @@
       <file leaf-file-name="base.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebRoot/js/base.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="624" column="17" selection-start="16321" selection-end="16321" vertical-scroll-proportion="-14.7" vertical-offset="11121" max-vertical-offset="11989">
+            <state line="256" column="20" selection-start="6523" selection-end="6534" vertical-scroll-proportion="-3.24" vertical-offset="4702" max-vertical-offset="11989">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="util.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebRoot/js/util.js">
+      <file leaf-file-name="s.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/WebRoot/s.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="93" column="17" selection-start="3270" selection-end="3278" vertical-scroll-proportion="-12.68" vertical-offset="1133" max-vertical-offset="2052">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mymall.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/mymall.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="137" selection-end="211" vertical-scroll-proportion="-3.392857" vertical-offset="0" max-vertical-offset="760">
+            <state line="84" column="55" selection-start="3511" selection-end="3511" vertical-scroll-proportion="0.8601227" vertical-offset="895" max-vertical-offset="2622">
               <folding>
-                <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#1;n#div#0;n#!!top" expanded="true" />
+                <marker date="1386642428407" expanded="true" signature="3978:4060" placeholder="..." />
+                <marker date="1386642428407" expanded="true" signature="4179:4194" placeholder="..." />
+                <marker date="1386642428407" expanded="true" signature="4326:4341" placeholder="..." />
+                <marker date="1386642428407" expanded="true" signature="4452:4511" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="m.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebRoot/m.html">
+      <file leaf-file-name="s.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/s.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="111" column="89" selection-start="5830" selection-end="5835" vertical-scroll-proportion="-27.038462" vertical-offset="0" max-vertical-offset="4389">
+            <state line="2" column="25" selection-start="0" selection-end="489" vertical-scroll-proportion="-1.3571428" vertical-offset="0" max-vertical-offset="342">
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sMall.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/sMall.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="105" selection-start="480" selection-end="480" vertical-scroll-proportion="-6.107143" vertical-offset="0" max-vertical-offset="342">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="s.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebRoot/s.html">
+      <file leaf-file-name="supply.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebRoot/supply.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="35" selection-start="2486" selection-end="2486" vertical-scroll-proportion="-14.607142" vertical-offset="712" max-vertical-offset="2337">
-              <folding />
+            <state line="111" column="28" selection-start="5932" selection-end="7630" vertical-scroll-proportion="-2.525641" vertical-offset="1912" max-vertical-offset="3553">
+              <folding>
+                <marker date="1386642135613" expanded="false" signature="6162:6262" placeholder="..." />
+                <marker date="1386642135613" expanded="false" signature="6654:6678" placeholder="..." />
+                <marker date="1386642135613" expanded="false" signature="6736:6752" placeholder="..." />
+                <marker date="1386642135613" expanded="false" signature="7197:7208" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -125,22 +128,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/WebRoot/mall.html" />
-        <option value="$PROJECT_DIR$/WebRoot/demand.html" />
-        <option value="$PROJECT_DIR$/WebRoot/js/templates/grid8.html" />
         <option value="$PROJECT_DIR$/WebRoot/css/base.css" />
         <option value="$PROJECT_DIR$/WebRoot/js/templates/webShow.html" />
         <option value="$PROJECT_DIR$/WebRoot/js/templates/slide.html" />
-        <option value="$PROJECT_DIR$/WebRoot/supply.html" />
         <option value="$PROJECT_DIR$/WebRoot/js/templates/mallShowcase.html" />
         <option value="$PROJECT_DIR$/WebRoot/m.html" />
-        <option value="$PROJECT_DIR$/WebRoot/s.html" />
-        <option value="$PROJECT_DIR$/WebRoot/js/base.js" />
         <option value="$PROJECT_DIR$/WebRoot/js/templates/mymall.html" />
         <option value="$PROJECT_DIR$/WebRoot/js/util.js" />
         <option value="$PROJECT_DIR$/WebRoot/lender.html" />
-        <option value="$PROJECT_DIR$/WebRoot/js/templates/outline.html" />
         <option value="$PROJECT_DIR$/WebRoot/admin.html" />
+        <option value="$PROJECT_DIR$/WebRoot/js/templates/outline.html" />
+        <option value="$PROJECT_DIR$/WebRoot/js/base.js" />
+        <option value="$PROJECT_DIR$/WebRoot/js/cSearch.js" />
+        <option value="$PROJECT_DIR$/WebRoot/js/templates/sMall.html" />
+        <option value="$PROJECT_DIR$/WebRoot/js/templates/s.html" />
+        <option value="$PROJECT_DIR$/WebRoot/supply.html" />
+        <option value="$PROJECT_DIR$/WebRoot/s.html" />
       </list>
     </option>
   </component>
@@ -192,6 +195,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -282,9 +286,26 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="QingDy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="QingDy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebRoot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -293,23 +314,18 @@
     <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Bryce\Documents\GitHub\QingDy\WebRoot\js\templates" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Bryce\Documents\GitHub\QingDy\WebRoot\js" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -318,6 +334,14 @@
       <option name="saveOutputToFile" value="false" />
       <option name="showConsoleOnStdErr" value="false" />
       <option name="showConsoleOnStdOut" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
       <method />
     </configuration>
     <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
@@ -379,125 +403,149 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/WebRoot/css/base.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="650" column="27" selection-start="11244" selection-end="11244" vertical-scroll-proportion="0.0" vertical-offset="11993" max-vertical-offset="25593">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/specialist.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="48" selection-start="2724" selection-end="2724" vertical-scroll-proportion="0.0" vertical-offset="1881" max-vertical-offset="3059">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/webShow.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="1" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="865" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/slide.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="12" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="865" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/jquery-pack.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="43" selection-start="301" selection-end="301" vertical-scroll-proportion="0.2159091" vertical-offset="0" max-vertical-offset="880" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/supplyFilter.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1520">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/s.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="35" selection-start="2486" selection-end="2486" vertical-scroll-proportion="-14.607142" vertical-offset="712" max-vertical-offset="2337">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/m.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="89" selection-start="5830" selection-end="5835" vertical-scroll-proportion="-27.038462" vertical-offset="0" max-vertical-offset="4389">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/mallShowcase.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="10" selection-start="537" selection-end="537" vertical-scroll-proportion="-5.428571" vertical-offset="0" max-vertical-offset="285">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="624" column="17" selection-start="16321" selection-end="16321" vertical-scroll-proportion="-14.7" vertical-offset="11121" max-vertical-offset="11989">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/util.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="93" column="17" selection-start="3270" selection-end="3278" vertical-scroll-proportion="-12.68" vertical-offset="1133" max-vertical-offset="2052">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/supply.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="29" selection-start="3611" selection-end="3611" vertical-scroll-proportion="-8.857142" vertical-offset="1424" max-vertical-offset="3572">
-          <folding>
-            <marker date="1386334846606" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1386334846606" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1386334846606" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1386334846606" expanded="false" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/mymall.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="137" selection-end="211" vertical-scroll-proportion="-3.392857" vertical-offset="0" max-vertical-offset="760">
-          <folding>
-            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/outline.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="58" selection-start="1291" selection-end="1291" vertical-scroll-proportion="-24.428572" vertical-offset="0" max-vertical-offset="817">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/lender.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="164" column="50" selection-start="8813" selection-end="8813" vertical-scroll-proportion="-28.642857" vertical-offset="2314" max-vertical-offset="13357">
+        <state line="5" column="0" selection-start="137" selection-end="211" vertical-scroll-proportion="0.0" vertical-offset="95" max-vertical-offset="760">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/WebRoot/admin.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="30" selection-start="5415" selection-end="5415" vertical-scroll-proportion="0.46830985" vertical-offset="2375" max-vertical-offset="9215">
+        <state line="146" column="30" selection-start="5415" selection-end="5415" vertical-scroll-proportion="-99.07143" vertical-offset="0" max-vertical-offset="9215">
           <folding>
-            <marker date="1386592103733" expanded="false" signature="9981:10004" placeholder="..." />
-            <marker date="1386592103733" expanded="false" signature="10428:10451" placeholder="..." />
-            <marker date="1386592103733" expanded="false" signature="14729:14752" placeholder="..." />
-            <marker date="1386592103733" expanded="false" signature="15181:15204" placeholder="..." />
-            <marker date="1386592103733" expanded="false" signature="18987:19010" placeholder="..." />
-            <marker date="1386592103733" expanded="false" signature="19436:19459" placeholder="..." />
-            <marker date="1386592103733" expanded="false" signature="22683:22706" placeholder="..." />
-            <marker date="1386592103733" expanded="false" signature="23139:23162" placeholder="..." />
+            <marker date="1386592103733" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386592103733" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386592103733" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386592103733" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386592103733" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386592103733" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386592103733" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386592103733" expanded="false" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/outline.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="10" selection-start="1214" selection-end="1214" vertical-scroll-proportion="0.7468208" vertical-offset="0" max-vertical-offset="865">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/demand.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.9366197" vertical-offset="798" max-vertical-offset="3629">
+          <folding>
+            <marker date="1386245544414" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386245544414" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386245544414" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386245544414" expanded="false" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/mall.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.5156069" vertical-offset="1311" max-vertical-offset="3363">
+          <folding>
+            <marker date="1386245347813" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386245347813" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386245347813" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386245347813" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386245347813" expanded="false" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/mallFilter.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="893">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/css/base.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1131" column="14" selection-start="20217" selection-end="20217" vertical-scroll-proportion="0.0" vertical-offset="21103" max-vertical-offset="25593">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/sMall.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="105" selection-start="480" selection-end="480" vertical-scroll-proportion="-6.107143" vertical-offset="0" max-vertical-offset="342">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="256" column="20" selection-start="6523" selection-end="6534" vertical-scroll-proportion="-3.24" vertical-offset="4702" max-vertical-offset="11989">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="50" selection-start="1456" selection-end="1463" vertical-scroll-proportion="0.26184538" vertical-offset="265" max-vertical-offset="4408">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/cSearch.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="40" selection-start="1810" selection-end="1810" vertical-scroll-proportion="0.9574468" vertical-offset="0" max-vertical-offset="1330">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/supplyFilter.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="21" selection-start="543" selection-end="543" vertical-scroll-proportion="-8.142858" vertical-offset="0" max-vertical-offset="1520">
+          <folding>
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#1;n#div#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/lender.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="83" column="26" selection-start="3912" selection-end="3990" vertical-scroll-proportion="-6.107143" vertical-offset="1406" max-vertical-offset="13357">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/supply.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="28" selection-start="5932" selection-end="7630" vertical-scroll-proportion="-2.525641" vertical-offset="1912" max-vertical-offset="3553">
+          <folding>
+            <marker date="1386642135613" expanded="false" signature="6162:6262" placeholder="..." />
+            <marker date="1386642135613" expanded="false" signature="6654:6678" placeholder="..." />
+            <marker date="1386642135613" expanded="false" signature="6736:6752" placeholder="..." />
+            <marker date="1386642135613" expanded="false" signature="7197:7208" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/templates/s.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="25" selection-start="0" selection-end="489" vertical-scroll-proportion="-1.3571428" vertical-offset="0" max-vertical-offset="342">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/s.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="55" selection-start="3511" selection-end="3511" vertical-scroll-proportion="0.8601227" vertical-offset="895" max-vertical-offset="2622">
+          <folding>
+            <marker date="1386642428407" expanded="true" signature="3978:4060" placeholder="..." />
+            <marker date="1386642428407" expanded="true" signature="4179:4194" placeholder="..." />
+            <marker date="1386642428407" expanded="true" signature="4326:4341" placeholder="..." />
+            <marker date="1386642428407" expanded="true" signature="4452:4511" placeholder="..." />
           </folding>
         </state>
       </provider>

@@ -1,4 +1,4 @@
-function commonInit() {
+function commonInit(type, keyword) {
 	username = 'lender';
 	var password = 'bryce';
 	var ctop;
@@ -41,7 +41,7 @@ function commonInit() {
 		}
 	});
 
-    $("#searchboxContainer").cSearch();
+    $("#searchboxContainer").cSearch(type, keyword);
 
     $("#footContainer").load("/js/templates/foot.html", function() {
 
