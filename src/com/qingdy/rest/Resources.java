@@ -1208,9 +1208,10 @@ public class Resources {
 	@Path("upload/skin/{username}")
 	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON })
 	@Produces(MediaType.TEXT_PLAIN)
-	public void uploadSkin(@Context HttpServletRequest request,
+	public Response uploadSkin(@Context HttpServletRequest request,
 			@Context HttpServletResponse response, @PathParam("username") String username) throws IOException {
-		facadeManager.upload(request, response, PropUtil.UPLOAD_SKIN, username);
+		String message = facadeManager.upload(request, response, PropUtil.UPLOAD_SKIN, username);
+		return Response.ok(message).build();
 	}
 
 	@POST

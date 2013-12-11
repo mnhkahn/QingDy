@@ -280,7 +280,7 @@ public interface FacadeManager {
 	 */
 	public void upload(HttpServletRequest request, HttpServletResponse response, int type);
 	
-	public void upload(HttpServletRequest request, HttpServletResponse response, int type, String fileName);
+	public String upload(HttpServletRequest request, HttpServletResponse response, int type, String fileName);
 	
 	/*
 	 * Property

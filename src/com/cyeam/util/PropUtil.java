@@ -22,6 +22,14 @@ public class PropUtil {
 	public final static int UPLOAD_SKIN = 23;
 	public final static int UPLOAD_IMAGES = 24;
 	public final static int UPLOAD_NEWS = 25;
+	// Upload file size
+	public static final int UPLOAD_MAX_SIZE = 20;
+	// Avatar size
+	public static final int AVATAR_WIDTH = 31;
+	public static final int AVATAR_HEIGHT = 32;
+	// Skin size
+	public static final int SKIN_WIDTH = 33;
+	public static final int SKIN_HEIGHT = 34;
 	
 	public static String getProps(String rootPath, int type) {
     	try {
@@ -62,7 +70,21 @@ public class PropUtil {
 		case UPLOAD_NEWS:
 			propStr = prop.getProperty("uploadNews");
 			break;
-
+		case UPLOAD_MAX_SIZE:
+			propStr = prop.getProperty("fileSize");
+			break;
+		case AVATAR_WIDTH:
+			propStr = prop.getProperty("avatarWidth");
+			break;
+		case AVATAR_HEIGHT:
+			propStr = prop.getProperty("avatarHeight");
+			break;
+		case SKIN_WIDTH:
+			propStr = prop.getProperty("skinWidth");
+			break;
+		case SKIN_HEIGHT:
+			propStr = prop.getProperty("skinHeight");
+			break;
 		default:
 			break;
 		}

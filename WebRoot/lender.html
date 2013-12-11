@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="css/chosen.css"/>
 <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css"/>
 <link rel="stylesheet" href="css/cStyle.css"/>
+<link rel="stylesheet" href="css/uploadify.css" />
 
 <script type="text/javascript" src='js/jquery-1.7.2.js'></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.2.custom.js"></script>
@@ -39,6 +40,7 @@
 <script type="text/javascript" src="js/Chart.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="js/locales/bootstrap-datepicker.zh-CN.js"></script>
+	<script type="text/javascript" src="js/jquery.uploadify.min.js"></script>
 
 <script type="text/javascript">
 function showCreateBlog() {
@@ -342,7 +344,29 @@ function init() {
                         // 展示管理
                         function () {
                             $('#contentWrapper').load('/js/templates/mallShowcase.html', function () {
-
+								$("#file_upload").uploadify({
+									'auto'     : false,
+									'swf'      : '/images/uploadify.swf',
+									'buttonText': '选择文件',
+									'fileDesc' : '文件格式(*.png;*.jpg;*.gif)',  
+									'fileExt' : '*.png;*.jpg;*.gif', //控制可上传文件的扩展名，启用本项时需同时声明fileDesc  
+									/*'multi' : false,*/
+									'uploader' : '/rest/metadata/upload/skin/' + username, 
+									'onUploadSuccess': function(file, data, response) {
+										if (data == "success") {
+											$.jBox.info('上传成功');
+										}
+										else if (data == "Wrong File Format") {
+											$.jBox.info('格式错误');
+										}
+										else if (data == "Wrong File Size") {
+											$.jBox.info('文件太大');
+										}
+									}
+								});
+								$('#upload').on('click', function (){
+									$('#file_upload').uploadify('upload','*')
+								});
                             });
                         },
                         // 添加产品

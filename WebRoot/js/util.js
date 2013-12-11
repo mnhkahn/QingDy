@@ -101,3 +101,19 @@ function toJavaMD(d) {
     var date = new Date(beijing);
     return (date.getMonth() + 1) + "-" + date.getDate();
 }
+
+//判断照片大小
+function checkFormat(s) {
+    var i = s.lastIndexOf(".");
+    if(i < 0)
+    {
+		return false;
+    }
+    
+    var var1 = s.substring(i+1);
+    if(var1 == "jpg" || var1 == "png" || var1 == "gif")
+	{
+	   return true;
+	}
+    return false ;
+}
