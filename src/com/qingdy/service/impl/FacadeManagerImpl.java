@@ -819,42 +819,58 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * , javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public void upload(HttpServletRequest request, HttpServletResponse response, int type) {
+	public String upload(HttpServletRequest request, HttpServletResponse response, int type) {
+		String message = "";
 		if (ServletFileUpload.isMultipartContent(request)) {
 			FileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
 			List items = null;
+			
 			try {
 				items = upload.parseRequest(request);
-				Iterator iterator = items.iterator();
 
-				FileItem item = (FileItem) iterator.next();
-				if (!item.isFormField()) {
+				for (int i = 0; i < items.size(); i++) {
+					FileItem item = ((FileItem) (items.get(i)));
+					if (item.getName() == null) {
+						continue;
+					}
 					String fileName = item.getName();
 					Date date = new Date();
 					
-					String message = "";
+					String path = "";
+					
 					// Check format
 					String format = item.getName().substring(item.getName().indexOf(".") + 1);
-					if (!format.equals(ConvertUtil.PNG) || !format.equals(ConvertUtil.BMP) || !format.equals(ConvertUtil.GIF) || !format.equals(ConvertUtil.JPG)) {
-						message = "{\"err\":\"Wrong File Format" + "" + "\",\"msg\":\"" + "/news/" + date.getTime() + fileName + "\"}";
-						System.out.println("Wrong File Format");
+					if (!format.equals(ConvertUtil.PNG) && !format.equals(ConvertUtil.JPEG) && !format.equals(ConvertUtil.BMP) && !format.equals(ConvertUtil.GIF) && !format.equals(ConvertUtil.JPG)) {
+						message = "{\"err\":\"Wrong File Format" + "" + "\",\"msg\":\"" + date.getTime() + item.getName() + "\"}";
+						System.out.println("Wrong File Format" + format);
+						continue;
 					}
 					// Check file size
 					// The size of the file item, in bytes.
 					if (item.getSize() > Integer.parseInt(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.UPLOAD_MAX_SIZE))) {
-						message = "{\"err\":\"Wrong File Size" + "" + "\",\"msg\":\"" + "/news/" + date.getTime() + fileName + "\"}";
+						message = "{\"err\":\"Wrong File Size" + "" + "\",\"msg\":\"" + date.getTime() + item.getName() + "\"}";
 						System.out.println("Wrong File Size");
+						continue;
 					}
 					
-					File uploadedFile = new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), type) + date.getTime() + fileName);
-					File file = new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), type) + fileName + "." + ConvertUtil.PNG);
-//					ConvertUtil.converter(uploadedFile, ConvertUtil.PNG, file);
-					ConvertUtil.scale(uploadedFile, file, ConvertUtil.PNG, 1000, 300, false);
-					System.out.println("Upload Success");
-					item.write(file);
+					
+					if (type == PropUtil.UPLOAD_NEWS) {
+						path = PropUtil.getProps(request.getServletContext().getRealPath("/"), "newsUrlPath") + fileName;
+					}
+					else if (type == PropUtil.UPLOAD_IMAGES) {
+						path = PropUtil.getProps(request.getServletContext().getRealPath("/"), "imagesUrlPath") + fileName;
+					}
+					
+					File uploadedFile = new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), type) + "temp");
+					item.write(uploadedFile);
+					File file = new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), type) + fileName);
 
-					response.getWriter().write(message);
+					ConvertUtil.converter(uploadedFile, ConvertUtil.PNG, file);
+
+					System.out.println("Upload Success");
+					message = "{\"err\":\"" + "" + "\",\"msg\":\"" + path + "\"}";
+					break;
 				}
 			} catch (FileUploadException e) {
 				// TODO Auto-generated catch block
@@ -864,11 +880,11 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 				e.printStackTrace();
 			}
 		}
-
+		return message;
 	}
 	
 	@Override
-	public String upload(HttpServletRequest request, HttpServletResponse response, int type, String fileName) {
+	public String upload(HttpServletRequest request, HttpServletResponse response, int type, String username) {
 		String message = "";
 		if (ServletFileUpload.isMultipartContent(request)) {
 			FileItemFactory factory = new DiskFileItemFactory();
@@ -877,57 +893,81 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 			
 			try {
 				items = upload.parseRequest(request);
-				Iterator iterator = items.iterator();
-
 				
-				for (int i = 0; i < items.size(); i++) {
-					System.out.println(((FileItem) (items.get(i))).getName() != null);
-				}
 				for (int i = 0; i < items.size(); i++) {
 //					FileItem item = (FileItem) iterator.next();
 					FileItem item = ((FileItem) (items.get(i)));
+					System.out.println(item.getName() + "**********************");
 					if (item.getName() == null) {
 						continue;
 					}
 					Date date = new Date();
 					
 					// Check format
+					String path = "";
 					String format = item.getName().substring(item.getName().indexOf(".") + 1);
 					if (!format.equals(ConvertUtil.PNG) && !format.equals(ConvertUtil.JPEG) && !format.equals(ConvertUtil.BMP) && !format.equals(ConvertUtil.GIF) && !format.equals(ConvertUtil.JPG)) {
-						message = "Wrong File Format";
+						message = "{\"err\":\"Wrong File Format" + "" + "\",\"msg\":\"" + date.getTime() + item.getName() + "\"}";
 						System.out.println("Wrong File Format" + format);
 						continue;
 					}
 					// Check file size
 					// The size of the file item, in bytes.
 					if (item.getSize() > Integer.parseInt(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.UPLOAD_MAX_SIZE))) {
-						message = "Wrong File Size";
+						message = "{\"err\":\"Wrong File Size" + "" + "\",\"msg\":\"" + date.getTime() + item.getName() + "\"}";
 						System.out.println("Wrong File Size");
 						continue;
 					}
 					
+					String fileName = PropUtil.getProps(request.getServletContext().getRealPath("/"), type) + username + "." + ConvertUtil.PNG;;
 					int width = 0, height = 0;
 					if (type == PropUtil.UPLOAD_AVATAR) {
 						width = Integer.parseInt(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.AVATAR_WIDTH));
 						height = Integer.parseInt(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.AVATAR_HEIGHT));
+						path = PropUtil.getProps(request.getServletContext().getRealPath("/"), "avatarUrlPath");
 					}
 					else if (type == PropUtil.UPLOAD_SKIN) {
 						width = Integer.parseInt(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.SKIN_WIDTH));
 						height = Integer.parseInt(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.SKIN_HEIGHT));
+						path = PropUtil.getProps(request.getServletContext().getRealPath("/"), "skinUrlPath");
+					}
+					else if (type == PropUtil.UPLOAD_NEWS) {
+						path = PropUtil.getProps(request.getServletContext().getRealPath("/"), "newsUrlPath");
+					}
+					else if (type == PropUtil.UPLOAD_IMAGES) {
+						width = Integer.parseInt(PropUtil.getProps(request.getServletContext().getRealPath("/"), "slideWidth"));
+						height = Integer.parseInt(PropUtil.getProps(request.getServletContext().getRealPath("/"), "slideHeight"));
+						path = PropUtil.getProps(request.getServletContext().getRealPath("/"), "imagesUrlPath");
+					}
+					else if (type == PropUtil.UPLOAD_USER) {
+						path = PropUtil.getProps(request.getServletContext().getRealPath("/"), type) + username + "/" + item.getName();
+						fileName = PropUtil.getProps(request.getServletContext().getRealPath("/"), type) + username + "/" + item.getName();
+						width = -1;
 					}
 					
 					File uploadedFile = new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), type) + "temp");
 					item.write(uploadedFile);
-					File file = new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), type) + fileName + "." + ConvertUtil.PNG);
+					File file = new File(fileName);
 
 					if (width > 0) {
 						ConvertUtil.scale(uploadedFile, file, ConvertUtil.PNG, width, height, false);
+						path += (username + "." + ConvertUtil.PNG);
+						
 					}
-					else {
+					else if (width == 0) {
+						path += (username + "." + ConvertUtil.PNG);
 						ConvertUtil.converter(uploadedFile, ConvertUtil.PNG, file);
 					}
+					else {
+						// Upload file
+						// Create Directory
+						new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), type) + username + "/").mkdirs();
+						item.write(file);
+						
+					}
+					message = "{\"err\":\"" + "" + "\",\"msg\":\"" + path + "\"}";
 					System.out.println("Upload Success");
-					message = "success";
+					
 					break;
 				}
 			} catch (FileUploadException e) {

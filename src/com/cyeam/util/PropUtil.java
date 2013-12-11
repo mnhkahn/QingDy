@@ -90,4 +90,17 @@ public class PropUtil {
 		}
 		return propStr;
 	}
+	
+	public static String getProps(String rootPath, String key) {
+    	try {
+    		System.out.println(rootPath + "WEB-INF\\" + pathConfFileName);
+    		InputStream is = new FileInputStream(rootPath + "WEB-INF/" + pathConfFileName);
+    		//load a properties file from class path, inside static method
+    		prop.load(is);
+    	} catch (IOException ex) {
+    		ex.printStackTrace();
+        }
+    	
+		return prop.getProperty(key);
+	}
 }

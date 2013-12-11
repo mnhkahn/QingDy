@@ -278,7 +278,7 @@ public interface FacadeManager {
 	/* 
 	 * Upload
 	 */
-	public void upload(HttpServletRequest request, HttpServletResponse response, int type);
+	public String upload(HttpServletRequest request, HttpServletResponse response, int type);
 	
 	public String upload(HttpServletRequest request, HttpServletResponse response, int type, String fileName);
 	

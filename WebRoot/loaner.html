@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css"/>
 <link rel="stylesheet" href="css/cStyle.css" />
+<link rel="stylesheet" href="css/uploadify.css" />
 
 <!--<script type="text/javascript" src='js/jquery-1.9.1.js'></script>-->
 <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
@@ -41,6 +42,7 @@
 <script type="text/javascript" src="js/jquery.tmpl.js"></script>
 <script type="text/javascript" src="js/cTemplate.js"></script>
 <script type="text/javascript" src="js/cMessage.js"></script>
+<script type="text/javascript" src="js/jquery.uploadify.min.js"></script>
 
 <script type="text/javascript">
 function showCreateBlog() {
@@ -210,6 +212,36 @@ function init() {
                         // 个人信息
                         function() {
                             $('#contentWrapper').load('/js/templates/contactSetting.html', function () {
+							$("#file_upload").uploadify({
+									'auto'     : false,
+									'swf'      : '/images/uploadify.swf',
+									'buttonText': '选择文件',
+									'fileDesc' : '文件格式(*.png;*.jpg;*.gif)',  
+									'fileExt' : '*.png;*.jpg;*.gif', //控制可上传文件的扩展名，启用本项时需同时声明fileDesc  
+									/*'multi' : false,*/
+									'uploader' : '/rest/metadata/upload/avatar/' + "loaner", 
+									'onUploadSuccess': function(file, data, response) {
+										console.debug(data);
+										var res = JSON.parse(data);
+										if (res.err == "") {
+											avatar.attr("src", res.msg + "?" + Math.random());
+											$.jBox.info('上传成功');
+										}
+										else if (res.err == "Wrong File Format") {
+											$.jBox.info('格式错误');
+										}
+										else if (res.err == "Wrong File Size") {
+											$.jBox.info('文件太大');
+										}
+										else {
+											$.jBox.info('未知错误');
+										}
+									}
+								});
+								$('#upload').on('click', function (){
+									$('#file_upload').uploadify('upload','*')
+								});
+								
                                 var avatar = $("#avatar");
                                 var username = $("#username");
                                 var groupid = $("#groupid");
@@ -227,7 +259,7 @@ function init() {
                                 var newPWD = $("#newPWD");
                                 var newPWD2 = $("#newPWD2");
                                 $.ajax({
-                                    url: '/rest/metadata/userdetail/' + "lender",
+                                    url: '/rest/metadata/userdetail/' + "loaner",
                                     type: 'GET',
                                     dataType: "json",
                                     contentType: "application/json; charset=utf-8",
@@ -255,7 +287,7 @@ function init() {
                                         type: 'PUT',
                                         dataType: "json",
                                         contentType: "application/json; charset=utf-8",
-                                        data: '{"avatar": "' + avatar.attr("src") + '", "firstname": "' + firstname.val() + '","lastname": "' + lastname.val() + '", "tel": "' + tel.val() + '","qq": "' + qq.val() + '", "site": "' + site.val() + '", "email": "' + email.val() + '", "introduce": "' + introduce.val() + '"} }',
+                                        data: '{"firstname": "' + firstname.val() + '","lastname": "' + lastname.val() + '", "tel": "' + tel.val() + '","qq": "' + qq.val() + '", "site": "' + site.val() + '", "email": "' + email.val() + '", "introduce": "' + introduce.val() + '"} }',
                                         success: function (response) {
                                             $.jBox.info('修改成功');
                                         },

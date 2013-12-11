@@ -1199,9 +1199,10 @@ public class Resources {
 	@Path("upload/avatar/{username}")
 	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON })
 	@Produces(MediaType.TEXT_PLAIN)
-	public void uploadAvatar(@Context HttpServletRequest request,
+	public Response uploadAvatar(@Context HttpServletRequest request,
 			@Context HttpServletResponse response, @PathParam("username") String username) throws IOException {
-		facadeManager.upload(request, response, PropUtil.UPLOAD_AVATAR, username);
+		String message = facadeManager.upload(request, response, PropUtil.UPLOAD_AVATAR, username);
+		return Response.ok(message).build();
 	}
 
 	@POST
@@ -1218,27 +1219,30 @@ public class Resources {
 	@Path("upload/image/{username}")
 	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON })
 	@Produces(MediaType.TEXT_PLAIN)
-	public void uploadImage(@Context HttpServletRequest request,
+	public Response uploadImage(@Context HttpServletRequest request,
 			@Context HttpServletResponse response, @PathParam("username") String username) throws IOException {
-		facadeManager.upload(request, response, PropUtil.UPLOAD_IMAGES, username);
+		String message = facadeManager.upload(request, response, PropUtil.UPLOAD_IMAGES);
+		return Response.ok(message).build();
 	}
 
 	@POST
 	@Path("upload/news")
 	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON })
 	@Produces(MediaType.TEXT_PLAIN)
-	public void uploadNews(@Context HttpServletRequest request,
+	public Response uploadNews(@Context HttpServletRequest request,
 			@Context HttpServletResponse response, @PathParam("username") String username) throws IOException {
-		facadeManager.upload(request, response, PropUtil.UPLOAD_NEWS, username);
+		String message = facadeManager.upload(request, response, PropUtil.UPLOAD_NEWS);
+		return Response.ok(message).build();
 	}
 
 	@POST
 	@Path("upload/file/{username}")
 	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON })
 	@Produces(MediaType.TEXT_PLAIN)
-	public void uploadFile(@Context HttpServletRequest request,
+	public Response uploadFile(@Context HttpServletRequest request,
 			@Context HttpServletResponse response, @PathParam("username") String username) throws IOException {
-		facadeManager.upload(request, response, PropUtil.UPLOAD_USER, username);
+		String message = facadeManager.upload(request, response, PropUtil.UPLOAD_USER, username);
+		return Response.ok(message).build();
 	}
 
 	/*
@@ -1260,6 +1264,16 @@ public class Resources {
 			throws IOException {
 		facadeManager.updateConfigFile(PropUtil.getProps(request
 				.getServletContext().getRealPath("/"), PropUtil.CONFIG_INDEX),
+				ConvertUtil.inputStream2String(request.getInputStream()));
+		return Response.noContent().build();
+	}
+	
+	@POST
+	@Path("config/tmpl")
+	public Response updateTmplHTML(@Context HttpServletRequest request)
+			throws IOException {
+		facadeManager.updateConfigFile(PropUtil.getProps(request
+				.getServletContext().getRealPath("/"), "tmplPath"),
 				ConvertUtil.inputStream2String(request.getInputStream()));
 		return Response.noContent().build();
 	}

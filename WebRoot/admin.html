@@ -74,7 +74,7 @@ function verify(type, id, value) {
 //            jBox.tip(v, 'info');
 
             return true; //close
-    };
+    };	
     var msgConfirm = value ? "确定激活吗？" : "确定关闭吗？";
     $.jBox.confirm(msgConfirm, "确认", submit);
 
@@ -109,7 +109,7 @@ function showCreateNews() {
                 }
             });
         });
-        $("#categorySel").data("placeholder", "请选择").chosen();
+
         $('#content').xheditor({
             upImgUrl: "/rest/metadata/upload/news",
             upImgExt: "jpg,jpeg,gif,png",
@@ -401,7 +401,34 @@ function init() {
                         // 广告管理
                         function () {
                             $('#List').load('/js/templates/webShow.html', function () {
-
+								$("#preview").on('click', function() {
+									$.ajax({
+										url: "rest/metadata/config/tmpl",
+										type: "POST",
+										dataType: "json",
+										data: $("#content").val(),
+										success: function(response) {
+											window.open("/ad/tmpl.html",'_blank')
+										},
+										error: function(response) {
+											console.debug(response);
+										}
+									})
+								});
+								$("#submit").on('click', function() {
+									$.ajax({
+										url: "rest/metadata/config/tmpl",
+										type: "POST",
+										dataType: "json",
+										data: $("#content").val(),
+										success: function(response) {
+											window.open("/ad/tmpl.html",'_blank');
+										},
+										error: function(response) {
+											console.debug(response);
+										}
+									})
+								});
                             });
                         },
                         // 首页Slide

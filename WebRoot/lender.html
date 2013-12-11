@@ -353,14 +353,20 @@ function init() {
 									/*'multi' : false,*/
 									'uploader' : '/rest/metadata/upload/skin/' + username, 
 									'onUploadSuccess': function(file, data, response) {
-										if (data == "success") {
+										console.debug(data);
+										var res = JSON.parse(data);
+										if (res.err == "") {
+											avatar.attr("src", res.msg + "?" + Math.random());
 											$.jBox.info('上传成功');
 										}
-										else if (data == "Wrong File Format") {
+										else if (res.err == "Wrong File Format") {
 											$.jBox.info('格式错误');
 										}
-										else if (data == "Wrong File Size") {
+										else if (res.err == "Wrong File Size") {
 											$.jBox.info('文件太大');
+										}
+										else {
+											$.jBox.info('未知错误');
 										}
 									}
 								});
@@ -572,6 +578,36 @@ function init() {
                         // 个人信息
                         function () {
                             $('#contentWrapper').load('/js/templates/contactSetting.html', function () {
+								$("#file_upload").uploadify({
+									'auto'     : false,
+									'swf'      : '/images/uploadify.swf',
+									'buttonText': '选择文件',
+									'fileDesc' : '文件格式(*.png;*.jpg;*.gif)',  
+									'fileExt' : '*.png;*.jpg;*.gif', //控制可上传文件的扩展名，启用本项时需同时声明fileDesc  
+									/*'multi' : false,*/
+									'uploader' : '/rest/metadata/upload/avatar/' + "lender", 
+									'onUploadSuccess': function(file, data, response) {
+										console.debug(data);
+										var res = JSON.parse(data);
+										if (res.err == "") {
+											avatar.attr("src", res.msg + "?" + Math.random());
+											$.jBox.info('上传成功');
+										}
+										else if (res.err == "Wrong File Format") {
+											$.jBox.info('格式错误');
+										}
+										else if (res.err == "Wrong File Size") {
+											$.jBox.info('文件太大');
+										}
+										else {
+											$.jBox.info('未知错误');
+										}
+									}
+								});
+								$('#upload').on('click', function (){
+									$('#file_upload').uploadify('upload','*')
+								});
+								
                                 var avatar = $("#avatar");
                                 var username = $("#username");
                                 var groupid = $("#groupid");
@@ -594,7 +630,7 @@ function init() {
                                     dataType: "json",
                                     contentType: "application/json; charset=utf-8",
                                     success: function (response) {
-                                        avatar.attr("src", response.avatar);
+                                        avatar.attr("src", response.avatar + "?" + Math.random());
                                         username.html(response.username);
                                         groupid.html(response.groupId == 1 ? "借贷者" : "放贷者");
                                         gender.html(response.gender == 1 ? "男" : "女");
@@ -617,8 +653,9 @@ function init() {
                                         type: 'PUT',
                                         dataType: "json",
                                         contentType: "application/json; charset=utf-8",
-                                        data: '{"avatar": "' + avatar.attr("src") + '", "firstname": "' + firstname.val() + '","lastname": "' + lastname.val() + '", "tel": "' + tel.val() + '","qq": "' + qq.val() + '", "site": "' + site.val() + '", "email": "' + email.val() + '", "introduce": "' + introduce.val() + '"} }',
+                                        data: '{"firstname": "' + firstname.val() + '","lastname": "' + lastname.val() + '", "tel": "' + tel.val() + '","qq": "' + qq.val() + '", "site": "' + site.val() + '", "email": "' + email.val() + '", "introduce": "' + introduce.val() + '"} }',
                                         success: function (response) {
+											avatar.attr("src", data);
                                             $.jBox.info('修改成功');
                                         },
                                         error: function (response) {
