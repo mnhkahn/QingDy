@@ -1,4 +1,5 @@
-################### Synchronize Github #######################
+## Synchronize Github
+
 # Force Synchronize
 git reset --hard HEAD
 git clean -f
@@ -9,10 +10,10 @@ git status
 git commit -a""
 git push origin master
 
-################### Import & Export MySql #####################
+# Import & Export MySql
 create user 'qingdy'@'localhost' identified by '';
-mysqldump -u root -p QingDy > 1.sql
-mysql -u root -p QingDy < 1.sql
+mysqldump -u qingdy -p QingDy > C:/Users/Bryce/Documents/GitHub/QingDy/data/1.sql
+mysql -u qingdy -p QingDy < 1.sql
 
-################### UnZip File ################################
+# UnZip File
 unzip -d [DIRECTRY]

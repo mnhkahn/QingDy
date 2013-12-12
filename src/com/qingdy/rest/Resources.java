@@ -1257,6 +1257,16 @@ public class Resources {
 				ConvertUtil.inputStream2String(request.getInputStream()));
 		return Response.noContent().build();
 	}
+	
+	@POST
+	@Path("config/slide/preview")
+	public Response updateSlidePreviewJson(@Context HttpServletRequest request)
+			throws IOException {
+		facadeManager.updateConfigFile(PropUtil.getProps(request
+				.getServletContext().getRealPath("/"), "slidePreviewPath"),
+				ConvertUtil.inputStream2String(request.getInputStream()));
+		return Response.noContent().build();
+	}
 
 	@POST
 	@Path("config/index")

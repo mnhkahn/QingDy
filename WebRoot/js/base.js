@@ -6,7 +6,7 @@ function commonInit(type, keyword) {
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url: 'data/top.json',
+		url: '/data/top.json',
 		success: function(arr) {
 			$.ajax({
 				type: "GET",

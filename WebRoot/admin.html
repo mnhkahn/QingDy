@@ -415,9 +415,19 @@ function init() {
 										}
 									})
 								});
+								var url = "";
+								if ($("#categorySel").val() == "index") {
+									url = "rest/metadata/config/index";
+								}
+								else if ($("#categorySel").val() == "news") {
+									url = "rest/metadata/config/news";
+								}
+								else {
+									url = "rest/metadata/config/ad";
+								}
 								$("#submit").on('click', function() {
 									$.ajax({
-										url: "rest/metadata/config/tmpl",
+										url: url,
 										type: "POST",
 										dataType: "json",
 										data: $("#content").val(),
@@ -434,7 +444,56 @@ function init() {
                         // 首页Slide
                         function () {
                             $('#List').load('/js/templates/slide.html', function () {
-
+								$.ajax({
+									type: "GET",
+									dataType: "json",
+									url: 'data/slide.json',
+									success: function (arr) {
+										$("#code").html(JSON.stringify(arr, null, 4));
+									},
+									error: function (response) {
+										console.error(response);
+									}
+								});
+								$.ajax({
+									type: "GET",
+									dataType: "json",
+									url: 'ad/slide.json',
+									success: function (arr) {
+										$("#content").html(JSON.stringify(arr, null, 4));
+									},
+									error: function (response) {
+										console.error(response);
+									}
+								});
+								$("#preview").on('click', function() {
+									$.ajax({
+										url: "rest/metadata/config/slide/preview",
+										type: "POST",
+										dataType: "json",
+										data: $("#content").val(),
+										success: function(response) {
+											window.open("/ad/slide.html",'_blank')
+										},
+										error: function(response) {
+											console.debug(response);
+										}
+									})
+								});
+								$("#submit").on('click', function() {
+									$.ajax({
+										url: "rest/metadata/config/slide",
+										type: "POST",
+										dataType: "json",
+										data: $("#content").val(),
+										success: function(response) {
+											window.open("/ad/tmpl.html",'_blank');
+										},
+										error: function(response) {
+											console.debug(response);
+										}
+									})
+								});
                             });
                         }
                 )

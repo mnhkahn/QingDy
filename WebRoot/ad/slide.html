@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>欢迎来到青帝网</title>
+
+    <link rel="Shortcut Icon" href="favicon.ico">
+    <link href="/css/base.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/index.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/grid-accordion.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/flexisel.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/css/chosen.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/bootstrap.css"/>
+
+    <script type="text/javascript" src='/js/jquery-1.9.1.js'></script>
+    <script type="text/javascript" src='/js/cTop.js'></script>
+    <script type="text/javascript" src='/js/cSlide.js'></script>
+    <script type="text/javascript" src="/js/jquery.gridAccordion.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.flexisel.js"></script>
+    <script type="text/javascript" src="/js/animateBackground-plugin.js"></script>
+    <script type="text/javascript" src="/js/cNews.js"></script>
+    <script type="text/javascript" src="/js/chosen.jquery.js"></script>
+    <script type="text/javascript" src="/js/base.js"></script>
+    <script type="text/javascript" src="/js/util.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript" src="/js/cSearch.js"></script>
+    <script type="text/javascript" src="/js/cForum.js"></script>
+    <script type="text/javascript" src="/js/cTemplate.js"></script>
+    <script type="text/javascript" src="/js/jquery.tmpl.js"></script>
+
+    <!--
+    <script src=" http://s22.cnzz.com/z_stat.php?id=1000077791&amp;show=pic2" type="text/javascript"></script>
+    <script src="http://c.cnzz.com/cnzz_core_v3.php?web_id=1000077791&amp;show=pic2&amp;l=none" charset="utf-8" type="text/javascript"></script>
+
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000077791'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1000077791%26show%3Dpic2' type='text/javascript'%3E%3C/script%3E"));</script>
+    -->
+    <script type="text/javascript">
+        function init() {
+            commonInit();
+
+            $('#VSlideContainer').cForum(['mallCount', 'specialistCount', 'transactionCount'], "/rest/metadata/forum?rows=20"/*'/data/tests/count.json'*/);
+
+            $('#newsContainer1').cNews(NEWS, '/rest/metadata/news?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc'/* 'data/tests/news.json'*/);
+            $('#newsContainer2').cNews(QUESTION, "/rest/metadata/question?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc"/*'data/tests/news1.json'*/);
+            $('#newsContainer3').cNews(BLOG, "/rest/metadata/blog?rows=5&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc"/*'data/tests/news2.json'*/);
+
+            var size = new Object;
+            size.width = 700;
+            size.height = 300;
+
+            var slideWindow;
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: '/ad/slide.json',
+                success: function (arr) {
+                    slideWindow = cSlide.create('bannerContainer', size, arr);
+                },
+                error: function (response) {
+                    console.error(response);
+                }
+            });
+
+            // create product grid
+            $("#productUl").cTemplate("/rest/metadata/product?rows=4&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc", "/js/templates/grid4.html",
+                    function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            data[i].link = getLink(PRODUCT, data[i].id);
+                        }
+                    }
+            );
+
+            // create demand grid
+            $("#demandUl").cTemplate("/rest/metadata/loan?rows=6&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc", "/js/templates/grid6.html",
+                    function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            data[i].link = getLink(LOAN, data[i].id);
+                        }
+                    }
+            );
+            // create specialist grid
+            $("#specialistUl").cTemplate("/rest/metadata/specialist?rows=8&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc", "/js/templates/grid8.html",
+                    function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            data[i].link = getLink(SPECIALIST, data[i].id);
+                        }
+                    }
+            );
+            // create mall grid
+            $("#mallUl").cTemplate("/rest/metadata/mall?rows=6&page=1&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc", "/js/templates/grid6.html",
+                    function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            data[i].link = getLink(MALL, data[i].id);
+                        }
+                    }
+            );
+
+            // create bank container
+            $('#bankContainer').load('/data/bankFlex.html', function () {
+                $("#bankUl").flexisel({
+                    visibleItems: 5,
+                    animationSpeed: 1000,
+                    autoPlay: true,
+                    autoPlaySpeed: 3000,
+                    pauseOnHover: true,
+                    enableResponsiveBreakpoints: true,
+                    responsiveBreakpoints: {
+                        portrait: {
+                            changePoint: 480,
+                            visibleItems: 1
+                        },
+                        landscape: {
+                            changePoint: 640,
+                            visibleItems: 2
+                        },
+                        tablet: {
+                            changePoint: 768,
+                            visibleItems: 3
+                        }
+                    }
+                });
+            });
+            $('#recommendContainer').load('/ad/index.html', function () {
+            });
+        }
+    </script>
+
+</head>
+
+<body onload='init()'>
+<div id="searchboxContainer" class="searchboxContainer">
+</div>
+<div id="mainContainer" class="mainContainer">
+    <div id="mianContainerTop" class="mianContainerTop">
+        <div id="bannerContainer" class="bannerContainer">
+        </div>
+        <div id="transactionContainer" class="transactionContainer">
+            <div class="newsTitle" id="newsTitle">诚信服务机构</div>
+            <div class="trustContianer" style="height: 83px">
+                <p class="p_02"><img src="/images/trust1.jpg"><br>认证机构</p>
+
+                <p class="p_02"><img src="/images/trust2.jpg"><br>成功才收费</p>
+
+                <p class="p_02"><img src="/images/trust3.jpg"><br>免费咨询</p>
+
+                <div class="clear"></div>
+            </div>
+            <div class="trustContianer" style="height: 59px">
+                <div class="p_02">
+                    <div id="total">
+                            <span class="t_num" id="mallCount">
+                            </span>
+                    </div>
+                    <span>服务机构</span>
+                </div>
+                <div class="p_02">
+                    <div id="total">
+                        <span class="t_num" id="specialistCount">
+                        </span>
+                    </div>
+                    <span>资深顾问</span>
+                </div>
+                <div class="p_02">
+                    <div id="total">
+                        <span class="t_num" id="transactionCount">
+                        </span>
+                    </div>
+                    <span>客户的信赖</span>
+                </div>
+            </div>
+            <div id="VSlideContainer" class="VSlideContainer" style="height: 118px">
+            </div>
+        </div>
+    </div>
+    <div id='newsContainer' class="newsContainer">
+        <div id="newsContainer1" style="float: left;width: 330px;">
+        </div>
+        <div id="newsContainer2"
+             style="float: left;width: 330px; border-left: 1px solid rgb(221,221,221); border-right: 1px solid rgb(221,221,221);">
+        </div>
+        <div id="newsContainer3" style="float: left;width: 330px;">
+        </div>
+    </div>
+    <div id="wrapperContainer">
+        <div id="mianContainerCenter" class="mianContainerCenter">
+            <div class="newsTitle" id="newsTitle" style="margin-top: 10px">贷款产品</div>
+            <div id="prodcutContainer" class="gridContainer">
+                <ul class="accordion" id="productUl" style="margin: 0 auto;">
+                </ul>
+            </div>
+            <div class="newsTitle" id="newsTitle" style="margin-top: 10px">贷款需求</div>
+            <div id="demandContainer" class="gridContainer">
+                <ul class="accordion" id="demandUl" style="margin: 0 auto;">
+                </ul>
+            </div>
+            <div class="newsTitle" id="newsTitle" style="margin-top: 10px">贷款专家</div>
+            <div id="specialistContainer" class="gridContainer">
+                <ul class="accordion" id="specialistUl" style="margin: 0 auto;">
+                </ul>
+            </div>
+            <div class="newsTitle" id="newsTitle" style="margin-top: 10px">信贷机构</div>
+            <div id="mallContainer" class="gridContainer">
+                <ul class="accordion" id="mallUl" style="margin: 0 auto;">
+                </ul>
+            </div>
+        </div>
+        <div id="recommendContainer" class="recommendContainer">
+        </div>
+    </div>
+    <div id="bankContainer" class="bankContainer">
+    </div>
+</div>
+<!--    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000077791'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1000077791%26show%3Dpic2' type='text/javascript'%3E%3C/script%3E"));</script>-->
+<div id="footContainer" class="footContainer">
+
+</div>
+
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?uid=1368719936583355"
+        charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UJian Button BEGIN -->
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>
+<!-- UJian Button END -->
+</body>
+</html>
