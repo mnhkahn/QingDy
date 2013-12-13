@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/chosen.css" />
     <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" midia="all" href="css/jqpagination.css" />
 
 	<script type="text/javascript" src='js/jquery-1.7.2.js'></script>
     <script type="text/javascript" src="js/jquery.jBox-2.3.min.js"></script>
@@ -21,6 +22,9 @@
     <script type="text/javascript" src="js/cSearch.js" ></script>
     <script type="text/javascript" src="js/cMenuFloat.js"></script>
     <script type="text/javascript" src="js/cQuestion.js"></script>
+    <script type="text/javascript" src="js/jquery.jqpagination.min.js"></script>
+    <script type="text/javascript" src="js/jquery.tmpl.js"></script>
+
 	<link rel = "Shortcut Icon" href="favicon.ico">
 
 <script type="text/javascript">
@@ -28,8 +32,10 @@ function init() {
 	commonInit();
     $('#questionClass').cMenuFloat('/data/questionMenu.json');
 
+    search();
+    loadPagination();
     // default size & page
-    var size = 10;
+/*    var size = 10;
     var page = 1;
     $(".page .items").autobrowse(
             {
@@ -63,7 +69,7 @@ function init() {
                 useCache: true,
                 expiration: 1
             }
-    );
+    );           */
     $.cQuestion("个人贷款创业贷款");
 
     $("#submit").bind("click", function() {
@@ -84,6 +90,53 @@ function init() {
             }
         });
     })
+}
+function loadPagination() {
+    // Load pagination
+    cType = "";
+    if ($("#filterSel").val() != "不限") {
+        cType = $("#filterSel").val();
+    }
+    $.ajax({
+        url: "/rest/metadata/question/count",
+        type: 'HEAD',
+        success: function(res, status, xhr) {
+            count = Number(xhr.getResponseHeader("count"));
+            $("#searchCount").html(count);
+            $('.pagination').jqPagination({
+                max_page :     Math.ceil(count / DEFAULT_SIZE),
+                link_string	: '/?page={page_number}',
+                page_string: '第{current_page}页，一共有{max_page}页',
+                paged: function(page) {
+                    console.debug(page);
+                    search(page);
+                }
+            });
+        },
+        error: function(response) {
+            console.error(response);
+        }
+    });
+}
+function search(page) {
+    $("#waterfall").empty();
+    if (!page) {
+        page = 1;
+    }
+    $.get("js/templates/questionTmpl.html", function (template) {
+        $.template("questionTmpl", template);
+        $.ajax({
+            url: "/rest/metadata/question?rows=" + DEFAULT_SIZE + "&page=" + page + "&searchField=content&searchString=&searchOper=cn&sidx=postDate&sord=asc",
+            type: "GET",
+            dataType: "json",
+            success: function (response) {
+                $.tmpl("questionTmpl", response).appendTo("#waterfall");
+            },
+            error: function (response) {
+                console.warn(response);
+            }
+        })
+    });
 }
 </script>
 
@@ -123,11 +176,17 @@ function init() {
 				</div>
                 </div>
             </div>
-            <div id="waterfall" class="waterfall" style="border-top: 1px solid rgb(221,221,221);">
-                <div class="newsTitle">为您推荐的提问
-                </div>
-                <div class='page'>
-                    <div class='items' ></div>
+            <div class="newsTitle" style="border-top: 1px solid rgb(221,221,221);">为您推荐的提问
+            </div>
+            <div id="waterfall" class="waterfall">
+            </div>
+            <div style="padding-left: 195px;">
+                <div class="pagination" style="margin: 0">
+                    <a href="#" class="first" data-action="first">&laquo;</a>
+                    <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+                    <input type="text" readonly="readonly" data-max-page="40" />
+                    <a href="#" class="next" data-action="next">&rsaquo;</a>
+                    <a href="#" class="last" data-action="last">&raquo;</a>
                 </div>
             </div>
    		</div>

@@ -24,7 +24,7 @@
             <column name="OID" />
         </property>
         <property name="type" type="java.lang.Integer">
-            <column name="type" />
+            <column name="TYPE" />
         </property>
     </class>
 </hibernate-mapping>

@@ -8,7 +8,11 @@ public interface FavouriteDao extends DAO {
 
 	public void addFavourite(Favourite favourite);
 	
+	public void deleteFavourite(Favourite favourite);
+	
 	public void deleteFavourite(Long id);
+	
+	public void deleteFavourite(Integer type, Long oid, String username);
 	
 	public List<Favourite> getFavourites(String username);
 	

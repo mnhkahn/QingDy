@@ -33,6 +33,10 @@ public class Constant {
 	public static final Integer NEWS = 9;
 	public static final Integer USER = 10;
 	
+	public static final Integer ALREADY_ADD = 2;
+	public static final Integer ERROR_ADD = 0;
+	public static final Integer SUCCESS_ADD = 1;
+	
 	public static final String DATE_FORMAT = "yyyy-MM-dd";
 	
 	public static Class getClass(Integer type) {

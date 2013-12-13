@@ -591,6 +591,14 @@ public class Resources {
 				field, value, operator, sidx, sord, false);
 		return Response.ok(questions).build();
 	}
+	
+	@Path("/question/count")
+	@HEAD
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVerifiedQuestionCount() {
+		Long count = facadeManager.getQuestionCount();
+		return Response.noContent().header("count", count).build();
+	}
 
 	/*
 	 * Answer
@@ -738,6 +746,9 @@ public class Resources {
 	@POST
 	public Response addNews(News news) {
 		news.setPostDate(new Date());
+		System.out.println(news.getPoster().getUsername());
+		System.out.println(news.getContent());
+		System.out.println(news.getId());
 		facadeManager.saveNews(news);
 		return Response.status(Response.Status.CREATED).build();
 	}
@@ -1157,8 +1168,14 @@ public class Resources {
 	@POST
 	public Response addFavourite(Favourite favourite) {
 		favourite.setPostDate(new Date());
-		facadeManager.addFavourite(favourite);
-		return Response.noContent().build();
+		if (facadeManager.addFavourite(favourite) == Constant.SUCCESS_ADD) {
+			System.out.println("##########################");
+			return Response.noContent().build();
+		}
+		else {
+			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$");
+			return Response.status(Response.Status.CONFLICT).build();
+		}
 	}
 
 	@Path("/favourite/{id}")
@@ -1166,6 +1183,17 @@ public class Resources {
 	public Response deleteFavourite(@PathParam("id") Long id) {
 		facadeManager.deleteFavourite(id);
 		return Response.noContent().build();
+	}
+	
+	@Path("/favourite/id/{id}/type/{type}/username/{username}")
+	@DELETE
+	public Response deleteFavourite(@PathParam("id") Long oid, @PathParam("type") Long type, @PathParam("username") String username) {
+		UserDetail user = facadeManager.getUserDetail(username);
+		Favourite favourite = new Favourite();
+		favourite.setOid(oid);
+		favourite.setPoster(user);
+		facadeManager.deleteFavourite(favourite);
+		return Response.status(Response.Status.MOVED_PERMANENTLY).build();
 	}
 
 	@Path("/favourite/username/{username}")
@@ -1180,6 +1208,7 @@ public class Resources {
 	@HEAD
 	public Response getFavouriteCount(@PathParam("type") Integer type,
 			@PathParam("id") Long oid) {
+		System.out.println(type + "******************" + oid);
 		int id = facadeManager.getFavouriteCount(type, oid);
 		return Response.noContent().header("count", id).build();
 	}

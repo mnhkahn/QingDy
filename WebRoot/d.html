@@ -7,9 +7,10 @@
     <link href="css/base.css" rel="stylesheet" type="text/css" />
     <link href="css/flexisel.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/chosen.css" />
+    <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
 	<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css"/>
 
-    <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
+    <script type="text/javascript" src='js/jquery-1.7.2.js'></script>
     <script type="text/javascript" src="js/platform.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
     <script src="https://smart-ip.net/geoip-json?callback=getClientInfo"></script>
@@ -17,6 +18,8 @@
     <script type="text/javascript" src="js/base.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src='js/cTop.js'></script>
+    <script type="text/javascript" src="js/jquery.jBox-2.3.min.js"></script>
+    <script type="text/javascript" src="js/i18n/jquery.jBox-zh-CN.js"></script>
     <script type="text/javascript" src="js/jquery.flexisel.js"></script>
     <script type="text/javascript" src="js/jquery.esn.autobrowse.js"></script>
     <script type="text/javascript" src="js/jstorage.js"></script>
@@ -42,8 +45,15 @@
                     type: "GET",
                     dataType: "json",
                     success: function(response) {
+                        response.type = LOAN;
+                        response.content = decodeURIComponent(response.content);
                         $.tmpl("dTmpl", response).appendTo("#mainContainerCenterLeft");
                         contact($("#recommendContainerRight "), response.poster.username);
+
+                        getVisits(LOAN, id);
+                        // Favourites
+                        isFavourite(LOAN, id, username);
+                        $("#favouriteCount").html(getFavouriteCount(LOAN, id));
                     },
                     error: function(response) {
                         console.warn(response);
@@ -75,7 +85,7 @@
         charset="utf-8"></script>
 <!-- JiaThis Button END -->
 <!-- UJian Button BEGIN -->
-<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>
+<!--<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>-->
 <!-- UJian Button END -->
 </body>
 </html>

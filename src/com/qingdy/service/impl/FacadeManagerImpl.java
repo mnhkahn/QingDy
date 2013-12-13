@@ -437,6 +437,11 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	public void bestAnswer(Long qid, Long aid) {
 		questionDao.bestAnswer(qid, aid);
 	}
+	
+	@Override
+	public Long getQuestionCount() {
+		return questionDao.getQuestionCount();
+	}
 
 	/*
 	 * Answer(non-Javadoc)
@@ -787,13 +792,33 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 */
 
 	@Override
-	public void addFavourite(Favourite favourite) {
-		favouriteDao.addFavourite(favourite);
+	public Integer addFavourite(Favourite favourite) {
+		System.out.println(favourite.getType());
+		System.out.println(favourite.getOid()+ favourite.getPoster().getUsername());
+		if (isFavourite(favourite.getType(), favourite.getOid(), favourite.getPoster().getUsername())) {
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			return Constant.ALREADY_ADD;
+		}
+		else {
+			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			favouriteDao.addFavourite(favourite);
+			return Constant.SUCCESS_ADD;
+		}
 	}
 
 	@Override
+	public void deleteFavourite(Favourite favourite) {
+		favouriteDao.deleteFavourite(favourite);
+	}
+	
+	@Override
 	public void deleteFavourite(Long id) {
 		favouriteDao.deleteFavourite(id);
+	}
+	
+	@Override
+	public void deleteFavourite(Integer type, Long oid, String username) {
+		
 	}
 
 	@Override

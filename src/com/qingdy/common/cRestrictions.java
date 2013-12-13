@@ -7,8 +7,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
-import sun.security.jca.GetInstance.Instance;
-
 import com.cyeam.util.ConvertUtil;
 import com.cyeam.util.StringUtil;
 

@@ -34,15 +34,26 @@ public class FavouriteDaoHibernate extends BaseDaoHibernate implements
 
 	@Override
 	public Integer getFavouriteCount(Integer type, Long oid) {
-		int count = getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Constant.getClass(type)).add(Restrictions.eq("id", oid))).size();
+		int count = getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Favourite.class).add(Restrictions.eq("oid", oid)).add(Restrictions.eq("type", type))).size();
 		return count;
 	}
 
 	@Override
 	public boolean isFavourite(Integer type, Long oid, String username) {
 		UserDetail user = getHibernateTemplate().get(UserDetail.class, username);
-		int count = getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Constant.getClass(type)).add(Restrictions.eq("id", oid)).add(Restrictions.eq("poster", user))).size();
-		return count == 1 ? true : false;
+		int count = getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Favourite.class).add(Restrictions.eq("oid", oid)).add(Restrictions.eq("type", type)).add(Restrictions.eq("poster", user))).size();
+		return count >= 1 ? true : false;
+	}
+
+	@Override
+	public void deleteFavourite(Integer type, Long oid, String username) {
+		
+	}
+
+	@Override
+	public void deleteFavourite(Favourite favourite) {
+		List<Favourite> favourites = getHibernateTemplate().findByExample(favourite);
+		getHibernateTemplate().delete(favourites.get(0));
 	}
 
 }

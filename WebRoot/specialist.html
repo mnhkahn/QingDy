@@ -9,6 +9,7 @@
     <link href="css/flexisel.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="css/chosen.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" midia="all" href="css/jqpagination.css" />
 
     <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
     <script type="text/javascript" src="js/base.js"></script>
@@ -19,6 +20,8 @@
     <script type="text/javascript" src="js/jstorage.js"></script>
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script type="text/javascript" src="js/cSearch.js"></script>
+    <script type="text/javascript" src="js/jquery.jqpagination.min.js"></script>
+    <script type="text/javascript" src="js/jquery.tmpl.js"></script>
 
     <link rel="Shortcut Icon" href="favicon.ico">
     <script type="text/javascript">
@@ -53,12 +56,66 @@
             $('#filter').load('/js/templates/specialistFilter.html', function () {
                 $("#specialistSel").change(function () {
                     search();
+                    loadPagination();
                 });
                 search();
+                loadPagination();
             });
         }
-        function search() {
-            $(".page .items").empty();
+        function loadPagination() {
+            // Load pagination
+            var spe = "";
+            if ($("#specialistSel").val() != "不限") {
+                spe = $("#specialistSel").val();
+            }
+            $.ajax({
+                url: "/rest/metadata/specialist/nkeys/count?searchField=specialist&searchString=" + spe + "&searchOper=cn",
+                type: 'HEAD',
+                success: function(res, status, xhr) {
+                    count = Number(xhr.getResponseHeader("count"));
+                    $("#searchCount").html(count);
+                    $('.pagination').jqPagination({
+                        max_page :     Math.ceil(count / DEFAULT_SIZE),
+                        link_string	: '/?page={page_number}',
+                        page_string: '第{current_page}页，一共有{max_page}页',
+                        paged: function(page) {
+                            console.debug(page);
+                            search(page);
+                        }
+                    });
+                },
+                error: function(response) {
+                    console.error(response);
+                }
+            });
+        }
+        function search(page) {
+            $("#waterfall").empty();
+            if (!page) {
+                page = 1;
+            }
+            var spe = "";
+            if ($("#specialistSel").val() != "不限") {
+                spe = $("#specialistSel").val();
+            }
+            $.get("js/templates/specialistTmpl.html", function (template) {
+                $.template("specialistTmpl", template);
+                $.ajax({
+                    url: "/rest/metadata/specialist?rows=" + DEFAULT_SIZE + "&page=" + page + "&searchField=specialist&searchString=" + spe + "&searchOper=cn&sidx=postDate&sord=asc",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        for (var i = 0; i < response.length; i++) {
+                            response[i].link = getLink(SPECIALIST, response[i].id);
+                        }
+                        $.tmpl("specialistTmpl", response).appendTo("#waterfall");
+                    },
+                    error: function (response) {
+                        console.warn(response);
+                    }
+                })
+            });
+/*            $(".page .items").empty();
             // default size & page
             var size = 10;
             var page = 1;
@@ -115,7 +172,7 @@
                         expiration: 1
                     }
 
-            );
+            );   */
         }
     </script>
 
@@ -135,8 +192,15 @@
         </div>
         <h6><small>找到约 <span id="searchCount"></span> 条结果</small></h6>
         <div id="waterfall" class="waterfall">
-            <div class='page'>
-                <div class='items'></div>
+
+        </div>
+        <div style="padding-left: 280px;">
+            <div class="pagination" style="margin: 0">
+                <a href="#" class="first" data-action="first">&laquo;</a>
+                <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+                <input type="text" readonly="readonly" data-max-page="40" />
+                <a href="#" class="next" data-action="next">&rsaquo;</a>
+                <a href="#" class="last" data-action="last">&raquo;</a>
             </div>
         </div>
     </div>
@@ -150,7 +214,7 @@
         charset="utf-8"></script>
 <!-- JiaThis Button END -->
 <!-- UJian Button BEGIN -->
-<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>
+<!--<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>-->
 <!-- UJian Button END -->
 </body>
 </html>

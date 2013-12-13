@@ -9,6 +9,7 @@
     <link href="css/flexisel.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="css/chosen.css"/>
     <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" midia="all" href="css/jqpagination.css" />
 
     <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
     <script type="text/javascript" src="js/base.js"></script>
@@ -20,6 +21,8 @@
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script type="text/javascript" src="js/cArea.js"></script>
     <script type="text/javascript" src="js/cSearch.js"></script>
+    <script type="text/javascript" src="js/jquery.jqpagination.min.js"></script>
+    <script type="text/javascript" src="js/jquery.tmpl.js"></script>
 
     <link rel="Shortcut Icon" href="favicon.ico">
 
@@ -53,94 +56,95 @@
             });
 
             $('#filter').load('/js/templates/supplyFilter.html', function () {
-                $.cArea(DEFAULT_AREA);
+                $.cArea("请选择请选择");
 
                 $("#clientSel").change(function () {
                     search();
+                    loadPagination();
                 });
                 $("#ueseofloanSel").change(function () {
                     search();
+                    loadPagination();
                 });
                 $("#searchAmount").click(function () {
                     search();
+                    loadPagination();
                 });
                 $("#searchLocation").click(function () {
                     search();
+                    loadPagination();
                 });
                 search();
+                loadPagination();
             });
         }
-        function search() {
-            $(".page .items").empty();
-
-            // default size & page
-            /*
-             第一次获得的item个数是第二次的offset。需要计算page，防止载入重复的item
-             */
-            var size = 10;
-            var page = 1;
-            $(".page .items").autobrowse(
-                    {
-                        url: function (offset) {
-                            console.debug("offset" + offset);
-                            var client = "", usesofloan = "", min = 0, max = 10, location = $("#provinceSel").val() + $('#citySel').val();
-                            if ($("#clientSel").val() != "不限") {
-                                client = $("#clientSel").val();
-                            }
-                            if ($("#ueseofloanSel").val() != "不限") {
-                                usesofloan = $("#ueseofloanSel").val();
-                            }
-                            if ($("#min").val() != "0" || $("#max").val() != "10") {
-                                min = $("#min").val();
-                                max = $("#max").val();
-                            }
-                            $.ajax({
-                                url: "/rest/metadata/product/nkeys/count?&searchField=clientLocation&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=client&searchString=" + client + "&searchOper=cn&searchField=min&searchString=" + min + "&searchOper=bw&searchField=max&searchString=" + max + "&searchOper=ew",
-                                type: 'HEAD',
-                                success: function(res, status, xhr) {
-                                    count = xhr.getResponseHeader("count")
-                                    $("#searchCount").html(count);
-                                },
-                                error: function(response) {
-                                    console.error(response);
-                                }
-                            });
-                            console.debug("/rest/metadata/product/nkeys?rows=" + 10 + "&page=" + 1 + "&searchField=clientLocation&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=client&searchString=" + client + "&searchOper=cn&searchField=min&searchString=" + min + "&searchOper=bw&searchField=max&searchString=" + max + "&searchOper=ew&sidx=postDate&sord=asc");
-                            return "/rest/metadata/product/nkeys?rows=" + 10 + "&page=" + 1 + "&searchField=clientLocation&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=client&searchString=" + client + "&searchOper=cn&searchField=min&searchString=" + min + "&searchOper=bw&searchField=max&searchString=" + max + "&searchOper=ew&sidx=postDate&sord=asc";//"/data/tests/supplyWaterfall.json";
-                        },
-                        template: function (response) {
-                            var markup = '';
-                            for (var i = 0; i < response.length; i++) {
-                                markup += '<a target="_blank" href="' + getLink(PRODUCT, response[i].mall.id) + '"><div class="hover" style="width:786px;height:98px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
-                                        '<div class="p_left"><img width="48" height="48" alt="' + response[i].poster.lastname + '经理" src="' + response[i].poster.avatar + '">' +
-                                        '<p>' + response[i].poster.lastname + '经理</p>' +
-                                        '</div>' +
-                                        '<div class="p_right" style="box-sizing: content-box;">' +
-                                        '<h5 style="margin-top: 0px;">' + response[i].pName + '</h5>' +
-                                        '<div class="clear_both"></div>' +
-                                        '<span class="p1">' + response[i].clientLocation + '</span>' +
-                                        '<span class="p2">贷款用途：' + response[i].usesofloan + '</span>' +
-                                        '<span class="p2">抵押贷款</span>' +
-                                        '<span style="width: 40px">额度：</span>' +
-                                        '<span class="p4">' + response[i].min + '万-' + response[i].max + '万</span>' +
-                                        '<div class="clear_both"></div>' +
-                                        '<p>' + response[i].content + '.</p>' +
-                                        '</div></div></a>';
-                            }
-
-                            return markup;
-                        },
-                        itemsReturned: function (response) {
-                            console.debug("response" + response.length);
-                            return response.length;
-                        },
-                        offset: 0,
-                        max: count,
-                        loader: '<div class="loader"></div>',
-                        useCache: true,
-                        expiration: 1
+        function loadPagination() {
+            // Load pagination
+            var client = "", usesofloan = "", min = 0, max = 10, location = $("#provinceSel").val() + $('#citySel').val();
+            if ($("#clientSel").val() != "不限") {
+                client = $("#clientSel").val();
+            }
+            if ($("#ueseofloanSel").val() != "不限") {
+                usesofloan = $("#ueseofloanSel").val();
+            }
+            if ($("#min").val() != "0" || $("#max").val() != "10") {
+                min = $("#min").val();
+                max = $("#max").val();
+            }
+            $.ajax({
+                url: "/rest/metadata/product/nkeys/count?&searchField=clientLocation&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=client&searchString=" + client + "&searchOper=cn&searchField=min&searchString=" + min + "&searchOper=bw&searchField=max&searchString=" + max + "&searchOper=ew",
+                type: 'HEAD',
+                success: function(res, status, xhr) {
+                    count = Number(xhr.getResponseHeader("count"));
+                    $("#searchCount").html(count);
+                    $('.pagination').jqPagination({
+                        max_page :     Math.ceil(count / DEFAULT_SIZE),
+                        link_string	: '/?page={page_number}',
+                        page_string: '第{current_page}页，一共有{max_page}页',
+                        paged: function(page) {
+                            console.debug(page);
+                            search(page);
+                        }
+                    });
+                },
+                error: function(response) {
+                    console.error(response);
+                }
+            });
+        }
+        function search(page) {
+            $("#waterfall").empty();
+            if (!page) {
+                page = 1;
+            }
+            var client = "", usesofloan = "", min = 0, max = 10, location = $("#provinceSel").val() + $('#citySel').val();
+            if ($("#clientSel").val() != "不限") {
+                client = $("#clientSel").val();
+            }
+            if ($("#ueseofloanSel").val() != "不限") {
+                usesofloan = $("#ueseofloanSel").val();
+            }
+            if ($("#min").val() != "0" || $("#max").val() != "10") {
+                min = $("#min").val();
+                max = $("#max").val();
+            }
+            $.get("js/templates/productTmpl.html", function (template) {
+                $.template("productTmpl", template);
+                $.ajax({
+                    url: "/rest/metadata/product/nkeys?rows=" + DEFAULT_SIZE + "&page=" + page + "&searchField=clientLocation&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=client&searchString=" + client + "&searchOper=cn&searchField=min&searchString=" + min + "&searchOper=bw&searchField=max&searchString=" + max + "&searchOper=ew&sidx=postDate&sord=asc",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                       for (var i = 0; i < response.length; i++) {
+                            response[i].link = getLink(PRODUCT, response[i].mall.id);
+                        }
+                        $.tmpl("productTmpl", response).appendTo("#waterfall");
+                    },
+                    error: function (response) {
+                        console.warn(response);
                     }
-            );
+                })
+            });
         }
     </script>
 
@@ -159,9 +163,14 @@
         </div>
         <h6><small>找到约 <span id="searchCount"></span> 条结果</small></h6>
         <div id="waterfall" class="waterfall">
-
-            <div class='page'>
-                <div class='items'></div>
+        </div>
+        <div style="padding-left: 280px;">
+            <div class="pagination" style="margin: 0">
+                <a href="#" class="first" data-action="first">&laquo;</a>
+                <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+                <input type="text" readonly="readonly" data-max-page="40" />
+                <a href="#" class="next" data-action="next">&rsaquo;</a>
+                <a href="#" class="last" data-action="last">&raquo;</a>
             </div>
         </div>
     </div>
@@ -176,7 +185,7 @@
         charset="utf-8"></script>
 <!-- JiaThis Button END -->
 <!-- UJian Button BEGIN -->
-<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>
+<!--<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>-->
 <!-- UJian Button END -->
 </body>
 </html>

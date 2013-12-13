@@ -413,6 +413,81 @@ function getFavouriteCount(type, id) {
     return count;
 }
 
+function addFavourite(type, oid, username) {
+    if ($("#isFav_" + oid).html() == "收藏") {
+        $.ajax({
+            url: "/rest/metadata/favourite",
+            type: 'POST',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: '{"poster": {"username": "' + username + '"}, "title": "' + document.title + '", "link": "' + window.location.href + '", "oid": ' + oid + ', "type": ' + type + '}',
+            success: function (data, textStatus, jqXHR) {
+                $.jBox.confirm("收藏成功", "消息", refresh);
+            },
+            error: function(response, textStatus, jqXHR) {
+                if (jqXHR == "Conflict") {
+                    $.jBox.confirm("请勿重复收藏", "消息", refresh);
+                    //jBox.info("请勿重复收藏");
+                    //refresh();
+                }
+                else {
+                    $.jBox.confirm("收藏失败", "消息", refresh);
+                   //jBox.info("收藏失败");
+                    //refresh();
+                }
+                console.warn(response);
+            }
+        });
+    }
+    // unfavourite
+    else {
+        $.ajax({
+            url: "/rest/metadata/favourite/id/" + oid + "/type/" + type + "/username/" + username,
+            type: 'DELETE',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data, textStatus, jqXHR) {
+                if (jqXHR == "Moved Permanently") {
+                    $.jBox.confirm("取消收藏成功", "消息", refresh);
+                    // jBox.info("取消收藏成功");
+                    //  refresh();
+                }
+                else
+                    $.jBox.confirm("取消收藏失败", "消息", refresh);
+            },
+            error: function(response, textStatus, jqXHR) {
+                if (jqXHR == "Moved Permanently") {
+                    $.jBox.confirm("取消收藏成功", "消息", refresh);
+                   // jBox.info("取消收藏成功");
+                 //  refresh();
+                }
+                else
+                    $.jBox.confirm("取消收藏失败", "消息", refresh);
+              //      jBox.info("取消收藏失败");
+                console.warn(response);
+            }
+        });
+    }
+}
+
+function isFavourite(type, oid, username) {
+    $.ajax({
+        url: "http://localhost:8080/rest/metadata/favourite/type/" + type + "/id/" + oid + "/username/" + username,
+        type: "HEAD",
+        success: function(response, textStatus, jqXHR) {
+            if (jqXHR.getResponseHeader("is") == "true") {
+                $("#isFav_" + oid).html("取消收藏");
+            }
+            else {
+                $("#isFav_" + oid).html("收藏");
+            }
+        },
+        error: function(response, textStatus, jqXHR) {
+            console.warn(response);
+        }
+    });
+}
+
 function visit(type, id) {
     var url = "/rest/metadata/visit/";
     var json = '{"oid":' + id + ',"type":' + type + ', "user":{"username":"' + username + '"},"ip":"' + client.host +'","startDate":"' + client.startDate + '", "endDate": "' + client.endDate + '","city":"' + client.city + '","browser":"' + client.brower + '","resolution":"' + client.resolution + '","os":"' + client.os + '","fromSource":"' + client.fromSource + '","isp":"' + client.isp + '"}';
@@ -599,7 +674,7 @@ function getVisits(type, id) {
         success: function(response, status, xhr) {
             var count = xhr.getResponseHeader("count");
             console.debug(count);
-            $("#" + getTypeStr(type) + "_" + id).html(count);
+            $("#visit_" + id).html(count);
         },
         error: function(response) {
             console.warn(response);

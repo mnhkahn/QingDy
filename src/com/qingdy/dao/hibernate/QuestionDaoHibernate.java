@@ -68,4 +68,11 @@ public class QuestionDaoHibernate extends BaseDaoHibernate implements QuestionDa
 		saveQuestion(question);
 	}
 
+	@Override
+	public Long getQuestionCount() {
+		List<Long> values  = getHibernateTemplate().findByNamedQuery("queryQuestionCount");
+		System.out.println(values.get(0));
+		return values.get(0);
+	}
+
 }

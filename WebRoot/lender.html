@@ -50,7 +50,7 @@ function showCreateBlog() {
             var uid = 45;
             var title = $('#title').val();
             var category = $('#categorySel').val();
-            var content = $('#content').val();
+            var content = encodeURIComponent($('#content').val());
             console.debug(uid, title, category, content);
             var json = '{"title": "' + title + '", "content":"' + content + '", "poster": {"username":"' + username + '"}, "category":"' + category + '"}';
             $.ajax({

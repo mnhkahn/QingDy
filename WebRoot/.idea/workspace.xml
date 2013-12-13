@@ -4,12 +4,12 @@
     <list default="true" id="b14e6cac-5e52-418a-929a-af09b8a6c2a2" name="Default" comment="" />
     <ignored path="WebRoot.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/admin.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379832987312" ignored="false" />
+    <file path="/admin.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386923761989" ignored="false" />
     <file path="$PROJECT_DIR$/WEB-INF/web.xml" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1373158197979" ignored="false" />
     <file path="/blog.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379771429429" ignored="false" />
     <file path="/adminMenu.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1373200930538" ignored="false" />
     <file path="/base.css" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379770265770" ignored="false" />
-    <file path="/lender.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379845753326" ignored="false" />
+    <file path="/lender.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386941214239" ignored="false" />
     <file path="/cTab.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1373292905388" ignored="false" />
     <file path="/a.dummy" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378273043869" ignored="false" />
     <file path="/mymall.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375108785037" ignored="false" />
@@ -30,25 +30,25 @@
     <file path="/specialistGrid.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378128957417" ignored="false" />
     <file path="/mallGrid.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378868889881" ignored="false" />
     <file path="/bankFlex.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374498973005" ignored="false" />
-    <file path="/supply.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378876971958" ignored="false" />
+    <file path="/supply.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386914593517" ignored="false" />
     <file path="/supplyFilter.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375597550099" ignored="false" />
-    <file path="/specialist.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378877090040" ignored="false" />
-    <file path="/mall.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1380123063556" ignored="false" />
+    <file path="/specialist.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386916750492" ignored="false" />
+    <file path="/mall.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386922309718" ignored="false" />
     <file path="/cVSlide.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375337639130" ignored="false" />
     <file path="/supplyTemplate.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374670995619" ignored="false" />
     <file path="/supplyWaterfall.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374674423936" ignored="false" />
     <file path="/postQuestion.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374675090249" ignored="false" />
     <file path="/mallWaterfall.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374676808113" ignored="false" />
     <file path="/loanWaterfall.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375364502348" ignored="false" />
-    <file path="/demand.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378877166451" ignored="false" />
+    <file path="/demand.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386918569138" ignored="false" />
     <file path="/cNews.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378795922331" ignored="false" />
     <file path="/news.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1374821610992" ignored="false" />
     <file path="/news.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378877956264" ignored="false" />
     <file path="/cVisitors.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378296538335" ignored="false" />
     <file path="/cTop.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377398552329" ignored="false" />
     <file path="/m.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379846474200" ignored="false" />
-    <file path="/advisory.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377524267989" ignored="false" />
-    <file path="/base.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1380123848824" ignored="false" />
+    <file path="/advisory.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386922117447" ignored="false" />
+    <file path="/base.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386940288409" ignored="false" />
     <file path="/questionWaterfall.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375098688207" ignored="false" />
     <file path="/cMenuFloat.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375104235977" ignored="false" />
     <file path="/questionMenu.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375102952136" ignored="false" />
@@ -63,12 +63,12 @@
     <file path="/blogDetail.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375278564078" ignored="false" />
     <file path="/transactionDetail.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378875304013" ignored="false" />
     <file path="/blogDetail.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375279938158" ignored="false" />
-    <file path="/p.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378905024596" ignored="false" />
+    <file path="/p.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386942799697" ignored="false" />
     <file path="/p.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375323830461" ignored="false" />
     <file path="/a.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375325854617" ignored="false" />
     <file path="/q.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375324281792" ignored="false" />
     <file path="/a.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375330483327" ignored="false" />
-    <file path="/q.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377525608127" ignored="false" />
+    <file path="/q.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386944232722" ignored="false" />
     <file path="/answerBlock.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1377525343210" ignored="false" />
     <file path="/productGrid.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375341690556" ignored="false" />
     <file path="/cForum.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378781379410" ignored="false" />
@@ -81,7 +81,7 @@
     <file path="/s.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379849692250" ignored="false" />
     <file path="/productDetail.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375364084788" ignored="false" />
     <file path="/d.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375406477881" ignored="false" />
-    <file path="/d.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378866874004" ignored="false" />
+    <file path="/d.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386943896730" ignored="false" />
     <file path="/contact.json" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375409707895" ignored="false" />
     <file path="/cArea.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375581915270" ignored="false" />
     <file path="/cSelect.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1375584802761" ignored="false" />
@@ -96,11 +96,11 @@
     <file path="/cMessage.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379836703079" ignored="false" />
     <file path="/message.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379836836822" ignored="false" />
     <file path="/cStyle.css" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378202727074" ignored="false" />
-    <file path="$PROJECT_DIR$/WEB-INF/classes/com/qingdy/model/query.xml" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378260205369" ignored="false" />
+    <file path="$PROJECT_DIR$/WEB-INF/classes/com/qingdy/model/query.xml" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386921731353" ignored="false" />
     <file path="/cSearch.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378273314887" ignored="false" />
     <file path="$PROJECT_DIR$/WEB-INF/classes/com/qingdy/model/Visit.hbm.xml" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378296376977" ignored="false" />
     <file path="/util.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379845291567" ignored="false" />
-    <file path="/p1.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378864042547" ignored="false" />
+    <file path="/p1.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386943086021" ignored="false" />
     <file path="/bulletin.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378869359109" ignored="false" />
     <file path="/changePWD.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378884265074" ignored="false" />
     <file path="/cTemplate.js" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1378902726163" ignored="false" />
@@ -114,6 +114,10 @@
     <file path="/myNews.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379777850676" ignored="false" />
     <file path="/messageStation.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379831838170" ignored="false" />
     <file path="/foot.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1379870515413" ignored="false" />
+    <file path="/mallTmpl.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386912853307" ignored="false" />
+    <file path="/productTmpl.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386914856717" ignored="false" />
+    <file path="/specialistTmpl.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386916811841" ignored="false" />
+    <file path="/loanImpl.html" changelist="b14e6cac-5e52-418a-929a-af09b8a6c2a2" time="1386917542254" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,13 +136,67 @@
     <favorites_list name="WebRoot" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.41812867">
+    <splitter split-orientation="horizontal" split-proportion="0.5298635">
       <split-first>
         <leaf>
-          <file leaf-file-name="base.js" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="base.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/base.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="511" column="1" selection-start="13111" selection-end="13111" vertical-scroll-proportion="0.8357934">
+                <state line="476" column="66" selection-start="13022" selection-end="13022" vertical-scroll-proportion="-24.18">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="admin.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/admin.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="104" column="26" selection-start="4193" selection-end="4197" vertical-scroll-proportion="-1.8846154">
+                  <folding>
+                    <marker date="1386925572497" expanded="false" signature="9258:9281" placeholder="..." />
+                    <marker date="1386925572497" expanded="false" signature="9705:9728" placeholder="..." />
+                    <marker date="1386925572497" expanded="false" signature="14006:14029" placeholder="..." />
+                    <marker date="1386925572497" expanded="false" signature="14458:14481" placeholder="..." />
+                    <marker date="1386925572497" expanded="false" signature="18264:18287" placeholder="..." />
+                    <marker date="1386925572497" expanded="false" signature="18713:18736" placeholder="..." />
+                    <marker date="1386925572497" expanded="false" signature="21960:21983" placeholder="..." />
+                    <marker date="1386925572497" expanded="false" signature="22416:22439" placeholder="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="lender.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/lender.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="52" column="72" selection-start="3122" selection-end="3122" vertical-scroll-proportion="-6.785714">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="p.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/js/templates/p.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="10" column="239" selection-start="789" selection-end="831" vertical-scroll-proportion="-2.4358974">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="q.html" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/q.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="46" column="48" selection-start="2462" selection-end="2462" vertical-scroll-proportion="0.14980544">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="q.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/js/templates/q.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="9" column="276" selection-start="580" selection-end="580" vertical-scroll-proportion="-6.107143">
                   <folding />
                 </state>
               </provider>
@@ -148,40 +206,11 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="mall.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/mall.html">
+          <file leaf-file-name="p1.html" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/p1.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="73" column="12" selection-start="2641" selection-end="2641" vertical-scroll-proportion="-0.6785714">
-                  <folding>
-                    <marker date="1380548227282" expanded="false" signature="3944:4044" placeholder="..." />
-                    <marker date="1380548227282" expanded="false" signature="4347:4359" placeholder="..." />
-                    <marker date="1380548227282" expanded="false" signature="4728:4741" placeholder="..." />
-                    <marker date="1380548227282" expanded="false" signature="4843:4854" placeholder="..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/index.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="81" column="34" selection-start="4098" selection-end="4208" vertical-scroll-proportion="0.6108949">
-                  <folding>
-                    <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#div#3;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#div#2;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#div#2;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#ul#0;n#div#3;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#div#4;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#ul#0;n#div#5;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#div#6;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#ul#0;n#div#7;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                  </folding>
+                <state line="50" column="7" selection-start="2439" selection-end="2439" vertical-scroll-proportion="0.57327586">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -198,22 +227,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/ask.html" />
-        <option value="$PROJECT_DIR$/d.html" />
-        <option value="$PROJECT_DIR$/demand.html" />
-        <option value="$PROJECT_DIR$/m.html" />
-        <option value="$PROJECT_DIR$/news.html" />
-        <option value="$PROJECT_DIR$/p.html" />
-        <option value="$PROJECT_DIR$/p1.html" />
-        <option value="$PROJECT_DIR$/postQuestion.html" />
-        <option value="$PROJECT_DIR$/product.html" />
-        <option value="$PROJECT_DIR$/q.html" />
         <option value="$PROJECT_DIR$/specialist.html" />
-        <option value="$PROJECT_DIR$/supply.html" />
-        <option value="$PROJECT_DIR$/js/templates/foot.html" />
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/js/base.js" />
+        <option value="$PROJECT_DIR$/js/templates/loanImpl.html" />
+        <option value="$PROJECT_DIR$/demand.html" />
+        <option value="$PROJECT_DIR$/js/templates/questionTmpl.html" />
+        <option value="$PROJECT_DIR$/advisory.html" />
         <option value="$PROJECT_DIR$/mall.html" />
+        <option value="$PROJECT_DIR$/admin.html" />
+        <option value="$PROJECT_DIR$/lender.html" />
+        <option value="$PROJECT_DIR$/js/base.js" />
+        <option value="$PROJECT_DIR$/js/templates/p.html" />
+        <option value="$PROJECT_DIR$/p1.html" />
+        <option value="$PROJECT_DIR$/p.html" />
+        <option value="$PROJECT_DIR$/js/templates/d.html" />
+        <option value="$PROJECT_DIR$/d.html" />
+        <option value="$PROJECT_DIR$/js/templates/q.html" />
+        <option value="$PROJECT_DIR$/q.html" />
       </list>
     </option>
   </component>
@@ -263,7 +292,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -324,40 +352,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WebRoot" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WebRoot" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WebRoot" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WebRoot" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="ad" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -366,8 +367,8 @@
     <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -413,13 +414,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981302" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17274758" sideWeight="0.6701031" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12732688" sideWeight="0.6701031" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -499,107 +500,155 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/demand.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="29" selection-start="5953" selection-end="5953" vertical-scroll-proportion="-17.0" />
+        <state line="149" column="76" selection-start="7208" selection-end="7208" vertical-scroll-proportion="0.26293105">
+          <folding>
+            <element signature="n#style#0;n#div#3;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#3;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1386918570918" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386918570918" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1386918570918" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1386918570918" expanded="false" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lender.html">
+    <entry file="file://$PROJECT_DIR$/js/templates/mallTmpl.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="0" selection-start="2498" selection-end="2498" vertical-scroll-proportion="-16.464285" />
+        <state line="0" column="31" selection-start="0" selection-end="840" vertical-scroll-proportion="-0.0">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#a#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#a#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h5#0;n#div#1;n#div#0;n#a#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#div#1;n#div#0;n#a#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#2;n#div#1;n#div#0;n#a#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/m.html">
+    <entry file="file://$PROJECT_DIR$/js/templates/questionTmpl.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="219" column="29" selection-start="8892" selection-end="8892" vertical-scroll-proportion="-16.107143" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/news.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="29" selection-start="4461" selection-end="4461" vertical-scroll-proportion="0.8832685" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/p.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="0" selection-start="3093" selection-end="3093" vertical-scroll-proportion="0.88614804" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/p1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="25" selection-start="3016" selection-end="3016" vertical-scroll-proportion="0.88614804" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/postQuestion.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="25" selection-start="2019" selection-end="2019" vertical-scroll-proportion="0.88614804" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/product.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="555" selection-end="555" vertical-scroll-proportion="0.20683111" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/q.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="25" selection-start="5426" selection-end="5426" vertical-scroll-proportion="0.8832685" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="8.142858" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/supply.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="143" column="29" selection-start="5735" selection-end="5735" vertical-scroll-proportion="0.8832685" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/specialist.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="135" column="29" selection-start="5749" selection-end="5749" vertical-scroll-proportion="0.8832685" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/templates/foot.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="8" selection-start="1276" selection-end="1276" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="511" column="1" selection-start="13111" selection-end="13111" vertical-scroll-proportion="0.8357934">
-          <folding />
+        <state line="7" column="4" selection-start="326" selection-end="326" vertical-scroll-proportion="-4.75">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mall.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="12" selection-start="2641" selection-end="2641" vertical-scroll-proportion="-0.6785714">
+        <state line="112" column="76" selection-start="4961" selection-end="4961" vertical-scroll-proportion="-9.5">
           <folding>
-            <marker date="1380548227282" expanded="false" signature="3944:4044" placeholder="..." />
-            <marker date="1380548227282" expanded="false" signature="4347:4359" placeholder="..." />
-            <marker date="1380548227282" expanded="false" signature="4728:4741" placeholder="..." />
-            <marker date="1380548227282" expanded="false" signature="4843:4854" placeholder="..." />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#3;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/advisory.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="34" selection-start="4098" selection-end="4208" vertical-scroll-proportion="0.6108949">
+        <state line="131" column="42" selection-start="5597" selection-end="5597" vertical-scroll-proportion="-12.928572">
           <folding>
-            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#0;n#div#3;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#4;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#0;n#div#5;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#6;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#0;n#div#7;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#div#1;n#div#0;n#div#3;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#3;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#div#2;n#div#0;n#div#3;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#3;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/util.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="16" selection-start="1512" selection-end="1519" vertical-scroll-proportion="-2.74">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="104" column="26" selection-start="4193" selection-end="4197" vertical-scroll-proportion="-1.8846154">
+          <folding>
+            <marker date="1386925572497" expanded="false" signature="9258:9281" placeholder="..." />
+            <marker date="1386925572497" expanded="false" signature="9705:9728" placeholder="..." />
+            <marker date="1386925572497" expanded="false" signature="14006:14029" placeholder="..." />
+            <marker date="1386925572497" expanded="false" signature="14458:14481" placeholder="..." />
+            <marker date="1386925572497" expanded="false" signature="18264:18287" placeholder="..." />
+            <marker date="1386925572497" expanded="false" signature="18713:18736" placeholder="..." />
+            <marker date="1386925572497" expanded="false" signature="21960:21983" placeholder="..." />
+            <marker date="1386925572497" expanded="false" signature="22416:22439" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lender.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="72" selection-start="3122" selection-end="3122" vertical-scroll-proportion="-6.785714">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/p.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="39" selection-start="2667" selection-end="2667" vertical-scroll-proportion="-2.4358974">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/templates/d.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="239" selection-start="711" selection-end="711" vertical-scroll-proportion="6.107143">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/d.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="61" selection-start="2686" selection-end="2686" vertical-scroll-proportion="0.4455253">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/templates/p.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="239" selection-start="789" selection-end="831" vertical-scroll-proportion="-2.4358974">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/templates/q.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="276" selection-start="580" selection-end="580" vertical-scroll-proportion="-6.107143">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="476" column="66" selection-start="13022" selection-end="13022" vertical-scroll-proportion="-24.18">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/p1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="7" selection-start="2439" selection-end="2439" vertical-scroll-proportion="0.57327586">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/q.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="48" selection-start="2462" selection-end="2462" vertical-scroll-proportion="0.14980544">
+          <folding />
         </state>
       </provider>
     </entry>

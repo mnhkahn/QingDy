@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/chosen.css"/>
     <link rel="stylesheet" href="css/select2Buttons.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" midia="all" href="css/jqpagination.css" />
 
     <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
     <script type="text/javascript" src="js/jQuery.select2Buttons.js"></script>
@@ -21,6 +22,8 @@
     <script type="text/javascript" src="js/jstorage.js"></script>
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/jquery.jqpagination.min.js"></script>
+    <script type="text/javascript" src="js/jquery.tmpl.js"></script>
 
     <link rel="Shortcut Icon" href="favicon.ico">
     <script type="text/javascript">
@@ -54,80 +57,66 @@
             });
 
             $('#filter').load('/js/templates/mallFilter.html', function () {
-/*                var args = new Object();
-                args = GetUrlParms();
-
-                var type = args['type'];
-
-                var i = getFilter(type, $("select[name='simple-select'] option"));*/
                 $("#filterSel").select2Buttons();
 
                 $("#filterSel").change(function () {
                     search();
+                    loadPagination();
                 });
                 search();
-//                $(".select-buttons li:eq(" + i + ") a").click();
+                loadPagination();
             });
 
         }
-        function search() {
-            $(".page .items").empty();
-            $(".page .items").autobrowse(
-                    {
-                        url: function (offset) {
-                            cType = "";
-                            if ($("#filterSel").val() != "不限") {
-                                cType = $("#filterSel").val();
-                            }
-//                    setURLFilter(args['type'], cType);
-                            // default size & page
-                            var size = 10;
-                            var page = 1;
-                            // http://localhost:8080/rest/metadata/mall?rows=10&page=1&searchField=cType&searchString=&searchOper=cn&sidx=postDate&sord=asc
-
-                            $.ajax({
-                                url: "/rest/metadata/mall/nkeys/count?searchField=cType&searchString=" + cType + "&searchOper=cn",
-                                type: 'HEAD',
-                                success: function(res, status, xhr) {
-                                    $("#searchCount").html(xhr.getResponseHeader("count"));
-                                },
-                                error: function(response) {
-                                    console.error(response);
-                                }
-                            });
-                            console.debug("/rest/metadata/mall?rows=" + size + "&page=" + parseInt(page, 10) + "&searchField=cType&searchString=" + cType + "&searchOper=cn&sidx=postDate&sord=asc");
-                            return "/rest/metadata/mall?rows=" + size + "&page=" + parseInt(page, 10) + "&searchField=cType&searchString=" + cType + "&searchOper=cn&sidx=postDate&sord=asc";//"/data/tests/mallWaterfall.json";
-                        },
-                        template: function (response) {
-                            var markup = '';
-                            for (var i = 0; i < response.length; i++) {
-                                markup += '<a target="_blank" href="' + getLink(MALL, response[i].id) + '"><div class="hover" style="width:786px;height:98px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">' +
-                                        '<div class="p_left"><img width="80" height="80" alt="' + response[i].poster.lastname + '经理" src="' + response[i].poster.avatar + '">' +
-                                        '</div>' +
-                                        '<div class="p_right" style="width: 690px; box-sizing: content-box;">' +
-                                        '<h5 style="margin-top: 5px">' + response[i].poster.lastname + response[i].poster.firstname + '</h5>' +
-                                        '<div class="clear_both"></div>' +
-                                        '<span class="p1">' + response[i].clientLocation + '</span>' +
-                                        '<span class="p2" style="width: 400px;">贷款用途：' + response[i].usesofloan + '</span>' +
-                                        '<span style="width: 40px">电话：</span>' +
-                                        '<span class="p4">' + response[i].cPhoneNumber + '</span>' +
-                                        '<div class="clear_both"></div>' +
-                                        '<p>' + response[i].content + '.</p>' +
-                                        '</div></div></a>';
-                            }
-                            ;
-
-                            return markup;
-                        },
-                        itemsReturned: function (response) {
-                            return response.length;
-                        },
-                        offset: 0,
-                        loader: '<div class="loader"></div>',
-                        useCache: true,
-                        expiration: 1
+        function loadPagination() {
+            // Load pagination
+            cType = "";
+            if ($("#filterSel").val() != "不限") {
+                cType = $("#filterSel").val();
+            }
+            $.ajax({
+                url: "/rest/metadata/mall/nkeys/count?searchField=cType&searchString=" + cType + "&searchOper=cn",
+                type: 'HEAD',
+                success: function(res, status, xhr) {
+                    count = Number(xhr.getResponseHeader("count"));
+                    $("#searchCount").html(count);
+                    $('.pagination').jqPagination({
+                        max_page :     Math.ceil(count / DEFAULT_SIZE),
+                        link_string	: '/?page={page_number}',
+                        page_string: '第{current_page}页，一共有{max_page}页',
+                        paged: function(page) {
+                            console.debug(page);
+                            search(page);
+                        }
+                    });
+                },
+                error: function(response) {
+                    console.error(response);
+                }
+            });
+        }
+        function search(page) {
+            $("#waterfall").empty();
+            if (!page) {
+                page = 1;
+            }
+            $.get("js/templates/mallTmpl.html", function (template) {
+                $.template("mallTmpl", template);
+                $.ajax({
+                    url: "/rest/metadata/mall?rows=" + DEFAULT_SIZE + "&page=" + page + "&searchField=cType&searchString=" + cType + "&searchOper=cn&sidx=postDate&sord=asc",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        for (var i = 0; i < response.length; i++) {
+                            response[i].link = getLink(MALL, response[i].id);
+                        }
+                        $.tmpl("mallTmpl", response).appendTo("#waterfall");
+                    },
+                    error: function (response) {
+                        console.warn(response);
                     }
-            );
+                })
+            });
         }
     </script>
 
@@ -145,10 +134,17 @@
         </div>
         <div id="filter" style="width: 786px; height: 82px; border: 1px solid rgb(221,221,221);border-radius: 5px;" class="filter container">
         </div>
-        <h6><small>找到约 <span id="searchCount"></span> 条结果</small></h6>
+        <h6><small>找到约 <span id="searchCount">0</span> 条结果</small></h6>
         <div id="waterfall" class="waterfall">
-            <div class='page'>
-                <div class='items'></div>
+
+        </div>
+        <div style="padding-left: 280px;">
+            <div class="pagination" style="margin: 0">
+                <a href="#" class="first" data-action="first">&laquo;</a>
+                <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+                <input type="text" readonly="readonly" data-max-page="40" />
+                <a href="#" class="next" data-action="next">&rsaquo;</a>
+                <a href="#" class="last" data-action="last">&raquo;</a>
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@
     <link href="css/base.css" rel="stylesheet" type="text/css"/>
     <link href="css/flexisel.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="css/chosen.css"/>
-    <!--<link rel="stylesheet" href="css/datepicker.css" />-->
+    <link rel="stylesheet" type="text/css" midia="all" href="css/jqpagination.css" />
     <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css" />
 
     <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
@@ -22,7 +22,9 @@
     <script type="text/javascript" src="js/cSearch.js"></script>
     <script type="text/javascript" src="js/cArea.js"></script>
     <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="js/locales/bootstrap-datepicker.zh-CN.js"></script>	
+    <script type="text/javascript" src="js/locales/bootstrap-datepicker.zh-CN.js"></script>
+    <script type="text/javascript" src="js/jquery.jqpagination.min.js"></script>
+    <script type="text/javascript" src="js/jquery.tmpl.js"></script>
 
     <link rel="Shortcut Icon" href="favicon.ico">
     <script type="text/javascript">
@@ -55,7 +57,7 @@
             });
 
             $('#filter').load('/js/templates/loanFilter.html', function () {
-                $.cArea(DEFAULT_AREA);
+                $.cArea("请选择请选择");
                 var date = $("#datepicker");
                 date.datepicker({
                     format: 'yyyy-mm-dd',
@@ -63,21 +65,108 @@
                 });
                 $("#pawnSel").change(function () {
                     search();
+                    loadPagination();
                 });
                 $("#ueseofloanSel").change(function () {
                     search();
+                    loadPagination();
                 });
                 $("#searchDate").click(function() {
                     search();
+                    loadPagination();
                 })
                 $("#searchLocation").click(function () {
                     search();
+                    loadPagination();
                 });
                 search();
+                loadPagination();
             });
         }
-        function search() {
-            $(".page .items").empty();
+        function loadPagination() {
+            // Load pagination
+            var url = "";
+            var location = $("#provinceSel").val() + $('#citySel').val(), hasPawn = 0, startTime, endTime, usesofloan = "";
+            startTime = $("#startTime").val();
+            endTime = $("#endTime").val();
+            if ($("#ueseofloanSel").val() != "不限") {
+                usesofloan = $("#ueseofloanSel").val();
+            }
+            if ($("#pawnSel").val() != "不限") {
+                if ($("#pawnSel").val() == "抵押贷款") {
+                    hasPawn = 1;
+                }
+                else {
+                    hasPawn = 0;
+                }
+                url = "/rest/metadata/loan/nkeys/count?searchField=location&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=startTime&searchString=" + startTime + "&searchOper=bw&searchField=endTime&searchString=" + endTime + "&searchOper=ew&searchField=hasPawn&searchString=" + hasPawn + "&searchOper=eq";
+            }
+            else {
+                url = "/rest/metadata/loan/nkeys/count?searchField=location&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=startTime&searchString=" + startTime + "&searchOper=bw&searchField=endTime&searchString=" + endTime + "&searchOper=ew";
+            }
+            $.ajax({
+                url: url,
+                type: 'HEAD',
+                success: function(res, status, xhr) {
+                    count = Number(xhr.getResponseHeader("count"));
+                    $("#searchCount").html(count);
+                    $('.pagination').jqPagination({
+                        max_page :     Math.ceil(count / DEFAULT_SIZE),
+                        link_string	: '/?page={page_number}',
+                        page_string: '第{current_page}页，一共有{max_page}页',
+                        paged: function(page) {
+                            console.debug(page);
+                            search(page);
+                        }
+                    });
+                },
+                error: function(response) {
+                    console.error(response);
+                }
+            });
+        }
+        function search(page) {
+            $("#waterfall").empty();
+            if (!page) {
+                page = 1;
+            }
+            var location = $("#provinceSel").val() + $('#citySel').val(), hasPawn = 0, startTime, endTime, usesofloan = "";
+            startTime = $("#startTime").val();
+            endTime = $("#endTime").val();
+            if ($("#ueseofloanSel").val() != "不限") {
+                usesofloan = $("#ueseofloanSel").val();
+            }
+            var searchURL = "";
+            if ($("#pawnSel").val() != "不限") {
+                if ($("#pawnSel").val() == "抵押贷款") {
+                    hasPawn = 1;
+                }
+                else {
+                    hasPawn = 0;
+                }
+                searchURL = "/rest/metadata/loan/nkeys?rows=" + DEFAULT_SIZE + "&page=" + page + "&searchField=location&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=startTime&searchString=" + startTime + "&searchOper=bw&searchField=endTime&searchString=" + endTime + "&searchOper=ew&searchField=hasPawn&searchString=" + hasPawn + "&searchOper=eq&sidx=postDate&sord=asc";//"/data/tests/loanWaterfall.json";
+            }
+            else {
+                searchURL = "/rest/metadata/loan/nkeys?rows=" + DEFAULT_SIZE + "&page=" + page + "&searchField=location&searchString=" + location + "&searchOper=eq&searchField=usesofloan&searchString=" + usesofloan + "&searchOper=cn&searchField=startTime&searchString=" + startTime + "&searchOper=bw&searchField=endTime&searchString=" + endTime + "&searchOper=ew&sidx=postDate&sord=asc";//"/data/tests/loanWaterfall.json";
+            }
+            $.get("js/templates/loanImpl.html", function (template) {
+                $.template("loanImpl", template);
+                $.ajax({
+                    url: searchURL,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        for (var i = 0; i < response.length; i++) {
+                            response[i].link = getLink(LOAN, response[i].id);
+                        }
+                        $.tmpl("loanImpl", response).appendTo("#waterfall");
+                    },
+                    error: function (response) {
+                        console.warn(response);
+                    }
+                })
+            });
+/*            $(".page .items").empty();
             // default size & page
             var size = 10;
             var page = 1;
@@ -146,7 +235,7 @@
                         useCache: true,
                         expiration: 1
                     }
-            );
+            );  */
         }
     </script>
 </head>
@@ -165,8 +254,15 @@
         </div>
         <h6><small>找到约 <span id="searchCount"></span> 条结果</small></h6>
         <div id="waterfall" class="waterfall">
-            <div class='page'>
-                <div class='items'></div>
+
+        </div>
+        <div style="padding-left: 280px;">
+            <div class="pagination" style="margin: 0">
+                <a href="#" class="first" data-action="first">&laquo;</a>
+                <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+                <input type="text" readonly="readonly" data-max-page="40" />
+                <a href="#" class="next" data-action="next">&rsaquo;</a>
+                <a href="#" class="last" data-action="last">&raquo;</a>
             </div>
         </div>
     </div>

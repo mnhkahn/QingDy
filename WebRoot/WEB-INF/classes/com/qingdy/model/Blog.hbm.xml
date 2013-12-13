@@ -8,7 +8,7 @@
 		</id>
  		<property name="title" column="TITLE" length="50" not-null="true">
 		</property>
-		<property name="content" column="CONTENT" length="3000" not-null="true">
+		<property name="content" column="CONTENT" type="text" length="3000" not-null="true">
 		</property>
  		<many-to-one name="poster" column="USERNAME" not-null="true" class="com.qingdy.model.UserDetail" fetch="join" update="false">
 		</many-to-one>

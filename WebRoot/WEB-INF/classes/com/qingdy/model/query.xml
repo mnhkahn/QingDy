@@ -89,5 +89,15 @@
 			select count(*), startDate from Visit as v where v.oid=? and v.type=? and v.startDate>=? and v.endDate<=? group by dayofweek(startDate) order by startDate asc
         ]]>
 	</query>
+	<query name="queryQuestionCount">
+	 	<![CDATA[
+			select count(*) from Question q where q.verify=1
+        ]]>
+	</query>
+	<query name="deleteFavouriteByTypeIdUsername">
+	 	<![CDATA[
+			delete from Favourite where oid=? and type=? and username=?
+        ]]>
+	</query>
 	
 </hibernate-mapping>

@@ -19,4 +19,6 @@ public interface QuestionDao {
 	public void bestAnswer(Long qid, Long aid);
 	
 	public void removeQuestion(Long id);
+	
+	public Long getQuestionCount();
 }

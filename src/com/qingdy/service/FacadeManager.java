@@ -137,6 +137,8 @@ public interface FacadeManager {
 	
 	public void verifyQuestion(Long id, boolean verify);
 	
+	public Long getQuestionCount();
+	
 	/*
 	 * Answer
 	 */
@@ -265,9 +267,13 @@ public interface FacadeManager {
 	/*
 	 * Favourite
 	 */
-	public void addFavourite(Favourite favourite);
+	public Integer addFavourite(Favourite favourite);
+	
+	public void deleteFavourite(Favourite favourite);
 	
 	public void deleteFavourite(Long id);
+	
+	public void deleteFavourite(Integer type, Long oid, String username);
 	
 	public List<Favourite> getFavourites(String username);
 	

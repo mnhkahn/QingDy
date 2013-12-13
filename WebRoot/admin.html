@@ -92,9 +92,9 @@ function showCreateNews() {
             var uid = 45;
             var title = $('#title').val();
             var category = $('#categorySel').val();
-            var content = $('#content').val();
+            var content = encodeURIComponent($('#content').val());
             console.debug(uid, title, category, content);
-            var json = "{\"title\": \"" + title + "\", \"text\":\"" + content + "\", \"uid\":" + uid + ", \"classes\":" + category + " }";
+            var json = "{\"title\": \"" + title + "\", \"content\":\"" + content + "\", \"poster\":{\"username\":\"" + username + "\"}, \"classes\":\"" + category + "\"}";
             $.ajax({
                 url: '/rest/metadata/news',
                 type: 'POST',
