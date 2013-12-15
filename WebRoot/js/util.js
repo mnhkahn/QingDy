@@ -49,6 +49,11 @@ function load(url) {
     window.location.href = url;
 }
 
+function newTab(url) {
+	var win=window.open(url, '_blank');
+	win.focus();
+}
+
 var client;
 function getClientInfo(o) {
     client = o;

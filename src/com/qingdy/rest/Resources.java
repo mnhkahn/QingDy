@@ -414,6 +414,7 @@ public class Resources {
 	public Response addProduct(Product product) {
 		Mall mall = facadeManager.getMall(product.getPoster().getUsername());
 		product.setMall(mall);
+		product.setPostDate(new Date());
 		facadeManager.saveProduct(product);
 		return Response.status(Response.Status.CREATED).build();
 	}

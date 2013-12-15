@@ -78,7 +78,154 @@ function showCreateBlog() {
         });
     });
 }
-var mallId = 0;
+function showCreateProduct(product) {
+	$('#contentWrapper').load('/js/templates/product.html', function () {
+		var pName, value, rate, rateType, typeSel, typeSel, provinceSel, citySel, clientsSel, repaymethodSel, producttypeSel, usesofloanSel;
+		var min = $("#minValue");
+		var max = $("#maxValue");
+		var content1 = $('#content1');
+		content1.xheditor({
+			tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+			upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+			upImgExt: "jpg,jpeg,gif,png",
+			html5Upload: false,
+			onUpload: function () {
+			}
+		});
+		var content2 = $('#content2');
+		content2.xheditor({
+			tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+			upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+			upImgExt: "jpg,jpeg,gif,png",
+			html5Upload: false,
+			onUpload: function () {
+			}
+		});
+		var content3 = $('#content3');
+		content3.xheditor({
+			tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+			upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+			upImgExt: "jpg,jpeg,gif,png",
+			html5Upload: false,
+			onUpload: function () {
+			}
+		});
+		var content4 = $('#content4');
+		content4.xheditor({
+			tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
+			upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
+			upImgExt: "jpg,jpeg,gif,png",
+			html5Upload: false,
+			onUpload: function () {
+			}
+		});
+
+		$.formValidator.initConfig({formID: "productForm", theme: "css/ArrowSolidBox", submitOnce: true,
+			onError: function (msg, obj, errorlist) {
+				$("#errorlist").empty();
+				$.map(errorlist, function (msg) {
+					$("#errorlist").append("<li>" + msg + "</li>")
+				});
+			},
+			onSuccess: function() {
+				if (!clientsSel.val()) {
+					clientsSel.val(DEFAULT_SEL);
+				}
+				if (!usesofloanSel.val()) {
+					usesofloanSel.val(DEFAULT_SEL);
+				}
+				var type, url;
+				if (product) {
+					type = "PUT";
+					url = "/rest/metadata/product/" + $("#pid").val();
+				}
+				else {
+					type = "POST";
+					url = "/rest/metadata/product";
+				}
+				$.ajax({
+					url: url,
+					type: type,
+					dataType: "json",
+					contentType: "application/json; charset=utf-8",
+					data: '{"poster":{"username":"' + username + '"},"pName": "' + encodeURIComponent(pName.val()) + '", "max": ' + max.val() + ',"min": ' + min.val() + ',"rateType": "' + typeSel.val() + '", "rate": '+ rate.val() + ', "startTime": "' + $("#startTime").val() + '", "endTime": "' + $("#endTime").val() + '", "clientLocation": "' + provinceSel.val() + citySel.val() + '", "clients": "' + clientsSel.val() + '", "repayMethod": "' + repaymethodSel.val() + '", "pType": "' + typeSel.val() + '", "usesofloan": "' + usesofloanSel.val() + '", "content": "' + content1.val() + '", "processes": "' + content2.val() + '", "application": "' + content3.val() + '", "faq": "' + content4.val() + '"}',
+					success: function (response) {
+						$.jBox.info('添加成功');
+					},
+					error: function (response) {
+						$.jBox.info('添加失败');
+					}
+				})
+			},
+			submitAfterAjaxPrompt: '有数据正在异步验证，请稍等...',
+			onShowClass: "",
+			onFocusClass: "",
+			onCorrectClass: ""
+		});
+
+		pName = $("#pname");
+		pName.formValidator({onShow: "请输入产品名称", onFocus: "至少1个长度", onCorrect: "合法"}).inputValidator({min: 1, onError: "产品名称不能为空"});
+
+		value = $("#value");
+		$("#minValue").on('change', function() {
+			value.val($("#maxValue").val() - $("#minValue").val());
+		});
+		$("#maxValue").on('change', function() {
+			value.val($("#maxValue").val() - $("#minValue").val());
+		});
+		value.formValidator({onShow: "万元/单笔", onFocus: "至少1个长度", onCorrect: "合法"}).regexValidator({regExp:"intege1",dataType:"enum",onError: "贷款额度错误"});
+
+		rate = $("#rate");
+		rate.formValidator({onShow: "请输入利率", onFocus: "至少1个长度", onCorrect: "合法"}).regexValidator({regExp:"decmal1",dataType:"enum", onError: "利率错误"});
+
+		typeSel = $("#typeSel");
+
+		date = $("#datepicker");
+		date.datepicker({
+			format: 'yyyy-mm-dd',
+			language: 'zh-CN'
+		});
+
+		$.cArea("广东广州");
+		provinceSel = $("#provinceSel");
+
+		citySel = $("#citySel");
+
+		clientsSel = $("#clientsSel");
+//		clientsSel.data("placeholder", "请选择").chosen();
+
+		repaymethodSel = $("#repaymethodSel");
+
+		producttypeSel = $("#producttypeSel");
+
+		usesofloanSel = $("#usesofloanSel");
+//		usesofloanSel.data("placeholder", "请选择").chosen();
+
+		$("#submit").on("click", function () {
+			$.formValidator.pageIsValid();
+		});
+		
+		if (product) {
+			$("#pid").val(product.id);
+			pName.val(product.pName);
+			min.val(product.min);
+			max.val(product.max);
+			typeSel.val(product.rateType);
+			rate.val(product.rate);
+			startTime.value = product.startTime.substring(0, product.startTime.indexOf(' '));
+			endTime.value = product.endTime.substring(0, product.endTime.indexOf(' '));
+			clientsSel.val(product.client.split(","));
+			repaymethodSel.val(product.repayMethod);
+			usesofloanSel.val(product.usesofloan);
+			content1.val(product.content);
+			content2.val(product.processes);
+			content3.val(product.application);
+			content4.val(product.faq);
+			$.cArea(product.clientLocation);
+		}
+	})
+}
+var mall = new Object;
 function init() {
     commonInit();
     var args = new Object();
@@ -87,6 +234,25 @@ function init() {
     var tab = args['tab'];
 
     var height = $('#contentWrapper').height() - 80;
+	
+	$.ajax({
+		url: "/rest/metadata/mall/username/" + username,
+		type: "GET",
+		dateType: "json",
+		contentType: "application/json",
+		success: function (response) {
+			response = JSON.parse(response);
+			mall.mallId = response.id;
+			//$.cArea(response.clientLocation);
+			mall.usesofloan = response.usesofloan.split(",");
+			mall.speciality = response.speciality.split(",");
+			mall.clients = response.clients.split(",");
+			mall.lendType = response.lendType.split(",");
+		},
+		error: function (response) {
+			console.warn(response);
+		}
+	});
 
     var lenderTab = cTab.create('tabWrapper', 'data/lenderTab.json', tab,
             function () {
@@ -135,11 +301,11 @@ function init() {
                                     type: 'GET',
                                     dataType: "json",
                                     success: function(response) {
-                                        mallId = response.id;
+                                        mall.mallId = response.id;
                                         console.debug(response);
                                         var start = new Date();
                                         start.setDate(1);
-                                        var mallVisits = eval(getVisitsByDate(MALL, mallId, toJavaDay(start), toJavaDay(new Date())));
+                                        var mallVisits = eval(getVisitsByDate(MALL, mall.mallId, toJavaDay(start), toJavaDay(new Date())));
                                         console.debug(mallVisits);
 
                                         var days = new Array();
@@ -223,7 +389,7 @@ function init() {
                                     },
                                     onSuccess: function() {
                                         $.ajax({
-                                            url: '/rest/metadata/mall/' +  mallId,
+                                            url: '/rest/metadata/mall/' +  mall.mallId,
                                             type: 'PUT',
                                             dataType: "json",
                                             contentType: "application/json; charset=utf-8",
@@ -268,7 +434,7 @@ function init() {
                                     success: function (response) {
                                         if (response != "") {
                                             response = JSON.parse(response);
-                                            mallId = response.id;
+                                            mall.mallId = response.id;
                                             content.val(decodeURIComponent(response.content));
                                             announcement.val(decodeURIComponent(response.announcement));
                                             lendedyearsSel.val(response.experience);
@@ -316,27 +482,13 @@ function init() {
                                 var clientsSel = $("#clientsSel");
                                 var lendtypeSel = $("#lendtypeSel");
 
-                                $.ajax({
-                                    url: "/rest/metadata/mall/username/" + username,
-                                    type: "GET",
-                                    dateType: "json",
-                                    contentType: "application/json",
-                                    success: function (response) {
-                                        response = JSON.parse(response);
-                                        mallId = response.id;
-                                        //$.cArea(response.clientLocation);
-                                        usesofloanSel.val(response.usesofloan.split(","))
-                                        specialitySel.val(response.speciality.split(","));
-                                        clientsSel.val(response.clients.split(","));
-                                        lendtypeSel.val(response.lendType.split(","));
-                                    },
-                                    error: function (response) {
-                                        console.warn(response);
-                                    }
-                                });
+								usesofloanSel.val(mall.usesofloan)
+								specialitySel.val(mall.speciality);
+								clientsSel.val(mall.clients);
+								lendtypeSel.val(mall.lendType);
                                 $("#submit").on("click", function () {
                                     $.ajax({
-                                        url: '/rest/metadata/mall/' + mallId,
+                                        url: '/rest/metadata/mall/' + mall.mallId,
                                         type: 'PUT',
                                         dataType: "json",
                                         contentType: "application/json; charset=utf-8",
@@ -366,7 +518,6 @@ function init() {
 										console.debug(data);
 										var res = JSON.parse(data);
 										if (res.err == "") {
-											avatar.attr("src", res.msg + "?" + Math.random());
 											$.jBox.info('上传成功');
 										}
 										else if (res.err == "Wrong File Format") {
@@ -387,131 +538,16 @@ function init() {
                         },
                         // 添加产品
                         function () {
-                            $('#contentWrapper').load('/js/templates/product.html', function () {
-                                var pName, value, rate, rateType, typeSel, typeSel, provinceSel, citySel, clientsSel, repaymethodSel, producttypeSel, usesofloanSel;
-                                var min = $("#minValue");
-                                var max = $("#maxValue");
-                                var content1 = $('#content1');
-                                content1.xheditor({
-                                    tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
-                                    upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
-                                    upImgExt: "jpg,jpeg,gif,png",
-                                    html5Upload: false,
-                                    onUpload: function () {
-                                    }
-                                });
-                                var content2 = $('#content2');
-                                content2.xheditor({
-                                    tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
-                                    upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
-                                    upImgExt: "jpg,jpeg,gif,png",
-                                    html5Upload: false,
-                                    onUpload: function () {
-                                    }
-                                });
-                                var content3 = $('#content3');
-                                content3.xheditor({
-                                    tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
-                                    upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
-                                    upImgExt: "jpg,jpeg,gif,png",
-                                    html5Upload: false,
-                                    onUpload: function () {
-                                    }
-                                });
-                                var content4 = $('#content4');
-                                content4.xheditor({
-                                    tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
-                                    upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
-                                    upImgExt: "jpg,jpeg,gif,png",
-                                    html5Upload: false,
-                                    onUpload: function () {
-                                    }
-                                });
-
-                                $.formValidator.initConfig({formID: "productForm", theme: "css/ArrowSolidBox", submitOnce: true,
-                                    onError: function (msg, obj, errorlist) {
-                                        $("#errorlist").empty();
-                                        $.map(errorlist, function (msg) {
-                                            $("#errorlist").append("<li>" + msg + "</li>")
-                                        });
-                                    },
-                                    onSuccess: function() {
-                                        if (!clientsSel.val()) {
-                                            clientsSel.val(DEFAULT_SEL);
-                                        }
-                                        if (!usesofloanSel.val()) {
-                                            usesofloanSel.val(DEFAULT_SEL);
-                                        }
-                                        $.ajax({
-                                            url: '/rest/metadata/product',
-                                            type: 'POST',
-                                            dataType: "json",
-                                            contentType: "application/json; charset=utf-8",
-                                            data: '{"poster":{"username":"' + username + '"},"pName": "' + encodeURIComponent(pName.val()) + '", "max": ' + max.val() + ',"min": ' + min.val() + ',"rateType": "' + typeSel.val() + '", "rate": '+ rate.val() + ', "startTime": "' + $("#startTime").val() + '", "endTime": "' + $("#endTime").val() + '", "clientLocation": "' + provinceSel.val() + citySel.val() + '", "clients": "' + clientsSel.val() + '", "repayMethod": "' + repaymethodSel.val() + '", "pType": "' + typeSel.val() + '", "usesofloan": "' + usesofloanSel.val() + '", "content": "' + content1.val() + '", "processes": "' + content2.val() + '", "application": "' + content3.val() + '", "faq": "' + content4.val() + '"}',
-                                            success: function (response) {
-                                                $.jBox.info('添加成功');
-                                                load("lender.html?tab=0&nav=5")
-                                            },
-                                            error: function (response) {
-                                                $.jBox.info('添加失败');
-                                            }
-                                        })
-                                    },
-                                    submitAfterAjaxPrompt: '有数据正在异步验证，请稍等...',
-                                    onShowClass: "",
-                                    onFocusClass: "",
-                                    onCorrectClass: ""
-                                });
-
-                                pName = $("#pname");
-                                pName.formValidator({onShow: "请输入产品名称", onFocus: "至少1个长度", onCorrect: "合法"}).inputValidator({min: 1, onError: "产品名称不能为空"});
-
-                                value = $("#value");
-                                $("#minValue").on('change', function() {
-                                    value.val($("#maxValue").val() - $("#minValue").val());
-                                });
-                                $("#maxValue").on('change', function() {
-                                    value.val($("#maxValue").val() - $("#minValue").val());
-                                });
-                                value.formValidator({onShow: "万元/单笔", onFocus: "至少1个长度", onCorrect: "合法"}).regexValidator({regExp:"intege1",dataType:"enum",onError: "贷款额度错误"});
-
-                                rate = $("#rate");
-                                rate.formValidator({onShow: "请输入利率", onFocus: "至少1个长度", onCorrect: "合法"}).regexValidator({regExp:"decmal1",dataType:"enum", onError: "利率错误"});
-
-                                typeSel = $("#typeSel");
-
-                                date = $("#datepicker");
-                                date.datepicker({
-                                    format: 'yyyy-mm-dd',
-                                    language: 'zh-CN'
-                                });
-
-                                $.cArea("广东广州");
-                                provinceSel = $("#provinceSel");
-
-                                citySel = $("#citySel");
-
-                                clientsSel = $("#clientsSel");
-                                clientsSel.data("placeholder", "请选择").chosen();
-
-                                repaymethodSel = $("#repaymethodSel");
-
-                                producttypeSel = $("#producttypeSel");
-
-                                usesofloanSel = $("#usesofloanSel");
-                                usesofloanSel.data("placeholder", "请选择").chosen();
-
-                                $("#submit").on("click", function () {
-                                    $.formValidator.pageIsValid();
-                                });
-                                $("#preview").on("click", function () {
-                                    alert("preview")
-                                });
-                            })
+                            showCreateProduct();
                         },
                         // "产品管理"
                         function () {
-                            $('#contentWrapper').cTemplate("/rest/metadata/product/username/" + username, "/js/templates/myProducts.html");
+                            $('#contentWrapper').cTemplate("/rest/metadata/product/username/" + username, "/js/templates/myProducts.html",
+								function(data) {
+									for (var i = 0; i < data.length; i++) {
+										data[i].link = getLink(PRODUCT, data[i].mall.id);
+									}
+							});
                         },
                         //  "店铺公告"
                         /*                                function() {

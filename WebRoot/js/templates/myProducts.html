@@ -1,18 +1,23 @@
-<a target="_blank" href="getLink(PRODUCT, response[i].mall.id) ">
-    <div class="hover"
-         style="width:766px;height:100px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">
-        <div class="p_right">
-            <h5>${pName}</h5>
+<div class="hover"
+	 style="width:766px;height:100px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">
+	<div class="p_right">
+		<div>
+			<h5 style="width: 600px; float: left;">${pName}</h5>
+			<div style="float: right; margin: 5px;">
+				<a href="${link}" target="_blank">查看</a>
+				<a href="javascript:editProduct(${id})">编辑</a>
+				<a href="javascript:deleteProduct(${id})">删除</a>
+			</div>
+			<div class="clear_both"></div>
+		</div>
+		<div class="clear_both"></div>
+		<span class="p1">${clientLocation}</span>
+		<span class="p2">贷款用途：${usesofloan}</span>
+		<span class="p2">抵押贷款</span>
+		<span style="width: 40px">额度：</span>
+		<span class="p4">${min} 万- ${max}万</span>
 
-            <div class="clear_both"></div>
-            <span class="p1">${clientLocation}</span>
-            <span class="p2">贷款用途：${usesofloan}</span>
-            <span class="p2">抵押贷款</span>
-            <span style="width: 40px">额度：</span>
-            <span class="p4">${min} 万- ${max}万</span>
-
-            <div class="clear_both"></div>
-            <p>${content}</p>
-        </div>
-    </div>
-</a>
+		<div class="clear_both"></div>
+		<p>${content}</p>
+	</div>
+</div>

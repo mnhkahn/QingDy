@@ -51,8 +51,10 @@ function commonInit(type, keyword) {
 
 function autoScroll() {
     var url = window.location.toString();
-    var anchor = url.substring(url.indexOf("#") + 1);
-    $(document).scrollTop($("#" + anchor).offset().top);
+	if (url.indexOf("#") > 0 ) {
+		var anchor = url.substring(url.indexOf("#") + 1);
+		$(document).scrollTop($("#" + anchor).offset().top);
+	}
 }
 
 function showFoot() {
@@ -675,7 +677,7 @@ function getVisits(type, id) {
         success: function(response, status, xhr) {
             var count = xhr.getResponseHeader("count");
             console.debug(count);
-            $("#visit_" + id).html(count);
+            $("#" + getTypeStr(type) + "_" + id).html(count);
         },
         error: function(response) {
             console.warn(response);
@@ -719,4 +721,42 @@ function getCount(type) {
     });
     console.debug(count);
     return count;
+}
+
+function getProduct(id) {
+	var product = new Object;
+	$.ajax({
+		url: "/rest/metadata/product/" + id,
+		type: "GET",
+		async: false,
+		dataType: "json",
+		success: function(response) {
+			product = response
+		},
+		error: function(response) {
+			console.debug(response);
+		}
+	});
+	return product;
+}
+
+function deleteProduct(id) {
+	$.jBox.confirm("确认要删除？", "警告", function() {
+		$.ajax({
+		url: "/rest/metadata/product/" + id,
+		type: "DELETE",
+		success: function(response) {
+			$.jBox.confirm("删除成功", "提示", function() {
+				refresh();
+			});
+		},
+		error: function(response) {
+			console.debug(response);
+		}
+	});
+	});
+}
+
+function editProduct(id) {
+	showCreateProduct(getProduct(id));
 }

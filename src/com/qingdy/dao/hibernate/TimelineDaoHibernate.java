@@ -64,7 +64,7 @@ public class TimelineDaoHibernate extends BaseDaoHibernate implements TimelineDa
 		if (size == 0) {
 			size = lists.size();
 		}
-		
+
 		Collections.sort(lists, new Comparator<Object[]>() {
 		    public int compare(Object[] o1, Object[] o2) {
 		    	Date d1 = (Date)o1[2];

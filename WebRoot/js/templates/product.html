@@ -13,6 +13,7 @@
             <td width="100px;">产品名称*</td>
             <td width="450px;">
                 <input id='pname' class="form-control" />
+				<div id='pid' style="display: none" />
             </td>
             <td>
                 <span class="input-gray" id="pnameTip"></span>
@@ -83,7 +84,7 @@
 		<tr>
 			<td width="100px;">适合用户*</td>
             <td width="250px">
-                <select id="clientsSel" class="chosen" multiple="true" style="width:250px;" >
+                <select id="clientsSel" class="form-control" multiple style="width:250px;" >
                     <option value="公务员/律师/教师">公务员/律师/教师</option>
                     <option value="企业法人">企业法人</option>
                     <option value="个体工商户">个体工商户</option>
@@ -130,7 +131,7 @@
         <tr>
             <td width="100px;">产品用途*</td>
             <td>
-                <select id="usesofloanSel" class="chosen" multiple="true" style="width:400px;" >
+                <select id="usesofloanSel" class="form-control" multiple style="width:400px;" >
                     <option value="消费贷款">消费贷款</option>
                     <option value="短期周转贷款">短期周转贷款</option>
                     <option value="个体户经营贷款">个体户经营贷款</option>
