@@ -297,8 +297,30 @@ public class Resources {
 	@Path("/mall/{id}")
 	@PUT
 	public Response updateMall(Mall mall, @PathParam("id") Long id) {
+		// Update mall
 		mall.setId(id);
-		facadeManager.saveMall(mall);
+		if (mall.getExperience() != null) {
+			System.out.println("*******Update mall");
+			Mall oldMall = facadeManager.getMall(id);
+			mall.setClientLocation(oldMall.getClientLocation());
+			mall.setUsesofloan(oldMall.getUsesofloan());
+			mall.setSpeciality(oldMall.getSpeciality());
+			mall.setClients(oldMall.getClients());
+			mall.setLendType(oldMall.getLendType());
+			facadeManager.saveMall(mall);
+		}
+		// Content is null, set mall business setting
+		else {
+			System.out.println("**********Update businesss setting");
+			Mall oldMall = facadeManager.getMall(id);
+			oldMall.setClientLocation(mall.getClientLocation());
+			oldMall.setUsesofloan(mall.getUsesofloan());
+			oldMall.setSpeciality(mall.getSpeciality());
+			oldMall.setClients(mall.getClients());
+			oldMall.setLendType(mall.getLendType());
+			facadeManager.saveMall(oldMall);
+		}
+
 		return Response.noContent().build();
 	}
 
@@ -390,6 +412,8 @@ public class Resources {
 	@Path("/product")
 	@POST
 	public Response addProduct(Product product) {
+		Mall mall = facadeManager.getMall(product.getPoster().getUsername());
+		product.setMall(mall);
 		facadeManager.saveProduct(product);
 		return Response.status(Response.Status.CREATED).build();
 	}

@@ -41,7 +41,13 @@ public class MallDaoHibernate extends BaseDaoHibernate implements MallDao {
 	@Override
 	public Mall getMall(String username) {
 		UserDetail poster = getHibernateTemplate().get(UserDetail.class, username);
-		return (Mall)getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Mall.class).add(Restrictions.eq("poster", poster))).get(0);
+		List<Mall> malls = getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Mall.class).add(Restrictions.eq("poster", poster)));
+		if (malls.size() > 0) {
+			return malls.get(0);
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override

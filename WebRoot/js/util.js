@@ -45,6 +45,10 @@ function refresh() {
     window.location.reload();
 }
 
+function load(url) {
+    window.location.href = url;
+}
+
 var client;
 function getClientInfo(o) {
     client = o;

@@ -94,7 +94,7 @@
                                         clear.css("clear", "both");
 
                                         sideContainer.load('/js/templates/bulletin.html', function () {
-                                            $("#bulletin").html(mall.announcement);
+                                            $("#bulletin").html(decodeURIComponent(mall.announcement));
                                             contact(sideContainer, mall.poster.username);
                                             sideContainer.append(visitorsContainer);
                                         });
