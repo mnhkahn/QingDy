@@ -6,23 +6,29 @@
 			<button id='submit' type="button" class="btn btn-default">提交</button>
         </div>
     </div>
-
+	<ul id="errorlist"></ul>
     <table border="0" style="width:100%; margin-bottom: 10px">
         <tr>
             <p class="hs-description" style="color: #666;padding: 5px 0 0 5px;line-height: 22px;">请填写完整的店铺资料，带‘*’为必填，否则不能进行任何操作。</p>
         </tr>
         <tr>
             <td width="100px;">标题*</td>
-            <td colspan=2 >
-                <div id="titleWrapper" style="width:650px;float: left">
-					<input id='title' class="form-control" placeholder="标题" style="width:550px; float:left" />
+            <td>
+                <div id="titleWrapper" style="float: left">
+					<input id='title' class="form-control" placeholder="标题" style="width:400px; float:left" />
                 </div>
+            </td>
+			<td width="400px">
+                <span class="input-gray" id="titleTip"></span>
             </td>
         </tr>
         <tr>
             <td width="100px;">借贷者*</td>
-            <td colspan=2 >
-				<input id='loaner' class="form-control" style="width:550px; float:left" />
+            <td>
+				<input id='loaner' class="form-control" style="width:400px; float:left" />
+            </td>
+			<td width="400px">
+                <span class="input-gray" id="loanerTip"></span>
             </td>
         </tr>
         <tr>

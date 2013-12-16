@@ -549,31 +549,22 @@ function init() {
 									}
 							});
                         },
-                        //  "店铺公告"
-                        /*                                function() {
-                         $('#contentWrapper').load('/js/templates/announcement.html', function () {
-                         $('#content').xheditor({
-                         tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
-                         upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
-                         upImgExt: "jpg,jpeg,gif,png",
-                         html5Upload : false,
-                         onUpload: function () {
-                         }
-                         });
-                         $("#submit").on("click", function () {
-                         alert("announcement")
-                         });
-                         })
-                         },  */
                         // "成功案例"
                         function () {
-                            $('#contentWrapper').cTemplate("/rest/metadata/transaction/username/" + username, "/js/templates/myTransactions.html");
+                            $('#contentWrapper').cTemplate("/rest/metadata/transaction/username/" + username, "/js/templates/myTransactions.html",
+								function(data) {
+									for (var i = 0; i < data.length; i++) {
+										data[i].verifyStr = data[i].verify == 1 ? "审核通过" : "未审核通过";
+										data[i].link = getLink(MALL, mall.mallId) + "&tab=2";
+									}
+							});
                         },
                         //  "添加成功案例"
                         function () {
                             $('#contentWrapper').load('/js/templates/transaction.html', function () {
                                 var title = $("#title");
                                 var content = $('#content');
+								var loaner = $("#loaner");
                                 content.xheditor({
                                     tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
                                     upImgUrl: "/rest/metadata/upload/' + 1 + '/blogs",
@@ -582,7 +573,7 @@ function init() {
                                     onUpload: function () {
                                     }
                                 });
-                                $.formValidator.initConfig({formID: "transactionForm", theme: "css/ArrowSolidBox", debug: true, submitOnce: true,
+                                $.formValidator.initConfig({formID: "transactionForm", theme: "css/ArrowSolidBox", submitOnce: true,
                                     onError: function (msg, obj, errorlist) {
                                         $("#errorlist").empty();
                                         $.map(errorlist, function (msg) {
@@ -590,29 +581,47 @@ function init() {
                                         });
                                         alert(msg);
                                     },
+									onSuccess: function() {
+										var title = $("#title");
+										var loaner = $("#loaner");
+										$.ajax({
+											url: '/rest/metadata/transaction',
+											type: 'POST',
+											dataType: "json",
+											contentType: "application/json; charset=utf-8",
+											data: '{"loaner": {"username": "' + loaner.val() + '"}, "lender": {"username": "' + username + '"},"title": "' + title.val() + '", "comments": "' + content.val() + '"}',
+											success: function (response) {
+												$.jBox.info('添加成功');
+											},
+											error: function (response) {
+												$.jBox.info('添加失败' + response);
+											}
+										})
+									},
                                     submitAfterAjaxPrompt: '有数据正在异步验证，请稍等...',
                                     onShowClass: "",
                                     onFocusClass: "",
                                     onCorrectClass: ""
                                 });
+								title.formValidator({onShow: "请输入标题", onFocus: "至少1个长度", onCorrect: "合法"}).inputValidator({min: 1, onError: "标题不能为空,请确认"});
+								content.formValidator({onShow: "", onFocus: "至少1个长度", onCorrect: "合法"}).inputValidator({min: 1, onError: "内容不能为空,请确认"});
+								loaner.formValidator({onShow: "请输入借贷者", onFocus: "至少1个长度", onCorrect: "合法"}).ajaxValidator({
+									url: "/rest/metadata/user/exists/",
+									type: "HEAD",
+									success: function(response, textStatus, jqXHR) {
+										if ("true" == jqXHR.getResponseHeader("exist"))
+											return false;
+										else
+											return true;
+									},
+									error: function(response, textStatus, jqXHR) {
+										console.debug(response, textStatus, jqXHR);
+									}
+								});
                                 var amount = $("#amount");
-                                amount.formValidator({onShow: "单位：万", onFocus: "至少1个长度", onCorrect: "合法"}).inputValidator({min: 1, empty: {leftEmpty: false, rightEmpty: false, emptyError: "密码两边不能有空符号"}, onError: "输入错误"});
+                                amount.formValidator({onShow: "单位：万", onFocus: "至少1个长度", onCorrect: "合法"}).regexValidator({regExp:"decmal1",dataType:"enum", onError: "金额只能用小数表示"});
                                 $("#submit").on("click", function () {
-                                    var title = $("#title");
-                                    var loaner = $("#loaner");
-                                    $.ajax({
-                                        url: '/rest/metadata/transaction',
-                                        type: 'POST',
-                                        dataType: "json",
-                                        contentType: "application/json; charset=utf-8",
-                                        data: '{"loaner": {"username": "' + loaner.val() + '"}, "lender": {"username": "' + username + '"},"title": "' + title.val() + '", "comments": "' + content.val() + '"}',
-                                        success: function (response) {
-                                            $.jBox.info('添加成功');
-                                        },
-                                        error: function (response) {
-                                            $.jBox.info('添加失败' + response);
-                                        }
-                                    })
+									$.formValidator.pageIsValid();
                                 });
                             })
                         },

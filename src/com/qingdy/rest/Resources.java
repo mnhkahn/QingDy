@@ -92,9 +92,9 @@ public class Resources {
 		return null;
 	}
 
-	@Path("/user/{username}/exists")
+	@Path("/user/exists")
 	@HEAD
-	public Response isUserExists(@PathParam("username") String username) {
+	public Response isUserExists(@QueryParam("username") String username) {
 		return Response.noContent()
 				.header("exist", facadeManager.isUserExists(username)).build();
 	}

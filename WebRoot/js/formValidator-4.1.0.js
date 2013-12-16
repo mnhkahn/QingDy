@@ -515,7 +515,8 @@ $.formValidator =
 		var initConfig = $.formValidator.getInitConfig(validatorGroup);
 		var parm = $.formValidator.serialize(initConfig.ajaxObjects);
 		//添加触发的控件名、随机数、传递的参数
-		parm = "clientid=" + id + "&" +(setting.randNumberName ? setting.randNumberName+"="+((new Date().getTime())+Math.round(Math.random() * 10000)) : "") + (parm.length > 0 ? "&" + parm : "");
+//		parm = "clientid=" + id + "&" +(setting.randNumberName ? setting.randNumberName+"="+((new Date().getTime())+Math.round(Math.random() * 10000)) : "") + (parm.length > 0 ? "&" + parm : "");
+		parm = "username=" + elem.value + "&" +(setting.randNumberName ? setting.randNumberName+"="+((new Date().getTime())+Math.round(Math.random() * 10000)) : "") + (parm.length > 0 ? "&" + parm : "");
 		ls_url = ls_url + (ls_url.indexOf("?") > -1 ? ("&" + parm) : ("?" + parm));
 		//发送ajax请求
 		$.ajax(

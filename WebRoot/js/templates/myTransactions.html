@@ -1,17 +1,22 @@
-<a target="_blank" href="getLink(PRODUCT, response[i].mall.id) ">
-    <div class="hover"
-         style="width:786px;height:100px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">
-        <div class="p_right">
-            <h5>${title}</h5>
+<div class="hover"
+	 style="height:110px;border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 8px 0px;">
+	<div class="p_right">
+		<div>
+			<h5 style="width: 500px; float: left;">${title}</h5>
+			<div style="float: right; margin: 5px; width: 150px;">
+				<h6 style="width:50px; float: left; margin: 5px;">${verifyStr}</h6>
+				<a href="${link}" target="_blank">查看</a>
+				<a href="javascript:deleteProduct(${id})">删除</a>
+			</div>
+			<div class="clear_both"></div>
+		</div>
+		<div class="clear_both"></div>
+		<span class="p1">${verify}</span>
+		<span class="p2">借贷者：${loaner.lastname}${loaner.firstname}</span>
+		<span class="p2">借贷时间：${postDate}</span>
+		<span class="p4">${tel}</span>
 
-            <div class="clear_both"></div>
-            <span class="p1">${verify}</span>
-            <span class="p2">借贷者：${loaner.lastname}${loaner.firstname}</span>
-            <span class="p2">借贷时间：${postDate}</span>
-            <span class="p4">${tel}</span>
-
-            <div class="clear_both"></div>
-            <p>${comments}</p>
-        </div>
-    </div>
-</a>
+		<div class="clear_both"></div>
+		<p>${comments}</p>
+	</div>
+</div>

@@ -760,3 +760,37 @@ function deleteProduct(id) {
 function editProduct(id) {
 	showCreateProduct(getProduct(id));
 }
+
+function trsnactionProduct(id) {
+	$.jBox.confirm("确认要删除？", "警告", function() {
+		$.ajax({
+		url: "/rest/metadata/transaction/" + id,
+		type: "DELETE",
+		success: function(response) {
+			$.jBox.confirm("删除成功", "提示", function() {
+				refresh();
+			});
+		},
+		error: function(response) {
+			console.debug(response);
+		}
+	});
+	});
+}
+
+function isUserExists(username) {
+	console.debug(username);
+/*	$.ajax({
+		url: "/rest/metadata/user/" + username + "/exists",
+		type: "HEAD",
+		success: function(response, textStatus, jqXHR) {
+			if ("true" == jqXHR.getResponseHeader("exist"))
+				return true;
+			else
+				return false;
+		},
+		error: function(response, textStatus, jqXHR) {
+			console.debug(response, textStatus, jqXHR);
+		}
+	});*/
+}
