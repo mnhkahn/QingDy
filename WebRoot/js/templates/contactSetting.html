@@ -1,87 +1,107 @@
-<div id='Wrapper' style="width:750px;">
-    <div class="hd" style="width:750px; height:32px">
-        <div class="newsTitle" id="newsTitle" style="margin-top: 10px">个人信息</div>
-        <div id="actionWrapper" style="width:100px;height: 59px;float: right">
-			<button id="submit" type="button" class="btn btn-info">提交</button>
-        </div>
-    </div>
-
-    <table border="0" style="width:100%">
-        <tr>
-            <p class="hs-description" style="color: #666;padding: 5px 0 0 5px;line-height: 22px;">以下带‘*’为必填，否则不能进行提交。</p>
-        </tr>
-            <td width="100px;">
-<!--				<input id='uploadAvatar' class='largeBtn' style="float: left" type='button' value='更改头像'/>-->
-			</td>
-            <td width="650px;">
-                <div>
-                    <img id="avatar" style="width: 130px" />
-                </div>
-				<input type="file" name="file_upload" id="file_upload" />
-				<input name="upload" id="upload" type="button" value="上传" class="btn btn-info" style="display: block; float: left; margin-left: 10px">
-            </td>
-        <tr>
-            <td width="110px;">帐号</td>
-            <td width="640px">
-                <div class='blodChar' id="username"></div>
-            </td>
-        </tr>
-        <tr>
-            <td width="110px;">用户类型</td>
-            <td width="640px">
-                <div class='blodChar' id="groupid"></div>
-            </td>
-        </tr>
-        <tr>
-            <td width="110px;">现居地</td>
-            <td width="640px">
-                <div class='blodChar' id="location"></div>
-            </td>
-        </tr>
-        <tr>
-            <td width="110px;">性别</td>
-            <td width="640px">
-                <div class='blodChar' id="gender"></div>
-            </td>
-        </tr>
-        <tr>
-            <td width="110px;">联系人姓名*</td>
-            <td width="640px">
-				<input id="lastname" class="form-control" style="width: 50px;float: left;"/>
-				<input id="firstname" class="form-control" style="width: 60px;float: left; margin-left: 10px"/>
-            </td>
-        </tr>
-        <tr>
-            <td width="110px;">联系人电话*</td>
-            <td width="640px">
-                <input id="tel" class="form-control" style="width: 200px;" />
-            </td>
-        </tr>
-        <tr>
-            <td width="110px;">QQ</td>
-            <td width="640px">
-                <input id="qq" class="form-control" style="width: 200px;"/>
-            </td>
-        </tr>
-        <tr>
-            <td width="110px;">个人网站</td>
-            <td width="640px">
-                <input id="site" class="form-control" style="width: 200px;"/>
-            </td>
-        </tr>
-        <tr>
-            <td width="110px;">电子邮箱</td>
-            <td width="640px">
-                <input id="email" class="form-control" style="width: 200px;"/>
-            </td>
-        </tr>
-        <tr>
-            <td width="110px;">个人简介</td>
-            <td width="640px">
-                <div class="title-area-outter" style="margin: 0px">
-                    <textarea id="introduce" class="form-control" style="height: 200px; margin: 0px"></textarea>
-                </div>
-            </td>
-        </tr>
-    </table>
-</div>
+<form action="" method="post" name="contactForm" id="contactForm">
+	<div id='Wrapper' style="width:750px;">
+		<div class="hd" style="width:750px; height:32px">
+			<div class="newsTitle" id="newsTitle" style="margin-top: 10px">个人信息</div>
+			<div id="actionWrapper" style="width:100px;height: 59px;float: right">
+				<button id="submit" type="button" class="btn btn-info">提交</button>
+			</div>
+		</div>
+		<ul id="errorlist"></ul>
+		<table border="0" style="width:100%">
+			<tr>
+				<p class="hs-description" style="color: #666;padding: 5px 0 0 5px;line-height: 22px;">以下带‘*’为必填，否则不能进行提交。</p>
+			</tr>
+				<td width="100px;">
+	<!--				<input id='uploadAvatar' class='largeBtn' style="float: left" type='button' value='更改头像'/>-->
+				</td>
+				<td width="650px;" colspan=2>
+					<div>
+						<img id="avatar" style="width: 130px" />
+					</div>
+					<input type="file" name="file_upload" id="file_upload" />
+					<input name="upload" id="upload" type="button" value="上传" class="btn btn-info" style="display: block; float: left; margin-left: 10px">
+				</td>
+			<tr>
+				<td width="110px;">帐号</td>
+				<td colspan=2>
+					<div class='blodChar' id="username"></div>
+				</td>
+			</tr>
+			<tr>
+				<td width="110px;">用户类型</td>
+				<td colspan=2>
+					<div class='blodChar' id="groupid"></div>
+				</td>
+			</tr>
+			<tr>
+				<td width="110px;">现居地</td>
+				<td colspan=2>
+					<div class='blodChar' id="location"></div>
+				</td>
+			</tr>
+			<tr>
+				<td width="110px;">性别</td>
+				<td colspan=2>
+					<div class='blodChar' id="gender"></div>
+				</td>
+			</tr>
+			<tr>
+				<td width="110px;">联系人姓名*</td>
+				<td>
+					<input id="lastname" class="form-control" style="width: 50px;float: left;"/>
+					<input id="firstname" class="form-control" style="width: 60px;float: left; margin-left: 10px"/>
+				</td>
+				<td>
+					<span class="input-gray" id="firstnameTip" value="1"></span>
+				</td>
+			</tr>
+			<tr>
+				<td width="110px;">联系人电话*</td>
+				<td width="440px">
+					<input id="tel" class="form-control" style="width: 200px;" />
+				</td>
+				<td>
+					<span class="input-gray" id="telTip"></span>
+				</td>
+			</tr>
+			<tr>
+				<td width="110px;">QQ</td>
+				<td>
+					<input id="qq" class="form-control" style="width: 200px;"/>
+				</td>
+				<td>
+					<span class="input-gray" id="valueTip" value="1"></span>
+				</td>
+			</tr>
+			<tr>
+				<td width="110px;">个人网站</td>
+				<td>
+					<input id="site" class="form-control" style="width: 200px;"/>
+				</td>
+				<td>
+					<span class="input-gray" id="siteTip"></span>
+				</td>
+			</tr>
+			<tr>
+				<td width="110px;">电子邮箱</td>
+				<td>
+					<input id="email" class="form-control" style="width: 200px;"/>
+				</td>
+				<td>
+					<span class="input-gray" id="emailTip"></span>
+				</td>
+			</tr>
+			<tr>
+				<td width="110px;">个人简介</td>
+				<td>
+					<div class="title-area-outter" style="margin: 0px">
+						<textarea id="introduce" class="form-control" style="height: 200px; margin: 0px"></textarea>
+					</div>
+				</td>
+				<td>
+					<span class="input-gray" id="introduceTip"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>

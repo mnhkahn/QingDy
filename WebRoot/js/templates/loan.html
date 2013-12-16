@@ -6,7 +6,7 @@
 			<button id='submit' type="button" class="btn btn-default">提交</button>
         </div>
     </div>
-
+	<ul id="errorlist"></ul>
     <table border="0" style="width:100%;height:80%">
         <tr>
             <p class="hs-description" style="color: #666;padding: 5px 0 0 5px;line-height: 22px;">以下带‘*’为必填，否则不能进行提交。</p>
@@ -21,7 +21,7 @@
         <tr>
             <td width="110px;">*贷款金额</td>
             <td width="100px;">
-                <input id='amount' class="form-control" />
+                <input id='amount' class="form-control" style="width: 100px"/>
             </td>
             <td width="450px">
                 <span class="input-gray" id="amountTip"></span>
@@ -44,8 +44,8 @@
         </tr>
         <tr>
             <td width="110px;">贷款用途</td>
-            <td colspan=2 width="640px">
-                <select id="usesofloanSel" class="chosen" multiple="true" style="width:400px;" >
+            <td width="440px">
+                <select id="usesofloanSel" class="form-control" multiple style="width:400px;" >
                     <option value="消费贷款">消费贷款</option>
                     <option value="短期周转贷款">短期周转贷款</option>
                     <option value="个体户经营贷款">个体户经营贷款</option>
@@ -65,17 +65,23 @@
                     <option value="项目贷款">项目贷款</option>
                 </select>
             </td>
+			<td width="200px">
+                <span class="input-gray" id="amountTip"></span>
+            </td>
         </tr>
         <tr>
             <td width="110px;">有无抵押物</td>
-            <td colspan=2 width="640px">
+            <td>
                 <input id='haspawn' name='checkbox.1.1' type='checkbox' />
+            </td>
+			<td width="200px">
+                <span class="input-gray" id="haspawnTip"></span>
             </td>
         </tr>
         <tr>
             <td width="110px;">*抵押物</td>
-            <td colspan=2 width="640px">
-                <select id="pawnSel" class="chosen" multiple="true" style="width:400px;" >
+            <td width="440px">
+                <select id="pawnSel" class="form-control" multiple style="width:400px;" >
                     <option value="住宅">住宅</option>
                     <option value="办公楼">办公楼</option>
                     <option value="土地">土地</option>
@@ -127,17 +133,23 @@
                     <option value="保理/应收帐款">保理/应收帐款</option>
                 </select>
             </td>
+			<td>
+				<span class="input-gray" id="pawnSelTip"></span>
+			</td>
         </tr>
         <tr>
-            <td width="110px;">标题</td>
-            <td colspan=2 width="640px">
+            <td width="110px;">标题*</td>
+            <td width="440px">
                 <input id='title' class="form-control"  style="width:90%" />
-            </td>
+			</td>
+            <td>
+				<span class="input-gray" id="titleTip"></span>
+			</td>
         </tr>
         <tr>
             <td width="110px;">贷款说明</td>
             <td colspan=2 width="640px">
-                <textarea id="content" name="content" rows="3" cols="100" style="width: 100%; height: 300px">
+                <textarea id="content" class="form-control" name="content" rows="3" cols="100" style="width: 100%; height: 300px">
                 </textarea>
             </td>
         </tr>

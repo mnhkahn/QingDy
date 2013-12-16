@@ -946,7 +946,7 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 					
 					String fileName = PropUtil.getProps(request.getServletContext().getRealPath("/"), type) + username + "." + ConvertUtil.PNG;;
 					int width = 0, height = 0;
-					if (type == PropUtil.UPLOAD_AVATAR) {
+					if (type == PropUtil.UPLOAD_AVATAR) {						
 						width = Integer.parseInt(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.AVATAR_WIDTH));
 						height = Integer.parseInt(PropUtil.getProps(request.getServletContext().getRealPath("/"), PropUtil.AVATAR_HEIGHT));
 						path = PropUtil.getProps(request.getServletContext().getRealPath("/"), "avatarUrlPath");
@@ -990,6 +990,12 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 						item.write(file);
 						
 					}
+					if (type == PropUtil.UPLOAD_AVATAR) {
+						UserDetail userDetail = userDetailDao.getUserDetail(username);
+						userDetail.setAvatar(path);
+						userDetailDao.updateUserDetail(userDetail);
+					}
+					
 					message = "{\"err\":\"" + "" + "\",\"msg\":\"" + path + "\"}";
 					System.out.println("Upload Success");
 					

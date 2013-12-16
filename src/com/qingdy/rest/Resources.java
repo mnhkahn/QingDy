@@ -38,6 +38,7 @@ import com.cyeam.util.FileUtil;
 import com.cyeam.util.JSONUtil;
 import com.cyeam.util.PropUtil;
 import com.qingdy.common.Constant;
+import com.qingdy.dao.UserDetailDao;
 import com.qingdy.model.Answer;
 import com.qingdy.model.Blog;
 import com.qingdy.model.Evaluate;
@@ -95,8 +96,8 @@ public class Resources {
 	@Path("/user/exists")
 	@HEAD
 	public Response isUserExists(@QueryParam("username") String username) {
-		return Response.noContent()
-				.header("exist", facadeManager.isUserExists(username)).build();
+		System.out.println(username);
+		return Response.noContent().header("exist", facadeManager.isUserExists(username)).build();
 	}
 
 	@Path("/user/{username}")
@@ -137,6 +138,7 @@ public class Resources {
 	@PUT
 	public Response updateUserDetail(@PathParam("username") String username,
 			UserDetail userDetail) {
+		userDetail.setAvatar(facadeManager.getUserDetail(username).getAvatar());
 		userDetail.setUsername(username);
 		facadeManager.updateUserDetail(userDetail);
 		return Response.noContent().build();
@@ -930,7 +932,7 @@ public class Resources {
 
 	@Path("/loan/{id}")
 	@DELETE
-	public Response removeLoan(Loan loan, @PathParam("id") Long id) {
+	public Response removeLoan(@PathParam("id") Long id) {
 		facadeManager.removeLoan(id);
 		return Response.noContent().build();
 	}

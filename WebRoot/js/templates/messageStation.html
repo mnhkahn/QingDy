@@ -1,32 +1,44 @@
-<div class="row">
-    <div class="col-md-8"><h4>站内消息</h4></div>
+<form action="" method="post" name="messageForm" id="messageForm">
+	<div class="row">
+		<div class="col-md-8"><h4>站内消息</h4></div>
+	</div>
+	<div class="row">
+		<p class="hs-description" style="color: #666;padding: 5px 0 0 5px;line-height: 22px;">如果发送对象为空，则要发送给所有人；如果输入发送对象，则只会发送给指定对象</p>
+	</div>
+	<div class="row">
+		<div class="col-md-2" style="width: 90px;"><h4>对象：</h4></div>
+		<div class="col-md-6" style="margin-top: 3px;">
+			<input id="receiver" class="form-control"/>
+		</div>
+		<div class="col-md-2" style="margin-top: 3px;">
+			<span class="input-gray" id="receiverTip"></span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2" style="width: 90px;"><h4>标题：</h4></div>
+		<div class="col-md-6" style="margin-top: 3px;">
+			<input id="title" class="form-control" placeholder="请在这里概述您的消息标题"/>
+		</div>
+		<div class="col-md-4" style="margin-top: 3px;">
+			<span class="input-gray" id="titleTip"></span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2" style="width: 90px;"><h4>内容：</h4></div>
+		<div class="col-md-8" style="margin-top: 3px;">
+			<textarea id="content" name="content" rows="5" cols="100" style="width: 100%; height: 300px">
+			</textarea>
+		</div>
+		<div class="col-md-4" style="margin-top: 3px;">
+			<span class="input-gray" id="contentTip"></span>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 10px">
+		<div class="col-md-2" style="margin-top: 3px;float: right;">
+			<div class="col-xs-1" style="width: 130px;">
+				<button id="submit" class="btn btn-info">发送</button>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="row">
-    <p class="hs-description" style="color: #666;padding: 5px 0 0 5px;line-height: 22px;">如果发送对象为空，则要发送给所有人；如果输入发送对象，则只会发送给指定对象</p>
-</div>
-<div class="row">
-    <div class="col-md-2"><h4>对象：</h4></div>
-    <div class="col-md-9" style="margin-top: 3px;">
-        <input id="tipInput" class="form-control"/>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-2"><h4>标题：</h4></div>
-    <div class="col-md-9" style="margin-top: 3px;">
-        <input id="title" class="form-control" placeholder="请在这里概述您的消息标题"/>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-2"><h4>内容：</h4></div>
-    <div class="col-md-9" style="margin-top: 3px;">
-        <textarea id="content" name="content" rows="5" cols="100" style="width: 100%; height: 300px">
-        </textarea>
-    </div>
-</div>
-<div class="row" style="margin-bottom: 10px">
-    <div class="col-md-2" style="margin-top: 3px;float: right;">
-        <div class="col-xs-1" style="width: 130px;">
-            <button class="btn btn-info">发送</button>
-        </div>
-    </div>
-</div>
+<ul id="errorlist"></ul>

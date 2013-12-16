@@ -23,33 +23,3 @@
         <div style="clear:both;"></div>
     </div>
 </div>
-<script type="text/javascript">
-    var reply = function (receiver) {
-        if ($("#Dialog")) {
-            $("#Dialog").remove();
-        }
-        var dialog = $('<div id="Dialog"></div>');
-        dialog.load('/js/templates/messageStation1.html', function () {
-            dialog.dialog({
-                width:'auto',
-                modal: true,
-                title: "站内消息",
-                show: 'fade',
-                hide: 'fade'
-            });
-            var receiverInput = $("#tipInput");
-            receiverInput.val(receiver);
-            $("#submit").on("click", function () {
-
-                var title = $("#title");
-                var content = $("#content");
-                sendMessage(username, receiver, title.val(), content.val(),
-                    function() {
-                        dialog.dialog( "destroy" );
-                    }
-                );
-            });
-        });
-
-    }
-</script>

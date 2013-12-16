@@ -780,7 +780,7 @@ function trsnactionProduct(id) {
 
 function isUserExists(username) {
 	console.debug(username);
-/*	$.ajax({
+	$.ajax({
 		url: "/rest/metadata/user/" + username + "/exists",
 		type: "HEAD",
 		success: function(response, textStatus, jqXHR) {
@@ -792,5 +792,77 @@ function isUserExists(username) {
 		error: function(response, textStatus, jqXHR) {
 			console.debug(response, textStatus, jqXHR);
 		}
-	});*/
+	});
+}
+
+function deleteBlog(id) {
+	$.jBox.confirm("确认要删除？", "警告", function() {
+		$.ajax({
+			url: "/rest/metadata/blog/" + id,
+			type: "DELETE",
+			success: function(response) {
+				$.jBox.confirm("删除成功", "提示", function() {
+					refresh();
+				});
+			},
+			error: function(response) {
+				console.debug(response);
+			}
+		});
+	});
+}
+
+function getBlog(id) {
+	var blog = new Object;
+	$.ajax({
+		url: "/rest/metadata/blog/" + id,
+		type: "GET",
+		async: false,
+		dataType: "json",
+		success: function(response) {
+			blog = response
+		},
+		error: function(response) {
+			console.debug(response);
+		}
+	});
+	return blog;
+}
+
+function deleteLoan(id) {
+	$.jBox.confirm("确认要删除？", "警告", function() {
+		$.ajax({
+			url: "/rest/metadata/loan/" + id,
+			type: "DELETE",
+			success: function(response) {
+				$.jBox.confirm("删除成功", "提示", function() {
+					refresh();
+				});
+			},
+			error: function(response) {
+				console.debug(response);
+			}
+		});
+	});
+}
+
+function getLoan(id) {
+	var loan = new Object;
+	$.ajax({
+		url: "/rest/metadata/loan/" + id,
+		type: "GET",
+		async: false,
+		dataType: "json",
+		success: function(response) {
+			loan = response
+		},
+		error: function(response) {
+			console.debug(response);
+		}
+	});
+	return loan;
+}
+
+function editLoan(id) {
+	showCreateLoan(getLoan(id));
 }

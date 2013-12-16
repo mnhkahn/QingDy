@@ -18,6 +18,8 @@
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript" src='js/cTop.js'></script>
 <script type="text/javascript" src="js/cMenu.js"></script>
+<script src="js/formValidator-4.1.0.js" type="text/javascript" charset="UTF-8"></script>
+<script src="js/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
 <script type="text/javascript" src="js/jquery.jBox-2.3.min.js"></script>
 <script type="text/javascript" src="js/i18n/jquery.jBox-zh-CN.js"></script>
 <script type="text/javascript" src="js/jquery.jqGrid.src.js"></script>
@@ -506,6 +508,8 @@ function init() {
                         // 站内消息
                         function () {
                             $('#List').load('/js/templates/messageStation.html', function () {
+								var receiver = $("#receiver");
+								var title = $("#title");
                                 var content = $('#content');
                                 content.xheditor({
                                     tools: 'Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,|,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,|,Img,Emot,Table,|,Preview,Fullscreen',
@@ -515,10 +519,39 @@ function init() {
                                     onUpload: function () {
                                     }
                                 });
+								
+								$.formValidator.initConfig({formID: "messageForm", theme: "css/ArrowSolidBox", submitOnce: true,
+									onError: function (msg, obj, errorlist) {
+										$("#errorlist").empty();
+										$.map(errorlist, function (msg) {
+											$("#errorlist").append("<li>" + msg + "</li>");
+										});
+									},
+									onSuccess: function() {
+										sendMessage(username, receiver.val(), title.val(), content.val());
+									},
+									submitAfterAjaxPrompt: '有数据正在异步验证，请稍等...',
+									onShowClass: "",
+									onFocusClass: "",
+									onCorrectClass: ""
+								});
+								title.formValidator({onShow: "请输入标题", onFocus: "至少1个长度", onCorrect: "合法"}).inputValidator({min: 1, onError: "标题不能为空,请确认"});
+								content.formValidator({onShow: "请输入正文。", onFocus: "至少1个长度", onCorrect: "合法"}).inputValidator({min: 1, onError: "正文不能为空,请确认"});
+								receiver.formValidator({onShow: "请输入接收者", onFocus: "至少1个长度", onCorrect: "合法"}).ajaxValidator({
+									url: "/rest/metadata/user/exists/",
+									type: "HEAD",
+									success: function(response, textStatus, jqXHR) {
+										if ("true" == jqXHR.getResponseHeader("exist"))
+											return false;
+										else
+											return true;
+									},
+									error: function(response, textStatus, jqXHR) {
+										console.debug(response, textStatus, jqXHR);
+									}
+								});
                                 $("#submit").on("click", function () {
-                                    var receiver = $("#tipInput");
-                                    var title = $("#title");
-                                    sendMessage(username, receiver.val(), title.val(), content.val());
+									$.formValidator.pageIsValid();
                                 });
 
                             });

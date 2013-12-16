@@ -1,33 +1,36 @@
-<div id='Wrapper' style="width:750px;">
-    <div class="hd" style="width:750px;">
-        <div class="newsTitle" id="newsTitle" style="margin-top: 10px; float: left">日志添加</div>
-        <div id="actionWrapper" style="width:160px;height: 59px;float: right">
-            <input id='submit' class='largeBtn' style="float:right" type='button' value='提交'/>
-        </div>
-        <div style="clear: both"></div>
-    </div>
-    <div id='titleWrapper' style="width:600px;float: left">
-		<input class="form-control" id="title" placeholder="标题"/>
-    </div>
-    <div id="categoryWrapper" style="float: right;">
-        <select id="categorySel" class="form-control" style="width:130px;">
-            <option value="小额贷款">小额贷款</option>
-            <option value="无抵押贷款">无抵押贷款</option>
-            <option value="消费贷款">消费贷款</option>
-            <option value="求学贷款">求学贷款</option>
-            <option value="房产贷款">房产贷款</option>
-            <option value="汽车贷款">汽车贷款</option>
-            <option value="银行贷款">银行贷款</option>
-            <option value="银行卡">银行卡</option>
-            <option value="民间借贷">民间借贷</option>
-            <option value="小贷公司">小贷公司</option>
-            <option value="创业贷款">创业贷款</option>
-            <option value="企业贷款">企业贷款</option>
-        </select>
-    </div>
-    <div style="clear: both"></div>
-    <div id="contentWrapper" style="width:100%;margin-top: 10px;">
-        <textarea id="content" name="content" rows="5" cols="100" style="height: 350px; width: 100%">
-        </textarea><br/><br/>
-    </div>
-</div>
+<form action="" method="post" name="blogForm" id="blogForm">
+	<div id='Wrapper' style="width:750px;">
+		<div class="hd" style="width:750px;">
+			<div class="newsTitle" id="newsTitle" style="margin-top: 10px; float: left">日志添加</div>
+			<div id="actionWrapper" style="width:160px;height: 59px;float: right">
+				<input id='submit' class='largeBtn' style="float:right" type='button' value='提交'/>
+			</div>
+			<div style="clear: both"></div>
+		</div>
+		<ul id="errorlist"></ul>
+		<div id='titleWrapper' style="width:600px;float: left">
+			<input class="form-control" id="title" placeholder="标题"/>
+		</div>
+		<div id="categoryWrapper" style="float: right;">
+			<select id="categorySel" class="form-control" style="width:130px;">
+				<option value="小额贷款">小额贷款</option>
+				<option value="无抵押贷款">无抵押贷款</option>
+				<option value="消费贷款">消费贷款</option>
+				<option value="求学贷款">求学贷款</option>
+				<option value="房产贷款">房产贷款</option>
+				<option value="汽车贷款">汽车贷款</option>
+				<option value="银行贷款">银行贷款</option>
+				<option value="银行卡">银行卡</option>
+				<option value="民间借贷">民间借贷</option>
+				<option value="小贷公司">小贷公司</option>
+				<option value="创业贷款">创业贷款</option>
+				<option value="企业贷款">企业贷款</option>
+			</select>
+		</div>
+		<div style="clear: both"></div>
+		<div id="contentWrapper" style="width:100%;margin-top: 10px;">
+			<textarea id="content" name="content" rows="5" cols="100" style="height: 350px; width: 100%">
+			</textarea><br/><br/>
+		</div>
+	</div>
+</form>

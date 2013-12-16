@@ -1,9 +1,11 @@
 <div style="width: 750px; border-bottom: 1px dashed #ddd; padding: 8px">
     <div style="width: 748px;">
         <span class="i-class">[${category}]</span>
-        <a class="questionTitle" href="" target="_blank">${title}</a>
-        <span class="answer-num" id="best${id}">
-            ${postDate}
-        </span>
+        <a class="questionTitle" href="${link}" target="_blank">${title}</a>
+        <div style="float: right; margin: 5px;">
+			<a href="${link}" target="_blank">查看</a>
+			<a href="javascript:showCreateBlog(${id})">编辑</a>
+			<a href="javascript:deleteBlog(${id})">删除</a>
+		</div>
     </div>
 </div>
