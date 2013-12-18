@@ -160,7 +160,7 @@ var cTop = {
             ico1.addClass("ico");
             //		ico.attr("id", "ico");
             wrapperLogout.click(function() {
-                alert("logout");
+                logout();
             });
 
 

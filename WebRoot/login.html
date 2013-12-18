@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>登录</title>
+
+    <link href="css/base.css" rel="stylesheet" type="text/css" />
+    <link href="css/flexisel.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/chosen.css" />
+    <link type="text/css" rel="stylesheet" href="css/Skins/Blue/jbox.css"/>
+	<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css"/>
+	<link rel="stylesheet" href="css/jquery.checkbox.css" />
+	
+    <script type="text/javascript" src='js/jquery-1.7.2.js'></script>
+    <script type="text/javascript" src="js/platform.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+	<script type="text/javascript" src="js/jquery.checkbox.min.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src='js/cTop.js'></script>
+    <script type="text/javascript" src="js/jquery.jBox-2.3.min.js"></script>
+    <script type="text/javascript" src="js/i18n/jquery.jBox-zh-CN.js"></script>
+    <script type="text/javascript" src="js/jquery.flexisel.js"></script>
+    <script src="js/formValidator-4.1.0.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
+    <script type="text/javascript" src="js/jstorage.js"></script>
+    <script type="text/javascript" src="js/chosen.jquery.js"></script>
+    <script type="text/javascript" src="js/cSearch.js"></script>
+    <script type="text/javascript" src="js/jquery.tmpl.js"></script>
+
+
+    <script type="text/javascript">
+        function init() {
+            commonInit();   		
+			
+			$.formValidator.initConfig({formID:"loginForm",theme:"css/ArrowSolidBox",submitOnce:true,
+				onError:function(msg,obj,errorlist){
+					$("#errorlist").empty();
+					$.map(errorlist,function(msg){
+						$("#errorlist").append("<li>" + msg + "</li>")
+					});
+				},
+				onSuccess: function() {
+/*					var username = $("#username");
+					var password = $("#password");
+					$.ajax({
+						url: "/rest/metadata/user/login",
+						type: "POST",
+						headers: { 
+							'Accept': 'application/json',
+							'Content-Type': 'application/json' 
+						},
+						dataType: "json",
+						data: '"username": "' + username.val() + '", "password": "' + password.val() + '", "rememberMe": "' + $("#rememberMe").attr('checked') == "checked" ? 1 : 0 + '"',
+						success: function(response) {
+							console.debug(response);
+						},
+						error: function(response) {
+							console.debug(response);
+						}
+					});*/
+				},
+				ajaxPrompt : '有数据正在异步验证，请稍等...'
+			});
+
+			$("#username").formValidator({onShow:"请输入用户名",onFocus:"至少1个长度",onCorrect:"用户名合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"用户名两边不能有空符号"},onError:"用户名不能为空,请确认"});
+			$("#password").formValidator({onShow:"请输入密码",onFocus:"至少1个长度",onCorrect:"密码合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"密码不能为空,请确认"});
+        }
+    </script>
+
+</head>
+
+<body onload='init()'>
+<div id="site-header-container" class="site-header-container page-container">
+</div>
+
+<div id="mainContainer2" class="mainContainer2" style="margin-top: 50px; height:500px">
+	<form action="/rest/metadata/user/login" method="post" name="loginForm" id="loginForm">
+		<ul id="errorlist"></ul>
+		<table border="0px" style="font-size:12px" width="730px">
+			<tr> 
+				<td align="right" width="135px">用户名:</td>
+				<td width="265px">
+					<input type="text" id="username" name="username" style="width:120px" class="form-control"/>
+				</td>
+				<td width="330px">
+					<div id="usernameTip" style="width:280px"></div>
+				</td>
+			</tr>
+			<tr> 
+				<td align="right">密码:</td>
+				<td>
+					<input type="password" id="password" name="password" style="width:120px" class="form-control"/>
+				</td>
+				<td><div id="passwordTip" style="width:280px"></div></td>
+			</tr>
+			<tr> 
+				<td align="right">
+					<input type="checkbox" name="rememberMe" value="1">
+				</td>
+				<td>
+					记住我一周
+				</td>
+				<td></td>
+			</tr>
+			<tr> 
+			  <td align="right"></td>
+			  <td></td>
+			  <td><input id="submit" type="submit" class="btn btn-default"></input></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<div id="footContainer" class="footContainer">
+</div>
+<link rel = "Shortcut Icon" href="favicon.ico">
+
+</body>
+</html>

@@ -866,3 +866,17 @@ function getLoan(id) {
 function editLoan(id) {
 	showCreateLoan(getLoan(id));
 }
+
+function logout() {
+	$.ajax({
+		url: "/rest/metadata/user/logout",
+		type: "POST",
+		success: function(response) {
+			loan = response
+		},
+		error: function(response) {
+			console.debug(response);
+		}
+
+	});
+}

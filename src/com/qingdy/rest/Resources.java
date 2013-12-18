@@ -1,16 +1,9 @@
 package com.qingdy.rest;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
-import java.util.TimeZone;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -27,18 +20,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 
 import com.cyeam.util.ConvertUtil;
-import com.cyeam.util.FileUtil;
-import com.cyeam.util.JSONUtil;
 import com.cyeam.util.PropUtil;
 import com.qingdy.common.Constant;
-import com.qingdy.dao.UserDetailDao;
 import com.qingdy.model.Answer;
 import com.qingdy.model.Blog;
 import com.qingdy.model.Evaluate;
@@ -49,7 +40,6 @@ import com.qingdy.model.Message;
 import com.qingdy.model.News;
 import com.qingdy.model.Product;
 import com.qingdy.model.Question;
-import com.qingdy.model.Score;
 import com.qingdy.model.Timeline;
 import com.qingdy.model.Transaction;
 import com.qingdy.model.User;
@@ -61,6 +51,7 @@ import com.qingdy.model.domain.Specialist;
 import com.qingdy.model.domain.UserTop;
 import com.qingdy.model.domain.VisitDate;
 import com.qingdy.service.FacadeManager;
+import com.qingdy.shiro.QingDyShiro;
 
 @Path("/metadata")
 public class Resources {
@@ -89,8 +80,36 @@ public class Resources {
 
 	@Path("/user/login")
 	@POST
-	public Response login(User user) {
-		return null;
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response login(@Context HttpServletRequest request) {
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		boolean rememberMe = request.getParameter("rememberMe").equals("1");
+		
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		boolean loginSuccess = facadeManager.validateUser(user);
+		if (loginSuccess) {
+			QingDyShiro.setLogin(user.getUsername(), user.getPassword());
+			return Response.ok(user).build();
+		}
+		else {
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
+	}
+	
+	@Path("/user/logout")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response loginout(@Context HttpServletRequest request) {
+		Subject subject = SecurityUtils.getSubject();
+        if (subject != null) {           
+            subject.logout();
+        }
+        request.getSession().invalidate();
+        
+		return Response.noContent().build();
 	}
 
 	@Path("/user/exists")

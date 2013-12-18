@@ -10,7 +10,8 @@
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/QingDy?useUnicode=true&amp;characterEncoding=utf-8" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/QingDy?useUnicode=true&amp;characterEncoding=utf-8" />
 		<property name="username" value="qingdy" />
 		<property name="password" value="qingdy" />
 		<property name="maxActive" value="100" />
@@ -22,15 +23,14 @@
 		<property name="logAbandoned" value="true" />
 	</bean>
 
-	<bean id="sessionFactory"
-		class="com.qingdy.provider.QingDyLocalSessionFactoryBean">
+	<bean id="sessionFactory" class="com.qingdy.provider.QingDyLocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="mappingResources">
 			<list>
 				<value>com/qingdy/model/query.xml</value>
 				<value>com/qingdy/model/User.hbm.xml</value>
-   				<value>com/qingdy/model/Blog.hbm.xml</value>
-				<value>com/qingdy/model/Evaluate.hbm.xml</value> 
+				<value>com/qingdy/model/Blog.hbm.xml</value>
+				<value>com/qingdy/model/Evaluate.hbm.xml</value>
 				<value>com/qingdy/model/UserDetail.hbm.xml</value>
 				<value>com/qingdy/model/Mall.hbm.xml</value>
 				<value>com/qingdy/model/Product.hbm.xml</value>
@@ -48,26 +48,21 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.connection.useUnicode">true</prop>
-	            <prop key="hibernate.connection.characterEncoding">UTF8</prop>
-	            <prop key="hibernate.connection.charSet">UTF8</prop>
+				<prop key="hibernate.connection.characterEncoding">UTF8</prop>
+				<prop key="hibernate.connection.charSet">UTF8</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
-<!-- 		<property name="connection.useUnicode">true</property>
-		<property name="connection.characterEncoding">UTF-8</property> -->
+		<!-- <property name="connection.useUnicode">true</property> <property name="connection.characterEncoding">UTF-8</property> -->
 	</bean>
-	
-	<!-- Use the HibernateAware mapper instead of the default 
-	<bean
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<property name="objectMapper">
-			<bean class="com.fasterxml.jackson.datatype.hibernate4.HibernateAwareObjectMapper" />
-		</property>
-	</bean>-->
 
- 	<bean id="daoTemplate" abstract="true" lazy-init="true">
+	<!-- Use the HibernateAware mapper instead of the default <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"> 
+		<property name="objectMapper"> <bean class="com.fasterxml.jackson.datatype.hibernate4.HibernateAwareObjectMapper" 
+		/> </property> </bean> -->
+
+	<bean id="daoTemplate" abstract="true" lazy-init="true">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="dao" class="com.qingdy.dao.hibernate.BaseDaoHibernate"
@@ -126,11 +121,11 @@
 	</bean>
 
 	<bean id="transactionManager"
-	    class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-	    <property name="sessionFactory" ref="sessionFactory" />
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
-		
+
+
 	<bean id="txProxyTemplate" abstract="true"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager" ref="transactionManager"></property>
@@ -143,16 +138,11 @@
 		</property>
 	</bean>
 
-<!-- 	<bean id="facadeManager" parent="txProxyTemplate">
-		<property name="target">
-			<bean class="com.qingdy.service.impl.FacadeManagerImpl">
-				<property name="blogDao" ref="blogDao"></property>
-				<property name="evaluateDao" ref="evaluateDao"></property>
-				<property name="userDao" ref="userDao"></property>
-			</bean>
-		</property>
-	</bean> -->
-	
+	<!-- <bean id="facadeManager" parent="txProxyTemplate"> <property name="target"> 
+		<bean class="com.qingdy.service.impl.FacadeManagerImpl"> <property name="blogDao" 
+		ref="blogDao"></property> <property name="evaluateDao" ref="evaluateDao"></property> 
+		<property name="userDao" ref="userDao"></property> </bean> </property> </bean> -->
+
 	<bean id="restResource" class="com.qingdy.rest.Resources"></bean>
 	<bean id="qingdyApplication" class="com.qingdy.provider.QingDyJacksonJaxbJsonProvider"></bean>
 	<bean class="org.apache.wink.spring.Registrar">
@@ -167,4 +157,36 @@
 			</set>
 		</property>
 	</bean>
+
+ 	<bean id="ShiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login.html" />
+		<property name="successUrl" value="/test.html" />
+		<property name="unauthorizedUrl" value="/test.html" />
+		<property name="filterChainDefinitions">
+			<value>
+				/=anon
+				/login.html=authc
+				/404.html=anon
+				/lender.html*=authc
+			</value>
+		</property>
+	</bean>
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="qingdyShiroRealm" />
+	</bean>
+
+	<bean id="qingdyShiroRealm" class="com.qingdy.shiro.QingDyShiro">
+<!--  		<property name="cacheManager" ref="shiroCacheManager" /> -->
+	</bean>
+
+ 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+<!-- 	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="cacheManager" />
+	</bean> -->
+
+	<bean id="formAuthenticationFilter"
+		class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter" />
 </beans>
