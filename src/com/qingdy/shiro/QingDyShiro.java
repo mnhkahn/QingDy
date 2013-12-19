@@ -24,7 +24,7 @@ public class QingDyShiro extends AuthorizingRealm {
 	@Resource(name = "facadeManager")
 	private FacadeManager facadeManager;
 
-	public static final void setLogin(String userId, String password) {
+	public static final void setLogin(String userId, String password, boolean rememberMe) {
 		Subject currentUser = SecurityUtils.getSubject();
 		System.out.println("**************" + currentUser.isAuthenticated());
 		if (!currentUser.isAuthenticated()) {
@@ -38,7 +38,8 @@ public class QingDyShiro extends AuthorizingRealm {
 					password);
 			// this is all you have to do to support 'remember me' (no config -
 			// built in!):
-			token.setRememberMe(true);
+			
+			token.setRememberMe(rememberMe);
 			currentUser.login(token);
 		}
 	};

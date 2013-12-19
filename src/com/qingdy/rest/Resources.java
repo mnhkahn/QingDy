@@ -1,5 +1,6 @@
 package com.qingdy.rest;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
 import com.cyeam.util.ConvertUtil;
+import com.cyeam.util.FileUtil;
 import com.cyeam.util.PropUtil;
 import com.qingdy.common.Constant;
 import com.qingdy.model.Answer;
@@ -73,8 +75,48 @@ public class Resources {
 	 */
 	@Path("/user/register")
 	@POST
-	public Response register(User user) {
+	public Response register(User user, @Context HttpServletRequest request) {
 		facadeManager.saveUser(user);
+		
+		UserDetail userDetail = new UserDetail();
+		userDetail.setUsername(user.getUsername());
+		userDetail.setRegdate(new Date());
+		userDetail.setAvatar(user.getUsername() + "." + ConvertUtil.PNG);
+		facadeManager.saveUserDetail(userDetail);
+		
+		// Default avatar & skin
+		File defaultAvatar = new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), "defaultAvatar"));
+		File avatar = new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), "uploadAvatar"));
+		FileUtil.copyFile(defaultAvatar, avatar, user.getUsername() + ".png");
+		
+		if (user.getGroupid() == 2) {
+			File defaultSkin = new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), "defaultSkin"));
+			File skin = new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), "uploadSkin"));
+			FileUtil.copyFile(defaultSkin, skin, user.getUsername() + ".png");
+			
+			Mall mall = new Mall();
+			mall.setPoster(userDetail);
+			mall.setPostDate(new Date());
+			facadeManager.saveMall(mall);
+		}
+		
+		// Create user's file for uploading
+		File file_date = new File(PropUtil.getProps(request.getServletContext().getRealPath("/"), "uploadFile") + user.getUsername());
+		boolean file_true = false;
+		if (file_date != null) {
+			file_true = file_date.mkdirs();
+		}
+		else {
+			System.out.println("************" + PropUtil.getProps(request.getServletContext().getRealPath("/"), "uploadFile") + user.getUsername());
+		}
+		
+		if (file_true) {
+			System.out.println("文件夹建立成功");
+		} else {
+			System.out.println("文件建立失败");
+		}
+		
+		QingDyShiro.setLogin(user.getUsername(), user.getPassword(), true);
 		return Response.status(Response.Status.CREATED).build();
 	}
 
@@ -91,7 +133,7 @@ public class Resources {
 		user.setPassword(password);
 		boolean loginSuccess = facadeManager.validateUser(user);
 		if (loginSuccess) {
-			QingDyShiro.setLogin(user.getUsername(), user.getPassword());
+			QingDyShiro.setLogin(user.getUsername(), user.getPassword(), rememberMe);
 			return Response.ok(user).build();
 		}
 		else {

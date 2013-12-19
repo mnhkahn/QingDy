@@ -166,16 +166,57 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/=anon
-				/login.html=authc
-				/404.html=anon
+				/404.html*=anon
+				/advisory.html*=anon
+				/login.html*=anon
+				/d.html*=anon
+				/demand.html*=anon
+				/index.html*=anon
+				/login.html*=anon
+				/m.html*=anon
+				/news.html*=anon
+				/p.html*=anon
+				/p1.html*=anon
+				/product.html*=anon
+				/q.html*=anon
+				/register.html*=anon
+				/s.html*=anon
+				/specialist.html*=anon
+				/supply*=anon
+				
+				/rest/metadata/user/register=anon
+				/rest/metadata/user/login=anon
+				/rest/metadata/user/exists=anon
+
+				/admin.html*=authc	
 				/lender.html*=authc
+				/loaner.html*=authc
+				
+				/rest/metadata/user/logout=authc
+				/rest/metadata/user*=authc, rest
 			</value>
 		</property>
 	</bean>
 
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="qingdyShiroRealm" />
+		<!-- one week -->
+		<property name="sessionManager" ref="shiroSessionManager"/>
 	</bean>
+
+	<bean id="shiroSessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
+		<property name="globalSessionTimeout" value="604800000" />
+		<property name="sessionValidationSchedulerEnabled" value="true" />
+		<property name="deleteInvalidSessions" value="true" />
+	</bean>
+	
+	<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+        <property name="interval" value="5000"/>
+    </bean>
+	
+	
 
 	<bean id="qingdyShiroRealm" class="com.qingdy.shiro.QingDyShiro">
 <!--  		<property name="cacheManager" ref="shiroCacheManager" /> -->

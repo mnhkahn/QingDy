@@ -2,39 +2,138 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
+    <title>青帝网欢迎您</title>
 
     <link href="css/base.css" rel="stylesheet" type="text/css" />
     <link href="css/flexisel.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/chosen.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css" />
-
-    <script type="text/javascript" src='js/jquery-1.9.1.js'></script>
+	<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css"/>
+	
+    <script type="text/javascript" src='js/jquery-1.7.2.js'></script>
+    <script type="text/javascript" src="js/platform.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript" src="js/base.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src='js/cTop.js'></script>
-    <script type="text/javascript" src="js/jquery.flexisel.js"></script>
-    <script type="text/javascript" src="js/jquery.esn.autobrowse.js"></script>
+    <script src="js/formValidator-4.1.0.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
     <script type="text/javascript" src="js/jstorage.js"></script>
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script type="text/javascript" src="js/cSearch.js"></script>
     <script type="text/javascript" src="js/jquery.tmpl.js"></script>
-    <script type="text/javascript" src="js/util.js"></script>
-    <link rel = "Shortcut Icon" href="favicon.ico">
+
 
     <script type="text/javascript">
-      commonInit();
+        function init() {
+            commonInit();   		
+			
+			$.formValidator.initConfig({formID:"loginForm",theme:"css/ArrowSolidBox",submitOnce:true,
+				onError:function(msg,obj,errorlist){
+					$("#errorlist").empty();
+					$.map(errorlist,function(msg){
+						$("#errorlist").append("<li>" + msg + "</li>")
+					});
+				},
+				onSuccess: function() {
+					var username = $("#username");
+					var password = $("#password");
+					var groupid = $('input:radio[name="groupid"]:checked').val();
+					$.ajax({
+						url: "/rest/metadata/user/register",
+						type: "POST",
+						headers: { 
+							'Accept': 'application/json',
+							'Content-Type': 'application/json' 
+						},
+						dataType: "json",
+						data: '{"username": "' + username.val() + '", "password": "' + password.val() + '", "groupid": "' + groupid + '"}',
+						success: function(response) {
+							console.debug(response);
+						},
+						error: function(response) {
+							console.debug(response);
+						}
+					});
+				},
+				ajaxPrompt : '有数据正在异步验证，请稍等...'
+			});
+
+			$("#username").formValidator({onShow:"请输入用户名",onFocus:"至少1个长度",onCorrect:"用户名合法"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"用户名两边不能有空符号"},onError:"用户名不能为空,请确认"}).ajaxValidator({
+				onError:"该用户名已经被占用",
+				url: "/rest/metadata/user/exists/",
+				type: "HEAD",
+				success: function(response, textStatus, jqXHR) {
+					if ("true" == jqXHR.getResponseHeader("exist"))
+						return true;
+					else
+						return false;
+				},
+				error: function(response, textStatus, jqXHR) {
+					console.debug(response, textStatus, jqXHR);
+				}
+			});;
+			$("#password").formValidator({onShowFixText:"6~16个字符，包括字母、数字、特殊符号，区分大小写",onShow:"请输入密码",onFocus:"至少1个长度",onCorrect:"密码合法"}).inputValidator({min:6,max:16,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"密码长度错误,请确认"});
+			$("#password1").formValidator({onShowFixText:"请再次输入密码",onShow:"输再次输入密码",onFocus:"至少1个长度",onCorrect:"密码一致"}).inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"重复密码两边不能有空符号"},onError:"重复密码不能为空,请确认"}).compareValidator({desID:"password",operateor:"=",onError:"2次密码不一致,请确认"});
+			$(":radio[name='groupid']").formValidator({relativeID:"lender",tipID:"groupidTip",tipCss:{"left":"60px"},onShow:"请选择一个身份",onFocus:"请选择一个身份",onCorrect:"输入正确",defaultValue:["4"]}).inputValidator({min:1,max:1,onError:"身份忘记选了,请确认"}).defaultPassed();
+
+			
+			$("#submit").on("click", function () {
+				$.formValidator.pageIsValid();
+			});
+        }
     </script>
 
 </head>
 
-<body>
+<body onload='init()'>
 <div id="site-header-container" class="site-header-container page-container">
 </div>
-<div id="mainContainer2" class="mainContainer2" style="height: 500px">
-    
+
+<div id="mainContainer2" class="mainContainer2" style="margin-top: 50px; height:500px">
+	<form action="/rest/metadata/user/login" method="post" name="loginForm" id="loginForm">
+		<ul id="errorlist"></ul>
+		<table border="0px" style="font-size:12px" width="730px">
+			<tr> 
+				<td align="right" width="135px">用户名:</td>
+				<td width="265px">
+					<input type="text" id="username" name="username" style="width:120px" class="form-control"/>
+				</td>
+				<td width="330px">
+					<div id="usernameTip" style="width:280px"></div>
+				</td>
+			</tr>
+			<tr> 
+				<td align="right">密码:</td>
+				<td>
+					<input type="password" id="password" name="password" style="width:120px" class="form-control"/>
+				</td>
+				<td><div id="passwordTip" style="width:280px"></div></td>
+			</tr>
+			<tr> 
+				<td align="right">确认密码:</td>
+				<td>
+					<input type="password" id="password1" name="password1" style="width:120px" class="form-control"/>
+				</td>
+				<td><div id="password1Tip" style="width:280px"></div></td>
+			</tr>
+			<tr> 
+				<td colspan=2>
+					<input type="radio" id="loaner" value="1" name="groupid" /><label>借贷者&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					<input type="radio" id="lender" value="2" name="groupid" /><label>放贷者</label>
+				</td>
+				<td><div id="groupidTip" style="width:280px"></div></td>
+			</tr>
+			<tr> 
+			  <td align="right"></td>
+			  <td></td>
+			  <td><input id="submit" type="button" class="btn btn-default" value="注册"></input></td>
+			</tr>
+		</table>
+	</form>
 </div>
 <div id="footContainer" class="footContainer">
 </div>
+<link rel = "Shortcut Icon" href="favicon.ico">
+
 </body>
 </html>
