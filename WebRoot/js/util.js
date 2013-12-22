@@ -126,3 +126,25 @@ function checkFormat(s) {
 	}
     return false ;
 }
+
+function getCookie(name){
+    var arr = document.cookie.match(new RegExp("(^| )" 
+                                   + name + "=([^;]*)(;|$)"));
+    if(arr != null) return (arr[2]);
+    return null;
+}
+
+function setCookie (name, value, expire) {
+    var expireStr = '';
+
+    if (expire || expire > 0) {
+        var exp  = new Date();
+        exp.setTime(exp.getTime() + expire * 1000);
+
+        expireStr = ';expires=' + exp.toGMTString();
+    }
+
+    document.cookie = name + '=' + value +  
+                      '; path=/;' + expireStr + 
+                      'domain=.youdomain.com';
+}

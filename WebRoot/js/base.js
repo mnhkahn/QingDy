@@ -143,6 +143,7 @@ var DEFAULT_PAGE = 1;
 var DEFAULT_AREA = "广东广州";
 var DEFAULT_SEL = "不限";
 var DEFAULT_INTRO = "这个人很懒，什么都没有留下";
+var ONE_WEEK_IN_SECOND = 60 * 60 * 24 * 7
 
 function getLink(type, id) {
     switch (type) {

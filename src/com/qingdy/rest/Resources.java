@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -27,6 +28,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.util.WebUtils;
 
 import com.cyeam.util.ConvertUtil;
 import com.cyeam.util.FileUtil;
@@ -123,10 +125,12 @@ public class Resources {
 	@Path("/user/login")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response login(@Context HttpServletRequest request) {
+	public Response login(@Context HttpServletRequest request, @Context HttpServletResponse response) {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		boolean rememberMe = request.getParameter("rememberMe").equals("1");
+		
+		System.out.println(username + password + rememberMe);
 		
 		User user = new User();
 		user.setUsername(username);
@@ -134,7 +138,17 @@ public class Resources {
 		boolean loginSuccess = facadeManager.validateUser(user);
 		if (loginSuccess) {
 			QingDyShiro.setLogin(user.getUsername(), user.getPassword(), rememberMe);
-			return Response.ok(user).build();
+			
+			String fallbackUrl = "redirect:/";
+	        try {
+	        	Cookie cookie = new Cookie("username", username);
+	        	cookie.setMaxAge(1209600);
+	        	response.addCookie(cookie);
+	            // redirect to previously requested page
+	            WebUtils.redirectToSavedRequest(request, response, fallbackUrl);
+	        } catch (IOException e) {
+	        }
+	        return Response.ok(user).build();
 		}
 		else {
 			return Response.status(Response.Status.FORBIDDEN).build();
