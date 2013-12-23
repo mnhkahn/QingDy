@@ -28,6 +28,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+
 import org.apache.shiro.web.util.WebUtils;
 
 import com.cyeam.util.ConvertUtil;
@@ -126,6 +127,7 @@ public class Resources {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response login(@Context HttpServletRequest request, @Context HttpServletResponse response) {
+		System.out.println("***********************************Login");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		boolean rememberMe = request.getParameter("rememberMe").equals("1");
@@ -142,9 +144,11 @@ public class Resources {
 			String fallbackUrl = "redirect:/";
 	        try {
 	        	Cookie cookie = new Cookie("username", username);
+	        	cookie.setPath("/");
 	        	cookie.setMaxAge(1209600);
 	        	response.addCookie(cookie);
 	            // redirect to previously requested page
+
 	            WebUtils.redirectToSavedRequest(request, response, fallbackUrl);
 	        } catch (IOException e) {
 	        }

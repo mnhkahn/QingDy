@@ -1,39 +1,45 @@
 function commonInit(type, keyword) {
-	username = 'lender';
-	var password = 'bryce';
 	var ctop;
-	
+	var username = "lender1"
 	$.ajax({
 		type: "GET",
 		dataType: "json",
 		url: '/data/top.json',
 		success: function(arr) {
-			$.ajax({
-				type: "GET",
-				dataType: "json",
-				url: '/rest/metadata/usertop/' + username,//'data/tests/usertop.json',
-				contentType: "application/json; charset=utf-8",
-//				data: '{"username": "' + username + '", "password":"' + password + '" }',//{'Username' : username, 'Password' : password},
-				success: function(info) {
-                    arr.info = new Object;
-                    arr.info.uid = username;
-                    arr.info.icon = info.avatar;
-                    arr.info.name = info.name;
-                    arr.info.message = info.message;
-                    var link;
-                    if (info.groupId == 2)
-                        link = 'lender.html';
-                    else if (info.groupId == 1)
-                        link = 'loaner.html';
-                    else if (info.groupId == 0)
-                        link = 'admin.html';
-                    arr.info.link = link;
-                    ctop = cTop.create(arr);
-				},
-				error: function(response) {
-					console.error(response);
-				}
-			});
+			if (username) {
+				$.ajax({
+					type: "GET",
+					dataType: "json",
+					url: '/rest/metadata/usertop/' + username,//'data/tests/usertop.json',
+					contentType: "application/json; charset=utf-8",
+	//				data: '{"username": "' + username + '", "password":"' + password + '" }',//{'Username' : username, 'Password' : password},
+					success: function(info) {
+						arr.info = new Object;
+						arr.info.uid = username;
+						arr.info.icon = info.avatar;
+						arr.info.name = info.name;
+						arr.info.message = info.message;
+						var link;
+						if (info.groupId == 2)
+							link = 'lender.html';
+						else if (info.groupId == 1)
+							link = 'loaner.html';
+						else if (info.groupId == 0)
+							link = 'admin.html';
+						arr.info.link = link;
+						ctop = cTop.create(arr);
+					},
+					error: function(response) {
+						console.error(response);
+					}
+				});
+			}
+			else {
+				arr.info = new Object;
+				arr.info.name = "";
+				arr.info.link = "login.html";
+				ctop = cTop.create(arr);
+			}
 
 		},
 		error: function(response) {
@@ -869,11 +875,12 @@ function editLoan(id) {
 }
 
 function logout() {
+alert("logout")
 	$.ajax({
 		url: "/rest/metadata/user/logout",
 		type: "POST",
 		success: function(response) {
-			loan = response
+			window.location.href = "/"
 		},
 		error: function(response) {
 			console.debug(response);

@@ -207,7 +207,7 @@ var cTop = {
 			divLogin.css("width", "100%");
 			divLogin.css("height", "100%");
 			divLogin.css("float", "left");
-			divLogin.html("<a class='login-anchor-link' href='" + this.info.link + "' width='" + divLogin.width() + "'>" + "Login" + "</a>");
+			divLogin.html("<a class='btn btn-info' style='margin-top: 3px;' href='" + this.info.link + "' width='" + divLogin.width() + "'>" + "登录" + "</a>");
 			
 			var wrapperLogin = $('<div></div>');
 			wrapperLogin.addClass("wrapperLogin");

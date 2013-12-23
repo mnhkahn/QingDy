@@ -162,8 +162,8 @@
 <!-- 	<bean id="ShiroFilter" class="com.qingdy.filter.LoginFilter"> -->
 		<property name="securityManager" ref="securityManager" />
  		<property name="loginUrl" value="/login.html" />
-<!--	 	<property name="successUrl" value="/test.html" />
-		<property name="unauthorizedUrl" value="/test.html" /> -->
+	 	<property name="successUrl" value="/" />
+		<property name="unauthorizedUrl" value="/login.html" />
 		<property name="filterChainDefinitions">
 			<value>
 				/=anon
