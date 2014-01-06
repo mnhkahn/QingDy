@@ -3,6 +3,7 @@ package com.qingdy.service;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.shiro.subject.Subject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,6 +33,7 @@ import com.qingdy.model.domain.UserTop;
 import com.qingdy.model.domain.VisitDate;
 
 public interface FacadeManager {
+	public String getCurrentUser();
 	/*
 	 * User
 	 */

@@ -1,6 +1,12 @@
+var username;
 function commonInit(type, keyword) {
 	var ctop;
-	var username = "lender1"
+	
+	if (username == undefined || username == "null") {
+		username = getUsername();
+	}
+	console.log("current user is " + username);
+
 	$.ajax({
 		type: "GET",
 		dataType: "json",
@@ -86,7 +92,7 @@ function showFoot() {
 	cell.className = "foot" + 2;
 	cell.id = "foot" + 2;
 	cell.colSpan = "10";
-	cell.appendChild(document.createTextNode('Copyright ©1997-2009 Edai Corporation.All Rights Reserved.  成都易贷网络科技有限公司'));
+	cell.appendChild(document.createTextNode('Copyright ©1997-2014 QingDy Corporation.All Rights Reserved.  [公司名称]'));
 	row.appendChild(cell);
 	footTable.appendChild(row);
 
@@ -96,7 +102,7 @@ function showFoot() {
 	cell.id = "foot" + 3;
 	cell.colSpan = "10";
 
-	cell.appendChild(document.createTextNode('蜀ICP备09001352号 客服：028-62560576'));
+	cell.appendChild(document.createTextNode('[备案号]'));
 	row.appendChild(cell);
 	footTable.appendChild(row);
 
@@ -887,4 +893,31 @@ alert("logout")
 		}
 
 	});
+}
+
+function addFallBack(url) {
+	var fallback = "index.html";
+	if (document.referrer != "" && document.referrer.indexOf("localhost") > -1) {
+		fallback = document.referrer;
+	}
+	return url + "?fallback=" + fallback;
+}
+
+function getUsername() {
+	var username;
+	$.ajax({
+		url: "/rest/metadata/user/username",
+		type: "GET",
+		async: false,
+		success: function(data, textStatus, jqXHR) {
+			username = jqXHR.getResponseHeader("username");
+			if (username == "null") {
+				username = undefined
+			}
+		},
+		error: function(response) {
+			console.warn(response);
+		}
+	});
+	return username;
 }

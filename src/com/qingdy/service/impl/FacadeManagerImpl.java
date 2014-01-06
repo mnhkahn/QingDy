@@ -7,6 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
+
+import org.apache.shiro.subject.Subject;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +18,7 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
 
 import com.cyeam.util.ConvertUtil;
@@ -303,7 +307,7 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	 * 
 	 * @see com.qingdy.service.FacadeManager#getMalls()
 	 */
-	@Override
+	@Override// TODO Auto-generated method stub
 	public List<Mall> getMalls(int size, int page, String field, String value,
 			String operator, String sidx, String sord, boolean verify) {
 		return mallDao.getMalls(size, page, field, value, operator, sidx, sord,
@@ -1020,6 +1024,17 @@ public class FacadeManagerImpl extends BaseManager implements FacadeManager {
 	@Override
 	public void updateConfigFile(String path, String content) {
 		FileUtil.Str2File(path, content);
+	}
+
+	@Override
+	public String getCurrentUser() {
+		if (SecurityUtils.getSubject().isAuthenticated()) {
+			return SecurityUtils.getSubject().getPrincipals() + "";
+		}
+		else {
+			return null;
+		}
+		
 	}
 
 }

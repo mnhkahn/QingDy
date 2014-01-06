@@ -72,6 +72,13 @@ public class Resources {
 		}
 		return ipAddress;
 	}
+	
+	@Path("/user/username")
+	@GET
+	public Response getUsername() {
+		String username = facadeManager.getCurrentUser();
+		return Response.noContent().header("username", username).build();
+	}
 
 	/*
 	 * User
@@ -127,7 +134,7 @@ public class Resources {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response login(@Context HttpServletRequest request, @Context HttpServletResponse response) {
-		System.out.println("***********************************Login");
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		boolean rememberMe = request.getParameter("rememberMe").equals("1");
@@ -141,18 +148,13 @@ public class Resources {
 		if (loginSuccess) {
 			QingDyShiro.setLogin(user.getUsername(), user.getPassword(), rememberMe);
 			
-			String fallbackUrl = "redirect:/";
+			String fallbackUrl = "/";
 	        try {
-	        	Cookie cookie = new Cookie("username", username);
-	        	cookie.setPath("/");
-	        	cookie.setMaxAge(1209600);
-	        	response.addCookie(cookie);
 	            // redirect to previously requested page
-
 	            WebUtils.redirectToSavedRequest(request, response, fallbackUrl);
 	        } catch (IOException e) {
 	        }
-	        return Response.ok(user).build();
+	        return Response.ok().build();
 		}
 		else {
 			return Response.status(Response.Status.FORBIDDEN).build();
@@ -240,7 +242,7 @@ public class Resources {
 	}
 
 	// get user detail
-	@Path("/userdetail/{username}")
+	@Path("/userdetail/{nullusername}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUserDetail(@PathParam("username") String username) {
@@ -1114,7 +1116,8 @@ public class Resources {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUserTop(@PathParam("username") String username) {
-		UserTop userTop = facadeManager.getUserTop(username);
+		System.out.println(SecurityUtils.getSubject().isRemembered()+ "^^^^^^^^^^^^^" + facadeManager.getCurrentUser());
+		UserTop userTop = facadeManager.getUserTop(facadeManager.getCurrentUser());
 		return Response.ok(userTop).build();
 	}
 

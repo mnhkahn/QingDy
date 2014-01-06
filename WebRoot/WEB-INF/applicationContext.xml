@@ -11,9 +11,9 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/QingDy?useUnicode=true&amp;characterEncoding=utf-8" />
-		<property name="username" value="qingdy" />
-		<property name="password" value="qingdy" />
+			value="jdbc:mysql://121.199.55.106:3306/QingDy?useUnicode=true&amp;characterEncoding=utf-8" />
+		<property name="username" value="bryce" />
+		<property name="password" value="selinai5" />
 		<property name="maxActive" value="100" />
 		<property name="maxIdle" value="30" />
 		<property name="maxWait" value="1000" />
@@ -52,7 +52,7 @@
 				<prop key="hibernate.connection.charSet">UTF8</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.show_sql">false</prop>
 			</props>
 		</property>
 		<!-- <property name="connection.useUnicode">true</property> <property name="connection.characterEncoding">UTF-8</property> -->
@@ -162,7 +162,6 @@
 <!-- 	<bean id="ShiroFilter" class="com.qingdy.filter.LoginFilter"> -->
 		<property name="securityManager" ref="securityManager" />
  		<property name="loginUrl" value="/login.html" />
-	 	<property name="successUrl" value="/" />
 		<property name="unauthorizedUrl" value="/login.html" />
 		<property name="filterChainDefinitions">
 			<value>

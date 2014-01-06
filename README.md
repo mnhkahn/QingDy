@@ -25,3 +25,9 @@
 	[Aliyun] kangdakd@163.com qingdiwang66
 	[mysql] bryce selinai5
 	[ftp] ftp Qingdiwang66
+	
+## 查看占用端口
+	lsof -i:8080
+	
+## Kill a Process
+	kill -9 [pid]

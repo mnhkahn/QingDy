@@ -38,9 +38,9 @@ public class QingDyShiro extends AuthorizingRealm {
 					password);
 			// this is all you have to do to support 'remember me' (no config -
 			// built in!):
-			
 			token.setRememberMe(rememberMe);
 			currentUser.login(token);
+			currentUser.getSession().setTimeout(604800000);
 		}
 	};
 
