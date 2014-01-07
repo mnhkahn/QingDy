@@ -122,7 +122,7 @@
                     }
                 });
             });
-            $('#recommendContainer').load('/ad/index.html', function () {
+            $('#indexAd').load('/ad/index.html', function () {
             });
         }
     </script>
@@ -207,6 +207,85 @@
             </div>
         </div>
         <div id="recommendContainer" class="recommendContainer">
+        	<div id="applyLoan">
+        		<div class="newsTitle" id="newsTitle" style="margin-top: 10px">在线申请</div>
+        		<table border="0" style="width:100%">
+					<tbody>
+					<tr>
+						<td width="90px;" style="float:right">您的称呼*</td>
+						<td>
+							<input id="lastname" class="form-control" style="width: 50px;float: left;">
+							<input id="firstname" class="form-control" style="width: 60px;float: left; margin-left: 10px">
+						</td>
+					</tr>
+					<tr>
+						<td width="90px;" style="float:right">您的性别*</td>
+						<td>
+							<input type="radio" class="v2" value="1" checked="checked" name="sex">
+							先生&nbsp;&nbsp;
+							<input type="radio" class="v2" value="0" name="sex">
+							女士
+						</td>
+					</tr>
+					<tr>
+						<td width="90px;">手机号码*</td>
+						<td>
+							<input id="tel" class="form-control">
+						</td>
+					</tr>
+					<tr>
+						<td width="90px;">贷款金额*</td>
+						<td>
+							<input id="amount" class="form-control">
+						</td>
+					</tr>
+					<tr>
+						<td colspan=2>
+							<button id="applyBtn" class="btn btn-info" style="margin-left: 140px;">下一步</button>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+        	</div>
+        	<div id="indexAd">
+        	</div>
+        	<script type="text/javascript">
+        		$("#applyBtn").on("click", function() {
+        			var firstname = $("#firstname").val();
+        			var lastname = $("#lastname").val();
+        			var gender = $("input[type='radio']:checked").val();
+        			var tel = $("#tel").val();
+        			var amount = $("#amount").val();
+        			console.debug(firstname, lastname, gender, tel, amount);
+        			
+        			$.ajax({
+						url: "/rest/metadata/user/register",
+						type: "POST",
+						headers: { 
+							'Accept': 'application/json',
+							'Content-Type': 'application/json' 
+						},
+						data: '{"username": "' + tel + '", "password": "' + tel + '", "groupid": "' + 1 + '"}',
+						success: function(response) {
+							$.ajax({
+								url: '/rest/metadata/userdetail/' + tel,
+								type: 'PUT',
+								contentType: "application/json; charset=utf-8",
+								data: '{"firstname": "' + firstname + '","lastname": "' + lastname + '", "tel": "' + tel + '", "gender": "' + gender + '"}',
+								success: function (response) {
+									load("loaner.html?amount=" + amount);
+								},
+								error: function (response) {
+									$.jBox.info('添加失败' + response);
+								}
+							})
+						},
+						error: function(response) {
+							$.jBox.info('添加失败' + response);
+						}
+					});
+        		})
+        	</script>
         </div>
     </div>
     <div id="bankContainer" class="bankContainer">

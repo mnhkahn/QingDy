@@ -45,7 +45,6 @@
 <script type="text/javascript" src="js/jquery.uploadify.min.js"></script>
 
 <script type="text/javascript">
-var username = "loaner"
 function reply(receiver) {
 	var title;
 	var content;
@@ -114,6 +113,12 @@ function reply(receiver) {
 
 function showCreateLoan(loan) {
 	$('#contentWrapper').load('/js/templates/loan.html', function () {
+		var args = new Object();
+	    args = GetUrlParms();
+	    if (args['amount'] != undefined) {
+	    	$("#amount").val(args['amount']);
+	    }
+	    
 		$.formValidator.initConfig({formID:"loanForm",theme:"css/ArrowSolidBox",submitOnce:true,
 			onError:function(msg,obj,errorlist){
 				$("#errorlist").empty();
@@ -131,7 +136,6 @@ function showCreateLoan(loan) {
 				var pawn = $("#pawnSel").val();
 				var title = $('#title').val();
 				var content = $("#content").val();
-
 
 				$.ajax({
 					url: "rest/metadata/loan",
@@ -308,7 +312,7 @@ function init() {
                                 var newPWD = $("#newPWD");
                                 var newPWD2 = $("#newPWD2");
                                 $.ajax({
-                                    url: '/rest/metadata/userdetail/' + "loaner",
+                                    url: '/rest/metadata/userdetail/' + username,
                                     type: 'GET',
                                     dataType: "json",
                                     contentType: "application/json; charset=utf-8",
@@ -339,7 +343,7 @@ function init() {
 									},
 									onSuccess: function() {
 										$.ajax({
-											url: '/rest/metadata/userdetail/' + "lender",
+											url: '/rest/metadata/userdetail/' + username,
 											type: 'PUT',
 											dataType: "json",
 											contentType: "application/json; charset=utf-8",

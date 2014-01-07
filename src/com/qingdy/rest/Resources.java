@@ -91,7 +91,7 @@ public class Resources {
 		UserDetail userDetail = new UserDetail();
 		userDetail.setUsername(user.getUsername());
 		userDetail.setRegdate(new Date());
-		userDetail.setAvatar(user.getUsername() + "." + ConvertUtil.PNG);
+		userDetail.setAvatar("/avatar/" + user.getUsername() + "." + ConvertUtil.PNG);
 		facadeManager.saveUserDetail(userDetail);
 		
 		// Default avatar & skin
@@ -242,10 +242,11 @@ public class Resources {
 	}
 
 	// get user detail
-	@Path("/userdetail/{nullusername}")
+	@Path("/userdetail/{username}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUserDetail(@PathParam("username") String username) {
+		System.out.println("(((((((((((((" + username);
 		UserDetail userDetail = facadeManager.getUserDetail(username);
 		return Response.ok(userDetail).build();
 	}

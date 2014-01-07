@@ -44,7 +44,6 @@
 	<script type="text/javascript" src="js/jquery.uploadify.min.js"></script>
 
 <script type="text/javascript">
-var username = "lender1"
 function showCreateBlog(id) {
     $('#contentWrapper').load('/js/templates/blog.html', function () {
         $.formValidator.initConfig({formID: "blogForm", theme: "css/ArrowSolidBox", submitOnce: true,
@@ -803,7 +802,7 @@ function init() {
                                 var newPWD = $("#newPWD");
                                 var newPWD2 = $("#newPWD2");
                                 $.ajax({
-                                    url: '/rest/metadata/userdetail/' + "lender",
+                                    url: '/rest/metadata/userdetail/' + username,
                                     type: 'GET',
                                     dataType: "json",
                                     contentType: "application/json; charset=utf-8",
@@ -841,7 +840,7 @@ function init() {
 									},
 									onSuccess: function() {
 										$.ajax({
-											url: '/rest/metadata/userdetail/' + "lender",
+											url: '/rest/metadata/userdetail/' + username,
 											type: 'PUT',
 											dataType: "json",
 											contentType: "application/json; charset=utf-8",
